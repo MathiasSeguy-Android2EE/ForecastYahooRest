@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ForecastRestYahooSax</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello">The weather looks like</string>
+    <string name="has_wifi">has_wifi</string>
+    <string name="has_network">has_network</string>
+    <string name="no_network_message">You are not connected to the internet. We can not get the YahooForecast so.</string>
+    <string name="no_data_message">We can not obtain data from the YahooForecast. Are you sure you are realy connected? check your notification bar to see if there is message on your network connection.</string>
+
+</resources>
