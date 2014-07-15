@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android2ee.formation.restservice.sax.forecastyahoo"
     android:versionCode="1"
@@ -6,17 +7,19 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
- <uses-permission android:name="android.permission.INTERNET" />
- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
- <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name="com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication" >
+        android:theme="@style/AppTheme" >
         <activity
-            android:name="com.android2ee.formation.restservice.sax.forecastyahoo.MainActivity"
+            android:name=".view.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +29,7 @@
         </activity>
         <!-- BroadCastReceiver -->
         <!-- Listening for Boot and connectivity changed (Launch the update service) -->
-        <receiver android:name="com.android2ee.formation.restservice.sax.forecastyahoo.broadcastreceiver.BootAndWifiReceiver" >
+        <receiver android:name=".broadcastreceiver.BootAndWifiReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_DOCK_EVENT" />
                 <action android:name="android.intent.action.ACTION_BATTERY_LOW" />
@@ -37,6 +40,11 @@
                 <action android:name="android.net.wifi.STATE_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".MotherActivity"
+            android:label="@string/title_activity_mother" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,7 +1,7 @@
 /**<ul>
- * <li>ForecastRestYahooSax</li>
- * <li>com.android2ee.formation.restservice.sax.forecastyahoo.service</li>
- * <li>22 nov. 2013</li>
+ * <li>ForecastYahooRest</li>
+ * <li>com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model</li>
+ * <li>11 juil. 2014</li>
  * 
  * <li>======================================================</li>
  *
@@ -27,20 +27,24 @@
  *  <em>http://mathias-seguy.developpez.com/</em></br> </br>
  * *****************************************************************************************************************</br>
  */
-package com.android2ee.formation.restservice.sax.forecastyahoo.service;
+package com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model;
 
-import java.util.List;
-
-import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.YahooForcast;
+import java.util.Comparator;
 
 /**
  * @author Mathias Seguy (Android2EE)
  * @goals
- * This class aims to:
- * <ul><li></li></ul>
+ *        This class aims to sort the array list of yahooForecast
  */
-public abstract class ForecastCallBack {
-
-	public abstract void forecastLoaded(List<YahooForcast> forecasts);
-
+public class YahooForecastComparator implements Comparator<YahooForcast> {
+	@Override
+	public int compare(YahooForcast o1, YahooForcast o2) {
+		if(o1.getDate().compareTo(o2.getDate())!=0) {
+			return o1.getDate().compareTo(o2.getDate());
+		}else {
+			//date are the same so it depends of forcast or current
+			//forecast of the day has temp!=-1000 and min==-1000
+			return Integer.compare(o1.getTempMin(), o2.getTempMin());
+		}
+	}
 }

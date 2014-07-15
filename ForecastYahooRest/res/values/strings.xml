@@ -4,9 +4,34 @@
     <string name="app_name">ForecastRestYahooSax</string>
     <string name="action_settings">Settings</string>
     <string name="hello">The weather looks like</string>
+    <!-- constants for the sharedPreference MyApplication.CONNECTIVITY_STATUS -->
     <string name="has_wifi">has_wifi</string>
     <string name="has_network">has_network</string>
+    <string name="telephonyType">telephonyType</string>
+    <string name="networkStateInitialized">networkStateInitialized</string>    
+    <string name="last_update">lastUpdateFromNetwork</string>
+    <!-- constants for File names -->
+    <string name="picture_folder_name">picture</string>
+    <!-- Message to display the weather -->
+    <string name="min">Min: %1$d°C</string>
+    <string name="max">Max: %1$d°C</string>
+    <string name="temp">%1$d°C</string>
+    <!-- Messages for user -->
     <string name="no_network_message">You are not connected to the internet. We can not get the YahooForecast so.</string>
-    <string name="no_data_message">We can not obtain data from the YahooForecast. Are you sure you are realy connected? check your notification bar to see if there is message on your network connection.</string>
+    <string name="no_data_message">We can not obtain data from the YahooForecast. Are you sure you are really connected? check your notification bar to see if there is message on your network connection.</string>
+    <string name="title_activity_mother">MotherActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="txv_last_update">Last update %1$s</string>    
+    <string name="txv_last_update_swipe">Swipe the listview to refresh data works too.</string>
+    <!-- error Message -->
+    <string name="no_error_message">An exception occurs, nobody knows what happens, developpers made shit again, sorry.</string>
+    <string name="txv_exception_clicktodismiss">\r\n(Click to dismiss.)</string>
+    <string name="exc_database_cannot_open">The database don\'t want to open. Please re-try later. Nothing to do. We are sorry about that.</string>
+    <string name="exc_date_parsing">We have a problem to understand the date... Perhaps date are not well displayed. We apologize.</string>
+    <string name="exc_sql_insert">We have a problem to store the data in database. Nothing to worry about. We apologize.</string>
+    <string name="exc_http_get_error">A problem occurs when retrieving the data. Retry latter. We apologize.</string>
+    <string name="exc_parsing">A problem occurs when understanding the data. This will be fixed soon. We apologize.</string>
+    <string name="exc_picture_not_found">A problem occurs when loading the picture. Nothing to worry about. We apologize.</string>
+    <string name="exc_picture_not_found_save">A problem occurs when saving the picture. Nothing to worry about. We apologize.</string>
 
 </resources>

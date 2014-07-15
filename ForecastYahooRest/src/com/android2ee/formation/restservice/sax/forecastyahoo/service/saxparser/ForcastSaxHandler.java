@@ -27,7 +27,7 @@
  *  <em>http://mathias-seguy.developpez.com/</em></br> </br>
  * *****************************************************************************************************************</br>
  */
-package com.android2ee.formation.restservice.sax.forecastyahoo.saxparser;
+package com.android2ee.formation.restservice.sax.forecastyahoo.service.saxparser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import android.util.Log;
 
-import com.android2ee.formation.restservice.sax.forecastyahoo.model.YahooForcast;
+import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.YahooForcast;
 
 /**
  * @author Mathias Seguy (Android2EE)
@@ -104,6 +104,12 @@ public class ForcastSaxHandler extends DefaultHandler {
 	/** Managing the begin and the end of a block **************************************************************************/
 	/******************************************************************************************/
 
+	/**
+	 * This is a trick because I don't understand how to parse the date return by yahoo
+	 * So first element is day 0 and then I increment
+	 * In the YahooForcast constructor 0 is today, 1 tomorrow and so on
+	 */
+	int dayCount=0;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -112,18 +118,18 @@ public class ForcastSaxHandler extends DefaultHandler {
 	 */
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		 Log.e(tag, "[startElement] uri :" + uri + ", localName :" + localName + ", qName: " +
-		 qName + ", Attributes: "
-		 + attributes.getLength()+ ", attributes.getValue(qName) :" + attributes.getValue(qName));
-//		Log.e(tag, "[startElement] uri :" + uri );
-		
+		Log.v(tag,
+				"[startElement] uri :" + uri + ", localName :" + localName + ", qName: " +
+						qName + ", Attributes: " + attributes.getLength() + ", attributes.getValue(qName) :"
+						+ attributes.getValue(qName));
+		// Log.e(tag, "[startElement] uri :" + uri );
+
 		if (qName.equals(FOR)) {
 			// then we begin a new forecast block, so instanciate the new forcastElement
-			date = attributes.getValue(DATE);
 			temp = attributes.getValue(TEMP);
 			text = attributes.getValue(TENDANCE);
 			code = attributes.getValue(ICO);
-			currentforecast = new YahooForcast(text, code, temp, date);
+			currentforecast = new YahooForcast(text, code, temp);
 			forecasts.add(currentforecast);
 		} else if (qName.equals(FORECAST)) {
 
@@ -135,7 +141,8 @@ public class ForcastSaxHandler extends DefaultHandler {
 			temph = attributes.getValue(HIGH);
 			text = attributes.getValue(TENDANCE);
 			code = attributes.getValue(ICO);
-			currentforecast = new YahooForcast(text, code, templ, temph, date);
+			currentforecast = new YahooForcast(text, code, templ, temph, dayCount);
+			dayCount++;
 			forecasts.add(currentforecast);
 		}
 

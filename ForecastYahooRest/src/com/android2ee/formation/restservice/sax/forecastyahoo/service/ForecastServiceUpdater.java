@@ -31,6 +31,9 @@ package com.android2ee.formation.restservice.sax.forecastyahoo.service;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -47,35 +50,25 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication;
 import com.android2ee.formation.restservice.sax.forecastyahoo.R;
-import com.android2ee.formation.restservice.sax.forecastyahoo.model.YahooForcast;
-import com.android2ee.formation.restservice.sax.forecastyahoo.saxparser.ForcastSaxHandler;
+import com.android2ee.formation.restservice.sax.forecastyahoo.dao.ForecastDAO;
+import com.android2ee.formation.restservice.sax.forecastyahoo.service.saxparser.ForcastSaxHandler;
+import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.exceptions.ExceptionManaged;
+import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.exceptions.ExceptionManager;
+import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.YahooForcast;
 
 /**
  * @author Mathias Seguy (Android2EE)
  * @goals
- *        This class aims to:
- *        <ul>
- *        <li></li>
- *        </ul>
+ *        This class aims to retrieve YahooForecast from the internet and then save them in DB
  */
-public class ForecastService {
-
-	/******************************************************************************************/
-	/** Singleton Pattern **************************************************************************/
-	/******************************************************************************************/
-	private static ForecastService instance;
-
-	public static ForecastService getInstance() {
-		if (null == instance) {
-			instance = new ForecastService();
-		}
-		return instance;
-	}
+public class ForecastServiceUpdater {
 
 	/******************************************************************************************/
 	/** Attributes **************************************************************************/
@@ -94,17 +87,25 @@ public class ForecastService {
 	/**
 	 * The logCat's tag
 	 */
-	private final String tag = "ForecastActivity";
+	private final String tag = "ForecastServiceUpdater";
 	/**
 	 * The callBack to update activity
 	 */
-	ForecastCallBack callback;
-
+	private ForecastCallBack callback;
 	/**
-	 * 
+	 * The Dao
 	 */
-	public ForecastService() {
-		// TODO Auto-generated constructor stub
+	private ForecastDAO forcastDao;
+	/**
+	 * The date parser used to set the last update date format in the preference
+	 */
+	public SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+	/**
+	 * Constructor
+	 */
+	public ForecastServiceUpdater(ServiceManager srvManager) {
+		// NOthing to initialize
+		// the parameter is to ensure only srvManager cant create it
 	}
 
 	/**
@@ -112,10 +113,11 @@ public class ForecastService {
 	 * 
 	 * @param callback
 	 */
-	public void getForecast(ForecastCallBack callback) {
+	public void updateForecastFromServer(ForecastCallBack callback) {
 		this.callback = callback;
 		// retrieve the url
-		url = MyApplication.instance.getString(R.string.forcast_url)+"&"+MyApplication.instance.getString(R.string.forcast_url_degres);
+		url = MyApplication.instance.getString(R.string.forcast_url) + "&"
+				+ MyApplication.instance.getString(R.string.forcast_url_degres);
 		new AsynRestCall().execute();
 	}
 
@@ -123,7 +125,13 @@ public class ForecastService {
 	 * Called when the forecast are built
 	 * Return that list to the calling Activity using the ForecastCallBack
 	 */
-	public void returnForecast() {
+	private void returnForecast() {
+		// set the date of the last update:
+		SharedPreferences prefs =MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS, Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(MyApplication.instance.getString(R.string.last_update), sdf.format(new Date()));
+		editor.commit();
+		// use the callback to prevent the client
 		callback.forecastLoaded(forecasts);
 	}
 
@@ -132,9 +140,9 @@ public class ForecastService {
 	 * @goals
 	 *        This class aims to make an async call to the server and build the forecast
 	 */
-	public class AsynRestCall extends AsyncTask<Void, String, String> {
+	private class AsynRestCall extends AsyncTask<Void, String, String> {
 		/*
-		 *  * (non-Javadoc) *
+		 * * (non-Javadoc) *
 		 * 
 		 * @see android.os.AsyncTask#doInBackground(Params[])
 		 */
@@ -143,6 +151,10 @@ public class ForecastService {
 			// Do the rest http call
 			// Parse the element
 			buildForecasts(getForecast());
+			// store the data in DAO
+			forcastDao = new ForecastDAO();
+			forcastDao.saveAll((ArrayList<YahooForcast>) forecasts);
+			forcastDao = null;
 			return null;
 		}
 
@@ -160,11 +172,11 @@ public class ForecastService {
 			try {
 				responseBody = client.execute(getMethod, responseHandler);
 			} catch (ClientProtocolException e) {
-				Log.e(tag, e.getMessage());
+				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_sql_insert, e));
 			} catch (IOException e) {
-				Log.e(tag, e.getMessage());
+				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_http_get_error, e));
 			}
-			if(responseBody!=null) {
+			if (responseBody != null) {
 				Log.d(tag, responseBody);
 			}
 			// parse the response body
@@ -193,16 +205,16 @@ public class ForecastService {
 				// and retrieve the parsed forecasts
 				forecasts = forecastHandler.getForecasts();
 			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
+				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_parsing, e));
 			} catch (SAXException e) {
-				e.printStackTrace();
+				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_parsing, e));
 			} catch (IOException e) {
-				e.printStackTrace();
+				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_parsing, e));
 			}
 		}
 
 		/*
-		 *  * (non-Javadoc) *
+		 * * (non-Javadoc) *
 		 * 
 		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
 		 */

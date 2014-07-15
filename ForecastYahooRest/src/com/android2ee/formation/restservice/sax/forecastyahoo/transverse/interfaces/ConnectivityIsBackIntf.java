@@ -1,7 +1,7 @@
 /**<ul>
- * <li>ForecastRestYahooSax</li>
- * <li>com.android2ee.formation.restservice.sax.forecastyahoo.service</li>
- * <li>22 nov. 2013</li>
+ * <li>ForecastYahooRest</li>
+ * <li>com.android2ee.formation.restservice.sax.forecastyahoo.transverse.interfaces</li>
+ * <li>10 juil. 2014</li>
  * 
  * <li>======================================================</li>
  *
@@ -27,20 +27,18 @@
  *  <em>http://mathias-seguy.developpez.com/</em></br> </br>
  * *****************************************************************************************************************</br>
  */
-package com.android2ee.formation.restservice.sax.forecastyahoo.service;
-
-import java.util.List;
-
-import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.YahooForcast;
+package com.android2ee.formation.restservice.sax.forecastyahoo.transverse.interfaces;
 
 /**
  * @author Mathias Seguy (Android2EE)
  * @goals
- * This class aims to:
- * <ul><li></li></ul>
+ * This class aims to be instanciate by those who want to be notify when the connectivity is back
  */
-public abstract class ForecastCallBack {
-
-	public abstract void forecastLoaded(List<YahooForcast> forecasts);
-
+public interface ConnectivityIsBackIntf {
+	/**
+	 * CallBack to be notify when the connectivity is back
+	 * @param isWifi Tell you if the Wifi is on
+	 * @param telephonyType If isWifi==false, it means you'are connected using GPRS and it give you your connectivity type (LTE,Edge,GPRS,HSDPA)
+	 */
+	public void connectivityIsBack(boolean isWifi, int telephonyType);
 }
