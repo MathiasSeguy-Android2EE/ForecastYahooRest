@@ -37,6 +37,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication;
 import com.android2ee.formation.restservice.sax.forecastyahoo.R;
@@ -105,22 +106,36 @@ public class ForecastServiceData {
 			SharedPreferences prefs = MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS,
 					Context.MODE_PRIVATE);
 			String strLastUpdate = prefs.getString(MyApplication.instance.getString(R.string.last_update), "");
+			Log.e("ForecastServiceData", "strLastUpdate " + strLastUpdate);
 			try {
-				Date lastUpdate = sdf.parse(strLastUpdate);
-				if (new Date().getTime() - lastUpdate.getTime() > 1000 * 60 * 60 * 24) {
-					MyApplication.instance.getServiceManager().getForecastServiceUpdater()
-							.updateForecastFromServer(new ForecastCallBack() {
-								@Override
-								public void forecastLoaded(List<YahooForcast> forecasts) {
-									forecastUpdatedFromServiceUpdater(forecasts);
-								}
-							});
+				//empty data base case and empty SharedPreference
+				if (strLastUpdate.equals("")) {
+					updateForecastRequest();
+				} else {
+					//current case
+					Date lastUpdate = sdf.parse(strLastUpdate);
+					if (new Date().getTime() - lastUpdate.getTime() > 1000 * 60 * 60 * 24) {
+						updateForecastRequest();
+					}
 				}
 			} catch (ParseException e) {
 				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_date_parsing, e));
 			}
 
 		}
+	}
+
+	/**
+	 * Call the ForecastServiceUpdater to update the data from the web
+	 */
+	private void updateForecastRequest() {
+		MyApplication.instance.getServiceManager().getForecastServiceUpdater()
+				.updateForecastFromServer(new ForecastCallBack() {
+					@Override
+					public void forecastLoaded(List<YahooForcast> forecasts) {
+						forecastUpdatedFromServiceUpdater(forecasts);
+					}
+				});
 	}
 
 	/**

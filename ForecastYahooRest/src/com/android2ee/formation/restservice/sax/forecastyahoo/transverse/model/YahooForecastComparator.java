@@ -44,7 +44,18 @@ public class YahooForecastComparator implements Comparator<YahooForcast> {
 		}else {
 			//date are the same so it depends of forcast or current
 			//forecast of the day has temp!=-1000 and min==-1000
-			return Integer.compare(o1.getTempMin(), o2.getTempMin());
+			return compare(o1.getTempMin(), o2.getTempMin());
 		}
 	}
+	
+	/**
+	 * Ok the integer comparisaison
+	 * Because it fails on GenyMotion... nosuchMethodError
+	 * @param lhs
+	 * @param rhs
+	 * @return
+	 */
+	private int compare(int lhs, int rhs) {
+        return lhs < rhs ? -1 : (lhs == rhs ? 0 : 1);
+    }
 }

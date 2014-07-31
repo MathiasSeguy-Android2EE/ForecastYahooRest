@@ -39,6 +39,13 @@ import java.net.URL;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -94,6 +101,7 @@ public class YahooForcast implements Parcelable {
 
 	/**
 	 * Constructor used by ForcastSaxHandler for the current day
+	 * 
 	 * @param tendance
 	 * @param codeImage
 	 * @param temp
@@ -105,11 +113,12 @@ public class YahooForcast implements Parcelable {
 		this.codeImage = codeImage;
 		this.image = getPicture(getIconUrl(codeImage), codeImage);
 		this.temp = Integer.valueOf(temp);
-		this.date=Calendar.getInstance();
+		this.date = Calendar.getInstance();
 	}
 
 	/**
 	 * Constructor used by ForcastSaxHandler for the forecast days
+	 * 
 	 * @param tendance
 	 * @param codeImage
 	 * @param tempMin
@@ -124,12 +133,14 @@ public class YahooForcast implements Parcelable {
 		this.image = getPicture(getIconUrl(codeImage), codeImage);
 		this.tempMin = Integer.valueOf(tempMin);
 		this.tempMax = Integer.valueOf(tempMax);
-		this.date=Calendar.getInstance();
+		this.date = Calendar.getInstance();
 		this.date.add(Calendar.DATE, dayCount);
-		
+
 	}
+
 	/**
 	 * The constructor used by the ForecastDao
+	 * 
 	 * @param strDate
 	 * @param tendance
 	 * @param codeImage
@@ -137,17 +148,18 @@ public class YahooForcast implements Parcelable {
 	 * @param tempMax
 	 * @param temp
 	 */
-	public YahooForcast(Calendar date,String tendance, String codeImage, int tempMin, int tempMax,int temp ) {
+	public YahooForcast(Calendar date, String tendance, String codeImage, int tempMin, int tempMax, int temp) {
 		super();
 		// set the attributes
 		this.tendance = tendance;
 		this.codeImage = codeImage;
 		this.image = getPicture(getIconUrl(codeImage), codeImage);
 		this.tempMin = tempMin;
-		this.tempMax = tempMax;		
-		this.temp=temp;
-		this.date=date;
+		this.tempMax = tempMax;
+		this.temp = temp;
+		this.date = date;
 	}
+
 	/******************************************************************************************/
 	/** Image management **************************************************************************/
 	/******************************************************************************************/
@@ -164,21 +176,21 @@ public class YahooForcast implements Parcelable {
 		Drawable drawable = null;
 		// first check if the picture is not already stored
 		drawable = loadPicture(name);
-		//if null the picture is not already stored
-		if(null==drawable) {
+		// if null the picture is not already stored
+		if (null == drawable) {
 			// load it from the network
 			try {
 				// retrieve the URL
 				URL url = new URL(urlPath);
 				// Open an input stream on it
 				InputStream is = (InputStream) url.getContent();
-				// build the drawable from that input stream
-				drawable = Drawable.createFromStream(is, "src");
-				// then save it
-				savePicture(is, name);
+				// save the bitmap from that input stream and return the associated drawable
+				drawable = savePicture(is, name);
 			} catch (IOException e) {
 				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_picture_not_found, e));
-						}
+			}
+		} else {
+			Log.v("YahooForcast", "loadPicture done with success");
 		}
 		return drawable;
 	}
@@ -192,11 +204,11 @@ public class YahooForcast implements Parcelable {
 	 * @param name
 	 *            The name of the file
 	 */
-	private void savePicture(InputStream is, String fileName) {
+	private Drawable savePicture(InputStream is, String fileName) {
 		try {
 			Context ctx = MyApplication.instance;
-			// Find the external storage directory
-			File filesDir = ctx.getExternalFilesDir(null);
+			// Find the internal storage directory
+			File filesDir = ctx.getFilesDir();
 			// Retrieve the name of the subfolder where your store your picture
 			// (You have set it in your string ressources)
 			String pictureFolderName = ctx.getString(R.string.picture_folder_name);
@@ -207,6 +219,7 @@ public class YahooForcast implements Parcelable {
 				// if it doesn't create it
 				pictureDir.mkdirs();
 			}
+
 			// Define the file to store your picture in
 			File filePicture = new File(pictureDir, fileName);
 			// Open an OutputStream on that file
@@ -220,15 +233,20 @@ public class YahooForcast implements Parcelable {
 			// The close properly your stream
 			fos.flush();
 			fos.close();
+			//then read the file and return the drawable
+			Bitmap bitmap=BitmapFactory.decodeFile(filePicture.getAbsolutePath());
+			return new BitmapDrawable(ctx.getResources(), bitmap);
 		} catch (FileNotFoundException e) {
 			ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_picture_not_found_save, e));
-			
+
 		} catch (IOException e) {
 			ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_picture_not_found_save, e));
-			
+
 		}
+		return null;
 	}
 
+	
 	/**
 	 * Reload the picture associated with the file name
 	 * 
@@ -237,10 +255,12 @@ public class YahooForcast implements Parcelable {
 	 * @return the Drawable representing that picture
 	 */
 	private Drawable loadPicture(String fileName) {
+		Log.e("YahooForcast", "loadPicture called");
+		Drawable drawable=null;
 		try {
 			Context ctx = MyApplication.instance;
 			// Find the external storage directory
-			File filesDir = ctx.getExternalFilesDir(null);
+			File filesDir = ctx.getFilesDir();
 			// Retrieve the name of the subfolder where your store your picture
 			// (You have set it in your string ressources)
 			String pictureFolderName = ctx.getString(R.string.picture_folder_name);
@@ -253,16 +273,41 @@ public class YahooForcast implements Parcelable {
 			}
 			// Define the file to store your picture in
 			File filePicture = new File(pictureDir, fileName);
+
+			Log.e("YahooForcast", "loadPicture fileName " + filePicture.getAbsolutePath());
 			if (filePicture.exists()) {
 				// Open an InputStream on that file
-				FileInputStream fis = new FileInputStream(filePicture);
-				Log.v("YahooForcast", "loadPicture done with success");
-				return Drawable.createFromStream(fis, "src");
+//				FileInputStream fis = new FileInputStream(filePicture);
+				Bitmap bitmap=BitmapFactory.decodeFile(filePicture.getAbsolutePath());
+				drawable= new BitmapDrawable(ctx.getResources(), bitmap);
+//				return Drawable.createFromStream(fis, "src");
 			}
-		} catch (FileNotFoundException e) {
+		}catch (Exception e) {
 			ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_picture_not_found, e));
 		}
-		return null;
+		return drawable;
+	}
+	/**
+	 * From Drawable To Bitmap
+	 * Not used but nice code so I keep it
+	 * @param drawable
+	 * @return
+	 */
+	private  Bitmap drawableToBitmap(Drawable drawable) {
+		// define the bitmap to return
+		Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+				Config.ARGB_8888);
+		// create the canvas based on it
+		Canvas canvas = new Canvas(bitmap);
+		// define the derawable size
+		drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+		// then try to draw a rect on the canvas for the background
+		Paint paint = new Paint();
+		paint.setColor(0xFF00FFFF);
+		canvas.drawRect(new Rect(0, 0, canvas.getWidth(), canvas.getHeight()), paint);
+		// draw the drawable on the canvas and so on the bitmap
+		drawable.draw(canvas);
+		return bitmap;
 	}
 
 	/**

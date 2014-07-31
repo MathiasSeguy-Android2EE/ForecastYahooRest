@@ -91,6 +91,7 @@ public class ExceptionManager {
 			//You should do it, This tutorial has no backend$
 			
 			//log
+			Log.e("ExceptionManaged", exc.getErrorMessage(),exc);
 			Log.e(exc.getRootClass().getSimpleName(), exc.getErrorMessage(),exc);
 		}
 	}
