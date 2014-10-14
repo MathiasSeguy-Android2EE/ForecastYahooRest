@@ -12,7 +12,6 @@
         android:gravity="center"
         android:text="@string/no_network_message"
         android:visibility="gone" />
-
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"

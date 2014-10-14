@@ -56,23 +56,28 @@ public class ForecastServiceData {
 
 	/******************************************************************************************/
 	/** Attributes **************************************************************************/
+	/******************************************************************************************/
 
 	/**
-	 * The forecasts to display
+	 * The forecasts to display (the cach)
 	 */
-	private List<YahooForcast> forecasts;
+	private List<YahooForcast> forecasts = null;
 	/**
 	 * The callBack to update activity
 	 */
-	private ForecastCallBack callback;
+	private ForecastCallBack callback = null;
 	/**
 	 * The Dao
 	 */
-	private ForecastDAO forcastDao;
+	private ForecastDAO forcastDao = null;
 	/**
 	 * The date parser used to set the last update date format in the preference
 	 */
 	public SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+
+	/******************************************************************************************/
+	/** Constructors **************************************************************************/
+	/******************************************************************************************/
 
 	/**
 	 * Constructor
@@ -82,16 +87,64 @@ public class ForecastServiceData {
 		// the parameter is to ensure only srvManager cant create it
 	}
 
+	/******************************************************************************************/
+	/** Public methods **************************************************************************/
+	/******************************************************************************************/
+
 	/**
 	 * Return the forecast
 	 * 
 	 * @param callback
+	 *            The callback to use to deliver the data when data loaded
 	 */
 	public void getForecast(ForecastCallBack callback) {
 		Log.e("ForecastServiceData", "getForecast called");
 		this.callback = callback;
-		// retrieve the url
-		new AsynDaoCall().execute();
+		// use the caching mechanism
+		if (forecasts != null) {
+			this.callback.forecastLoaded(forecasts);
+		} else {
+			// retrieve the url
+			new AsynDaoCall().execute();
+		}
+	}
+
+	/******************************************************************************************/
+	/** Updating data from D.A.O **************************************************************************/
+	/******************************************************************************************/
+	/**
+	 * @author Mathias Seguy (Android2EE)
+	 * @goals
+	 *        This class aims to make an async call to the D.A.O
+	 */
+	private class AsynDaoCall extends AsyncTask<Void, String, String> {
+		/*
+		 * * (non-Javadoc) *
+		 * 
+		 * @see android.os.AsyncTask#doInBackground(Params[])
+		 */
+		@Override
+		protected String doInBackground(Void... arg0) {
+			// Do the rest http call
+			// Parse the element
+			// store the data in DAO
+			forcastDao = new ForecastDAO();
+			forecasts = forcastDao.loadAll();
+			forcastDao = null;
+			return null;
+		}
+
+		/*
+		 * * (non-Javadoc) *
+		 * 
+		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+		 */
+		@Override
+		protected void onPostExecute(String result) {
+			super.onPostExecute(result);
+			// build the forecast GUI
+			returnForecast();
+		}
 	}
 
 	/**
@@ -103,19 +156,20 @@ public class ForecastServiceData {
 			// use the callback to prevent the client
 			callback.forecastLoaded(forecasts);
 			// then ask the serviceupdater to update data
-			// but update only if one day of difference between the last update and now
+			// but update only if one day of difference between the last update and now is more than one day
 			SharedPreferences prefs = MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS,
 					Context.MODE_PRIVATE);
 			String strLastUpdate = prefs.getString(MyApplication.instance.getString(R.string.last_update), "");
 			Log.e("ForecastServiceData", "strLastUpdate " + strLastUpdate);
 			try {
-				//empty data base case and empty SharedPreference
+				// empty data base case and empty SharedPreference
 				if (strLastUpdate.equals("")) {
 					updateForecastRequest();
 				} else {
-					//current case
+					// current case
 					Date lastUpdate = sdf.parse(strLastUpdate);
 					if (new Date().getTime() - lastUpdate.getTime() > 1000 * 60 * 60 * 24) {
+						//if the last update was one day ago, then make an automatic update
 						updateForecastRequest();
 					}
 				}
@@ -125,6 +179,10 @@ public class ForecastServiceData {
 
 		}
 	}
+
+	/******************************************************************************************/
+	/** Ask for Back end server Synchronization using ServiceUpdater ***************************/
+	/******************************************************************************************/
 
 	/**
 	 * Call the ForecastServiceUpdater to update the data from the web
@@ -144,46 +202,11 @@ public class ForecastServiceData {
 	 */
 	private void forecastUpdatedFromServiceUpdater(List<YahooForcast> forecasts) {
 		if (callback != null) {
-			//update your forecast
-			this.forecasts=forecasts;
+			// update your forecast
+			this.forecasts = forecasts;
 			// use the callback to prevent the client
 			callback.forecastLoaded(forecasts);
 		}
 	}
 
-	/**
-	 * @author Mathias Seguy (Android2EE)
-	 * @goals
-	 *        This class aims to make an async call to the server and build the forecast
-	 */
-	private class AsynDaoCall extends AsyncTask<Void, String, String> {
-		/*
-		 * * (non-Javadoc) *
-		 * 
-		 * @see android.os.AsyncTask#doInBackground(Params[])
-		 */
-		@Override
-		protected String doInBackground(Void... arg0) {
-			// Do the rest http call
-			// Parse the element
-			// store the data in DAO
-			forcastDao = new ForecastDAO();
-			Log.e("ForecastServiceData", "AsyncTask : load data from db called");
-			forecasts = forcastDao.loadAll();
-			forcastDao = null;
-			return null;
-		}
-
-		/*
-		 * * (non-Javadoc) *
-		 * 
-		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
-		 */
-		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			// build the forecast GUI
-			returnForecast();
-		}
-	}
 }

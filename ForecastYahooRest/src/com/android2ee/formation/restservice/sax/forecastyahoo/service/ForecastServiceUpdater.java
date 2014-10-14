@@ -74,11 +74,17 @@ public class ForecastServiceUpdater {
 	/** Attributes **************************************************************************/
 	/******************************************************************************************/
 
-	/** Thr url to use */
+	/**
+	 * The url to use
+	 */
 	private String url;
-	/** The object used to communicate with http */
+	/**
+	 * The object used to communicate with http
+	 */
 	private HttpClient client;
-	/** The raw xml answer */
+	/**
+	 * The raw xml answer
+	 */
 	private String responseBody;
 	/**
 	 * The forecasts to display
@@ -101,6 +107,10 @@ public class ForecastServiceUpdater {
 	 */
 	public SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
 
+	/******************************************************************************************/
+	/** Constructors **************************************************************************/
+	/******************************************************************************************/
+
 	/**
 	 * Constructor
 	 */
@@ -108,6 +118,10 @@ public class ForecastServiceUpdater {
 		// NOthing to initialize
 		// the parameter is to ensure only srvManager cant create it
 	}
+
+	/******************************************************************************************/
+	/** Public method **************************************************************************/
+	/******************************************************************************************/
 
 	/**
 	 * Return the forecast
@@ -117,34 +131,20 @@ public class ForecastServiceUpdater {
 	public void updateForecastFromServer(ForecastCallBack callback) {
 		this.callback = callback;
 		if (MyApplication.instance.isConnected()) {
-			//then load data from network
+			// then load data from network
 			// retrieve the url
 			url = MyApplication.instance.getString(R.string.forcast_url) + "&"
 					+ MyApplication.instance.getString(R.string.forcast_url_degres);
 			new AsynRestCall().execute();
 		} else {
-			//else use the callback to return null to the client
+			// else use the callback to return null to the client
 			callback.forecastLoaded(null);
 		}
 	}
 
-	/**
-	 * Called when the forecast are built
-	 * Return that list to the calling Activity using the ForecastCallBack
-	 */
-	private void returnForecast() {
-		// set the date of the last update:
-		SharedPreferences prefs = MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS,
-				Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = prefs.edit();
-		editor.putString(MyApplication.instance.getString(R.string.last_update), sdf.format(new Date()));
-		editor.commit();
-		// use the callback to prevent the client
-		for(YahooForcast forcast:forecasts) {
-			Log.e("ForcastServiceUpdater ", "Found "+forcast);
-		}
-		callback.forecastLoaded(forecasts);
-	}
+	/******************************************************************************************/
+	/** Private methods **************************************************************************/
+	/******************************************************************************************/
 
 	/**
 	 * @author Mathias Seguy (Android2EE)
@@ -183,7 +183,7 @@ public class ForecastServiceUpdater {
 			try {
 				responseBody = client.execute(getMethod, responseHandler);
 			} catch (ClientProtocolException e) {
-				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_sql_insert, e));
+				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_client_protocol, e));
 			} catch (IOException e) {
 				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_http_get_error, e));
 			}
@@ -235,5 +235,23 @@ public class ForecastServiceUpdater {
 			// build the forecast GUI
 			returnForecast();
 		}
+	}
+
+	/**
+	 * Called when the forecast are built
+	 * Return that list to the calling Activity using the ForecastCallBack
+	 */
+	private void returnForecast() {
+		// set the date of the last update:
+		SharedPreferences prefs = MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS,
+				Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putString(MyApplication.instance.getString(R.string.last_update), sdf.format(new Date()));
+		editor.commit();
+		// use the callback to prevent the client
+		for (YahooForcast forcast : forecasts) {
+			Log.e("ForcastServiceUpdater ", "Found " + forcast);
+		}
+		callback.forecastLoaded(forecasts);
 	}
 }

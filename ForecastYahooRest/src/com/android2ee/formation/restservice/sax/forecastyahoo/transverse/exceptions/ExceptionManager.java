@@ -31,8 +31,10 @@ package com.android2ee.formation.restservice.sax.forecastyahoo.transverse.except
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication;
+import com.android2ee.formation.restservice.sax.forecastyahoo.R;
 
 /**
  * @author Mathias Seguy (Android2EE)
@@ -73,7 +75,19 @@ public class ExceptionManager {
 	public static void manage(ExceptionManaged exception) {
 		management(exception);
 	}
-
+	
+	/**
+	 * This method has to be called when you want to display an error to the user
+	 * Because you don't manage error using the Exception mechanic but sometimes you want to display error
+	 */
+	public static void displayAnError(String errorMessage) {
+		Intent noDataError = new Intent();
+		noDataError.setAction(ExceptionManager.Error_Intent_ACTION);
+		noDataError.putExtra(ExceptionManager.Error_Intent_MESSAGE,errorMessage);
+		MyApplication.instance.sendBroadcast(noDataError);
+		//You should make a feedback to the team
+		Log.e("ExceptionManaged","Error managed :"+errorMessage);
+	}
 	/******************************************************************************************/
 	/** Private method **************************************************************************/
 	/******************************************************************************************/
@@ -95,4 +109,6 @@ public class ExceptionManager {
 			Log.e(exc.getRootClass().getSimpleName(), exc.getErrorMessage(),exc);
 		}
 	}
+	
+	
 }
