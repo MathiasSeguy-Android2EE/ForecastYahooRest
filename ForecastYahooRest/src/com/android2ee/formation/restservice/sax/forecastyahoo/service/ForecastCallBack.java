@@ -39,8 +39,12 @@ import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.Y
  * This class aims to:
  * <ul><li></li></ul>
  */
-public abstract class ForecastCallBack {
+public interface ForecastCallBack {
 
-	public abstract void forecastLoaded(List<YahooForcast> forecasts);
+	/**
+	 * Use this method to be callbacked with the forecasts
+	 * @param forecasts
+	 */
+	public void forecastLoaded(List<YahooForcast> forecasts);
 
 }

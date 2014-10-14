@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,7 +30,7 @@ import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.Y
 import com.android2ee.formation.restservice.sax.forecastyahoo.view.arrayadpater.ForecastArrayAdapter;
 
 public class MainActivity extends MotherActivity implements ConnectivityIsBackIntf,
-		SwipeRefreshLayout.OnRefreshListener {
+		SwipeRefreshLayout.OnRefreshListener, ForecastCallBack {
 	/******************************************************************************************/
 	/** Attributes **************************************************************************/
 	/******************************************************************************************/
@@ -72,7 +71,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	/**
 	 * When refreshing the data
 	 */
-	private boolean isRefreshing=false;
+	private boolean isRefreshing = false;
 	/**
 	 * The textview that displays the NoConnectionMessage
 	 */
@@ -158,12 +157,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	public void connectivityIsBack(boolean isWifi, int telephonyType) {
 		// Ok so the connectivity is back, we should load the data
 		if (!dataLoaded) {
-			MyApplication.instance.getServiceManager().getForecastServiceData().getForecast(new ForecastCallBack() {
-				@Override
-				public void forecastLoaded(List<YahooForcast> forecasts) {
-					forecastLoadedReturns(forecasts);
-				}
-			});
+			MyApplication.instance.getServiceManager().getForecastServiceData().getForecast(this);
 		}
 		// else do nothing data already loaded
 
@@ -183,21 +177,17 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	private void loadForecast() {
 		Log.v("MainActivity", "loadWeatherForecast called asking to load data");
 		// Ask for the weather what ever the connection is
-		MyApplication.instance.getServiceManager().getForecastServiceData().getForecast(new ForecastCallBack() {
-			@Override
-			public void forecastLoaded(List<YahooForcast> forecasts) {
-				// call the method that manages the new list display
-				forecastLoadedReturns(forecasts);
-			}
-		});
+		MyApplication.instance.getServiceManager().getForecastServiceData().getForecast(this);
 	}
 
-	/**
-	 * Update the Gui using the List of Forecast retrieve by the service
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param forecasts
+	 * @see
+	 * com.android2ee.formation.restservice.sax.forecastyahoo.service.ForecastCallBack#forecastLoaded
+	 * (java.util.List)
 	 */
-	private void forecastLoadedReturns(List<YahooForcast> forecasts) {
+	public void forecastLoaded(List<YahooForcast> forecasts) {
 		// first check if the return list is null or empty
 		if (forecasts == null || forecasts.size() == 0) {
 			ExceptionManager.displayAnError(getString(R.string.no_data_message));
@@ -210,7 +200,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 			// then update the view
 			updateGui();
 		}
-		//data are refreshed
+		// data are refreshed
 		refreshed();
 	}
 
@@ -327,29 +317,23 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		// call service updater
 		if (!isRefreshing) {
 			swipeLayout.setRefreshing(true);
-			isRefreshing=true;
+			isRefreshing = true;
 			if (isConnected) {
-				MyApplication.instance.getServiceManager().getForecastServiceUpdater()
-						.updateForecastFromServer(new ForecastCallBack() {
-							@Override
-							public void forecastLoaded(List<YahooForcast> forecasts) {
-								forecastLoadedReturns(forecasts);
-							}
-						});
+				MyApplication.instance.getServiceManager().getForecastServiceUpdater().updateForecastFromServer(this);
 			} else {
 				// no connection dude
 				showNoConnectionMessage();
 			}
 		}
 	}
-	
+
 	/**
 	 * To be called when the data are refreshed
 	 */
 	private void refreshed() {
-		//You have finished to refresh
-				isRefreshing=false;
-				swipeLayout.setRefreshing(false);
+		// You have finished to refresh
+		isRefreshing = false;
+		swipeLayout.setRefreshing(false);
 	}
 
 	/******************************************************************************************/
@@ -420,4 +404,5 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
 }
