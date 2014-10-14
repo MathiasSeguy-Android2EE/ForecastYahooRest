@@ -160,9 +160,24 @@ public class YahooForcast implements Parcelable {
 		this.date = date;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		StringBuilder strb=new StringBuilder("Forcast : ");
+		strb.append("tendance = "+tendance+" ,");
+		strb.append("codeImage = "+codeImage+" ,");
+		strb.append("tempMin = "+tempMin+" ,");
+		strb.append("tempMax = "+tempMax+" ,");
+		strb.append("temp = "+temp+" ,");
+		strb.append("date = "+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+1+"");
+		return strb.toString();
+	}
 	/******************************************************************************************/
 	/** Image management **************************************************************************/
 	/******************************************************************************************/
+
 
 	/**
 	 * This method retrieve the drawable associated to the URL

@@ -82,8 +82,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		forecasts = new ArrayList<YahooForcast>();
-		isConnected = MyApplication.instance.isConnected();
-		if (savedInstanceState == null || !savedInstanceState.containsKey("forcasts_list")) {
+		if (savedInstanceState != null && savedInstanceState.containsKey("forcasts_list")) {
 			recreationWithForecastsList = true;
 		}
 		// add the swipe to refresh feature
@@ -142,10 +141,11 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		super.onResume();
 		MyApplication.instance.registerAsConnectivityBackListener(this);
 		isConnected = MyApplication.instance.isConnected();
+		Log.v("MainActivity", " isConnected=" + isConnected );
 		if (recreationWithForecastsList) {
-			loadWeatherForecast();
+			updateGui();
 		} else {
-			updateGuiWithForecast();
+			loadForecast();
 		}
 	}
 
@@ -165,7 +165,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 			MyApplication.instance.getServiceManager().getForecastServiceData().getForecast(new ForecastCallBack() {
 				@Override
 				public void forecastLoaded(List<YahooForcast> forecasts) {
-					forecastLoadedGuiUpdate(forecasts);
+					forecastLoadedReturns(forecasts);
 				}
 			});
 		}
@@ -183,12 +183,14 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	 * The call to the service to load weather forecast
 	 * Iff there is network
 	 */
-	private void loadWeatherForecast() {
+	private void loadForecast() {
+		Log.e("MainActivity", "loadWeatherForecast called asking to load data");
 		// Ask for the weather what ever the connection is
 		MyApplication.instance.getServiceManager().getForecastServiceData().getForecast(new ForecastCallBack() {
 			@Override
 			public void forecastLoaded(List<YahooForcast> forecasts) {
-				forecastLoadedGuiUpdate(forecasts);
+				//call the method that manages the new list display
+				forecastLoadedReturns(forecasts);
 			}
 		});
 		if (!isConnected) {
@@ -201,13 +203,18 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	 * 
 	 * @param forecasts
 	 */
-	private void forecastLoadedGuiUpdate(List<YahooForcast> forecasts) {
-		// Instanciate the listView
-		this.forecasts = (ArrayList<YahooForcast>) forecasts;
-		if (this.forecasts == null || this.forecasts.size() == 0) {
+	private void forecastLoadedReturns(List<YahooForcast> forecasts) {		
+		//first check if the return list is null or empty
+		if (forecasts == null || forecasts.size() == 0) {
 			showNoConnectionMessage();
 		} else {
-			updateGuiWithForecast();
+			//else copy paste the data in this.forecast
+			this.forecasts.clear();
+			for(YahooForcast forcast:forecasts) {
+				this.forecasts.add(forcast);
+			}
+			//then update the view
+			updateGui();
 		}
 		swipeLayout.setRefreshing(false);
 	}
@@ -215,9 +222,8 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	/**
 	 * Update the gui with the list of forecast
 	 */
-	private void updateGuiWithForecast() {
+	private void updateGui() {
 		// Instanciate the listView
-		this.forecasts = (ArrayList<YahooForcast>) forecasts;
 		if (listView == null) {
 			listView = (ListView) findViewById(R.id.myListView);
 			View viewFooter = LayoutInflater.from(this).inflate(R.layout.list_footer, null);
@@ -247,7 +253,6 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 			listView.setAdapter(arrayAdapter);
 		}
 		// Hide the progressBar
-		findViewById(R.id.progressBar1).setVisibility(View.GONE);
 		if (isConnected) {
 			// then insure the NoNetwork error message is hidden
 			findViewById(R.id.txvNoNetwork).setVisibility(View.GONE);
@@ -271,8 +276,6 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	private void showNoConnectionMessage() {
 		// if not connected: say something to your user
 		Toast.makeText(this, getString(R.string.no_network_message), Toast.LENGTH_LONG).show();
-		// Hide the progressBar
-		findViewById(R.id.progressBar1).setVisibility(View.GONE);
 		// stop the swipToRefresh
 		swipeLayout.setRefreshing(false);
 		// display the no connection message
@@ -306,7 +309,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 					.updateForecastFromServer(new ForecastCallBack() {
 						@Override
 						public void forecastLoaded(List<YahooForcast> forecasts) {
-							forecastLoadedGuiUpdate(forecasts);
+							forecastLoadedReturns(forecasts);
 						}
 					});
 		} else {

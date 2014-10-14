@@ -162,6 +162,7 @@ public class ForecastDAO {
 				forcasts.add(currentForecast);				
 			} while (cursor.moveToNext());
 		}
+		Log.e("ForecastDao", "loadAll and built result found "+forcasts.size()+" items number");
 		// And never ever forget to close the cursor when you have finished with it:
 		cursor.close();
 		closeDB();

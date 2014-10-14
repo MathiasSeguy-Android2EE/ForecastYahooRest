@@ -100,6 +100,7 @@ public class ForecastServiceUpdater {
 	 * The date parser used to set the last update date format in the preference
 	 */
 	public SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
+
 	/**
 	 * Constructor
 	 */
@@ -115,10 +116,16 @@ public class ForecastServiceUpdater {
 	 */
 	public void updateForecastFromServer(ForecastCallBack callback) {
 		this.callback = callback;
-		// retrieve the url
-		url = MyApplication.instance.getString(R.string.forcast_url) + "&"
-				+ MyApplication.instance.getString(R.string.forcast_url_degres);
-		new AsynRestCall().execute();
+		if (MyApplication.instance.isConnected()) {
+			//then load data from network
+			// retrieve the url
+			url = MyApplication.instance.getString(R.string.forcast_url) + "&"
+					+ MyApplication.instance.getString(R.string.forcast_url_degres);
+			new AsynRestCall().execute();
+		} else {
+			//else use the callback to return null to the client
+			callback.forecastLoaded(null);
+		}
 	}
 
 	/**
@@ -127,11 +134,15 @@ public class ForecastServiceUpdater {
 	 */
 	private void returnForecast() {
 		// set the date of the last update:
-		SharedPreferences prefs =MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS, Context.MODE_PRIVATE);
+		SharedPreferences prefs = MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS,
+				Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(MyApplication.instance.getString(R.string.last_update), sdf.format(new Date()));
 		editor.commit();
 		// use the callback to prevent the client
+		for(YahooForcast forcast:forecasts) {
+			Log.e("ForcastServiceUpdater ", "Found "+forcast);
+		}
 		callback.forecastLoaded(forecasts);
 	}
 

@@ -29,7 +29,7 @@
         </activity>
         <!-- BroadCastReceiver -->
         <!-- Listening for Boot and connectivity changed (Launch the update service) -->
-        <receiver android:name=".broadcastreceiver.BootAndWifiReceiver" >
+        <receiver android:name=".broadcastreceiver.WebConnectivityReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_DOCK_EVENT" />
                 <action android:name="android.intent.action.ACTION_BATTERY_LOW" />

@@ -88,6 +88,7 @@ public class ForecastServiceData {
 	 * @param callback
 	 */
 	public void getForecast(ForecastCallBack callback) {
+		Log.e("ForecastServiceData", "getForecast called");
 		this.callback = callback;
 		// retrieve the url
 		new AsynDaoCall().execute();
@@ -143,6 +144,8 @@ public class ForecastServiceData {
 	 */
 	private void forecastUpdatedFromServiceUpdater(List<YahooForcast> forecasts) {
 		if (callback != null) {
+			//update your forecast
+			this.forecasts=forecasts;
 			// use the callback to prevent the client
 			callback.forecastLoaded(forecasts);
 		}
@@ -165,6 +168,7 @@ public class ForecastServiceData {
 			// Parse the element
 			// store the data in DAO
 			forcastDao = new ForecastDAO();
+			Log.e("ForecastServiceData", "AsyncTask : load data from db called");
 			forecasts = forcastDao.loadAll();
 			forcastDao = null;
 			return null;
