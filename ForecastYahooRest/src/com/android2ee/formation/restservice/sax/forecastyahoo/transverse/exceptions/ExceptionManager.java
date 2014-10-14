@@ -72,7 +72,7 @@ public class ExceptionManager {
 	/**
 	 * @param exception
 	 */
-	public static void manage(ExceptionManaged exception) {
+	public synchronized static void manage(ExceptionManaged exception) {
 		management(exception);
 	}
 	
@@ -80,7 +80,7 @@ public class ExceptionManager {
 	 * This method has to be called when you want to display an error to the user
 	 * Because you don't manage error using the Exception mechanic but sometimes you want to display error
 	 */
-	public static void displayAnError(String errorMessage) {
+	public synchronized static void displayAnError(String errorMessage) {
 		Intent noDataError = new Intent();
 		noDataError.setAction(ExceptionManager.Error_Intent_ACTION);
 		noDataError.putExtra(ExceptionManager.Error_Intent_MESSAGE,errorMessage);

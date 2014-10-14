@@ -29,6 +29,7 @@
  */
 package com.android2ee.formation.restservice.sax.forecastyahoo.service;
 
+import java.lang.ref.WeakReference;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -64,8 +65,9 @@ public class ForecastServiceData {
 	private List<YahooForcast> forecasts = null;
 	/**
 	 * The callBack to update activity
+	 * To understand what a weakRefrence is:https://weblogs.java.net/blog/2006/05/04/understanding-weak-references
 	 */
-	private ForecastCallBack callback = null;
+	private WeakReference<ForecastCallBack> callback = null;
 	/**
 	 * The Dao
 	 */
@@ -99,10 +101,10 @@ public class ForecastServiceData {
 	 */
 	public void getForecast(ForecastCallBack callback) {
 		Log.e("ForecastServiceData", "getForecast called");
-		this.callback = callback;
+		this.callback = new WeakReference<ForecastCallBack>(callback);
 		// use the caching mechanism
 		if (forecasts != null) {
-			this.callback.forecastLoaded(forecasts);
+			callback.forecastLoaded(forecasts);
 		} else {
 			// retrieve the url
 			new AsynDaoCall().execute();
@@ -154,7 +156,10 @@ public class ForecastServiceData {
 	private void returnForecast() {
 		if (callback != null) {
 			// use the callback to prevent the client
-			callback.forecastLoaded(forecasts);
+			if(callback.get()!=null) {
+				//yep, we use a weakReference
+				callback.get().forecastLoaded(forecasts);
+			}
 			// then ask the serviceupdater to update data
 			// but update only if one day of difference between the last update and now is more than one day
 			SharedPreferences prefs = MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS,
@@ -205,7 +210,10 @@ public class ForecastServiceData {
 			// update your forecast
 			this.forecasts = forecasts;
 			// use the callback to prevent the client
-			callback.forecastLoaded(forecasts);
+			if(callback.get()!=null) {
+				//yep, we use a weakReference
+				callback.get().forecastLoaded(forecasts);
+			}
 		}
 	}
 

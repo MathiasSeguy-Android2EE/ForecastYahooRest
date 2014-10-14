@@ -160,27 +160,38 @@ public class YahooForcast implements Parcelable {
 		this.date = date;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		StringBuilder strb=new StringBuilder("Forcast : ");
-		strb.append("tendance = "+tendance+" ,");
-		strb.append("codeImage = "+codeImage+" ,");
-		strb.append("tempMin = "+tempMin+" ,");
-		strb.append("tempMax = "+tempMax+" ,");
-		strb.append("temp = "+temp+" ,");
-		strb.append("date = "+date.get(Calendar.DAY_OF_MONTH)+"/"+date.get(Calendar.MONTH)+1+"");
+		StringBuilder strb = new StringBuilder("Forcast : ");
+		strb.append("tendance = " + tendance + " ,");
+		strb.append("codeImage = " + codeImage + " ,");
+		strb.append("tempMin = " + tempMin + " ,");
+		strb.append("tempMax = " + tempMax + " ,");
+		strb.append("temp = " + temp + " ,");
+		strb.append("date = " + date.get(Calendar.DAY_OF_MONTH) + "/" + date.get(Calendar.MONTH) + 1 + "");
 		return strb.toString();
 	}
+
 	/******************************************************************************************/
 	/** Image management **************************************************************************/
 	/******************************************************************************************/
 
-
 	/**
-	 * This method retrieve the drawable associated to the URL
+	 * This method retrieve the drawable associated to the URL or load it from the disk
+	 * Why this method is not in a Thread ?
+	 * The answer is clear:
+	 * if you go to the internet to retrieve the picture then you are creating
+	 * the picture for the first time, so you are already in a background thread (the one launched
+	 * by ServiceUpdater)
+	 * Else, the picture is already loaded on the disk, so you read it and more you also belongs to
+	 * a background thread (the one launched by ServiceData).
+	 * In both case, in fact, this methods is executing in a background thread.
+	 * So i just avoid the Thread{ Thread {do the work}} absurd pattern
 	 * 
 	 * @param urlPath
 	 *            the url of the picture
@@ -248,8 +259,8 @@ public class YahooForcast implements Parcelable {
 			// The close properly your stream
 			fos.flush();
 			fos.close();
-			//then read the file and return the drawable
-			Bitmap bitmap=BitmapFactory.decodeFile(filePicture.getAbsolutePath());
+			// then read the file and return the drawable
+			Bitmap bitmap = BitmapFactory.decodeFile(filePicture.getAbsolutePath());
 			return new BitmapDrawable(ctx.getResources(), bitmap);
 		} catch (FileNotFoundException e) {
 			ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_picture_not_found_save, e));
@@ -261,7 +272,6 @@ public class YahooForcast implements Parcelable {
 		return null;
 	}
 
-	
 	/**
 	 * Reload the picture associated with the file name
 	 * 
@@ -271,7 +281,7 @@ public class YahooForcast implements Parcelable {
 	 */
 	private Drawable loadPicture(String fileName) {
 		Log.e("YahooForcast", "loadPicture called");
-		Drawable drawable=null;
+		Drawable drawable = null;
 		try {
 			Context ctx = MyApplication.instance;
 			// Find the external storage directory
@@ -292,23 +302,25 @@ public class YahooForcast implements Parcelable {
 			Log.e("YahooForcast", "loadPicture fileName " + filePicture.getAbsolutePath());
 			if (filePicture.exists()) {
 				// Open an InputStream on that file
-//				FileInputStream fis = new FileInputStream(filePicture);
-				Bitmap bitmap=BitmapFactory.decodeFile(filePicture.getAbsolutePath());
-				drawable= new BitmapDrawable(ctx.getResources(), bitmap);
-//				return Drawable.createFromStream(fis, "src");
+				// FileInputStream fis = new FileInputStream(filePicture);
+				Bitmap bitmap = BitmapFactory.decodeFile(filePicture.getAbsolutePath());
+				drawable = new BitmapDrawable(ctx.getResources(), bitmap);
+				// return Drawable.createFromStream(fis, "src");
 			}
-		}catch (Exception e) {
+		} catch (Exception e) {
 			ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_picture_not_found, e));
 		}
 		return drawable;
 	}
+
 	/**
 	 * From Drawable To Bitmap
 	 * Not used but nice code so I keep it
+	 * 
 	 * @param drawable
 	 * @return
 	 */
-	private  Bitmap drawableToBitmap(Drawable drawable) {
+	private Bitmap drawableToBitmap(Drawable drawable) {
 		// define the bitmap to return
 		Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
 				Config.ARGB_8888);
@@ -443,6 +455,10 @@ public class YahooForcast implements Parcelable {
 	public final Drawable getImage() {
 		return image;
 	}
+
+	/******************************************************************************************/
+	/** Parcel code part **************************************************************************/
+	/******************************************************************************************/
 
 	protected YahooForcast(Parcel in) {
 		tendance = in.readString();
