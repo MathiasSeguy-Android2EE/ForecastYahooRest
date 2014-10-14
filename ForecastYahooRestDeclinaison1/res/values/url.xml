@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="forcast_url">http://weather.yahooapis.com/forecastrss?w=12657325</string>
+    <string name="forcast_url_degres">u=c</string>
+    <string name="forcast_image_url">http://l.yimg.com/a/i/us/we/52/%1$s.gif</string>
+     <string name="yahoo_requirment">https://www.yahoo.com/?ilc=401</string>
+
+</resources>

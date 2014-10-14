@@ -13,7 +13,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -329,59 +328,5 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-	/* (non-Javadoc)
-	 * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		Intent browserIntent;
-		switch (item.getItemId()) {
-		case R.id.action_show_android2ee:
-			// open browser on the web pages
-			browserIntent = new Intent("android.intent.action.VIEW");
-			// if (getResources().getConfiguration().locale.getDisplayName().contains("fr")) {
-			// open the browser on android2ee
-			browserIntent.setData(Uri.parse(getResources().getString(R.string.android2ee_url)));
-			// } else {
-			// // open the browser on android2ee english version
-			// browserIntent.setData(Uri.parse("http://www.android2ee.com/en"));
-			// }
-			startActivity(browserIntent);
-			return true;
-		case R.id.action_training_android2ee:
-			// open browser on the web pages
-			browserIntent = new Intent("android.intent.action.VIEW");
-			// if (getResources().getConfiguration().locale.getDisplayName().contains("fr")) {
-			// open the browser on android2ee
-			browserIntent.setData(Uri.parse(getResources().getString(R.string.android2ee_url_training)));
-			// } else {
-			// // open the browser on android2ee english version
-			// browserIntent.setData(Uri.parse("http://www.android2ee.com/en"));
-			// }
-			startActivity(browserIntent);
-			return true;
-		case R.id.action_show_mathias:
-			// open browser on the web pages
-			browserIntent = new Intent("android.intent.action.VIEW");
-			browserIntent.setData(Uri.parse(getResources().getString(R.string.mse_dvp_url)));
-			startActivity(browserIntent);
-			return true;
-		case R.id.action_mail_mathias:
-			// load string for email:
-			String subject = getResources().getString(R.string.mail_subject);
-			String body = getResources().getString(R.string.mail_body);
-			// send an email
-			final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-			emailIntent.setType("plain/text");
-			emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
-					new String[] { getResources().getString(R.string.mse_email) });
-			emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
-			emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, body);
-			startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-			return true;
-		
-		default:
-			return super.onOptionsItemSelected( item);
-		}
-	}
+
 }

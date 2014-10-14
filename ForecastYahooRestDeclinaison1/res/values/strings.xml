@@ -8,7 +8,7 @@
     <string name="has_wifi">has_wifi</string>
     <string name="has_network">has_network</string>
     <string name="telephonyType">telephonyType</string>
-    <string name="networkStateInitialized">networkStateInitialized</string>
+    <string name="networkStateInitialized">networkStateInitialized</string>    
     <string name="last_update">lastUpdateFromNetwork</string>
     <!-- constants for File names -->
     <string name="picture_folder_name">picture</string>
@@ -21,7 +21,7 @@
     <string name="no_data_message">We can not obtain data from the YahooForecast. Are you sure you are really connected? check your notification bar to see if there is message on your network connection.</string>
     <string name="title_activity_mother">MotherActivity</string>
     <string name="hello_world">Hello world!</string>
-    <string name="txv_last_update">Last update %1$s</string>
+    <string name="txv_last_update">Last update %1$s</string>    
     <string name="txv_last_update_swipe">Swipe the listview to refresh data works too.</string>
     <!-- error Message -->
     <string name="no_error_message">An exception occurs, nobody knows what happens, developpers made shit again, sorry.</string>
@@ -33,13 +33,5 @@
     <string name="exc_parsing">A problem occurs when understanding the data. This will be fixed soon. We apologize.</string>
     <string name="exc_picture_not_found">A problem occurs when loading the picture. Nothing to worry about. We apologize.</string>
     <string name="exc_picture_not_found_save">A problem occurs when saving the picture. Nothing to worry about. We apologize.</string>
-    <!-- MEnu Url -->
-    <string name="android2ee_url">http://www.android2ee.com</string>
-    <string name="android2ee_url_training">http://www.android2ee.com/formation-presentation-menu/formation-complete.html</string>
-    <string name="mse_dvp_url">http://mathias-seguy.developpez.com/</string>
-    <string name="mse_email">mathias.seguy@android2ee.com</string>
-    <string name="mail_subject">[YahooForecast RestService]Your subject:</string>
-    <string name="mail_body">Your message:</string>
-    <string name="action_author">Author</string>
 
 </resources>
