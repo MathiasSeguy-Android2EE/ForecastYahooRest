@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -24,7 +25,6 @@ import com.android2ee.formation.restservice.sax.forecastyahoo.MotherActivity;
 import com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication;
 import com.android2ee.formation.restservice.sax.forecastyahoo.R;
 import com.android2ee.formation.restservice.sax.forecastyahoo.service.ForecastCallBack;
-import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.exceptions.ExceptionManager;
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.interfaces.ConnectivityIsBackIntf;
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.YahooForcast;
 import com.android2ee.formation.restservice.sax.forecastyahoo.view.arrayadpater.ForecastArrayAdapter;
@@ -88,6 +88,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		forecasts = new ArrayList<YahooForcast>();
 		// add the swipe to refresh feature
 		swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+		Log.e("MainActivity","onCreate swipeLyout "+swipeLayout);
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setColorSchemeResources(R.color.blue_pure, R.color.blue_pure_1, R.color.blue_pure_2,
 				R.color.blue_pure_3);
@@ -134,10 +135,10 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	 */
 	@Override
 	protected void onResume() {
-		super.onResume();
-		MyApplication.instance.registerAsConnectivityBackListener(this);
+		super.onResume();		
 		// display the connection status to the user if no connected
 		isConnected = MyApplication.instance.isConnected();
+		MyApplication.instance.registerAsConnectivityBackListener(this);
 		Log.v("MainActivity", " isConnected=" + isConnected);
 		manageNoConnectionMessage();
 		// then load the data
@@ -156,9 +157,15 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	@Override
 	public void connectivityIsBack(boolean isWifi, int telephonyType) {
 		// Ok so the connectivity is back, we should load the data
-		if (!dataLoaded) {
-			MyApplication.instance.getServiceManager().getForecastServiceData().getForecast(this);
+		if (!isConnected&&MyApplication.instance.isConnected()) {
+			//because that means the connectivity status has changed from not connection to connected
+			if (!dataLoaded) {
+				Log.e("MainActivity", "connectivityIsBack called asking to load data");
+				MyApplication.instance.getServiceManager().getForecastServiceData().getForecast(this);
+			}
 		}
+		//change the connection status
+		isConnected=MyApplication.instance.isConnected();
 		// else do nothing data already loaded
 
 		// then insure the NoNetwork error message is hidden
@@ -175,7 +182,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	 * requesting data
 	 */
 	private void loadForecast() {
-		Log.v("MainActivity", "loadWeatherForecast called asking to load data");
+		Log.e("MainActivity", "loadForecast called asking to load data");
 		// Ask for the weather what ever the connection is
 		MyApplication.instance.getServiceManager().getForecastServiceData().getForecast(this);
 	}
@@ -190,7 +197,8 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	public void forecastLoaded(List<YahooForcast> forecasts) {
 		// first check if the return list is null or empty
 		if (forecasts == null || forecasts.size() == 0) {
-			ExceptionManager.displayAnError(getString(R.string.no_data_message));
+			//do nothing because it only occurs at the first launch when retrieving data from the database which is empty
+			//ExceptionManager.displayAnError(getString(R.string.no_data_message));
 		} else {
 			// else copy paste the data in this.forecast
 			this.forecasts.clear();

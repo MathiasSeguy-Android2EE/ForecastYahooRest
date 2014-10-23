@@ -37,7 +37,8 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication;
@@ -65,7 +66,8 @@ public class ForecastServiceData {
 	private List<YahooForcast> forecasts = null;
 	/**
 	 * The callBack to update activity
-	 * To understand what a weakRefrence is:https://weblogs.java.net/blog/2006/05/04/understanding-weak-references
+	 * To understand what a weakRefrence
+	 * is:https://weblogs.java.net/blog/2006/05/04/understanding-weak-references
 	 */
 	private WeakReference<ForecastCallBack> callback = null;
 	/**
@@ -106,48 +108,63 @@ public class ForecastServiceData {
 		if (forecasts != null) {
 			callback.forecastLoaded(forecasts);
 		} else {
-			// retrieve the url
-			new AsynDaoCall().execute();
+			//then link the Handler with the handler of the runnable
+			if(daoCallRunnable.daoCallHandler==null) {
+				daoCallRunnable.daoCallHandler = daoCallHandler;
+			}
+			//then launch it
+			MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit(daoCallRunnable);
 		}
 	}
 
 	/******************************************************************************************/
 	/** Updating data from D.A.O **************************************************************************/
 	/******************************************************************************************/
+
+	/**
+	 * The runnable to execute when requesting update from the server
+	 */
+	private RestCallRunnable daoCallRunnable = new RestCallRunnable();
+
 	/**
 	 * @author Mathias Seguy (Android2EE)
 	 * @goals
-	 *        This class aims to make an async call to the D.A.O
+	 *        This class aims to implements a Runnable with an Handler
 	 */
-	private class AsynDaoCall extends AsyncTask<Void, String, String> {
-		/*
-		 * * (non-Javadoc) *
-		 * 
-		 * @see android.os.AsyncTask#doInBackground(Params[])
+	private class RestCallRunnable implements Runnable {
+		/**
+		 * The handler to use to communicate outside the runnable
 		 */
+		public Handler daoCallHandler = null;
+
 		@Override
-		protected String doInBackground(Void... arg0) {
+		public void run() {
 			// Do the rest http call
 			// Parse the element
 			// store the data in DAO
 			forcastDao = new ForecastDAO();
 			forecasts = forcastDao.loadAll();
 			forcastDao = null;
-			return null;
+			daoCallHandler.sendMessage(daoCallHandler.obtainMessage());
 		}
 
+	}
+
+	/**
+	 * The handler awoke when the Runnable has finished it's execution
+	 */
+	private Handler daoCallHandler = new Handler() {
 		/*
-		 * * (non-Javadoc) *
+		 * (non-Javadoc)
 		 * 
-		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+		 * @see android.os.Handler#handleMessage(android.os.Message)
 		 */
 		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			// build the forecast GUI
+		public void handleMessage(Message msg) {
 			returnForecast();
 		}
-	}
+
+	};
 
 	/**
 	 * Called when the forecast are built
@@ -156,12 +173,13 @@ public class ForecastServiceData {
 	private void returnForecast() {
 		if (callback != null) {
 			// use the callback to prevent the client
-			if(callback.get()!=null) {
-				//yep, we use a weakReference
+			if (callback.get() != null) {
+				// yep, we use a weakReference
 				callback.get().forecastLoaded(forecasts);
 			}
 			// then ask the serviceupdater to update data
-			// but update only if one day of difference between the last update and now is more than one day
+			// but update only if one day of difference between the last update and now is more than
+			// one day
 			SharedPreferences prefs = MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS,
 					Context.MODE_PRIVATE);
 			String strLastUpdate = prefs.getString(MyApplication.instance.getString(R.string.last_update), "");
@@ -174,7 +192,7 @@ public class ForecastServiceData {
 					// current case
 					Date lastUpdate = sdf.parse(strLastUpdate);
 					if (new Date().getTime() - lastUpdate.getTime() > 1000 * 60 * 60 * 24) {
-						//if the last update was one day ago, then make an automatic update
+						// if the last update was one day ago, then make an automatic update
 						updateForecastRequest();
 					}
 				}
@@ -210,8 +228,8 @@ public class ForecastServiceData {
 			// update your forecast
 			this.forecasts = forecasts;
 			// use the callback to prevent the client
-			if(callback.get()!=null) {
-				//yep, we use a weakReference
+			if (callback.get() != null) {
+				// yep, we use a weakReference
 				callback.get().forecastLoaded(forecasts);
 			}
 		}

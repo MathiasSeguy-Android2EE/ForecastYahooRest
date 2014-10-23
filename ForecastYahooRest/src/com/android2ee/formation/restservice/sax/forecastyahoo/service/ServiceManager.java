@@ -29,6 +29,11 @@
  */
 package com.android2ee.formation.restservice.sax.forecastyahoo.service;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+
 import android.util.Log;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication;
@@ -88,6 +93,107 @@ public class ServiceManager {
 		Log.e("ServiceManager", "UnbindAndDie is called");
 		forecastServiceUpdater = null;
 		forecastServiceData = null;
+		if (cancelableThreadsExecutor != null) {
+			killCancelableThreadExecutor();
+		}
+		if (keepAliveThreadsExceutor != null) {
+			killKeepAliveThreadExecutor();
+		}
 	}
 
+	/******************************************************************************************/
+	/** Pool Executor for Threads that has to cancelled when the application shutdown**/
+	/******************************************************************************************/
+	/**
+	 * The pool executor to use for all cancellable thread and Threads that has to cancelled when the application shutdown
+	 */
+	private ExecutorService cancelableThreadsExecutor = null;
+
+	/**
+	 * @return the cancelableThreadsExceutor
+	 */
+	public final ExecutorService getCancelableThreadsExecutor() {
+		if (cancelableThreadsExecutor == null) {
+			cancelableThreadsExecutor = Executors.newFixedThreadPool(12, new BackgroundThreadFactory());
+		}
+		return cancelableThreadsExecutor;
+	}
+
+	/** * And its associated factory */
+	private class BackgroundThreadFactory implements ThreadFactory {
+		public Thread newThread(Runnable r) {
+			Thread t = new Thread(r);
+			return t;
+		}
+	}
+
+	/**
+	 * Kill all running Thread and destroy then all
+	 * Kill the cancelableThreadsExceutor
+	 */
+	private void killCancelableThreadExecutor() {
+		if (cancelableThreadsExecutor != null) {
+			cancelableThreadsExecutor.shutdownNow(); // Disable new tasks from being submitted and kill every running task using Thread.interrupt
+			try {// as long as your threads hasn't finished
+				while (!cancelableThreadsExecutor.isTerminated()) {
+					// Wait a while for existing tasks to terminate
+					if (!cancelableThreadsExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
+						// Cancel currently executing tasks
+						cancelableThreadsExecutor.shutdownNow();
+						Log.e("MyApp", "Probably a memory leak here");
+					}
+				}
+			} catch (InterruptedException ie) {
+				// (Re-)Cancel if current thread also interrupted
+				cancelableThreadsExecutor.shutdownNow();
+				cancelableThreadsExecutor=null;
+				Log.e("MyApp", "Probably a memory leak here too");
+			}
+		}
+		cancelableThreadsExecutor=null;
+	}
+	/******************************************************************************************/
+	/** Pool Executor for Threads that has to finish they threatment when the application shutdown**/
+	/******************************************************************************************/
+	/**
+	 * The pool executor to use for all cancellable thread and Threads that has to cancelled when the application shutdown
+	 */
+	private ExecutorService keepAliveThreadsExceutor = null;
+
+	/**
+	 * @return the cancelableThreadsExceutor
+	 */
+	public final ExecutorService getKeepAliveThreadsExecutor() {
+		if (keepAliveThreadsExceutor == null) {
+			keepAliveThreadsExceutor = Executors.newFixedThreadPool(12, new BackgroundThreadFactory());
+		}
+		return keepAliveThreadsExceutor;
+	}
+
+
+	/**
+	 * Kill all running Thread and destroy then all
+	 * Kill the cancelableThreadsExceutor
+	 */
+	private void killKeepAliveThreadExecutor() {
+		if (keepAliveThreadsExceutor != null) {
+			keepAliveThreadsExceutor.shutdown(); // Disable new tasks from being submitted
+			try {// as long as your threads hasn't finished
+				while (!keepAliveThreadsExceutor.isTerminated()) {
+					// Wait a while for existing tasks to terminate
+					if (!keepAliveThreadsExceutor.awaitTermination(5, TimeUnit.SECONDS)) {
+						// Cancel currently executing tasks
+						keepAliveThreadsExceutor.shutdown();
+						Log.e("MyApp", "Probably a memory leak here");
+					}
+				}
+			} catch (InterruptedException ie) {
+				// (Re-)Cancel if current thread also interrupted
+				keepAliveThreadsExceutor.shutdownNow();
+				keepAliveThreadsExceutor=null;
+				Log.e("MyApp", "Probably a memory leak here too");
+			}
+		}
+		keepAliveThreadsExceutor=null;
+	}
 }

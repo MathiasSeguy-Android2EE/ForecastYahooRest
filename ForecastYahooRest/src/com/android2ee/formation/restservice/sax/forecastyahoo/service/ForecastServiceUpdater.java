@@ -52,7 +52,8 @@ import org.xml.sax.XMLReader;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication;
@@ -135,7 +136,12 @@ public class ForecastServiceUpdater {
 			// retrieve the url
 			url = MyApplication.instance.getString(R.string.forcast_url) + "&"
 					+ MyApplication.instance.getString(R.string.forcast_url_degres);
-			new AsynRestCall().execute();
+			//then link the Handler with the handler of the runnable
+			if(restCallRunnable.restCallHandler==null) {
+				restCallRunnable.restCallHandler = restCallHandler;
+			}
+			//then launch it
+			MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(restCallRunnable);
 		} else {
 			// else use the callback to return null to the client
 			callback.forecastLoaded(null);
@@ -146,19 +152,24 @@ public class ForecastServiceUpdater {
 	/** Private methods **************************************************************************/
 	/******************************************************************************************/
 
+	
+	/**
+	 * The runnable to execute when requesting update from the server
+	 */
+	private RestCallRunnable restCallRunnable = new RestCallRunnable();
+	
 	/**
 	 * @author Mathias Seguy (Android2EE)
 	 * @goals
-	 *        This class aims to make an async call to the server and build the forecast
+	 * This class aims to implements a Runnable with an Handler
 	 */
-	private class AsynRestCall extends AsyncTask<Void, String, String> {
-		/*
-		 * * (non-Javadoc) *
-		 * 
-		 * @see android.os.AsyncTask#doInBackground(Params[])
+	private class RestCallRunnable implements Runnable {
+		/**
+		 * The handler to use to communicate outside the runnable
 		 */
+		public Handler restCallHandler=null;
 		@Override
-		protected String doInBackground(Void... arg0) {
+		public void run() {
 			// Do the rest http call
 			// Parse the element
 			buildForecasts(getForecast());
@@ -166,9 +177,8 @@ public class ForecastServiceUpdater {
 			forcastDao = new ForecastDAO();
 			forcastDao.saveAll((ArrayList<YahooForcast>) forecasts);
 			forcastDao = null;
-			return null;
+			restCallHandler.sendMessage(restCallHandler.obtainMessage());
 		}
-
 		/**
 		 * Retrieve the forecast
 		 */
@@ -223,19 +233,21 @@ public class ForecastServiceUpdater {
 				ExceptionManager.manage(new ExceptionManaged(this.getClass(), R.string.exc_parsing, e));
 			}
 		}
+	}
 
-		/*
-		 * * (non-Javadoc) *
-		 * 
-		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
+	/**
+	 * The handler awoke when the Runnable has finished it's execution
+	 */
+	private Handler restCallHandler=new Handler() {
+		/* (non-Javadoc)
+		 * @see android.os.Handler#handleMessage(android.os.Message)
 		 */
 		@Override
-		protected void onPostExecute(String result) {
-			super.onPostExecute(result);
-			// build the forecast GUI
+		public void handleMessage(Message msg) {
 			returnForecast();
 		}
-	}
+		
+	};
 
 	/**
 	 * Called when the forecast are built
