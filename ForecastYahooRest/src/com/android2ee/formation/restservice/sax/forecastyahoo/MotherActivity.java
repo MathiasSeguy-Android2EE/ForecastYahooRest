@@ -1,17 +1,34 @@
 package com.android2ee.formation.restservice.sax.forecastyahoo;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.exceptions.ExceptionManager;
 
-public class MotherActivity extends Activity {
+public class MotherActivity extends ActionBarActivity {
+	/**
+	 * The action Bar
+	 */
+	private ActionBar actionBar;
+
+	/* (non-Javadoc)
+	 * @see android.support.v7.app.ActionBarActivity#onCreate(android.os.Bundle)
+	 */
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		actionBar = getSupportActionBar();
+		actionBar.setTitle("A REST Architecture");
+		actionBar.setSubtitle("By Android2EE");
+	}
 
 	/*
 	 * (non-Javadoc)

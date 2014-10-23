@@ -4,7 +4,7 @@
     android:orientation="vertical" >
 
     <include layout="@layout/exception_layout" />
-    
+
     <TextView
         android:id="@+id/txvNoNetwork"
         android:layout_width="match_parent"
@@ -12,6 +12,7 @@
         android:gravity="center"
         android:text="@string/no_network_message"
         android:visibility="gone" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
@@ -21,8 +22,10 @@
             android:id="@+id/myListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:divider="@color/colorDivider"
+            android:dividerHeight="3.0sp"
             android:drawSelectorOnTop="true"
-            android:transcriptMode="alwaysScroll"
+            android:transcriptMode="disabled"
             android:visibility="gone" />
     </android.support.v4.widget.SwipeRefreshLayout>
 

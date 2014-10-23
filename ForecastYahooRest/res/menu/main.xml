@@ -1,8 +1,9 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:a2ee="http://schemas.android.com/apk/res-auto"  >
 
     <item
         android:id="@+id/action_author"
-        android:showAsAction="ifRoom"
+        a2ee:showAsAction="ifRoom"
         android:icon="@drawable/ic_android2ee"
         android:orderInCategory="002"
         android:title="@string/action_author">

@@ -4,4 +4,8 @@
         <color name="blue_pure_1">#FF00CF00</color>
         <color name="blue_pure_2">#FF0000AF</color>
         <color name="blue_pure_3">#FF008F00</color>
+        <color name="colorDivider">#d0d9ff</color>
+        <color name="colorPrimary">#5677fc</color>
+        <color name="colorPrimaryDarker">#3b50ce</color>
+        <color name="colorAccent">#9c27b0</color>
     </resources>
