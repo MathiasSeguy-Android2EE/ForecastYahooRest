@@ -30,6 +30,7 @@
  */
 package com.android2ee.formation.restservice.sax.forecastyahoo.dao;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,6 +79,7 @@ public class ForecastDAO {
 	public void openDB() throws SQLiteException {
 		try {
 			db = dbOpenHelper.getWritableDatabase();
+			throw new SQLiteException();
 		} catch (SQLiteException ex) {
 			ExceptionManager.manage(new ExceptionManaged(this.getClass(),R.string.exc_database_cannot_open, ex));
 		}

@@ -203,6 +203,7 @@ public class YahooForcast implements Parcelable {
 		// first check if the picture is not already stored
 		drawable = loadPicture(name);
 		// if null the picture is not already stored
+		
 		if (null == drawable) {
 			// load it from the network
 			try {

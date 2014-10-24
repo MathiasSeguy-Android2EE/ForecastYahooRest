@@ -13,8 +13,8 @@
     <!-- constants for File names -->
     <string name="picture_folder_name">picture</string>
     <!-- Message to display the weather -->
-    <string name="min">Min: %1$d°C</string>
-    <string name="max">Max: %1$d°C</string>
+    <string name="min">%1$d°C</string>
+    <string name="max">%1$d°C</string>
     <string name="temp">%1$d°C</string>
     <!-- Messages for user -->
     <string name="no_network_message">You are not connected to the internet. We can not get the YahooForecast so.</string>
