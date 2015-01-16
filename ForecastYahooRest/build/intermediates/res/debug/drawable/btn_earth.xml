@@ -1,0 +1,13 @@
+<?xml version= "1.0" encoding= "utf-8"?>
+ <selector  xmlns:android="http://schemas.android.com/apk/res/android" 
+            android:constantSize="false"
+            android:dither="true"
+            android:variablePadding="true" >
+<!--              <item -->
+<!--                 android:state_enabled="false" android:drawable="@drawable/btn_search_disable"/> -->
+                
+            <item
+                android:state_pressed="true" android:drawable="@drawable/btn_earth_pressed"/>
+            <item
+                 android:drawable="@drawable/ic_googlemap"/>
+        </selector><!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/res/drawable/btn_earth.xml -->

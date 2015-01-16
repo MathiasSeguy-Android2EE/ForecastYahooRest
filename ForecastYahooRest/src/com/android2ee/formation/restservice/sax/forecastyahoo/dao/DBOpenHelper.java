@@ -48,6 +48,9 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		public static final String DATABASE_NAME = "yahooForecast.db";
 		/** The database version */
 		public static final int DATABASE_VERSION = 1;
+		/******************************************************************************************/
+		/** Managing Forecast table **************************************************************************/
+		/******************************************************************************************/
 		/** The table Name */
 		public static final String MY_TABLE = "Forecasts";
 		// Columns Name
@@ -65,6 +68,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		public static final String KEY_COL_MAX_TEMP = "maxTemp";
 		/** My Column temperature and the associated explanation for end-users */
 		public static final String KEY_COL_TEMP = "Temp";
+		/** My Column woeid that bind this forecast with the city and the associated explanation for end-users */
+		public static final String KEY_COL_WOEID = "woeid";
 
 		// Indexes des colonnes
 		/** The index of the column ID */
@@ -81,17 +86,65 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 		public static final int MAX_TEMP_COLUMN = 6;
 		/** The index of the column temp */
 		public static final int TEMP_COLUMN = 7;
+		/** The index of the column woeid */
+		public static final int TEMP_WOEID = 8;
+		
+		/******************************************************************************************/
+		/** Managing City table **************************************************************************/
+		/******************************************************************************************/
+		/** The table Name */
+		public static final String MY_CITY_TABLE = "Cities";
+		// Columns Name
+		/** My Column ID and the associated explanation for end-users */
+		public static final String KEY_CITY_COL_ID = "_id";// Mandatory
+		/** My Column NAME and the associated explanation for end-users */
+		public static final String KEY_CITY_COL_NAME = "name";
+		/** My Column WOEID and the associated explanation for end-users */
+		public static final String KEY_CITY_COL_WOEID = "woeid";
+		/** My Column PLACE TYPE and the associated explanation for end-users */
+		public static final String KEY_CITY_COL_TYPE = "place_type";
+		/** My Column COUNTRY temperature and the associated explanation for end-users */
+		public static final String KEY_CITY_COL_COUNTRY = "country";
+		/** My Column LATITUDE temperature and the associated explanation for end-users */
+		public static final String KEY_CITY_COL_LATITUDE = "latitude";
+		/** My Column LONGITUDE and the associated explanation for end-users */
+		public static final String KEY_CITY_COL_LONGITUDE = "longitude";
+
+		// Indexes des colonnes
+		/** The index of the column ID */
+		public static final int ID_CITY_COLUMN = 1;
+		/** The index of the column name */
+		public static final int NAME_CITY_COLUMN = 2;
+		/** The index of the column woeid */
+		public static final int WOEID_CITY_COLUMN = 3;
+		/** The index of the column type */
+		public static final int TYPE_CITY_COLUMN = 4;
+		/** The index of the column country */
+		public static final int COUNTRY_CITY_COLUMN = 5;
+		/** The index of the column latitude */
+		public static final int LATITUDE_CITY_COLUMN = 6;
+		/** The index of the column longitude */
+		public static final int LONGITUDE_CITY_COLUMN = 7;
 	}
 
-	// Cr�e une nouvelle base.
-	private static final String DATABASE_CREATE = "create table " + Constants.MY_TABLE
+	// Crée une nouvelle base.
+	private static final String DATABASE_CREATE_FORECAST_TABLE = "create table " + Constants.MY_TABLE
 			+ " (" + Constants.KEY_COL_ID + " integer primary key autoincrement, "
 			+ Constants.KEY_COL_DATE + " TEXT, "
 			+ Constants.KEY_COL_TENDANCE + " TEXT, "
 			+ Constants.KEY_COL_CODE_IMAGE + " TEXT, "
 			+ Constants.KEY_COL_MIN_TEMP + " INTEGER, "
 			+ Constants.KEY_COL_MAX_TEMP + " INTEGER, "
-			+ Constants.KEY_COL_TEMP + " INTEGER) ";
+			+ Constants.KEY_COL_TEMP + " INTEGER, "
+			+ Constants.KEY_COL_WOEID + " TEXT) ";
+	private static final String DATABASE_CREATE_CITY_TABLE = "create table " + Constants.MY_CITY_TABLE
+			+ " (" + Constants.KEY_CITY_COL_ID + " integer primary key autoincrement, "
+			+ Constants.KEY_CITY_COL_NAME + " TEXT, "
+			+ Constants.KEY_CITY_COL_WOEID + " TEXT, "
+			+ Constants.KEY_CITY_COL_TYPE + " TEXT, "
+			+ Constants.KEY_CITY_COL_COUNTRY + " TEXT, "
+			+ Constants.KEY_CITY_COL_LATITUDE + " TEXT, "
+			+ Constants.KEY_CITY_COL_LONGITUDE + " TEXT) ";
 
 	/**
 	 * @param context
@@ -110,8 +163,8 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// Create the new database using the SQL string Database_create
-		db.execSQL(DATABASE_CREATE);
-
+		db.execSQL(DATABASE_CREATE_FORECAST_TABLE);
+		db.execSQL(DATABASE_CREATE_CITY_TABLE);
 	}
 
 	/*

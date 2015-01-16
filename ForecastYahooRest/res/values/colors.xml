@@ -11,4 +11,7 @@
         <color name="colorPrimary">#afbfff</color>
         <color name="colorPrimaryDarker">#738ffe</color>
         <color name="colorAccent">#9c27b0</color>
+        <color name="colorDisable">#90A4AE</color>
+        <color name="colorPrimaryDarkerTranslucent">#99738ffe</color>
+        <color name="colorAccentTranslucent">#999c27b0</color>
     </resources>

@@ -1,0 +1,41 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <include layout="@layout/exception_layout" />
+
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_padding" >
+
+        <EditText
+            android:id="@+id/edt_citySearchedName"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="@string/city_act_edt_hint"
+            android:inputType="textCapWords" />
+
+        <Button
+            android:id="@+id/btn_search_city"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/btn_search_transition" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lsvCityList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/colorDivider"
+        android:dividerHeight="3.0sp"
+        android:drawSelectorOnTop="true"
+        android:transcriptMode="disabled" />
+
+</LinearLayout><!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/res/layout/activity_city.xml -->

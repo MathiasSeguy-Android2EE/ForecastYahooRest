@@ -1,8 +1,12 @@
 <resources>
-
-    <string name="forcast_url">http://weather.yahooapis.com/forecastrss?w=12657325</string>
+<!--w= 12657325  pour toulouse-->
+    <string name="forcast_url">http://weather.yahooapis.com/forecastrss?w=%1$s</string>
     <string name="forcast_url_degres">u=c</string>
     <string name="forcast_image_url">http://l.yimg.com/a/i/us/we/52/%1$s.gif</string>
-     <string name="yahoo_requirment">https://www.yahoo.com/?ilc=401</string>
+    <string name="yahoo_requirment">https://www.yahoo.com/?ilc=401</string>
+    <string name="city_list_2">http://query.yahooapis.com/v1/public/yql?q=select woeid from geo.places where text=</string>
+    <string name="city_list">http://query.yahooapis.com/v1/public/yql?q=select%20woeid%20from%20geo.places%20where%20text=</string>
+    <string name="url_format">format=json</string>
+    <string name="city_list_3">http://where.yahooapis.com/v1/places.q(%1$s);count=10?appid=dj0yJmk9TnNEcDU2d0NCUnpRJmQ9WVdrOVQyTjBRVTFsTm1jbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0xNw--</string>
 
 </resources>

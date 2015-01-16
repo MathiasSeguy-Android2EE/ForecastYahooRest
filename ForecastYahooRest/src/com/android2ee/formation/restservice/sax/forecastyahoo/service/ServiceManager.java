@@ -37,6 +37,10 @@ import java.util.concurrent.TimeUnit;
 import android.util.Log;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication;
+import com.android2ee.formation.restservice.sax.forecastyahoo.service.city.CitiesServiceRequester;
+import com.android2ee.formation.restservice.sax.forecastyahoo.service.city.CityServiceData;
+import com.android2ee.formation.restservice.sax.forecastyahoo.service.forecast.ForecastServiceData;
+import com.android2ee.formation.restservice.sax.forecastyahoo.service.forecast.ForecastServiceUpdater;
 
 /**
  * @author Mathias Seguy (Android2EE)
@@ -54,6 +58,14 @@ public class ServiceManager {
 	 * The Forecast service
 	 */
 	ForecastServiceData forecastServiceData = null;
+	/**
+	 * The SearchCities Service service
+	 */
+	CitiesServiceRequester citiesServicesRequester = null;
+	/**
+	 * The City Service service
+	 */
+	CityServiceData cityServiceData = null;
 
 	/**
 	 * Insure only the Application object can instantiate once this object
@@ -86,6 +98,26 @@ public class ServiceManager {
 	}
 
 	/**
+	 * @return the citiesServicesRequester
+	 */
+	public final CitiesServiceRequester getCitiesServicesRequester() {
+		if (citiesServicesRequester == null) {
+			citiesServicesRequester = new CitiesServiceRequester(this);
+		}
+		return citiesServicesRequester;
+	}
+	
+	/**
+	 * @return the CityServiceData
+	 */
+	public final CityServiceData getCityServiceData() {
+		if (cityServiceData == null) {
+			cityServiceData = new CityServiceData(this);
+		}
+		return cityServiceData;
+	}
+
+	/**
 	 * To be called when you need to release all the services
 	 * Is managed by the MyApplication object in fact
 	 */
@@ -93,6 +125,8 @@ public class ServiceManager {
 		Log.e("ServiceManager", "UnbindAndDie is called");
 		forecastServiceUpdater = null;
 		forecastServiceData = null;
+		citiesServicesRequester=null;
+		cityServiceData=null;
 		if (cancelableThreadsExecutor != null) {
 			killCancelableThreadExecutor();
 		}

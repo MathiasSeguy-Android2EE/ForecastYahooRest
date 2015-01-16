@@ -34,6 +34,11 @@
     <string name="exc_parsing">A problem occurs when understanding the data. This will be fixed soon. We apologize.</string>
     <string name="exc_picture_not_found">A problem occurs when loading the picture. Nothing to worry about. We apologize.</string>
     <string name="exc_picture_not_found_save">A problem occurs when saving the picture. Nothing to worry about. We apologize.</string>
+    <string name="exc_parsing_city">A problem occurs when parsing the cities. Nothing to worry about. We apologize.</string>
+    <string name="exc_no_map_found">A problem occurs when trying to open a map on your phone. It seems there is no map application... We apologize.</string>
+    <string name="err_adding_city_failed">A problem occurs when trying to add the city in the database. It can be not registered. We apologize.</string>
+    <string name="err_deleting_city_failed">A problem occurs when trying to delete the city in the database. We apologize.</string>
+    <string name="err_adding_city_already_exists">The city is already in database. Nothing to update and no worries.</string>
     <!-- MEnu Url -->
     <string name="android2ee_url">http://www.android2ee.com</string>
     <string name="android2ee_url_training">http://www.android2ee.com/formation-presentation-menu/formation-complete.html</string>
@@ -42,5 +47,10 @@
     <string name="mail_subject">[YahooForecast RestService]Your subject:</string>
     <string name="mail_body">Your message:</string>
     <string name="action_author">Author</string>
+    <string name="action_search">Search a city</string>
+    <string name="title_activity_city">CityActivity</string>
+    <!-- CityActivity message Message -->    
+    <string name="city_act_choose_city">Please give the name of the city you search</string>    
+    <string name="city_act_edt_hint">The city\'s name you\'re searching</string>
 
 </resources>

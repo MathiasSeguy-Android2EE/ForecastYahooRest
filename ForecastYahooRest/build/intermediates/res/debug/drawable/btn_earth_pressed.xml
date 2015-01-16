@@ -1,0 +1,13 @@
+<?xml version= "1.0" encoding= "utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item android:drawable="@drawable/ic_googlemap"/>
+    <item>
+        <shape android:gravity="center" >
+            <solid android:color="@color/colorAccentTranslucent" />
+
+            <corners android:radius="@dimen/corner_button_Size" />
+        </shape>
+    </item>
+
+</layer-list><!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/res/drawable/btn_earth_pressed.xml -->
