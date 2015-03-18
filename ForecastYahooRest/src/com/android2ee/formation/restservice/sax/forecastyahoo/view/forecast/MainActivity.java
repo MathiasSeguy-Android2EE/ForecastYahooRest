@@ -1,8 +1,5 @@
 package com.android2ee.formation.restservice.sax.forecastyahoo.view.forecast;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,7 +17,6 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +31,9 @@ import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.C
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.YahooForcast;
 import com.android2ee.formation.restservice.sax.forecastyahoo.view.city.CityActivity;
 import com.android2ee.formation.restservice.sax.forecastyahoo.view.forecast.arrayadpater.ForecastArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends MotherActivity implements ConnectivityIsBackIntf,
 		SwipeRefreshLayout.OnRefreshListener, OnNavigationListener, ForecastCallBack, CityCallBack, CitiesCallBack {
@@ -163,8 +162,11 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	/******************************************************************************************/
 	/** Managing the city selection using the action bar **************************************************************************/
 	/******************************************************************************************/
-	private SpinnerAdapter mSpinnerAdapter;
-	private List<String> mCitiesName;
+    //Don't use the SpinnerAdapter else you won't be able to tune the style of the spinner :'(
+    //	private SpinnerAdapter mSpinnerAdapter;
+    private ArrayAdapter<CharSequence> mSpinnerAdapter;
+
+    private List<String> mCitiesName;
 	private List<City> mCities;
 
 	/*
@@ -235,11 +237,11 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		Log.e("MainActivity", "initializeActionBar found selectedElement : " + selectedElement);
 		ActionBar actionbar = getSupportActionBar();
 		actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-		mSpinnerAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, mCitiesName);
+        mSpinnerAdapter = new ArrayAdapter(this, R.layout.actionbar_spinner_dropdown_item, mCitiesName);
+        mSpinnerAdapter.setDropDownViewResource(R.layout.actionbar_spinner_dropdown_item);
 		getSupportActionBar().setListNavigationCallbacks(mSpinnerAdapter, this);
 		// then set it to the current city
 		getSupportActionBar().setSelectedNavigationItem(selectedElement);
-
 	}
 
 	/**

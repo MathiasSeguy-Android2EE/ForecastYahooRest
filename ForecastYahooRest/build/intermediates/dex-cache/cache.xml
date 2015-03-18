@@ -16,6 +16,13 @@
         <dex dex="D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-1e25317c0ddf75b44c85e8dc32c5213196261639.jar" />
     </item>
     <item
+        jar="D:\Android\Git\ForecastYahooRest\ForecastYahooRest\libs\crashlytics.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0e821eafa1bf489a26bdb71f95078c26785b37a1">
+        <dex dex="D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\pre-dexed\debug\crashlytics-3859aa5544dc05792aa98d66768855b1abffacec.jar" />
+    </item>
+    <item
         jar="D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.3\libs\internal_impl-21.0.3.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -28,13 +35,6 @@
         revision="21.1.2"
         sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8">
         <dex dex="D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\pre-dexed\debug\classes-9f2ab24ab86b637cbb77977c611c2c1368095a84.jar" />
-    </item>
-    <item
-        jar="D:\Android\Git\ForecastYahooRest\ForecastYahooRest\libs\crashlytics.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="0e821eafa1bf489a26bdb71f95078c26785b37a1">
-        <dex dex="D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\pre-dexed\debug\crashlytics-3859aa5544dc05792aa98d66768855b1abffacec.jar" />
     </item>
 
 </items>

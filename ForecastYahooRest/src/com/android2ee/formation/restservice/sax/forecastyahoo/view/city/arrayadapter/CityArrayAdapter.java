@@ -70,16 +70,22 @@ public class CityArrayAdapter extends ArrayAdapter<City> {
 	 * The Earth icon to display googleMap
 	 */
 	Drawable earth;
+    Boolean postJellyBean;
 
 	/**
 	 * @param context
-	 * @param resource
+	 * @param list
 	 */
 	public CityArrayAdapter(Context context, ArrayList<City> list) {
 		super(context, R.layout.item_city, list);
 		inflater = LayoutInflater.from(context);
 		earth = context.getResources().getDrawable(R.drawable.ic_googlemap);
 		ctx=context;
+        if(ctx.getResources().getBoolean(R.bool.postJB)){
+            postJellyBean=true;
+        }else{
+            postJellyBean=false;
+        }
 	}
 
 	/******************************************************************************************/
@@ -114,7 +120,11 @@ public class CityArrayAdapter extends ArrayAdapter<City> {
 		viewHolder.getTxvCityName().setText(city.getName());
 		viewHolder.getTxvCityType().setText(city.getPlaceType());
 		viewHolder.getTxvCountry().setText(city.getCountry());
-		viewHolder.getImvGoogleMap().setBackground(earth);
+        if(postJellyBean){
+            viewHolder.getImvGoogleMap().setBackground(earth);
+        }else{
+            viewHolder.getImvGoogleMap().setBackgroundDrawable(earth);
+        }
 		((LatLongUri)viewHolder.getImvGoogleMap().getTag()).setLatLon(city.getLatitude(), city.getLongitude());		
 		return rowView;
 	}

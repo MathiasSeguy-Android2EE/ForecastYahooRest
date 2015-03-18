@@ -21,104 +21,26 @@
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
-    <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-    <!-- !!!! Vas voir ca:http://developer.android.com/guide/topics/ui/actionbar.html et teste les changements-->
-    <style name="Theme.MyTheme" parent="Theme.AppCompat.Light">
+    <!--<style name="AppTheme" parent="AppBaseTheme">-->
+        <!--&lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;-->
+    <!--</style>-->
+
+    <style name="AppTheme" parent="@style/_AppTheme">
         <!-- colorPrimary is used for the default action bar background -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <!-- colorPrimaryDark is used for the status bar -->
         <item name="colorPrimaryDark">@color/colorPrimaryDarker</item>
         <!--colorAccent is used as the default value for colorControlActivated,which is used to tint widgets-->
         <item name="colorAccent">@color/colorAccent</item>
-        <!--Styling the NavigationBar-->
-        <item name="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
-           MyBase.Widget.AppCompat.Spinner.DropDown.ActionBar
-        </item>
-        <item name="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-            MyBase.Widget.AppCompat.Light.Spinner.DropDown.ActionBar
-        </item>
-        <item name="@style/Widget.AppCompat.Spinner">
-            MyBase.Widget.AppCompat.Spinner
-        </item>
-
-    </style>
-    <style name=" MyBase.Widget.AppCompat.Spinner" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
-        <item name="spinnerMode">dropdown</item>
-        <item name="android:clickable">true</item>
-        <!--<item name="android:background">@drawable/abc_spinner_mtrl_am_alpha</item>-->
-        <item name="android:background">#FFFF0000</item>
-        <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
-        <item name="android:popupBackground">#FFFF00FF</item>
-        <item name="android:dropDownVerticalOffset">0dip</item>
-        <item name="android:dropDownHorizontalOffset">0dip</item>
-        <item name="overlapAnchor">true</item>
-        <item name="android:dropDownWidth">wrap_content</item>
-        <item name="popupPromptView">@layout/abc_simple_dropdown_hint</item>
-        <item name="android:gravity">left|start|center_vertical</item>
-        <item name="disableChildrenWhenDisabled">true</item>
-    </style>
-    <style name="MyBase.Widget.AppCompat.Spinner.DropDown.ActionBar" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
-        <item name="spinnerMode">dropdown</item>
-        <item name="android:clickable">true</item>
-        <!--<item name="android:background">@drawable/abc_spinner_mtrl_am_alpha</item>-->
-        <item name="android:background">#FFFF0000</item>
-        <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
-        <item name="android:popupBackground">#FFFF00FF</item>
-        <item name="android:dropDownVerticalOffset">0dip</item>
-        <item name="android:dropDownHorizontalOffset">0dip</item>
-        <item name="overlapAnchor">true</item>
-        <item name="android:dropDownWidth">wrap_content</item>
-        <item name="popupPromptView">@layout/abc_simple_dropdown_hint</item>
-        <item name="android:gravity">left|start|center_vertical</item>
-        <item name="disableChildrenWhenDisabled">true</item>
     </style>
 
-    <style name="MyBase.Widget.AppCompat.Light.Spinner.DropDown.ActionBar" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-        <item name="spinnerMode">dropdown</item>
-        <item name="android:clickable">true</item>
-        <!--<item name="android:background">@drawable/abc_spinner_mtrl_am_alpha</item>-->
-        <item name="android:background">#FFFF0000</item>
-        <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
-        <item name="android:popupBackground">#FFFF00FF</item>
-        <item name="android:dropDownVerticalOffset">0dip</item>
-        <item name="android:dropDownHorizontalOffset">0dip</item>
-        <item name="overlapAnchor">true</item>
-        <item name="android:dropDownWidth">wrap_content</item>
-        <item name="popupPromptView">@layout/abc_simple_dropdown_hint</item>
-        <item name="android:gravity">left|start|center_vertical</item>
-        <item name="disableChildrenWhenDisabled">true</item>
+    <style name="_AppTheme" parent="Theme.AppCompat.Light">
+        <item name="spinnerDropDownItemStyle">@style/mydropdown</item>
+    </style>
+    <!--Changing the color of the background-->
+    <style name="mydropdown" parent="@style/Base.TextAppearance.AppCompat.Widget.DropDownItem">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:textStyle">italic</item>
     </style>
 </resources>
-
-
-    <!--<style name="Theme.MyTheme" parent="Theme.AppCompat.Light">--><!-- colorPrimary is used for the default action bar background --><!--<item name="colorPrimary">@color/colorPrimary</item>--><!-- colorPrimaryDark is used for the status bar --><!--<item name="colorPrimaryDark">@color/colorPrimaryDarker</item>--><!--colorAccent is used as the default value for colorControlActivated,which is used to tint widgets--><!--<item name="colorAccent">@color/colorAccent</item>--><!--Styling the NavigationBar--><!--<item name="android:Widget.Spinner">@style/MyBase.Widget.AppCompat.Spinner</item>--><!--<item name="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">--><!--@style/MyBase.Widget.AppCompat.Spinner.DropDown.ActionBar--><!--</item>--><!--<item name="@style/Widget.AppCompat.DropDownItem.Spinner">--><!--@style/MyBase.Widget.AppCompat.DropDownItem.Spinner--><!--</item>--><!--<item name="@style/TextAppearance.AppCompat.Widget.DropDownItem">--><!--@style/MyBase.TextAppearance.AppCompat.Widget.DropDownItem--><!--</item>--><!--<item name="@style/TextAppearance.Widget.AppCompat.ExpandedMenu.Item">--><!--@style/MyBase.TextAppearance.Widget.AppCompat.ExpandedMenu.Item--><!--</item>--><!--<item name="android:dropDownItemStyle">@style/Widget.DropDownItemLight</item>-->
-
-
-    <!--<item name="android:spinnerStyle">@style/SpinnerAppTheme</item>-->
-
-    <!--</style>--><!--<style name="MyDropDownNav" parent="android:style/Widget.Spinner.DropDown.ActionBar">--><!--<item name="android:background">@drawable/ad_spinner_background_holo_light</item>--><!--<item name="android:popupBackground">@drawable/ad_menu_dropdown_panel_holo_light</item>--><!--<item name="android:dropDownSelector">@drawable/ad_selectable_background</item>--><!--</style>-->
-
-
-    <!--<style name="SpinnerAppTheme" parent="android:Widget.Spinner">--><!--<item name="android:background">@drawable/abc_spinner_mtrl_am_alpha</item>--><!--<item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>--><!--</style>-->
-
-
-    <!--<style name="Widget.DropDownItemLight" parent="@android:style/Widget.DropDownItem">--><!--<item name="android:textColor">@color/blue_pure</item>--><!--<item name="android:textSize">18sp</item>--><!--<item name="android:textStyle">italic</item>--><!--</style>-->
-
-    <!--<style name="MyBase.Widget.AppCompat.Spinner" parent="android:Widget.Spinner">--><!--<item name="android:background">@color/blue_pure</item>--><!--<item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>--><!--<item name="android:dropDownVerticalOffset">0dip</item>--><!--</style>-->
-
-    <!--<style name="MyBase.Widget.AppCompat.Spinner.DropDown.ActionBar" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">--><!--<item name="spinnerMode">dropdown</item>--><!--<item name="android:clickable">true</item>--><!--<item name="android:background">@drawable/abc_spinner_mtrl_am_alpha</item>--><!--<item name="android:background">#FFFF0000</item>--><!--<item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>--><!--<item name="android:popupBackground">#FFFF00FF</item>--><!--<item name="android:dropDownVerticalOffset">0dip</item>--><!--<item name="android:dropDownHorizontalOffset">0dip</item>--><!--<item name="overlapAnchor">true</item>--><!--<item name="android:dropDownWidth">wrap_content</item>--><!--<item name="popupPromptView">@layout/abc_simple_dropdown_hint</item>--><!--<item name="android:gravity">left|start|center_vertical</item>--><!--<item name="disableChildrenWhenDisabled">true</item>--><!--</style>-->
-
-    <!--<style name="MyBase.Widget.AppCompat.DropDownItem.Spinner" parent="@style/Widget.AppCompat.DropDownItem.Spinner">--><!--<item name="android:textAppearance">@style/TextAppearance.AppCompat.Widget.DropDownItem--><!--</item>--><!--<item name="android:paddingLeft">8dp</item>--><!--<item name="android:paddingRight">8dp</item>--><!--<item name="android:gravity">center_vertical</item>--><!--</style>-->
-
-    <!--<style name="MyBase.TextAppearance.AppCompat.Widget.DropDownItem" parent="@style/TextAppearance.AppCompat.Widget.DropDownItem">--><!--<item name="android:textColor">#FFFF00FF</item>--><!--<item name="android:textStyle">italic</item>--><!--</style>-->
-
-    <!--<style name="MyBase.TextAppearance.Widget.AppCompat.ExpandedMenu.Item" parent="@style/TextAppearance.Widget.AppCompat.ExpandedMenu.Item">--><!--<item name="android:textColor">#FFFF00FF</item>--><!--</style>--><!-- Spinner Widgets -->
-
-
-    <!--<style name="MyBase.Widget.AppCompat.ListView.DropDown" parent="android:Widget.ListView">--><!--<item name="android:listSelector">?attr/listChoiceBackgroundIndicator</item>--><!--<item name="android:divider">@null</item>--><!--</style>--><!-- Spinner Widgets -->
-
-
-    <!-- <style name="Base.Widget.AppCompat.ListView.DropDown" parent="android:Widget.ListView"> --><!-- <item name="android:listSelector">?attr/listChoiceBackgroundIndicator</item> --><!-- <item name="android:divider">@null</item> --><!-- </style> -->

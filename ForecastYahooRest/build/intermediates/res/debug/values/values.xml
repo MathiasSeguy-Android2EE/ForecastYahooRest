@@ -209,7 +209,7 @@
     <string name="city_list_3">http://where.yahooapis.com/v1/places.q(%1$s);count=10?appid=dj0yJmk9TnNEcDU2d0NCUnpRJmQ9WVdrOVQyTjBRVTFsTm1jbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD0xNw--</string>
     <!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/res/values/com_crashlytics_export_strings.xml -->
     <eat-comment/>
-    <string name="com.crashlytics.android.build_id" translatable="false">47a6c68d-b37a-4928-9ea3-00bce46613a5</string>
+    <string name="com.crashlytics.android.build_id" translatable="false">4adceacd-6ed7-44e7-923f-79afd235dea8</string>
     <!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/res/values/strings.xml -->
     <eat-comment/>
     <string name="err_adding_city_already_exists">The city is already in database. Nothing to update and no worries.</string>
@@ -261,21 +261,6 @@
     <string name="yahoo_requirment">https://www.yahoo.com/?ilc=401</string>
     <!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/res/values/styles.xml -->
     <eat-comment/>
-    <style name=" MyBase.Widget.AppCompat.Spinner" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
-        <item name="spinnerMode">dropdown</item>
-        <item name="android:clickable">true</item>
-        <!--<item name="android:background">@drawable/abc_spinner_mtrl_am_alpha</item>-->
-        <item name="android:background">#FFFF0000</item>
-        <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
-        <item name="android:popupBackground">#FFFF00FF</item>
-        <item name="android:dropDownVerticalOffset">0dip</item>
-        <item name="android:dropDownHorizontalOffset">0dip</item>
-        <item name="overlapAnchor">true</item>
-        <item name="android:dropDownWidth">wrap_content</item>
-        <item name="popupPromptView">@layout/abc_simple_dropdown_hint</item>
-        <item name="android:gravity">left|start|center_vertical</item>
-        <item name="disableChildrenWhenDisabled">true</item>
-    </style>
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
@@ -287,8 +272,13 @@
 
         -->
     </style>
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    <style name="AppTheme" parent="@style/_AppTheme">
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDarker</item>
+        <!--colorAccent is used as the default value for colorControlActivated,which is used to tint widgets-->
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
     <!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
     <eat-comment/>
@@ -1044,40 +1034,6 @@
         <item name="android:scaleType">center</item>
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
-    <!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/res/values/styles.xml -->
-    <eat-comment/>
-    <style name="MyBase.Widget.AppCompat.Light.Spinner.DropDown.ActionBar" parent="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-        <item name="spinnerMode">dropdown</item>
-        <item name="android:clickable">true</item>
-        <!--<item name="android:background">@drawable/abc_spinner_mtrl_am_alpha</item>-->
-        <item name="android:background">#FFFF0000</item>
-        <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
-        <item name="android:popupBackground">#FFFF00FF</item>
-        <item name="android:dropDownVerticalOffset">0dip</item>
-        <item name="android:dropDownHorizontalOffset">0dip</item>
-        <item name="overlapAnchor">true</item>
-        <item name="android:dropDownWidth">wrap_content</item>
-        <item name="popupPromptView">@layout/abc_simple_dropdown_hint</item>
-        <item name="android:gravity">left|start|center_vertical</item>
-        <item name="disableChildrenWhenDisabled">true</item>
-    </style>
-    <style name="MyBase.Widget.AppCompat.Spinner.DropDown.ActionBar" parent="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
-        <item name="spinnerMode">dropdown</item>
-        <item name="android:clickable">true</item>
-        <!--<item name="android:background">@drawable/abc_spinner_mtrl_am_alpha</item>-->
-        <item name="android:background">#FFFF0000</item>
-        <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
-        <item name="android:popupBackground">#FFFF00FF</item>
-        <item name="android:dropDownVerticalOffset">0dip</item>
-        <item name="android:dropDownHorizontalOffset">0dip</item>
-        <item name="overlapAnchor">true</item>
-        <item name="android:dropDownWidth">wrap_content</item>
-        <item name="popupPromptView">@layout/abc_simple_dropdown_hint</item>
-        <item name="android:gravity">left|start|center_vertical</item>
-        <item name="disableChildrenWhenDisabled">true</item>
-    </style>
-    <!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
-    <eat-comment/>
     <style name="Platform.AppCompat" parent="android:Theme">
         <item name="android:windowNoTitle">true</item>
         <item name="buttonBarStyle">@android:style/ButtonBar</item>
@@ -1304,29 +1260,6 @@
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
-    <!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/res/values/styles.xml -->
-    <eat-comment/>
-    <style name="Theme.MyTheme" parent="Theme.AppCompat.Light">
-        <!-- colorPrimary is used for the default action bar background -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <!-- colorPrimaryDark is used for the status bar -->
-        <item name="colorPrimaryDark">@color/colorPrimaryDarker</item>
-        <!--colorAccent is used as the default value for colorControlActivated,which is used to tint widgets-->
-        <item name="colorAccent">@color/colorAccent</item>
-        <!--Styling the NavigationBar-->
-        <item name="@style/Widget.AppCompat.Spinner.DropDown.ActionBar">
-           MyBase.Widget.AppCompat.Spinner.DropDown.ActionBar
-        </item>
-        <item name="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar">
-            MyBase.Widget.AppCompat.Light.Spinner.DropDown.ActionBar
-        </item>
-        <item name="@style/Widget.AppCompat.Spinner">
-            MyBase.Widget.AppCompat.Spinner
-        </item>
-
-    </style>
-    <!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/build/intermediates/exploded-aar/com.android.support/appcompat-v7/21.0.3/res/values/values.xml -->
-    <eat-comment/>
     <style name="ThemeOverlay.AppCompat" parent="Base.ThemeOverlay.AppCompat"/>
     <style name="ThemeOverlay.AppCompat.ActionBar" parent="Base.ThemeOverlay.AppCompat.ActionBar"/>
     <style name="ThemeOverlay.AppCompat.Dark" parent="Base.ThemeOverlay.AppCompat.Dark"/>
@@ -1385,4 +1318,14 @@
     <style name="Widget.AppCompat.Spinner.DropDown.ActionBar" parent="Base.Widget.AppCompat.Spinner.DropDown.ActionBar"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="Base.Widget.AppCompat.Toolbar.Button.Navigation"/>
+    <!-- From: file:/D:/Android/Git/ForecastYahooRest/ForecastYahooRest/res/values/styles.xml -->
+    <eat-comment/>
+    <style name="_AppTheme" parent="Theme.AppCompat.Light">
+        <item name="spinnerDropDownItemStyle">@style/mydropdown</item>
+    </style>
+    <style name="mydropdown" parent="@style/Base.TextAppearance.AppCompat.Widget.DropDownItem">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:textStyle">italic</item>
+    </style>
 </resources>

@@ -66,7 +66,7 @@ public class MotherActivity extends ActionBarActivity implements ConnectivityIsB
 		// display the connection status to the user if no connected
 		isConnected = MyApplication.instance.isConnected();
 		MyApplication.instance.registerAsConnectivityBackListener(this);
-		Log.v("MotherActivity", " isConnected=" + isConnected);
+		Log.v("MotherActivity", "onResume isConnected=" + isConnected);
 		// Manage the connection message
 		manageNoConnectionMessage();
 
@@ -168,6 +168,7 @@ public class MotherActivity extends ActionBarActivity implements ConnectivityIsB
 	 * Depending on the state of the connectivity, display or hide the connection message
 	 */
 	private void manageNoConnectionMessage() {
+        Log.i("MotherActivity", "manageNoConnectionMessage is called");
 		// instanciate if noit already instanciate
 		if (txvNoNetwork == null) {
 			txvNoNetwork = (TextView) findViewById(R.id.txvNoNetwork);
@@ -175,8 +176,10 @@ public class MotherActivity extends ActionBarActivity implements ConnectivityIsB
 		// then display or not the message
 		if (!isConnected) {
 			showNoConnectionMessage();
+            Log.i("MotherActivity", "manageNoConnectionMessage=>showNoConnectionMessage()");
 		} else {
 			hideNoConnectionMessage();
+            Log.i("MotherActivity", "manageNoConnectionMessage=>hideNoConnectionMessage");
 		}
 	}
 

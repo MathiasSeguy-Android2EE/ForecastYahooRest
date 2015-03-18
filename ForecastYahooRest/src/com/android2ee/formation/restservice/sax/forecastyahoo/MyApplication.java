@@ -29,9 +29,6 @@
  */
 package com.android2ee.formation.restservice.sax.forecastyahoo;
 
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -44,6 +41,9 @@ import android.util.Log;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.service.ServiceManager;
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.interfaces.ConnectivityIsBackIntf;
+
+import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author Mathias Seguy (Android2EE)
@@ -123,7 +123,7 @@ public class MyApplication extends Application {
 	/**
 	 * To know when to notify the connectivityIsBackListeners
 	 */
-	private boolean notifyConnIsBackListeners = false;
+	private boolean notifyConnIsBackListeners=false;
 
 	/**
 	 * Manage the connectivity state of the device
@@ -203,6 +203,7 @@ public class MyApplication extends Application {
 		if (null == connectivityIsBackListeners) {
 			connectivityIsBackListeners = new ArrayList<ConnectivityIsBackIntf>();
 		}
+        Log.e("MyApplication", "registerAsConnectivityBackListener" + conBackListener);
 		connectivityIsBackListeners.add(conBackListener);
 	}
 
@@ -214,6 +215,7 @@ public class MyApplication extends Application {
 	public void unregisterAsConnectivityBackListener(ConnectivityIsBackIntf conBackListener) {
 		if (null != connectivityIsBackListeners) {
 			connectivityIsBackListeners.remove(conBackListener);
+            Log.e("MyApplication", "unregisterAsConnectivityBackListener" + conBackListener);
 			if (connectivityIsBackListeners.size() == 0) {
 				connectivityIsBackListeners = null;
 			}
@@ -226,7 +228,9 @@ public class MyApplication extends Application {
 	private void notifyConnectivityIsBack() {
 		// notify the listeners (if there is some because this method can be called even if no
 		// activity alived)
+        Log.e("MyApplication", "notifyConnectivityIsBack notifyConnectivityIsBack==" + connectivityIsBackListeners);
 		if (connectivityIsBackListeners != null) {
+            Log.e("MyApplication", "notifyConnectivityIsBack connectivityIsBackListeners.size==" + connectivityIsBackListeners.size());
 			for (ConnectivityIsBackIntf listener : connectivityIsBackListeners) {
 				listener.connectivityIsBack(isWifi, telephonyType);
 			}
@@ -282,6 +286,7 @@ public class MyApplication extends Application {
 			isWifi = prefs.getBoolean(getString(R.string.has_wifi), isWifi);
 			isConnected = prefs.getBoolean(getString(R.string.has_network), isConnected);
 			telephonyType = prefs.getInt(getString(R.string.telephonyType), telephonyType);
+            isConnectivityStateInitialized=true;
 		}
 	}
 
