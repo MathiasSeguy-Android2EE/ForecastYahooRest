@@ -1,6 +1,0 @@
-D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\classes\debug
-D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-1e25317c0ddf75b44c85e8dc32c5213196261639.jar
-D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-a32d8c567ad6dd4ab58dc8d3220c4601b64fc387.jar
-D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\pre-dexed\debug\crashlytics-3859aa5544dc05792aa98d66768855b1abffacec.jar
-D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\pre-dexed\debug\classes-8f0aa96002cf5a16692c640a96de71608b178ef0.jar
-D:\Android\Git\ForecastYahooRest\ForecastYahooRest\build\intermediates\pre-dexed\debug\classes-9f2ab24ab86b637cbb77977c611c2c1368095a84.jar
