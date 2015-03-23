@@ -154,6 +154,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		// else default launch the CityActivity
 		else {
 			launchSearchActivity();
+            finish();
 		}
 		// load all the avaiable cities and update the actionbar navigation
 		MyApplication.instance.getServiceManager().getCityServiceData().getCities(this);
