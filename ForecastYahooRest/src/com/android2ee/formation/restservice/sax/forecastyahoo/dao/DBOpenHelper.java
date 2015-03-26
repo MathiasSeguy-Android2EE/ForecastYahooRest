@@ -162,6 +162,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+        Log.e("DBOpenHelper", "OnCreate Database called");
 		// Create the new database using the SQL string Database_create
 		db.execSQL(DATABASE_CREATE_FORECAST_TABLE);
 		db.execSQL(DATABASE_CREATE_CITY_TABLE);
