@@ -33,8 +33,14 @@ android {
         applicationId "com.android2ee.formation.restservice.sax.forecastyahoo"
         minSdkVersion 8
         targetSdkVersion 21
-        versionCode 1
-        versionName "1.0"
+        versionCode 4
+        versionName "1.3"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
     sourceSets {
         main {
