@@ -1,8 +1,5 @@
 package com.android2ee.formation.restservice.sax.forecastyahoo.view.city;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.TransitionDrawable;
@@ -29,6 +26,9 @@ import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.C
 import com.android2ee.formation.restservice.sax.forecastyahoo.view.city.arrayadapter.CityArrayAdapter;
 import com.android2ee.formation.restservice.sax.forecastyahoo.view.forecast.MainActivity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CityActivity extends MotherActivity implements CitiesCallBack, ConnectivityIsBackIntf, AddedCityCallBack {
 	/**
 	 * For the save and restore, the key for the list of the cities
@@ -42,6 +42,11 @@ public class CityActivity extends MotherActivity implements CitiesCallBack, Conn
 	 * For the bundle in the Intent that launch the MainActivity, the key of the selected city
 	 */
 	public static final String SELECTED_CITY = "SELECTED_CITY";
+    /**
+     * To know if this Activity is launched at the first start of the application
+     * Wa need to launch MainActivity when the city is selected in that case
+     */
+    public static final String FIRST_START = "FIRST_START";
 	/******************************************************************************************/
 	/** Attribute **************************************************************************/
 	/******************************************************************************************/
@@ -251,10 +256,17 @@ public class CityActivity extends MotherActivity implements CitiesCallBack, Conn
 		Log.e("CityActivity ", "cityAdded=" + city);
 		// set it the sharedPreference as the selected city
 		SharedPreferences prefs = getSharedPreferences(SELECTED_CITY, MODE_PRIVATE);
+        if (prefs.getString(CityActivity.SELECTED_CITY, null) == null) {
+            //then first launch
+            //if this is the first start you have to relaunch mainActivity
+            Intent launchMainActivity = new Intent(this, MainActivity.class);
+            startActivity(launchMainActivity);
+        }
 		prefs.edit().putString(SELECTED_CITY, selectedCity.getWoeid()).commit();
 		prefs = null;
 		// then finish
 		finish();
+
 
 	}
 

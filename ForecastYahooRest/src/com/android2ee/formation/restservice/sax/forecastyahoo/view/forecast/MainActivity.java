@@ -153,7 +153,10 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		}
 		// else default launch the CityActivity
 		else {
-			launchSearchActivity();
+			//first start so launch the activity search
+            launchSearchActivity();
+            //and then kill yourself, because if the user press back on the
+            //SearchActivity at the first the application should die
             finish();
 		}
 		// load all the avaiable cities and update the actionbar navigation
@@ -337,12 +340,12 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 			View viewFooter = LayoutInflater.from(this).inflate(R.layout.list_footer, null);
 			imvYahooLogo = (ImageView) viewFooter.findViewById(R.id.imv_yahoo_logo);
 			imvYahooLogo.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					yahooRequirement();
-				}
+                @Override
+                public void onClick(View v) {
+                    yahooRequirement();
+                }
 
-			});
+            });
 			View viewHeader = LayoutInflater.from(this).inflate(R.layout.list_header, null);
 			txvLastUpdate = (TextView) viewHeader.findViewById(R.id.txv_last_update);
 			txvLastUpdate.setOnClickListener(new OnClickListener() {
