@@ -109,8 +109,8 @@ public class YahooForcast implements Parcelable {
 	public YahooForcast(String tendance, String codeImage, String temp) {
 		super();
 		// set the attributes
-		this.tendance = tendance;
 		this.codeImage = codeImage;
+        setTendance(tendance);
 		this.image = getPicture(getIconUrl(codeImage), codeImage);
 		this.temp = Integer.valueOf(temp);
 		this.date = Calendar.getInstance();
@@ -128,8 +128,8 @@ public class YahooForcast implements Parcelable {
 	public YahooForcast(String tendance, String codeImage, String tempMin, String tempMax, int dayCount) {
 		super();
 		// set the attributes
-		this.tendance = tendance;
 		this.codeImage = codeImage;
+        setTendance(tendance);
 		this.image = getPicture(getIconUrl(codeImage), codeImage);
 		this.tempMin = Integer.valueOf(tempMin);
 		this.tempMax = Integer.valueOf(tempMax);
@@ -151,7 +151,7 @@ public class YahooForcast implements Parcelable {
 	public YahooForcast(Calendar date, String tendance, String codeImage, int tempMin, int tempMax, int temp) {
 		super();
 		// set the attributes
-		this.tendance = tendance;
+		this.tendance=tendance;
 		this.codeImage = codeImage;
 		this.image = getPicture(getIconUrl(codeImage), codeImage);
 		this.tempMin = tempMin;
@@ -372,7 +372,64 @@ public class YahooForcast implements Parcelable {
 	 *            the tendance to set
 	 */
 	public final void setTendance(String tendance) {
-		this.tendance = tendance;
+        //this is the trick where we translate
+        int stringValue=R.string.notavailable;
+        Log.e("YahooForecast","setTendance with "+tendance+" and code ="+codeImage);
+        switch (codeImage) {
+            case "0":stringValue = R.string.tornado;break;
+            case "1":stringValue = R.string.tropicalstorm;break;
+            case "2":stringValue = R.string.hurricane;break;
+            case "3":stringValue = R.string.severethunderstorms;break;
+            case "4":stringValue = R.string.thunderstorms;break;
+            case "5":stringValue = R.string.mixedrainandsnow;break;
+            case "6":stringValue = R.string.mixedrainandsleet;break;
+            case "7":stringValue = R.string.mixedsnowandsleet;break;
+            case "8":stringValue = R.string.freezingdrizzle;break;
+            case "9":stringValue = R.string.drizzle;break;
+            case "10":stringValue = R.string.freezingrain;break;
+            case "11":stringValue = R.string.showers;break;
+            case "12":stringValue = R.string.showers;break;
+            case "13":stringValue = R.string.snowflurries;break;
+            case "14":stringValue = R.string.lightsnowshowers;break;
+            case "15":stringValue = R.string.blowingsnow;break;
+            case "16":stringValue = R.string.snow;break;
+            case "17":stringValue = R.string.hail;break;
+            case "18":stringValue = R.string.sleet;break;
+            case "19":stringValue = R.string.dust;break;
+            case "20":stringValue = R.string.foggy;break;
+            case "21":stringValue = R.string.haze;break;
+            case "22":stringValue = R.string.smoky;break;
+            case "23":stringValue = R.string.blustery;break;
+            case "24":stringValue = R.string.windy;break;
+            case "25":stringValue = R.string.cold;break;
+            case "26":stringValue = R.string.cloudy;break;
+            case "27":stringValue = R.string.mostlycloudynight;break;
+            case "28":stringValue = R.string.mostlycloudyday;break;
+            case "29":stringValue = R.string.partlycloudynight;break;
+            case "30":stringValue = R.string.partlycloudyday;break;
+            case "31":stringValue = R.string.clearnight;break;
+            case "32":stringValue = R.string.sunny;break;
+            case "33":stringValue = R.string.fairnight;break;
+            case "34":stringValue = R.string.fairday;break;
+            case "35":stringValue = R.string.mixedrainandhail;break;
+            case "36":stringValue = R.string.hot;break;
+            case "37":stringValue = R.string.isolatedthunderstorms;break;
+            case "38":stringValue = R.string.scatteredthunderstorms;break;
+            case "39":stringValue = R.string.scatteredthunderstorms;break;
+            case "40":stringValue = R.string.scatteredshowers;break;
+            case "41":stringValue = R.string.heavysnow;break;
+            case "42":stringValue = R.string.scatteredsnowshowers;break;
+            case "43":stringValue = R.string.heavysnow;break;
+            case "44":stringValue = R.string.partlycloudy;break;
+            case "45":stringValue = R.string.thundershowers;break;
+            case "46":stringValue = R.string.snowshowers;break;
+            case "47":stringValue = R.string.isolatedthundershowers;break;
+            case "3200":stringValue = R.string.notavailable;break;
+            default:
+                stringValue = R.string.notavailable;
+                break;
+        }
+        this.tendance =tendance+"\r\n"+MyApplication.instance.getString(stringValue);
 	}
 
 	/**
