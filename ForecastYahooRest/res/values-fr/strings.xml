@@ -63,9 +63,10 @@
     <string name="mail_body">Ton message:</string>
     <string name="action_author">Auteur</string>
     <string name="action_search">Chercher la localité</string>
+    <string name="action_delete">Supprimer</string>
     <string name="title_activity_city">CityActivity</string>
     <!-- CityActivity message Message -->    
     <string name="city_act_choose_city">Ajoutez le nom de la ville que vous cherchez</string>
     <string name="city_act_edt_hint">Le nom de la ville que vous cherchez.</string>
-
+    <string name="city_act_edt_ime">Chercher</string>
 </resources>

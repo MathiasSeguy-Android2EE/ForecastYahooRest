@@ -48,9 +48,11 @@
     <string name="mail_body">Your message:</string>
     <string name="action_author">Author</string>
     <string name="action_search">Search a city</string>
+    <string name="action_delete">Delete</string>
     <string name="title_activity_city">CityActivity</string>
     <!-- CityActivity message Message -->    
     <string name="city_act_choose_city">Please give the name of the city you search</string>    
     <string name="city_act_edt_hint">The city\'s name you\'re searching</string>
+    <string name="city_act_edt_ime">Search</string>
 
 </resources>

@@ -8,13 +8,16 @@ import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.MotherActivity;
 import com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication;
@@ -88,6 +91,32 @@ public class CityActivity extends MotherActivity implements CitiesCallBack, Conn
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_city);
 		edtSearchedCity = (EditText) findViewById(R.id.edt_citySearchedName);
+        //add the ime action
+        edtSearchedCity.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+            /**
+             * Called when an action is being performed.
+             *
+             * @param v        The view that was clicked.
+             * @param actionId Identifier of the action.  This will be either the
+             *                 identifier you supplied, or {@link EditorInfo#IME_NULL
+             *                 EditorInfo.IME_NULL} if being called due to the enter key
+             *                 being pressed.
+             * @param event    If triggered by an enter key, this is the event;
+             *                 otherwise, this is null.
+             * @return Return true if you have consumed the action, else false.
+             */
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == R.id.edt_citySearchedName_ime
+                        ||actionId == EditorInfo.IME_ACTION_DONE
+                        ||actionId == EditorInfo.IME_NULL) {
+                    // do here your stuff
+                    searchCity();
+                    return true;
+                }
+                return false;
+            }
+        });
 		btnSearch = (Button) findViewById(R.id.btn_search_city);
 		lsvCityList = (ListView) findViewById(R.id.lsvCityList);
 		cities = new ArrayList<City>();

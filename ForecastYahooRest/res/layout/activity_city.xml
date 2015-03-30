@@ -20,6 +20,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:hint="@string/city_act_edt_hint"
+            android:imeActionLabel="@string/city_act_edt_ime"
+            android:imeActionId="@+id/edt_citySearchedName_ime"
             android:inputType="textCapWords" />
 
         <Button
