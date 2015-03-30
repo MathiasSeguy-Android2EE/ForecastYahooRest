@@ -29,9 +29,6 @@
  */
 package com.android2ee.formation.restservice.sax.forecastyahoo.service.city;
 
-import java.lang.ref.WeakReference;
-import java.util.List;
-
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -45,6 +42,9 @@ import com.android2ee.formation.restservice.sax.forecastyahoo.service.city.callb
 import com.android2ee.formation.restservice.sax.forecastyahoo.service.city.callback.CityCallBack;
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.exceptions.ExceptionManager;
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.City;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
 
 /**
  * @author Mathias Seguy (Android2EE)
@@ -373,7 +373,7 @@ public class CityServiceData {
 	}
 
 	/******************************************************************************************/
-	/** Adding data from D.A.O **************************************************************************/
+	/** Deleting data from D.A.O **************************************************************************/
 	/******************************************************************************************/
 
 	/**

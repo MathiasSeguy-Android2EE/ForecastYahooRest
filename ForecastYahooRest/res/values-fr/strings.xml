@@ -25,6 +25,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="txv_last_update">Dernière mise à jour: %1$s</string>
     <string name="txv_last_update_swipe">Tirer la list vers le bas met aussi à jour les données.</string>
+    <!--DeleteAlertDialog-->
+    <string name="btn_yes">Oui</string>
+    <string name="btn_no">Non</string>
+    <string name="alertdialog_message">Souhaitez vous réellement détruire la ville %1$s?</string>
     <!-- error Message -->
     <string name="no_error_message">Une exception a eu lieu, personne ne sait ce qu\'il s\'est passé, désolé.</string>
     <string name="txv_exception_clicktodismiss">\r\n(Click pour faire disparaitre.)</string>

@@ -23,6 +23,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="txv_last_update">Last update %1$s</string>
     <string name="txv_last_update_swipe">Swipe the listview to refresh data works too.</string>
+    <!--DeleteAlertDialog-->
+    <string name="btn_yes">Yes</string>
+    <string name="btn_no">No</string>
+    <string name="alertdialog_message">Do you really want to delete the city %1$s?</string>
     <!-- error Message -->
     <string name="no_error_message">An exception occurs, nobody knows what happens, developpers made shit again, sorry.</string>
     <string name="txv_exception_clicktodismiss">\r\n(Click to dismiss.)</string>

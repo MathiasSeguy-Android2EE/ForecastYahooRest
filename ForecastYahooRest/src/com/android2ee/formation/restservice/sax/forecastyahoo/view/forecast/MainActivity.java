@@ -1,10 +1,15 @@
 package com.android2ee.formation.restservice.sax.forecastyahoo.view.forecast;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.OnNavigationListener;
@@ -169,7 +174,6 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
     //Don't use the SpinnerAdapter else you won't be able to tune the style of the spinner :'(
     //	private SpinnerAdapter mSpinnerAdapter;
     private ArrayAdapter<CharSequence> mSpinnerAdapter;
-
     private List<String> mCitiesName;
 	private List<City> mCities;
 
@@ -182,6 +186,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	 */
 	@Override
 	public void citiesLoaded(List<City> cities) {
+        //this method is called when all the cities are loaded from the Dao to instanciate the Spinner of the ActionBar
 		int selectedElement = 0, index = 0;
 		if (cities != null) {
 			mCities = cities;
@@ -199,7 +204,6 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 			}
 			initializeActionBar(selectedElement);
 		}
-
 	}
 
 	/*
@@ -210,6 +214,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	 * (com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.City)
 	 */
 	public void cityLoaded(City city) {
+        //this method is called when we load the current city according to its woeid stored in the sharedPref
 		Log.e("MainActivity", "cityLoaded callback found city from DAO " + currentCity);
 		if (city != null) {
 			currentCity = city;
@@ -446,12 +451,67 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 			// Launch the search cityactivity
 			launchSearchActivity();
 			return true;
-
+       case R.id.action_delete:
+                //Delete the current city
+                onDeleteCurrentCity();
+                return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
 
+    /**
+     * The method called when the delete action is launched by the user
+     * either through the menu or the ime of the editText
+     */
+    private void onDeleteCurrentCity(){
+        FragmentManager fm = getSupportFragmentManager();
+        DeleteAlert deleteDialog=(DeleteAlert)fm.findFragmentByTag("deleteDialog");
+        if(deleteDialog==null){
+            deleteDialog=new DeleteAlert();
+        }
+        deleteDialog.show(getSupportFragmentManager(), "deleteDialog");
+    }
+    /**
+     * Delete the current city and then do what is needed in term of navigation
+     */
+    private void deleteCurrentCity(){
+        //delete the city
+        MyApplication.instance.getServiceManager().getCityServiceData().deleteCity(currentCity);
+        //find another city to put in the sharedPref or null is none
+        if(mCities.size()>1){
+            String newWoeid;
+            //it means there is another city to load,pick one randomly
+            for(City city :mCities){
+                if(city.getWoeid()!=currentCity.getWoeid()){
+                    newWoeid=city.getWoeid();
+                    //ok we found the new city
+                    //delete the city from the sharedPref
+                    SharedPreferences prefs = getSharedPreferences(CityActivity.SELECTED_CITY, MODE_PRIVATE);
+                    prefs.edit().putString(CityActivity.SELECTED_CITY, newWoeid).commit();
+                    currentCity=null;
+                    //then reload every think
+                    MyApplication.instance.getServiceManager().getCityServiceData().loadCity(this, newWoeid);
+                    Log.e("MainActivity", "onResume found woeid in sharedPrefs : " + newWoeid);
+                    // load all the available cities and update the actionbar navigation
+                    MyApplication.instance.getServiceManager().getCityServiceData().getCities(this);
+                    //then break the loop
+                    break;
+                }
+            }
+        }else{
+            //delete the city from the sharedPref
+            SharedPreferences prefs = getSharedPreferences(CityActivity.SELECTED_CITY, MODE_PRIVATE);
+            prefs.edit().putString(CityActivity.SELECTED_CITY, null).commit();
+            //it means iwe delete the last city so:
+            //first start so launch the activity search
+            launchSearchActivity();
+            //and then kill yourself, because if the user press back on the
+            //SearchActivity at the first launch the application should die
+            finish();
+        }
+
+    }
 	/******************************************************************************************/
 	/** Managing navigation **************************************************************************/
 	/******************************************************************************************/
@@ -464,4 +524,43 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		Intent launchCityActivity = new Intent(this, CityActivity.class);
 		startActivity(launchCityActivity);
 	}
+    /******************************************************************************************/
+    /** Managing AlertDialog **************************************************************************/
+    /******************************************************************************************/
+
+    /**
+     * The AlertDialog that displays the message are you sure you want to delete
+     */
+    public class DeleteAlert extends DialogFragment {
+
+        public DeleteAlert(){
+            //empty constructor is mandatory
+        }
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage("");
+            builder.setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    deleteCurrentCity();
+                }
+            });
+            builder.setNegativeButton(R.string.btn_no, null);
+            return builder.create();
+        }
+
+        /**
+         * Called when the fragment is visible to the user and actively running.
+         * This is generally
+         * tied to {@link android.app.Activity#onResume() Activity.onResume} of the containing
+         * Activity's lifecycle.
+         */
+        @Override
+        public void onResume() {
+            super.onResume();
+            ((AlertDialog)getDialog()).setMessage(getString(R.string.alertdialog_message,currentCity.getName()));
+        }
+    }
+
 }

@@ -264,13 +264,24 @@ public class CityDAO {
 	 * @param rowId
 	 */
 	public boolean delete(City city) {
-		int numberOfUpdatedElements = db.delete(DBOpenHelper.Constants.MY_CITY_TABLE,
-				DBOpenHelper.Constants.KEY_CITY_COL_WOEID + "=" + city.getWoeid(), null);
-		if (numberOfUpdatedElements == 1) {
-			return true;
-		} else {
-			return false;
-		}
+
+        try {
+            openDB();
+            Log.e("CityDAO", "delete : " + city + " woeid " + city.getWoeid());
+            int numberOfUpdatedElements = db.delete(DBOpenHelper.Constants.MY_CITY_TABLE,
+                    DBOpenHelper.Constants.KEY_CITY_COL_WOEID + "=" + city.getWoeid(), null);
+    closeDB();
+            Log.e("CityDAO", "delete : number of deleted element " + numberOfUpdatedElements);
+            if (numberOfUpdatedElements == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }catch(Exception e){
+
+            Log.e("CityDAO", "delete : and the exception is :",e);
+            return false;
+        }
 	}
 
 }
