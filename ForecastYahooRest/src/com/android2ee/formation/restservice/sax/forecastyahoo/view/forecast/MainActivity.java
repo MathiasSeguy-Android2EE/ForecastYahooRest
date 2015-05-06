@@ -1,5 +1,6 @@
 package com.android2ee.formation.restservice.sax.forecastyahoo.view.forecast;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -132,6 +133,13 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		super.onPause();
 		Log.e("MainActivity", "onPause");
 		MyApplication.instance.unregisterAsConnectivityBackListener(this);
+        //Manage the fucking FragmentDialog inner class memory leak
+        //why AlertDialog are deprecated, tell me why
+        FragmentManager fm = getSupportFragmentManager();
+        DeleteAlert deleteDialog=(DeleteAlert)fm.findFragmentByTag("deleteDialog");
+        if(deleteDialog!=null){
+            deleteDialog.dismiss();
+        }
 	}
 
 	/*
@@ -531,7 +539,8 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
     /**
      * The AlertDialog that displays the message are you sure you want to delete
      */
-    public class DeleteAlert extends DialogFragment {
+    @SuppressLint("ValidFragment")
+    private class DeleteAlert extends DialogFragment {
 
         public DeleteAlert(){
             //empty constructor is mandatory

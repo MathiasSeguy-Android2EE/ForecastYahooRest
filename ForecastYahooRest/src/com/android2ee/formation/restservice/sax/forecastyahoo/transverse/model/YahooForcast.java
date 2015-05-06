@@ -208,9 +208,9 @@ public class YahooForcast implements Parcelable {
 			// load it from the network
 			try {
 				// retrieve the URL
-				URL url = new URL(urlPath);
-				// Open an input stream on it
-				InputStream is = (InputStream) url.getContent();
+                URL url = new URL(urlPath);
+                // Open an input stream on it
+                InputStream is = (InputStream) url.getContent();
 				// save the bitmap from that input stream and return the associated drawable
 				drawable = savePicture(is, name);
 			} catch (IOException e) {
