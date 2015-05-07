@@ -23,6 +23,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="txv_last_update">Last update %1$s</string>
     <string name="txv_last_update_swipe">Swipe the listview to refresh data works too.</string>
+    <string name="txv_updating">Updating Data ... please wait ...</string>
     <!--DeleteAlertDialog-->
     <string name="btn_yes">Yes</string>
     <string name="btn_no">No</string>

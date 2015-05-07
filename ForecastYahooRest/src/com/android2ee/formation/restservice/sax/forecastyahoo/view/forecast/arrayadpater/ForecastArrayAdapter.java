@@ -29,13 +29,16 @@
  */
 package com.android2ee.formation.restservice.sax.forecastyahoo.view.forecast.arrayadpater;
 
-import java.util.List;
-
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v4.util.SparseArrayCompat;
 import android.text.format.DateFormat;
+import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +51,8 @@ import android.widget.TextView;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.R;
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.YahooForcast;
+
+import java.util.List;
 
 /**
  * @author Mathias Seguy (Android2EE)
@@ -71,6 +76,11 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 	 * The same, you need one runnable by item
 	 */
 	SparseArrayCompat<MyRunnable> sparseRunnable;
+    /**
+     * To know when the item is flipped or not
+     * When flipped it show us its back side else its front side
+     */
+    SparseBooleanArray isFlipped;
 
 	/**
 	 * To detect the first launch
@@ -88,16 +98,23 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 	 * To know if the device is postJellyBean or not
 	 */
 	boolean postJB;
+    /**
+     * To know if the device is postHoneyComb or not
+     */
+    boolean postHC;
 
-	/**
-	 * @param context
-	 * @param resource
-	 */
-	public ForecastArrayAdapter(Context context, List<YahooForcast> forecast) {
+
+    /**
+     *
+     * @param context
+     * @param forecast
+     */
+    public ForecastArrayAdapter(Context context, List<YahooForcast> forecast) {
 		super(context, R.layout.item_forecast, forecast);
 		inflater = LayoutInflater.from(context);
 		ctx = context;
-		postJB = context.getResources().getBoolean(R.bool.postJB);
+        postJB = context.getResources().getBoolean(R.bool.postJB);
+        postHC = context.getResources().getBoolean(R.bool.postHC);
 		//instantiate the sprase array
 		sparseAnimation=new SparseArrayCompat<Animation>(getCount());
 		sparseRunnable=new SparseArrayCompat<MyRunnable>(getCount());
@@ -107,7 +124,7 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 			sparseAnimation.put(i, AnimationUtils.loadAnimation(context, R.anim.anim_item_updated));
 			sparseRunnable.put(i, new MyRunnable( i));
 		}
-
+        isFlipped=new SparseBooleanArray();
 	}
 
 	/**
@@ -132,6 +149,8 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 	@SuppressLint("NewApi")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+
+        Log.e("ForecastArrayAdapter","getView "+position);
 		rowView = convertView;
 		forcast = getItem(position);
 		if (rowView == null) {
@@ -141,6 +160,9 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 			rowView.setTag(vh);
 		}
 		viewHolder = (ViewHolder) rowView.getTag();
+        //used for animation
+        viewHolder.currentPosition=position;
+        initializeBackSide(position);
 		if (postJB) {
 			viewHolder.getImvIcon().setBackground(forcast.getImage());
 		} else {
@@ -170,12 +192,14 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 		// launch animations to show the update to the user (not the first time but only when refreshing)
 		if (firstLaunch>=2) {
 			//hide the item
-			viewHolder.getLinRoot().setVisibility(View.GONE);
+//			viewHolder.getLinRoot().setVisibility(View.GONE);
 			//find the runnable and set the vierwHolder
 			sparseRunnable.get(position).setVh(viewHolder);
 			//then launch the runnable in 300ms *pos
 			handlerForAnimation.postDelayed(sparseRunnable.get(position), 300 * position);			
 		}
+        //and finally manage the visibility of the side : front or back side is visible
+        manageSideVisibility(position);
 		return rowView;
 	}
 
@@ -184,10 +208,48 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 	 */
 	@Override
 	public void notifyDataSetChanged() {
+        Log.e("ForecastArrayAdapter","Notify data set changed begins");
 		super.notifyDataSetChanged();
 		firstLaunch ++;
+        Log.e("ForecastArrayAdapter","Notify data set changed is finished");
 	}
+    /**************************************************
+     * Flipping Animation tricks
+     * **************************************************
+     */
+    private void initializeBackSide(int position){
+        switch(position%4){
+            case  0:
+                viewHolder.getImvBack().setBackgroundResource(R.drawable.back1);
+                break;
+            case  1:
+                viewHolder.getImvBack().setBackgroundResource(R.drawable.back2);
+                break;
+            case  2:
+                viewHolder.getImvBack().setBackgroundResource(R.drawable.back3);
+                break;
+            case  3:
+                viewHolder.getImvBack().setBackgroundResource(R.drawable.back4);
+                break;
+        }
+    }
 
+    /**
+     * If the element has been flipped, flip it else set it has not flipped
+     * @param position
+     */
+    private void manageSideVisibility(int position){
+        Log.e("ForecastArrayAdapter","manage visibility of "+position+" returns isFlipped "+isFlipped.get(position));
+        if(isFlipped.get(position)){
+            //the backside is visible
+            viewHolder.getImvBack().setVisibility(View.VISIBLE);
+            viewHolder.getLinRoot().setVisibility(View.GONE);
+        }else{
+            //the ffront is visible
+            viewHolder.getImvBack().setVisibility(View.GONE);
+            viewHolder.getLinRoot().setVisibility(View.VISIBLE);
+        }
+    }
 	/******************************************************************************************/
 	/** Runnable for animation **************************************************************************/
 	/******************************************************************************************/
@@ -219,18 +281,26 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 		}
 
 		public void run() {
-			//first set the linearlayout visible
-			vh.getLinRoot().setVisibility(View.VISIBLE);
-			//find the animation to launch
-			Animation animationUpdate=sparseAnimation.get(position);
-			//run it
-			vh.getImvIcon().startAnimation(animationUpdate);
-			vh.getTxvCurrent().startAnimation(animationUpdate);
-			vh.getTxvDate().startAnimation(animationUpdate);
-			vh.getTxvMax().startAnimation(animationUpdate);
-			vh.getTxvMin().startAnimation(animationUpdate);
-			vh.getTxvTendance().startAnimation(animationUpdate);
+            //find the animation to launch
+            Animation animationUpdate = sparseAnimation.get(position);
+
+            if(isFlipped.get(position)) {
+                vh.getImvBack().startAnimation(animationUpdate);
+            }else{
+                //first set the linearlayout visible
+                vh.getLinRoot().setVisibility(View.VISIBLE);
+                //run it
+//			vh.getImvIcon().startAnimation(animationUpdate);
+//			vh.getTxvCurrent().startAnimation(animationUpdate);
+//			vh.getTxvDate().startAnimation(animationUpdate);
+//			vh.getTxvMax().startAnimation(animationUpdate);
+//			vh.getTxvMin().startAnimation(animationUpdate);
+//			vh.getTxvTendance().startAnimation(animationUpdate);
+                vh.getLinRoot().startAnimation(animationUpdate);
+            }
 		}
+
+
 	}
 
 	/******************************************************************************************/
@@ -245,8 +315,20 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 		ImageView imvIcon;
 		TextView txvCurrent;
 		TextView txvMin;
-		TextView txvMax;
-
+        TextView txvMax;
+        //For animation
+        ImageView imvBack;
+        int currentPosition;
+        //PostHoneyComb
+        Animator flipAnimatorIn;
+        Animator flipAnimatorOut;
+        Animator reverseFlipAnimatorIn;
+        Animator reverseFlipAnimatorOut;
+        AnimatorSet setFlip;
+        AnimatorSet setReverse;
+        //PreHoneyComb
+        Animation animInLegacy;
+        Animation animOutLegacy;
 		/**
 		 * @param rowview
 		 */
@@ -265,26 +347,53 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 			return txvDate;
 		}
 
-		/**
-		 * @return the txvTendance
-		 */
-		public final TextView getTxvTendance() {
-			if (null == txvTendance) {
-				txvTendance = (TextView) view.findViewById(R.id.txv_tendance);
-			}
-			return txvTendance;
-		}
-
+        /**
+         * @return the txvTendance
+         */
+        public final TextView getTxvTendance() {
+            if (null == txvTendance) {
+                txvTendance = (TextView) view.findViewById(R.id.txv_tendance);
+            }
+            return txvTendance;
+        }
 		/**
 		 * @return the imvIcon
 		 */
 		public final ImageView getImvIcon() {
 			if (null == imvIcon) {
 				imvIcon = (ImageView) view.findViewById(R.id.icon);
+                imvIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(postHC){
+                            animateItem();
+                        }else{
+                            flipItemLegacy();
+                        }
+                    }
+                });
 			}
 			return imvIcon;
 		}
-
+        /**
+         * @return the imvBack
+         */
+        public final ImageView getImvBack() {
+            if (null == imvBack) {
+                imvBack = (ImageView) view.findViewById(R.id.imvBack);
+                imvBack.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(postHC){
+                            reverseAnimateItem();
+                        }else{
+                            reverseItemLegacy();
+                        }
+                    }
+                });
+            }
+            return imvBack;
+        }
 		/**
 		 * @return the txvCurrent
 		 */
@@ -325,7 +434,163 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 			}
 			return linRoot;
 		}
+        /**************************************************
+         * Animation tricks
+         * postHoneyComb
+         * **************************************************
+         */
+        private void flipItemLegacy(){
+            if(animInLegacy==null){
+                animInLegacy= AnimationUtils.loadAnimation(getContext(),R.anim.forecast_item_in);
+            }
+            if(animOutLegacy==null){
+                animOutLegacy= AnimationUtils.loadAnimation(getContext(),R.anim.forecast_item_out);
+            }
+            animOutLegacy.setAnimationListener(new Animation.AnimationListener() {
+                public void onAnimationStart(Animation animation) {
+                    Log.e("tag", "anim onAnimationStart");}
+                public void onAnimationEnd(Animation animation) {
+                    Log.e("tag", "anim onAnimationEnd");
+                    getImvBack().setVisibility(View.VISIBLE);
+                    getImvBack().startAnimation(animInLegacy);
+                    getLinRoot().setVisibility(View.GONE);
+                }
+                public void onAnimationRepeat(Animation animation) {}
+            });
+            getLinRoot().startAnimation(animOutLegacy);
 
-	}
+            isFlipped.put(currentPosition,true);
 
+        }
+        private void reverseItemLegacy(){
+            if(animInLegacy==null){
+                animInLegacy= AnimationUtils.loadAnimation(getContext(),R.anim.forecast_item_in);
+            }
+            if(animOutLegacy==null){
+                animOutLegacy= AnimationUtils.loadAnimation(getContext(),R.anim.forecast_item_out);
+            }
+            animOutLegacy.setAnimationListener(new Animation.AnimationListener() {
+                public void onAnimationStart(Animation animation) {
+                    Log.e("tag", "anim onAnimationStart");}
+                public void onAnimationEnd(Animation animation) {
+                    Log.e("tag", "anim onAnimationEnd");
+                    getLinRoot().setVisibility(View.VISIBLE);
+                    getLinRoot().startAnimation(animInLegacy);
+                    getImvBack().setVisibility(View.GONE);
+                }
+                public void onAnimationRepeat(Animation animation) {}
+            });
+            getImvBack().startAnimation(animOutLegacy);
+
+            isFlipped.put(currentPosition,false);
+
+        }
+
+        /**************************************************
+         * Animation tricks
+         * postHoneyComb
+         * **************************************************
+         */
+
+        @SuppressLint("NewApi")
+        private void animateItem(){
+            initialiseFlipAnimator();
+            setFlip.start();
+            isFlipped.put(currentPosition,true);
+        }
+        @SuppressLint("NewApi")
+        private void reverseAnimateItem(){
+            initialiseReverseFlipAnimator();
+            setReverse.start();
+            isFlipped.put(currentPosition,false);
+        }
+        @SuppressLint("NewApi")
+        private void initialiseReverseFlipAnimator() {
+            if(reverseFlipAnimatorIn==null){
+                reverseFlipAnimatorIn= AnimatorInflater.loadAnimator(getContext(), R.animator.flip_in);
+                reverseFlipAnimatorIn.addListener(new SimpleAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        Log.e("tag", "anim onAnimationStart");
+                        getLinRoot().setVisibility(View.VISIBLE);
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        Log.e("tag", "anim onAnimationEnd");
+                        getImvBack().setVisibility(View.GONE);
+                    }
+                });
+                reverseFlipAnimatorIn.setTarget(getLinRoot());
+                reverseFlipAnimatorOut= AnimatorInflater.loadAnimator(getContext(),R.animator.flip_out);
+                reverseFlipAnimatorOut.setTarget(imvBack);
+                setReverse=new AnimatorSet();
+                setReverse.playTogether(reverseFlipAnimatorIn,reverseFlipAnimatorOut);
+            }
+        }
+
+        @SuppressLint("NewApi")
+        private void initialiseFlipAnimator(){
+            if(flipAnimatorIn==null){
+                flipAnimatorIn= AnimatorInflater.loadAnimator(getContext(),R.animator.flip_in);
+                flipAnimatorIn.setTarget(getImvBack());
+                flipAnimatorOut= AnimatorInflater.loadAnimator(getContext(),R.animator.flip_out);
+                flipAnimatorOut.setTarget(getLinRoot());
+                flipAnimatorIn.addListener(new SimpleAnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        Log.e("tag","anim onAnimationStart");
+                        getImvBack().setVisibility(View.VISIBLE);
+                    }
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        Log.e("tag","anim onAnimationEnd");
+                        getLinRoot().setVisibility(View.GONE);
+                    }
+                });
+                setFlip=new AnimatorSet();
+                setFlip.playTogether(flipAnimatorIn, flipAnimatorOut);
+            }
+        }
+    }
+
+    @SuppressLint("NewApi")
+    public abstract class SimpleAnimatorListener implements Animator.AnimatorListener {
+        /**
+         * <p>Notifies the start of the animation.</p>
+         *
+         * @param animation The started animation.
+         */
+        public abstract void onAnimationStart(Animator animation);
+
+        /**
+         * <p>Notifies the end of the animation. This callback is not invoked
+         * for animations with repeat count set to INFINITE.</p>
+         *
+         * @param animation The animation which reached its end.
+         */
+        public abstract void onAnimationEnd(Animator animation) ;
+
+        /**
+         * <p>Notifies the cancellation of the animation. This callback is not invoked
+         * for animations with repeat count set to INFINITE.</p>
+         *
+         * @param animation The animation which was canceled.
+         */
+        @Override
+        public void onAnimationCancel(Animator animation) {
+            onAnimationEnd(animation);
+        }
+
+        /**
+         * <p>Notifies the repetition of the animation.</p>
+         *
+         * @param animation The animation which was repeated.
+         */
+        @Override
+        public void onAnimationRepeat(Animator animation) {
+            onAnimationStart(animation);
+        }
+    }
 }
