@@ -45,7 +45,7 @@
     <string name="err_adding_city_already_exists">The city is already in database. Nothing to update and no worries.</string>
     <!-- MEnu Url -->
     <string name="android2ee_url">http://www.android2ee.com</string>
-    <string name="android2ee_url_training">http://www.android2ee.com/formation-presentation-menu/formation-complete.html</string>
+    <string name="android2ee_url_training">http://www.android2ee.com/Formations-Android/formation-complete.html</string>
     <string name="mse_dvp_url">http://mathias-seguy.developpez.com/</string>
     <string name="mse_email">mathias.seguy@android2ee.com</string>
     <string name="mail_subject">[YahooForecast RestService]Your subject:</string>
