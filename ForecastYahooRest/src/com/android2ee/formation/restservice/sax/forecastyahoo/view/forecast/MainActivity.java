@@ -75,6 +75,11 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	 * Data are loaded
 	 */
 	private boolean dataLoaded = false;
+    /**
+     * The NavigationItem is initialised, when you initialized it the first time
+     * Don't load data, because the user doens't change the city, and the dataLoading is done by onResume
+     */
+    private boolean navigationItemInitialised=false;
 	/**
 	 * When refreshing the data
 	 */
@@ -152,7 +157,8 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		super.onResume();
 		// display the connection status to the user if no connected
 		isConnected = MyApplication.instance.isConnected();
-		MyApplication.instance.registerAsConnectivityBackListener(this);
+        //No need to register the MotherActivity do it also.
+		//MyApplication.instance.registerAsConnectivityBackListener(this);
 		Log.v("MainActivity", " isConnected=" + isConnected);
 		// find the city associated with the forecast
 
@@ -267,6 +273,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	 * @return
 	 */
 	public boolean onNavigationItemSelected(int position, long itemId) {
+        Log.e("MainActivity", "onNavigationItemSelected : " + position);
 		currentCity = mCities.get(position);
 		// then store the currentcity in the shared preference
 		// set it the sharedPreference as the selected city
@@ -274,7 +281,10 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		prefs.edit().putString(CityActivity.SELECTED_CITY, currentCity.getWoeid()).commit();
 		prefs = null;
 		// then load the data
-		loadForecast();
+        if(navigationItemInitialised){
+            loadForecast();
+        }
+        navigationItemInitialised=true;
 		return false;
 	}
 

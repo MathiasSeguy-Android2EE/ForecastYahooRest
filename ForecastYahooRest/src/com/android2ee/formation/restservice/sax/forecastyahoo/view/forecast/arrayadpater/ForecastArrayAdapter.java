@@ -184,7 +184,7 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 	 */
 	@Override
 	public void notifyDataSetChanged() {
-        Log.e("ForecastArrayAdapter","Notify data set changed begins");
+        Log.e("ForecastArrayAdapter","Notify data set changed begins laucnhNumber"+firstLaunch);
 		super.notifyDataSetChanged();
 		firstLaunch ++;
         Log.e("ForecastArrayAdapter","Notify data set changed is finished");
@@ -409,6 +409,7 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
             handlerForAnimation.removeCallbacks(animationRunnable);
             //then launched it in few seconds
             handlerForAnimation.postDelayed(animationRunnable, 300 * currentPosition);
+            Log.e("tag","launchUpdateAnimation in "+300 * currentPosition+" for item "+currentPosition);
         }
 
         /**************************************************
