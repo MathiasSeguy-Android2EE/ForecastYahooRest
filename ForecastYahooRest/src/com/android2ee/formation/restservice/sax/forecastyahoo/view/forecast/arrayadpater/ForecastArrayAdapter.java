@@ -258,6 +258,7 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 		TextView txvCurrent;
 		TextView txvMin;
         TextView txvMax;
+        TextView txvUpdating;
         //For Update animation
         Animation updateAnimation;
         MyRunnable animationRunnable;
@@ -281,7 +282,6 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 		private ViewHolder(View rowview) {
 			super();
 			this.view = rowview;
-            updateAnimation=AnimationUtils.loadAnimation(getContext(), R.anim.anim_item_updated);
             animationRunnable=new MyRunnable(this);
 		}
 
@@ -342,6 +342,15 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
             }
             return imvBack;
         }
+        /**
+         * @return the txvTendance
+         */
+        public final TextView getTxvUpdating() {
+            if (null == txvUpdating) {
+                txvUpdating = (TextView) view.findViewById(R.id.txv_updating);
+            }
+            return txvUpdating;
+        }
 		/**
 		 * @return the txvCurrent
 		 */
@@ -391,12 +400,24 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         /**
          * Launch the Update Animation
          */
-        public void animateUpdate(){
-            if(isFlipped.get(currentPosition)) {
+        public void animateUpdate() {
+            if (updateAnimation==null) {
+                updateAnimation=AnimationUtils.loadAnimation(getContext(), R.anim.anim_item_updated);
+                updateAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        getTxvUpdating().setVisibility(View.VISIBLE);}
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                            getTxvUpdating().setVisibility(View.GONE);
+                    }
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {}
+                });
+            }
+            if (isFlipped.get(currentPosition)) {
                 getImvBack().startAnimation(updateAnimation);
-            }else{
-                //first set the linearlayout visible
-                getLinRoot().setVisibility(View.VISIBLE);
+            } else {
                 //run it
                 getLinRoot().startAnimation(updateAnimation);
             }
