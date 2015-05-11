@@ -73,7 +73,7 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 	/**
 	 * To detect the first launch
 	 */
-	int firstLaunch = 0;
+	int notifyDataSetChangedCallsNumber = 0;
 	/**
 	 * The layout inflater
 	 */
@@ -171,8 +171,9 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 			viewHolder.getTxvCurrent().setVisibility(View.GONE);
 		}
 		// launch animations to show the update to the user (not the first time but only when refreshing)
-		if (firstLaunch>=2) {
-            viewHolder.launchUpdateAnimation();
+        //because the first time is not an update, it's just loading data from db
+		if (notifyDataSetChangedCallsNumber >=2) {
+            viewHolder.launchUpdateAnimation(notifyDataSetChangedCallsNumber);
 		}
         //and finally manage the visibility of the side : front or back side is visible
         manageSideVisibility(position);
@@ -184,9 +185,9 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 	 */
 	@Override
 	public void notifyDataSetChanged() {
-        Log.e("ForecastArrayAdapter","Notify data set changed begins laucnhNumber"+firstLaunch);
+        Log.e("ForecastArrayAdapter","Notify data set changed begins laucnhNumber"+ notifyDataSetChangedCallsNumber);
 		super.notifyDataSetChanged();
-		firstLaunch ++;
+		notifyDataSetChangedCallsNumber++;
         Log.e("ForecastArrayAdapter","Notify data set changed is finished");
 	}
     /**************************************************
@@ -260,6 +261,7 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         //For Update animation
         Animation updateAnimation;
         MyRunnable animationRunnable;
+        int dataTimeStamp=0;
         //For animation
         ImageView imvBack;
         int currentPosition;
@@ -402,14 +404,17 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         /**
          * Launch the Update Animation
          */
-        public void launchUpdateAnimation(){
-            //it means an already runnable is associated with this item
+        public void launchUpdateAnimation(int ndscCallsNumber){
+            if(dataTimeStamp!=ndscCallsNumber) {
+                //it means an already runnable is associated with this item
                 //we need to remove it (else it gonna run the animation twice
                 //and it's strange for the user)
-            handlerForAnimation.removeCallbacks(animationRunnable);
-            //then launched it in few seconds
-            handlerForAnimation.postDelayed(animationRunnable, 300 * currentPosition);
-            Log.e("tag","launchUpdateAnimation in "+300 * currentPosition+" for item "+currentPosition);
+                handlerForAnimation.removeCallbacks(animationRunnable);
+                //then launched it in few seconds
+                handlerForAnimation.postDelayed(animationRunnable, 300 * currentPosition);
+                Log.e("tag", "launchUpdateAnimation in " + 300 * currentPosition + " for item " + currentPosition);
+                dataTimeStamp=ndscCallsNumber;
+            }
         }
 
         /**************************************************
