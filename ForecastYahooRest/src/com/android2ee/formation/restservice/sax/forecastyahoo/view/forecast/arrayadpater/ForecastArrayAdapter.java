@@ -214,10 +214,12 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
             //the backside is visible
             viewHolder.getImvBack().setVisibility(View.VISIBLE);
             viewHolder.getLinRoot().setVisibility(View.GONE);
+            viewHolder.getTxvShouldBeVisible().setText("IMVBACK should be visible");
         }else{
             //the ffront is visible
             viewHolder.getImvBack().setVisibility(View.GONE);
             viewHolder.getLinRoot().setVisibility(View.VISIBLE);
+            viewHolder.getTxvShouldBeVisible().setText("LinROOT should be visible");
         }
     }
 	/******************************************************************************************/

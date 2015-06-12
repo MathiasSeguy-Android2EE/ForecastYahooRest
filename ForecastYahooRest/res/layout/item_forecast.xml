@@ -79,4 +79,15 @@
             android:layout_height="60dp"
             android:gravity="center" />
     </LinearLayout>
+<!--TO DELETE WHEN BUG FIXED-->
+    <TextView
+        android:id="@+id/txv_shouldbevisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="visible"
+        android:text="SHOULD BE VISIBLE"
+        android:textSize="24sp"
+        android:textStyle="bold"/>
 </FrameLayout>

@@ -27,23 +27,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b12b2c1a-9c26-403b-82e4-6e1673c934bf" name="Default" comment="">
-      <change type="DELETED" beforePath="D:\Android\Git\ForecastYahooRest\ForecastYahooRest\res\drawable\back2.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/back1.jpg" afterPath="$PROJECT_DIR$/res/drawable/back1.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/back3.jpg" afterPath="$PROJECT_DIR$/res/drawable/back3.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/drawable/back4.jpg" afterPath="$PROJECT_DIR$/res/drawable/back4.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/android2ee/formation/restservice/sax/forecastyahoo/view/forecast/arrayadpater/ForecastArrayAdapter.java" afterPath="$PROJECT_DIR$/src/com/android2ee/formation/restservice/sax/forecastyahoo/view/forecast/arrayadpater/ForecastArrayAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ForecastYahooRest.iml" afterPath="$PROJECT_DIR$/ForecastYahooRest.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/android2ee/formation/restservice/sax/forecastyahoo/view/forecast/MainActivity.java" afterPath="$PROJECT_DIR$/src/com/android2ee/formation/restservice/sax/forecastyahoo/view/forecast/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/colors.xml" afterPath="$PROJECT_DIR$/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/item_forecast.xml" afterPath="$PROJECT_DIR$/res/layout/item_forecast.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/item_forecast_backside.xml" afterPath="$PROJECT_DIR$/res/layout/item_forecast_backside.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ForecastYahooRest.iws" />
@@ -89,8 +74,8 @@
       <file leaf-file-name="ForecastArrayAdapter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/android2ee/formation/restservice/sax/forecastyahoo/view/forecast/arrayadpater/ForecastArrayAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.9344894">
-              <caret line="604" column="1" selection-start-line="29" selection-start-column="0" selection-end-line="604" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.70520234">
+              <caret line="220" column="64" selection-start-line="220" selection-start-column="64" selection-end-line="221" selection-end-column="84" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
                 <element signature="e#6084#6133#0" expanded="true" />
@@ -116,8 +101,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.793103">
-              <caret line="80" column="19" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+            <state vertical-scroll-proportion="-7.5172415">
+              <caret line="77" column="39" selection-start-line="77" selection-start-column="39" selection-end-line="77" selection-end-column="39" />
               <folding>
                 <element signature="e#426#448#0" expanded="true" />
               </folding>
@@ -770,8 +755,8 @@
         <option value="$PROJECT_DIR$/src/com/android2ee/formation/restservice/sax/forecastyahoo/view/forecast/MainActivity.java" />
         <option value="$PROJECT_DIR$/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/res/layout/item_forecast_backside.xml" />
-        <option value="$PROJECT_DIR$/res/layout/item_forecast.xml" />
         <option value="$PROJECT_DIR$/src/com/android2ee/formation/restservice/sax/forecastyahoo/view/forecast/arrayadpater/ForecastArrayAdapter.java" />
+        <option value="$PROJECT_DIR$/res/layout/item_forecast.xml" />
       </list>
     </option>
   </component>
@@ -2061,28 +2046,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/bugFlipCard.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/item_forecast.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.793103">
-          <caret line="80" column="19" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+        <state vertical-scroll-proportion="-7.5172415">
+          <caret line="77" column="39" selection-start-line="77" selection-start-column="39" selection-end-line="77" selection-end-column="39" />
           <folding>
             <element signature="e#426#448#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bugFlipCard.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/android2ee/formation/restservice/sax/forecastyahoo/view/forecast/arrayadpater/ForecastArrayAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9344894">
-          <caret line="604" column="1" selection-start-line="29" selection-start-column="0" selection-end-line="604" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.70520234">
+          <caret line="220" column="64" selection-start-line="220" selection-start-column="64" selection-end-line="221" selection-end-column="84" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
             <element signature="e#6084#6133#0" expanded="true" />
