@@ -139,7 +139,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		Log.e("MainActivity", "onPause");
 		MyApplication.instance.unregisterAsConnectivityBackListener(this);
         //Manage the fucking FragmentDialog inner class memory leak
-        //why AlertDialog are deprecated, tell me why
+        //why AlertDialog are deprecated, tell me why ??!?!?
         FragmentManager fm = getSupportFragmentManager();
         DeleteAlert deleteDialog=(DeleteAlert)fm.findFragmentByTag("deleteDialog");
         if(deleteDialog!=null){
