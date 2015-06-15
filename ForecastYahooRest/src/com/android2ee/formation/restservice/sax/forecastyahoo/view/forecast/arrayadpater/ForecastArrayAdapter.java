@@ -56,37 +56,36 @@ import java.util.List;
 
 /**
  * @author Mathias Seguy (Android2EE)
- * @goals
- *        This class aims to display the forecast in the listView
+ * @goals This class aims to display the forecast in the listView
  */
 public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 	
 	/**
-	 * Handler to launch the animation runnable
-	 */
-	Handler handlerForAnimation;
+     * Handler to launch the animation runnable
+     */
+    Handler handlerForAnimation;
     /**
      * To know when the item is flipped or not
      * When flipped it show us its back side else its front side
      */
     SparseBooleanArray isFlipped;
 
-	/**
-	 * To detect the first launch
-	 */
-	int notifyDataSetChangedCallsNumber = 0;
-	/**
-	 * The layout inflater
-	 */
-	LayoutInflater inflater;
-	/**
-	 * The Context
-	 */
-	Context ctx;
-	/**
-	 * To know if the device is postJellyBean or not
-	 */
-	boolean postJB;
+    /**
+     * To detect the first launch
+     */
+    int notifyDataSetChangedCallsNumber = 0;
+    /**
+     * The layout inflater
+     */
+    LayoutInflater inflater;
+    /**
+     * The Context
+     */
+    Context ctx;
+    /**
+     * To know if the device is postJellyBean or not
+     */
+    boolean postJB;
     /**
      * To know if the device is postHoneyComb or not
      */
@@ -95,111 +94,121 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
      * Drawable used for the backside of the item
      */
     Drawable[] drawableBackground;
+    int[] drawableRes;
 
 
     /**
-     *
      * @param context
      * @param forecast
      */
     public ForecastArrayAdapter(Context context, List<YahooForcast> forecast) {
-		super(context, R.layout.item_forecast, forecast);
-		inflater = LayoutInflater.from(context);
-		ctx = context;
+        super(context, R.layout.item_forecast, forecast);
+        inflater = LayoutInflater.from(context);
+        ctx = context;
         postJB = context.getResources().getBoolean(R.bool.postJB);
         postHC = context.getResources().getBoolean(R.bool.postHC);
-		//instantiate the handler
-		handlerForAnimation = new Handler();
-        isFlipped=new SparseBooleanArray();
-        drawableBackground=new Drawable[5];
-        drawableBackground[0]=context.getResources().getDrawable(R.drawable.back1);
-        drawableBackground[1]=context.getResources().getDrawable(R.drawable.back2);
-        drawableBackground[2]=context.getResources().getDrawable(R.drawable.back3);
-        drawableBackground[3]=context.getResources().getDrawable(R.drawable.back4);
-        drawableBackground[4]=context.getResources().getDrawable(R.drawable.back5);
-	}
+        //instantiate the handler
+        handlerForAnimation = new Handler();
+        isFlipped = new SparseBooleanArray(5);
+        drawableRes = new int[5];
+        drawableRes[0] = R.drawable.back1;
+        drawableRes[1] = R.drawable.back2;
+        drawableRes[2] = R.drawable.back3;
+        drawableRes[3] = R.drawable.back4;
+        drawableRes[4] = R.drawable.back5;
+        drawableBackground = new Drawable[5];
+        drawableBackground[0] = context.getResources().getDrawable(R.drawable.back1);
+        drawableBackground[1] = context.getResources().getDrawable(R.drawable.back2);
+        drawableBackground[2] = context.getResources().getDrawable(R.drawable.back3);
+        drawableBackground[3] = context.getResources().getDrawable(R.drawable.back4);
+        drawableBackground[4] = context.getResources().getDrawable(R.drawable.back5);
+    }
 
-	/**
-	 * Private static better than temp
-	 */
-	private static View rowView;
+    /**
+     * Private static better than temp
+     */
+    private static View rowView;
 
-	/**
-	 * Private static better than temp
-	 */
-	private static YahooForcast forcast;
-	/**
-	 * Private static better than temp
-	 */
-	private static ViewHolder viewHolder;
+    /**
+     * Private static better than temp
+     */
+    private static YahooForcast forcast;
+    /**
+     * Private static better than temp
+     */
+    private static ViewHolder viewHolder;
 
-	/*
+    /*
 	 * (non-Javadoc)
 	 * 
 	 * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
-	@SuppressLint("NewApi")
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-        Log.e("ForecastArrayAdapter","getView "+position);
-		rowView = convertView;
-		forcast = getItem(position);
-		if (rowView == null) {
-			// always add the layout, the parent and false
+    @SuppressLint("NewApi")
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        Log.e("ForecastArrayAdapter", "getView " + position);
+        rowView = convertView;
+        forcast = getItem(position);
+        if (rowView == null) {
+            // always add the layout, the parent and false
             rowView = inflater.inflate(R.layout.item_forecast, null, false);
-            ViewHolder vh = new ViewHolder(rowView,position);
-			rowView.setTag(vh);
-		}
-		viewHolder = (ViewHolder) rowView.getTag();
+            ViewHolder vh = new ViewHolder(rowView, position);
+            rowView.setTag(vh);
+        }
+        viewHolder = (ViewHolder) rowView.getTag();
+        viewHolder.view.setDrawingCacheEnabled(false);
         //used for animation
-        viewHolder.currentPosition=position;
-		if (postJB) {
-			viewHolder.getImvIcon().setBackground(forcast.getImage());
-            viewHolder.getImvBack().setBackground(drawableBackground[position%5]);
-		} else {
+        viewHolder.setCurrentPosition(position);
+        if (postJB) {
+            viewHolder.getImvIcon().setBackground(forcast.getImage());
+            viewHolder.getImvBack().setBackground(drawableBackground[position % 5]);
+        } else {
             viewHolder.getImvIcon().setBackgroundDrawable(forcast.getImage());
-            viewHolder.getImvBack().setBackgroundDrawable(drawableBackground[position % 5]);
-		}
-		if (forcast.getDate() != null) {
-			viewHolder.getTxvDate().setText(DateFormat.format("E dd MMM", forcast.getDate()));
-		} else {
-			viewHolder.getTxvDate().setText("unknown");
-		}
+            //if you don't use setBackgroundResource nothing happens on Gingerbread (deep sadness sometimes)
+            viewHolder.getImvBack().setBackgroundResource(drawableRes[position % 5]);
+            viewHolder.getImvBack().setBackgroundResource(R.drawable.back1);
+        }
+        if (forcast.getDate() != null) {
+            viewHolder.getTxvDate().setText(DateFormat.format("E dd MMM", forcast.getDate()));
+        } else {
+            viewHolder.getTxvDate().setText("unknown");
+        }
 
-		viewHolder.getTxvTendance().setText(forcast.getTendance());
-		if (forcast.getTempMax() != -1000) {
-			viewHolder.getTxvMax().setVisibility(View.VISIBLE);
-			viewHolder.getTxvMin().setVisibility(View.VISIBLE);
-			viewHolder.getTxvMax().setText(ctx.getString(R.string.max, forcast.getTempMax()));
-			viewHolder.getTxvMin().setText(ctx.getString(R.string.min, forcast.getTempMin()));
-		} else {
-			viewHolder.getTxvMax().setVisibility(View.GONE);
-			viewHolder.getTxvMin().setVisibility(View.GONE);
-		}
-		if (forcast.getTemp() != -1000) {
-			viewHolder.getTxvCurrent().setVisibility(View.VISIBLE);
-			viewHolder.getTxvCurrent().setText(ctx.getString(R.string.temp, forcast.getTemp()));
-		} else {
-			viewHolder.getTxvCurrent().setVisibility(View.GONE);
-		}
-		// launch animations to show the update to the user (not the first time but only when refreshing)
+        viewHolder.getTxvTendance().setText(forcast.getTendance());
+        if (forcast.getTempMax() != -1000) {
+            viewHolder.getTxvMax().setVisibility(View.VISIBLE);
+            viewHolder.getTxvMin().setVisibility(View.VISIBLE);
+            viewHolder.getTxvMax().setText(ctx.getString(R.string.max, forcast.getTempMax()));
+            viewHolder.getTxvMin().setText(ctx.getString(R.string.min, forcast.getTempMin()));
+        } else {
+            viewHolder.getTxvMax().setVisibility(View.GONE);
+            viewHolder.getTxvMin().setVisibility(View.GONE);
+        }
+        if (forcast.getTemp() != -1000) {
+            viewHolder.getTxvCurrent().setVisibility(View.VISIBLE);
+            viewHolder.getTxvCurrent().setText(ctx.getString(R.string.temp, forcast.getTemp()));
+        } else {
+            viewHolder.getTxvCurrent().setVisibility(View.GONE);
+        }
+        viewHolder.getTxvUpdating().setText("position is "+position);
+        // launch animations to show the update to the user (not the first time but only when refreshing)
         //because the first time is not an update, it's just loading data from db
-		if (notifyDataSetChangedCallsNumber >=2) {
+        if (notifyDataSetChangedCallsNumber >= 2) {
             viewHolder.launchUpdateAnimation(notifyDataSetChangedCallsNumber);
-		}
+        }
         //and finally manage the visibility of the side : front or back side is visible
         manageSideVisibility(position);
-		return rowView;
-	}
+        return rowView;
+    }
 
-	/* (non-Javadoc)
+    /* (non-Javadoc)
 	 * @see android.widget.ArrayAdapter#notifyDataSetChanged()
 	 */
-	@Override
-	public void notifyDataSetChanged() {
-		super.notifyDataSetChanged();
-		notifyDataSetChangedCallsNumber++;
-	}
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        notifyDataSetChangedCallsNumber++;
+    }
     /**************************************************
      * Flipping Animation tricks
      * **************************************************
@@ -207,57 +216,74 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 
     /**
      * If the element has been flipped, flip it else set it has not flipped
+     *
      * @param position
      */
-    private void manageSideVisibility(int position){
-        if(isFlipped.get(position)){
+    private void manageSideVisibility(int position) {
+        if (isFlipped.get(position)) {
+            Log.e("ForecastArrayAdapter","ImvBack Visible"+position);
             //the backside is visible
             viewHolder.getImvBack().setVisibility(View.VISIBLE);
             viewHolder.getLinRoot().setVisibility(View.GONE);
-            viewHolder.getTxvShouldBeVisible().setText("IMVBACK should be visible");
-        }else{
+            viewHolder.getImvBack().invalidate();
+        } else {
+            Log.e("ForecastArrayAdapter","ImvBack GONE"+position);
             //the ffront is visible
             viewHolder.getImvBack().setVisibility(View.GONE);
             viewHolder.getLinRoot().setVisibility(View.VISIBLE);
-            viewHolder.getTxvShouldBeVisible().setText("LinROOT should be visible");
+            viewHolder.getLinRoot().invalidate();
+        }
+        printView("ImvBack",viewHolder.getImvBack(),position);
+        printView("LinRoot",viewHolder.getLinRoot(),position);
+    }
+    public void printView(String viewName,View view,int position){
+        Log.e("ForecastArrayAdapter","("+viewName+","+position+") getWidth()="+view.getWidth());
+        Log.e("ForecastArrayAdapter","("+viewName+","+position+") getHeight()="+view.getHeight());
+        Log.e("ForecastArrayAdapter", "(" + viewName + "," + position + ") getHeight()=" + view.getBackground());
+        Log.e("ForecastArrayAdapter", "(" + viewName + "," + position + ") getVisibility()=" + getVisibility(view));
+    }
+
+    public String getVisibility(View view){
+        switch (view.getVisibility()){
+            case View.GONE:
+                return "GONE";
+            case View.VISIBLE:
+                return "VISIBLE";
+            case View.INVISIBLE:
+                return "INVISIBLE";
+        }
+        return "Unknow";
+    }
+    /******************************************************************************************/
+    /** Runnable for animation **************************************************************************/
+    /**
+     * **************************************************************************************
+     */
+    public class MyRunnable implements Runnable {
+        /**
+         * The viewHolder that contains the view to animate
+         */
+        private ViewHolder vh;
+
+        public MyRunnable(ViewHolder vh) {
+            this.vh = vh;
+        }
+
+        public void run() {
+            vh.animateUpdate();
         }
     }
-	/******************************************************************************************/
-	/** Runnable for animation **************************************************************************/
-	/******************************************************************************************/
-	public class MyRunnable implements Runnable {
-		/**
-		 * The viewHolder that contains the view to animate
-		 */
-		private ViewHolder vh;
 
-		public MyRunnable(ViewHolder vh) {
-			this.vh=vh;
-		}
-
-		public void run() {
-            vh.animateUpdate();
-		}
-	}
-
-	/******************************************************************************************/
+    public void printisFlipp(String methodName) {
+        for (int i = 0;i < 5; i++){
+            Log.e("ForecastArrayAdapter", "in("+methodName+") isFlipped[" + i + "]=" + isFlipped.get(i));
+        }
+    }
+    /******************************************************************************************/
 	/** The ViewHolder pattern **************************************************************************/
 	/******************************************************************************************/
 
 	private class ViewHolder {
-        //To delete when bug fixed ==>
-        TextView txvShouldBeVisible;
-        public final TextView getTxvShouldBeVisible() {
-            if (null == txvShouldBeVisible) {
-                txvShouldBeVisible = (TextView) view.findViewById(R.id.txv_shouldbevisible);
-            }
-            return txvShouldBeVisible;
-        }
-        //<====
-
-
-
-
 		View view;
 		LinearLayout linRoot;
 		TextView txvDate;
@@ -274,6 +300,20 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         //For animatibbbbbbon
         ImageView imvBack;
         int currentPosition;
+
+        public int getCurrentPosition() {
+            Log.e("ForecastArrayAdapter","getCurrentPosition"+currentPosition);
+            printisFlipp("getCurrentPosition");
+
+            return currentPosition;
+        }
+
+        public void setCurrentPosition(int currentPosition) {
+            Log.e("ForecastArrayAdapter","setCurrentPosition "+currentPosition);
+            printisFlipp("setCurrentPosition");
+            this.currentPosition = currentPosition;
+        }
+
         //PostHoneyComb
         Animator flipAnimatorIn;
         Animator flipAnimatorOut;
@@ -462,18 +502,22 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
                 animOutLegacy= AnimationUtils.loadAnimation(getContext(),R.anim.forecast_item_out);
             }
             animOutLegacy.setAnimationListener(new Animation.AnimationListener() {
-                public void onAnimationStart(Animation animation) {}
+                public void onAnimationStart(Animation animation) {
+                }
+
                 public void onAnimationEnd(Animation animation) {
-                    Log.e("ForecastArrayAdapter","flipItemLegacy onAnimationEnd called ");
+                    Log.e("ForecastArrayAdapter", "flipItemLegacy onAnimationEnd called ");
                     getImvBack().setVisibility(View.VISIBLE);
                     getImvBack().startAnimation(animInLegacy);
                     getLinRoot().setVisibility(View.GONE);
                 }
-                public void onAnimationRepeat(Animation animation) {}
+
+                public void onAnimationRepeat(Animation animation) {
+                }
             });
             getLinRoot().startAnimation(animOutLegacy);
 
-            isFlipped.put(currentPosition,true);
+            isFlipped.put(getCurrentPosition(), true);
 
         }
         private void reverseItemLegacy(){
@@ -494,7 +538,7 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
             });
             getImvBack().startAnimation(animOutLegacy);
 
-            isFlipped.put(currentPosition,false);
+            isFlipped.put(getCurrentPosition(),false);
 
         }
 
@@ -508,13 +552,15 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         private void animateItem(){
             initialiseFlipAnimator();
             setFlip.start();
-            isFlipped.put(currentPosition,true);
+            isFlipped.put(getCurrentPosition(), true);
+            printisFlipp("animateItem");
         }
         @SuppressLint("NewApi")
         private void reverseAnimateItem(){
             initialiseReverseFlipAnimator();
             setReverse.start();
-            isFlipped.put(currentPosition,false);
+            isFlipped.put(getCurrentPosition(), false);
+            printisFlipp("animateItem");
         }
         @SuppressLint("NewApi")
         private void initialiseReverseFlipAnimator() {
