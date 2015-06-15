@@ -166,7 +166,6 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
             viewHolder.getImvIcon().setBackgroundDrawable(forcast.getImage());
             //if you don't use setBackgroundResource nothing happens on Gingerbread (deep sadness sometimes)
             viewHolder.getImvBack().setBackgroundResource(drawableRes[position % 5]);
-            viewHolder.getImvBack().setBackgroundResource(R.drawable.back1);
         }
         if (forcast.getDate() != null) {
             viewHolder.getTxvDate().setText(DateFormat.format("E dd MMM", forcast.getDate()));
@@ -495,51 +494,44 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
          * **************************************************
          */
         private void flipItemLegacy(){
-            if(animInLegacy==null){
-                animInLegacy= AnimationUtils.loadAnimation(getContext(),R.anim.forecast_item_in);
-            }
-            if(animOutLegacy==null){
-                animOutLegacy= AnimationUtils.loadAnimation(getContext(),R.anim.forecast_item_out);
-            }
-            animOutLegacy.setAnimationListener(new Animation.AnimationListener() {
-                public void onAnimationStart(Animation animation) {
-                }
-
-                public void onAnimationEnd(Animation animation) {
-                    Log.e("ForecastArrayAdapter", "flipItemLegacy onAnimationEnd called ");
-                    getImvBack().setVisibility(View.VISIBLE);
-                    getImvBack().startAnimation(animInLegacy);
-                    getLinRoot().setVisibility(View.GONE);
-                }
-
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
+            initLegacyAnimation();
             getLinRoot().startAnimation(animOutLegacy);
-
             isFlipped.put(getCurrentPosition(), true);
-
         }
+
+
         private void reverseItemLegacy(){
+            initLegacyAnimation();
+            getImvBack().startAnimation(animInLegacy);
+            isFlipped.put(getCurrentPosition(),false);
+        }
+        private void initLegacyAnimation() {
             if(animInLegacy==null){
-                animInLegacy= AnimationUtils.loadAnimation(getContext(),R.anim.forecast_item_in);
+                animInLegacy= AnimationUtils.loadAnimation(getContext(), R.anim.forecast_item_in);
+                animInLegacy.setAnimationListener(new Animation.AnimationListener() {
+                    public void onAnimationStart(Animation animation) {}
+                    public void onAnimationEnd(Animation animation) {
+                        getLinRoot().setVisibility(View.VISIBLE);
+                        getImvBack().setVisibility(View.GONE);
+                    }
+                    public void onAnimationRepeat(Animation animation) {}
+                });
             }
             if(animOutLegacy==null){
                 animOutLegacy= AnimationUtils.loadAnimation(getContext(),R.anim.forecast_item_out);
+                animOutLegacy.setAnimationListener(new Animation.AnimationListener() {
+                    public void onAnimationStart(Animation animation) {
+                    }
+
+                    public void onAnimationEnd(Animation animation) {
+                        getImvBack().setVisibility(View.VISIBLE);
+                        getLinRoot().setVisibility(View.GONE);
+                    }
+
+                    public void onAnimationRepeat(Animation animation) {
+                    }
+                });
             }
-            animInLegacy.setAnimationListener(new Animation.AnimationListener() {
-                public void onAnimationStart(Animation animation) {}
-                public void onAnimationEnd(Animation animation) {
-                    getLinRoot().setVisibility(View.VISIBLE);
-                    getLinRoot().startAnimation(animInLegacy);
-                    getImvBack().setVisibility(View.GONE);
-                }
-                public void onAnimationRepeat(Animation animation) {}
-            });
-            getImvBack().startAnimation(animOutLegacy);
-
-            isFlipped.put(getCurrentPosition(),false);
-
         }
 
         /**************************************************
