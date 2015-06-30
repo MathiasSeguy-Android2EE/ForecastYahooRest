@@ -62,6 +62,7 @@ import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.excepti
  *        This class aims to be the YahooForcast POJO representation
  */
 public class YahooForcast implements Parcelable {
+	public boolean isFlipped=false;
 	/**
 	 * 
 	 */

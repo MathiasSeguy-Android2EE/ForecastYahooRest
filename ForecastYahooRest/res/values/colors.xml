@@ -10,7 +10,7 @@
 
         <color name="transparent">#00000000</color>
 
-    <color name="colorItemBackground">#EEEEEE</color>
+        <color name="colorItemBackground">#EEEEEE</color>
         <color name="colorDivider">#d0d9ff</color>
         <color name="colorPrimary">#afbfff</color>
         <color name="colorPrimaryDarker">#738ffe</color>
