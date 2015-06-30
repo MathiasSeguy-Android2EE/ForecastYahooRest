@@ -37,7 +37,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,8 +58,9 @@ import java.util.List;
  * @goals This class aims to display the forecast in the listView
  */
 public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
-	
-	/**
+
+    public static final int ITEMS_NUM = 6;
+    /**
      * Handler to launch the animation runnable
      */
     Handler handlerForAnimation;
@@ -110,18 +110,20 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         //instantiate the handler
         handlerForAnimation = new Handler();
         isFlipped = new SparseBooleanArray(5);
-        drawableRes = new int[5];
+        drawableRes = new int[6];
         drawableRes[0] = R.drawable.back1;
         drawableRes[1] = R.drawable.back2;
         drawableRes[2] = R.drawable.back3;
         drawableRes[3] = R.drawable.back4;
         drawableRes[4] = R.drawable.back5;
-        drawableBackground = new Drawable[5];
+        drawableRes[5] = R.drawable.back6;
+        drawableBackground = new Drawable[6];
         drawableBackground[0] = context.getResources().getDrawable(R.drawable.back1);
         drawableBackground[1] = context.getResources().getDrawable(R.drawable.back2);
         drawableBackground[2] = context.getResources().getDrawable(R.drawable.back3);
         drawableBackground[3] = context.getResources().getDrawable(R.drawable.back4);
         drawableBackground[4] = context.getResources().getDrawable(R.drawable.back5);
+        drawableBackground[5] = context.getResources().getDrawable(R.drawable.back6);
     }
 
     /**
@@ -167,11 +169,11 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         viewHolder.setCurrentPosition(position);
         if (postJB) {
             viewHolder.getImvIcon().setBackground(forcast.getImage());
-            viewHolder.getImvBack().setBackground(drawableBackground[position % 5]);
+            viewHolder.getImvBack().setBackground(drawableBackground[position % ITEMS_NUM]);
         } else {
             viewHolder.getImvIcon().setBackgroundDrawable(forcast.getImage());
             //if you don't use setBackgroundResource nothing happens on Gingerbread (deep sadness sometimes)
-            viewHolder.getImvBack().setBackgroundResource(drawableRes[position % 5]);
+            viewHolder.getImvBack().setBackgroundResource(drawableRes[position % ITEMS_NUM]);
         }
         if (forcast.getDate() != null) {
             viewHolder.getTxvDate().setText(DateFormat.format("E dd MMM", forcast.getDate()));
@@ -236,46 +238,6 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
      * **************************************************
      */
 
-    /**
-     * If the element has been flipped, flip it else set it has not flipped
-     *
-     * @param position
-     */
-    private void manageSideVisibility(int position) {
-        if (isFlipped.get(position)) {
-            Log.e("ForecastArrayAdapter","ImvBack Visible"+position);
-            //the backside is visible
-            viewHolder.getImvBack().setVisibility(View.VISIBLE);
-            viewHolder.getLinRoot().setVisibility(View.GONE);
-            viewHolder.getImvBack().invalidate();
-        } else {
-            Log.e("ForecastArrayAdapter","ImvBack GONE"+position);
-            //the ffront is visible
-            viewHolder.getImvBack().setVisibility(View.GONE);
-            viewHolder.getLinRoot().setVisibility(View.VISIBLE);
-            viewHolder.getLinRoot().invalidate();
-        }
-        printView("ImvBack",viewHolder.getImvBack(),position);
-        printView("LinRoot",viewHolder.getLinRoot(),position);
-    }
-    public void printView(String viewName,View view,int position){
-        Log.e("ForecastArrayAdapter","("+viewName+","+position+") getWidth()="+view.getWidth());
-        Log.e("ForecastArrayAdapter","("+viewName+","+position+") getHeight()="+view.getHeight());
-        Log.e("ForecastArrayAdapter", "(" + viewName + "," + position + ") getHeight()=" + view.getBackground());
-        Log.e("ForecastArrayAdapter", "(" + viewName + "," + position + ") getVisibility()=" + getVisibility(view));
-    }
-
-    public String getVisibility(View view){
-        switch (view.getVisibility()){
-            case View.GONE:
-                return "GONE";
-            case View.VISIBLE:
-                return "VISIBLE";
-            case View.INVISIBLE:
-                return "INVISIBLE";
-        }
-        return "Unknow";
-    }
     /******************************************************************************************/
     /** Runnable for animation **************************************************************************/
     /**
@@ -296,11 +258,6 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         }
     }
 
-    public void printisFlipp(String methodName) {
-        for (int i = 0;i < 5; i++){
-            Log.e("ForecastArrayAdapter", "in("+methodName+") isFlipped[" + i + "]=" + isFlipped.get(i));
-        }
-    }
     /******************************************************************************************/
 	/** The ViewHolder pattern **************************************************************************/
 	/******************************************************************************************/
@@ -562,14 +519,12 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
             initialiseFlipAnimator();
             setFlip.start();
             isFlipped.put(getCurrentPosition(), true);
-            printisFlipp("animateItem");
         }
         @SuppressLint("NewApi")
         private void reverseAnimateItem(){
             initialiseReverseFlipAnimator();
             setReverse.start();
             isFlipped.put(getCurrentPosition(), false);
-            printisFlipp("animateItem");
         }
         @SuppressLint("NewApi")
         private void initialiseReverseFlipAnimator() {
