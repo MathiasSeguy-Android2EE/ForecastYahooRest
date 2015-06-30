@@ -146,17 +146,23 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
     @SuppressLint("NewApi")
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.e("ForecastArrayAdapter", "getView " + position);
         rowView = convertView;
         forcast = getItem(position);
         if (rowView == null) {
-            // always add the layout, the parent and false
-            rowView = inflater.inflate(R.layout.item_forecast, null, false);
+            if(getItemViewType(position)==0){
+                //then used the layout of flipped view
+                // always add the layout, the parent and false
+                rowView = inflater.inflate(R.layout.item_forecast, null, false);
+            }else{
+                //then used the layout for not flipped view
+                // always add the layout, the parent and false
+                rowView = inflater.inflate(R.layout.item_forecast, null, false);
+            }
+
             ViewHolder vh = new ViewHolder(rowView, position);
             rowView.setTag(vh);
         }
         viewHolder = (ViewHolder) rowView.getTag();
-        viewHolder.view.setDrawingCacheEnabled(false);
         //used for animation
         viewHolder.setCurrentPosition(position);
         if (postJB) {
@@ -189,14 +195,12 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         } else {
             viewHolder.getTxvCurrent().setVisibility(View.GONE);
         }
-        viewHolder.getTxvUpdating().setText("position is "+position);
         // launch animations to show the update to the user (not the first time but only when refreshing)
         //because the first time is not an update, it's just loading data from db
         if (notifyDataSetChangedCallsNumber >= 2) {
             viewHolder.launchUpdateAnimation(notifyDataSetChangedCallsNumber);
         }
         //and finally manage the visibility of the side : front or back side is visible
-        manageSideVisibility(position);
         return rowView;
     }
 
@@ -208,6 +212,25 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         super.notifyDataSetChanged();
         notifyDataSetChangedCallsNumber++;
     }
+    /***********************************************************
+     *  Trying to fix the bug of the visible view not displayed
+     *  by managing 2 pools of views
+     *  It fix the Bugs :)
+     *  http://stackoverflow.com/questions/30801316/flicard-and-listview-a-strange-visibility-bug-in-android
+     **********************************************************/
+    @Override
+    public int getViewTypeCount() {
+        //Two pools: the one for flipped views, the other not flipped views
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        //If the View is flipped then pick in the pool 0
+        //else pick in the pool 1
+        return isFlipped.get(position)?0:1;
+    }
+
     /**************************************************
      * Flipping Animation tricks
      * **************************************************
@@ -296,20 +319,15 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
         Animation updateAnimation;
         MyRunnable animationRunnable;
         int dataTimeStamp=0;
-        //For animatibbbbbbon
+        //For animation
         ImageView imvBack;
         int currentPosition;
 
         public int getCurrentPosition() {
-            Log.e("ForecastArrayAdapter","getCurrentPosition"+currentPosition);
-            printisFlipp("getCurrentPosition");
-
             return currentPosition;
         }
 
         public void setCurrentPosition(int currentPosition) {
-            Log.e("ForecastArrayAdapter","setCurrentPosition "+currentPosition);
-            printisFlipp("setCurrentPosition");
             this.currentPosition = currentPosition;
         }
 
@@ -483,7 +501,6 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
                 handlerForAnimation.removeCallbacks(animationRunnable);
                 //then launched it in few seconds
                 handlerForAnimation.postDelayed(animationRunnable, 300 * currentPosition);
-                Log.e("tag", "launchUpdateAnimation in " + 300 * currentPosition + " for item " + currentPosition);
                 dataTimeStamp=ndscCallsNumber;
             }
         }
@@ -580,7 +597,6 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
 
         @SuppressLint("NewApi")
         private void initialiseFlipAnimator(){
-            Log.e("ForecastArrayAdapter","initialiseFlipAnimator");
             if(flipAnimatorIn==null){
                 flipAnimatorIn= AnimatorInflater.loadAnimator(getContext(),R.animator.flip_in);
                 flipAnimatorIn.setTarget(getImvBack());
@@ -589,12 +605,10 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
                 flipAnimatorIn.addListener(new SimpleAnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-                        Log.e("tag","anim onAnimationStart");
                         getImvBack().setVisibility(View.VISIBLE);
                     }
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        Log.e("tag","anim onAnimationEnd");
                         getLinRoot().setVisibility(View.GONE);
                     }
                 });
