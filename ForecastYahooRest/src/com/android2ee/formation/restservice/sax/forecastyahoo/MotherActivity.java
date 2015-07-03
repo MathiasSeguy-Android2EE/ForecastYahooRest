@@ -160,7 +160,19 @@ public class MotherActivity extends ActionBarActivity implements ConnectivityIsB
 		// then insure the NoNetwork error message is hidden
 		manageNoConnectionMessage();
 	}
-	/******************************************************************************************/
+
+    /**
+     * CallBack to be notify when the connectivity is back
+     */
+    @Override
+    public void connectivityIsLost() {
+        Log.i("MotherActivity", "manageNoConnectionMessage is called");
+        // change the connection status
+        isConnected = MyApplication.instance.isConnected();
+        // then insure the NoNetwork error message is hidden
+        manageNoConnectionMessage();
+    }
+    /******************************************************************************************/
 	/** Manage the No connection and no datamessage **************************************************************************/
 	/******************************************************************************************/
 

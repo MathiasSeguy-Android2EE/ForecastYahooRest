@@ -41,4 +41,9 @@ public interface ConnectivityIsBackIntf {
 	 * @param telephonyType If isWifi==false, it means you'are connected using GPRS and it give you your connectivity type (LTE,Edge,GPRS,HSDPA)
 	 */
 	public void connectivityIsBack(boolean isWifi, int telephonyType);
+
+	/**
+	 *  CallBack to be notify when the connectivity is back
+	 */
+	public void connectivityIsLost();
 }

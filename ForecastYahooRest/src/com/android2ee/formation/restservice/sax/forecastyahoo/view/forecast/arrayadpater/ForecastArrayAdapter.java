@@ -540,6 +540,7 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         getImvBack().setVisibility(View.GONE);
+                        getImvBack().setAlpha(1.0f);
                     }
                 });
                 reverseFlipAnimatorIn.setTarget(getLinRoot());
@@ -565,6 +566,7 @@ public class ForecastArrayAdapter extends ArrayAdapter<YahooForcast> {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         getLinRoot().setVisibility(View.GONE);
+                        getLinRoot().setAlpha(1.0f);
                     }
                 });
                 setFlip=new AnimatorSet();

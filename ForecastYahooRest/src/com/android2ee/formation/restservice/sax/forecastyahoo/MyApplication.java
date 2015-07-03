@@ -186,7 +186,9 @@ public class MyApplication extends Application {
 		editor.commit();
 		if (notifyConnIsBackListeners) {
 			notifyConnectivityIsBack();
-		}
+		}else if(!isConnected){
+            notifyConnectivityIsLost();
+        }
 		Log.e("MyApplication", "manageConnectivtyState called and return isConnected=" + isConnected + ", isWifi="
 				+ isWifi + ", telephonyType=" + telephonyType);
 	}
@@ -223,22 +225,37 @@ public class MyApplication extends Application {
 	}
 
 	/**
-	 * This method is called when we switch from no connectivity to connected to the internet
-	 */
-	private void notifyConnectivityIsBack() {
-		// notify the listeners (if there is some because this method can be called even if no
-		// activity alived)
+     * This method is called when we switch from no connectivity to connected to the internet
+     */
+    private void notifyConnectivityIsBack() {
+        // notify the listeners (if there is some because this method can be called even if no
+        // activity alived)
         Log.e("MyApplication", "notifyConnectivityIsBack notifyConnectivityIsBack==" + connectivityIsBackListeners);
-		if (connectivityIsBackListeners != null) {
+        if (connectivityIsBackListeners != null) {
             Log.e("MyApplication", "notifyConnectivityIsBack connectivityIsBackListeners.size==" + connectivityIsBackListeners.size());
-			for (ConnectivityIsBackIntf listener : connectivityIsBackListeners) {
-				listener.connectivityIsBack(isWifi, telephonyType);
-			}
-		}
-		// The job is done, go back to false
-		notifyConnIsBackListeners = false;
-	}
-
+            for (ConnectivityIsBackIntf listener : connectivityIsBackListeners) {
+                listener.connectivityIsBack(isWifi, telephonyType);
+            }
+        }
+        // The job is done, go back to false
+        notifyConnIsBackListeners = false;
+    }
+    /**
+     * This method is called when we switch from no connectivity to connected to the internet
+     */
+    private void notifyConnectivityIsLost() {
+        // notify the listeners (if there is some because this method can be called even if no
+        // activity alived)
+        Log.e("MyApplication", "notifyConnectivityIsBack notifyConnectivityIsBack==" + connectivityIsBackListeners);
+        if (connectivityIsBackListeners != null) {
+            Log.e("MyApplication", "notifyConnectivityIsBack connectivityIsBackListeners.size==" + connectivityIsBackListeners.size());
+            for (ConnectivityIsBackIntf listener : connectivityIsBackListeners) {
+                listener.connectivityIsLost();
+            }
+        }
+        // The job is done, go back to false
+        notifyConnIsBackListeners = false;
+    }
 	/**
 	 * Return if the device is connected to internet
 	 * 

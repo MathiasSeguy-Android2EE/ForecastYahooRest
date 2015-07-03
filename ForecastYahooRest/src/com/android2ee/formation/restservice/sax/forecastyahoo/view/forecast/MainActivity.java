@@ -137,7 +137,8 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	protected void onPause() {
 		super.onPause();
 		Log.e("MainActivity", "onPause");
-		MyApplication.instance.unregisterAsConnectivityBackListener(this);
+		//Done in its MotherActivity
+		//MyApplication.instance.unregisterAsConnectivityBackListener(this);
         //Manage the fucking FragmentDialog inner class memory leak
         //why AlertDialog are deprecated, tell me why ??!?!?
         FragmentManager fm = getSupportFragmentManager();
@@ -157,6 +158,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		super.onResume();
 		// display the connection status to the user if no connected
 		isConnected = MyApplication.instance.isConnected();
+		//regsiter yourself as a listener of the activity
         //No need to register the MotherActivity do it also.
 		//MyApplication.instance.registerAsConnectivityBackListener(this);
 		Log.v("MainActivity", " isConnected=" + isConnected);
@@ -299,6 +301,8 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 	 */
 	@Override
 	public void connectivityIsBack(boolean isWifi, int telephonyType) {
+		//be sure to call the super, else you forget a lot of stuff
+		super.connectivityIsBack(isWifi,telephonyType);
 		// Ok so the connectivity is back, we should load the data
 		if (MyApplication.instance.isConnected()) {
 			// because that means the connectivity status has changed from not connection to
