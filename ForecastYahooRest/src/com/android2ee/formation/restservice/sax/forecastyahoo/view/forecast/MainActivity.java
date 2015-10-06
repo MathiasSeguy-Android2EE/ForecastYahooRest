@@ -3,7 +3,6 @@ package com.android2ee.formation.restservice.sax.forecastyahoo.view.forecast;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -393,10 +392,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		listView.setVisibility(View.VISIBLE);
 		arrayAdapter.notifyDataSetChanged();
 		// update the last update textView
-		SharedPreferences prefs = MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS,
-				Context.MODE_PRIVATE);
-		txvLastUpdate.setText(getString(R.string.txv_last_update,
-				prefs.getString(MyApplication.instance.getString(R.string.last_update)+currentCity.getWoeid(), "null")));
+        txvLastUpdate.setText(MyApplication.instance.getServiceManager().getForecastServiceUpdater().getLastUpdate(currentCity.getWoeid()));
 		// ok data loaded
 		dataLoaded = true;
 

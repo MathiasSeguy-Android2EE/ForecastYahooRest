@@ -157,8 +157,29 @@ public class ForecastServiceUpdater {
 		}
 	}
 
+    /**
+     * Return the last update date for the specific woeid
+     * Use the getDateFormatForLastUpdate to parse that date
+     * @param woeid The woeid of the city we are looking for the last update
+     * @return the last update date formatted using the new SimpleDateFormat("dd MMM yyyy HH:mm:ss")
+     *  or "null" if not found
+     */
+    public String getLastUpdate(String woeid){
+        SharedPreferences prefs = MyApplication.instance.getSharedPreferences(
+                MyApplication.CONNECTIVITY_STATUS, Context.MODE_PRIVATE);
+        return prefs.getString(MyApplication.instance.getString(R.string.last_update)+woeid, "null");
+    }
+
+    /**
+     *
+     * @return The simpleDateFormat to use for decoding the LastUpdate Date
+     */
+    public SimpleDateFormat getDateFormatForLastUpdate(){
+        return sdf;
+    }
+
 	/******************************************************************************************/
-	/** Private methods **************************************************************************/
+	/** Private methods: Managing the Update **************************************************************************/
 	/******************************************************************************************/
 
 	

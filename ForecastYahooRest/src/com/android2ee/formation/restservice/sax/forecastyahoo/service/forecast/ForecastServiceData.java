@@ -29,8 +29,6 @@
  */
 package com.android2ee.formation.restservice.sax.forecastyahoo.service.forecast;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
@@ -75,10 +73,6 @@ public class ForecastServiceData {
 	 * The Dao
 	 */
 	private ForecastDAO forcastDao = null;
-	/**
-	 * The date parser used to set the last update date format in the preference
-	 */
-	public SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm:ss");
 	/**
 	 * The woeid of the city corresponding to the forecast managed
 	 */
@@ -198,18 +192,16 @@ public class ForecastServiceData {
 			} else {
 				// then ask the serviceupdater to update data
 				// but update only if one day of difference between the last update and now is more
-				// than
-				// one day
-				SharedPreferences prefs = MyApplication.instance.getSharedPreferences(
-						MyApplication.CONNECTIVITY_STATUS, Context.MODE_PRIVATE);
-				String strLastUpdate = prefs.getString(MyApplication.instance.getString(R.string.last_update)+this.woeid, "");
+				// than one day
+				String strLastUpdate = MyApplication.instance.getServiceManager().getForecastServiceUpdater().getLastUpdate(this.woeid);
 				Log.e("ForecastServiceData", "strLastUpdate " + strLastUpdate);
 				try {
 					// empty data base case and empty SharedPreference
-					if (strLastUpdate.equals("")) {
+					if (strLastUpdate.equals("null")) {
 						updateForecastRequest();
 					} else {
 						// current case
+                        SimpleDateFormat sdf=MyApplication.instance.getServiceManager().getForecastServiceUpdater().getDateFormatForLastUpdate();
 						Date lastUpdate = sdf.parse(strLastUpdate);
 						if (new Date().getTime() - lastUpdate.getTime() > 1000 * 60 * 60 * 24) {
 							// if the last update was one day ago, then make an automatic update
