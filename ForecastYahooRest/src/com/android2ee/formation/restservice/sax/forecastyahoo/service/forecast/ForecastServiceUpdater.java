@@ -267,7 +267,7 @@ public class ForecastServiceUpdater {
 		SharedPreferences prefs = MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS,
 				Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = prefs.edit();
-		editor.putString(MyApplication.instance.getString(R.string.last_update), sdf.format(new Date()));
+		editor.putString(MyApplication.instance.getString(R.string.last_update)+this.woeid, sdf.format(new Date()));
 		editor.commit();
 		// use the callback to prevent the client
 		for (YahooForcast forcast : forecasts) {

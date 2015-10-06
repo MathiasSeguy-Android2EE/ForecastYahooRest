@@ -396,7 +396,7 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		SharedPreferences prefs = MyApplication.instance.getSharedPreferences(MyApplication.CONNECTIVITY_STATUS,
 				Context.MODE_PRIVATE);
 		txvLastUpdate.setText(getString(R.string.txv_last_update,
-				prefs.getString(MyApplication.instance.getString(R.string.last_update), "null")));
+				prefs.getString(MyApplication.instance.getString(R.string.last_update)+currentCity.getWoeid(), "null")));
 		// ok data loaded
 		dataLoaded = true;
 
@@ -481,7 +481,9 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
+    /******************************************************************************************/
+    /** Managing city deletion **************************************************************************/
+    /******************************************************************************************/
     /**
      * The method called when the delete action is launched by the user
      * either through the menu or the ime of the editText

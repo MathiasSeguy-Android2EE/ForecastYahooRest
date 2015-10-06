@@ -29,12 +29,6 @@
  */
 package com.android2ee.formation.restservice.sax.forecastyahoo.service.forecast;
 
-import java.lang.ref.WeakReference;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
@@ -48,6 +42,12 @@ import com.android2ee.formation.restservice.sax.forecastyahoo.service.ServiceMan
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.exceptions.ExceptionManaged;
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.exceptions.ExceptionManager;
 import com.android2ee.formation.restservice.sax.forecastyahoo.transverse.model.YahooForcast;
+
+import java.lang.ref.WeakReference;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Mathias Seguy (Android2EE)
@@ -202,7 +202,7 @@ public class ForecastServiceData {
 				// one day
 				SharedPreferences prefs = MyApplication.instance.getSharedPreferences(
 						MyApplication.CONNECTIVITY_STATUS, Context.MODE_PRIVATE);
-				String strLastUpdate = prefs.getString(MyApplication.instance.getString(R.string.last_update), "");
+				String strLastUpdate = prefs.getString(MyApplication.instance.getString(R.string.last_update)+this.woeid, "");
 				Log.e("ForecastServiceData", "strLastUpdate " + strLastUpdate);
 				try {
 					// empty data base case and empty SharedPreference
