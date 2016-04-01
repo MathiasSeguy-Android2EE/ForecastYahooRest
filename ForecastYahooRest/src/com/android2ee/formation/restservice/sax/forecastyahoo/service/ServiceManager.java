@@ -29,11 +29,6 @@
  */
 package com.android2ee.formation.restservice.sax.forecastyahoo.service;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.TimeUnit;
-
 import android.util.Log;
 
 import com.android2ee.formation.restservice.sax.forecastyahoo.MyApplication;
@@ -41,6 +36,11 @@ import com.android2ee.formation.restservice.sax.forecastyahoo.service.city.Citie
 import com.android2ee.formation.restservice.sax.forecastyahoo.service.city.CityServiceData;
 import com.android2ee.formation.restservice.sax.forecastyahoo.service.forecast.ForecastServiceData;
 import com.android2ee.formation.restservice.sax.forecastyahoo.service.forecast.ForecastServiceUpdater;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Mathias Seguy (Android2EE)

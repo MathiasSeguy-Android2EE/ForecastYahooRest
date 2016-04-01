@@ -103,6 +103,8 @@ public class MainActivity extends MotherActivity implements ConnectivityIsBackIn
 		swipeLayout.setOnRefreshListener(this);
 		swipeLayout.setColorSchemeResources(R.color.blue_pure, R.color.blue_pure_1, R.color.blue_pure_2,
 				R.color.blue_pure_3);
+
+
 	}
 
 	/*

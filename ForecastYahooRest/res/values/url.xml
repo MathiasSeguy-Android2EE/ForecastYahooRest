@@ -1,6 +1,7 @@
 <resources>
 <!--w= 12657325  pour toulouse-->
-    <string name="forcast_url">http://weather.yahooapis.com/forecastrss?w=%1$s</string>
+    <!--<string name="forcast_url">http://weather.yahooapis.com/forecastrss?w=%1$s</string>-->
+    <string name="forcast_url">http://xml.weather.yahoo.com/forecastrss?w=%1$s</string>
     <string name="forcast_url_degres">u=c</string>
     <string name="forcast_image_url">http://l.yimg.com/a/i/us/we/52/%1$s.gif</string>
     <string name="yahoo_requirment">https://www.yahoo.com/?ilc=401</string>

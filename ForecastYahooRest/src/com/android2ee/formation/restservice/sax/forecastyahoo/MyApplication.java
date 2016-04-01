@@ -331,7 +331,7 @@ public class MyApplication extends Application {
 	/******************************************************************************************/
 	/** Managing destruction **************************************************************************/
 	/******************************************************************************************/
-	//Listening for activities life cycle to tricker the serviceManager death
+	//Listening for activities life cycle to trigger the serviceManager death
 	/**
 	 * The AtomicBoolean to know if there is an active activity
 	 */
