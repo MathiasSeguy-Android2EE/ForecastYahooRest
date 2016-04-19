@@ -1,0 +1,36 @@
+<resources>
+    <string name="no_network_message">Nous ne sommes pas connectés à internet. Ca va être dur de récupérer le temps qu\'il fait dans ces conditions.</string>
+    <string name="datacom_findcity_ioexc">L\'appel Http pour trouver la ville a lamentablement raté.</string>
+    <string name="datacom_findWeatherByCityId_ioexc">L\'appel Http pour trouver le temps associé à la ville courante a lamentablement raté.The Http call to find the weather associated to the current city failed.</string>
+    <!-- error Message -->
+    <string name="no_error_message">Une exception a eu lieu, personne ne sait ce qu\'il s\'est passé, désolé, le développeur a été viré.</string>
+    <string name="txv_exception_clicktodismiss">\r\n(Click pour faire disparaitre.)</string>
+    <!--<string name="exc_database_cannot_open">The database don\\'t want to open. Please re-try later. Nothing to do. We are sorry about that.</string>-->
+    <string name="exc_database_cannot_open">La base de données ne veut pas s\'ouvrir. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!--<string name="exc_date_parsing">We have a problem to understand the date... Perhaps date are not well displayed. We apologize.</string>-->
+    <string name="exc_date_parsing">Nous avons un problème pour comprendre la date... Du coup peut-être que la date est mal affichée. Nous sommes désolé</string>
+    <!--<string name="exc_sql_insert">We have a problem to store the data in database. Nothing to worry about. We apologize.</string>-->
+    <string name="exc_sql_insert">Nous avons eu un problème pour enregistrer les données. rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!--<string name="exc_client_protocol">A problem occurs when communicating with internet. Retry latter. We apologize.</string>-->
+    <string name="exc_client_protocol">Nous n\'arrivons pas à communiquer avec internet. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!--<string name="exc_http_get_error">A problem occurs when retrieving the data. Retry latter. We apologize.</string>-->
+    <string name="exc_http_get_error">Nous n\'avons pas pu récupérer les données. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé..</string>
+    <!--<string name="exc_parsing">A problem occurs when understanding the data. This will be fixed soon. We apologize.</string>-->
+    <string name="exc_parsing">Nous n\'avons pas pu interpréter les données. On va arranger ça le plus vitre possible. Nous sommes désolé.</string>
+    <!--<string name="exc_picture_not_found">A problem occurs when loading the picture.Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>-->
+    <string name="exc_picture_not_found">Nous n\'avons pas pu charger les images.Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!--<string name="exc_picture_not_found_save">A problem occurs when saving the picture. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé..</string>-->
+    <string name="exc_picture_not_found_save">Nous n\'avons pas réuyssi à enregistrer les images. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé..</string>
+    <!--<string name="exc_parsing_city">A problem occurs when parsing the cities. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>-->
+    <string name="exc_parsing_city">Nous n\'avons pas réussi à interpréter les données concernant les villes. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!--<string name="exc_no_map_found">A problem occurs when trying to open a map on your phone. It seems there is no map application... We apologize.</string>-->
+    <string name="exc_no_map_found">Nous n\'avons pas réussi à trouver de carte du monde dans votre téléphone. Nous sommes désolé. Vous devriez installer GMap, non ?</string>
+    <!--<string name="err_adding_city_failed">A problem occurs when trying to add the city in the database. It can be not registered. We apologize.</string>-->
+    <string name="err_adding_city_failed">Nous n\'avons pas réussi à enregistrer la ville en base de données. Désolé pour ce problème.</string>
+    <!--<string name="err_deleting_city_failed">A problem occurs when trying to delete the city in the database. We apologize.</string>-->
+    <string name="err_deleting_city_failed">Nous n\'avons pas réussi à supprimer la localité de la base de données. Nous sommes désolé.</string>
+    <!--<string name="err_adding_city_already_exists">The city is already in database.Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>-->
+    <string name="err_adding_city_already_exists">La ville est déjà en base de données.Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+
+    <string name="err_different_cityid_displayed_in_same_frag">L\'identifiant cityId affiché par cette vue n\'est pas le même pour le temps et les prévisions, a bug here.</string>
+</resources>

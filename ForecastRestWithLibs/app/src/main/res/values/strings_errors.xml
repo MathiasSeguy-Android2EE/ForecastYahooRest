@@ -1,0 +1,22 @@
+<resources>
+    <string name="no_network_message">You are not connected to the internet. We can not get the Weather so.</string>
+    <string name="no_error_message">We should have a message to display explaining you the problem, but once again the developer forget to set it :( we already fired him, don\'t worry.</string>
+    <string name="datacom_findcity_ioexc">The Http call to find a city using its name failed.</string>
+    <string name="datacom_findWeatherByCityId_ioexc">The Http call to find the weather associated to the current city failed.</string>
+    <!-- error Message -->
+    <string name="txv_exception_clicktodismiss">\r\n(Click to dismiss.)</string>
+    <string name="exc_database_cannot_open">The database don\'t want to open. Please re-try later. Nothing to do. We are sorry about that.</string>
+    <string name="exc_date_parsing">We have a problem to understand the date... Perhaps date are not well displayed. We apologize.</string>
+    <string name="exc_sql_insert">We have a problem to store the data in database. Nothing to worry about. We apologize.</string>
+    <string name="exc_client_protocol">A problem occurs when communicating with internet. Retry latter. We apologize.</string>
+    <string name="exc_http_get_error">A problem occurs when retrieving the data. Retry latter. We apologize.</string>
+    <string name="exc_parsing">A problem occurs when understanding the data. This will be fixed soon. We apologize.</string>
+    <string name="exc_picture_not_found">A problem occurs when loading the picture. Nothing to worry about. We apologize.</string>
+    <string name="exc_picture_not_found_save">A problem occurs when saving the picture. Nothing to worry about. We apologize.</string>
+    <string name="exc_parsing_city">A problem occurs when parsing the cities. Nothing to worry about. We apologize.</string>
+    <string name="exc_no_map_found">A problem occurs when trying to open a map on your phone. It seems there is no map application... We apologize.</string>
+    <string name="err_adding_city_failed">A problem occurs when trying to add the city in the database. It can be not registered. We apologize.</string>
+    <string name="err_deleting_city_failed">A problem occurs when trying to delete the city in the database. We apologize.</string>
+    <string name="err_adding_city_already_exists">The city is already in database. Nothing to update and no worries.</string>
+    <string name="err_different_cityid_displayed_in_same_frag">The cityId displayed by the view is not the same for weather and forecast, a bug here.</string>
+</resources>

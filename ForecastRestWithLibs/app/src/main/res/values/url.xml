@@ -1,0 +1,9 @@
+<resources>
+    <!--w= 12657325  pour toulouse-->
+    <string name="root_url">http://api.openweathermap.org/data/2.5/</string>
+    <string name="api_id">5bdd3591cd56feae91bc8ac10c51ac8d</string>
+    <!--http://api.openweathermap.org/data/2.5/find?q="+param+ "&type=like&sort=population&cnt=30&appid=5bdd3591cd56feae91bc8ac10c51ac8d-->
+    <!--api.openweathermap.org/data/2.5/weather?id=2172797-->
+</resources>
+
+

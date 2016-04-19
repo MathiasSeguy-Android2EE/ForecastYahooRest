@@ -1,0 +1,30 @@
+<resources>
+    <style name="AppBlankTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Main theme colors -->
+        <!--   your app branding color for the app bar -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDarker</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+    <!--Both themes below are those accepted to make the ToolBar works-->
+    <!-- Base application thème. -->
+    <style name="AppTheme" parent="AppBlankTheme">
+        <!-- Customize your theme here. -->
+        <!-- Base application thème. -->
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <!--<item name="spinnerDropDownItemStyle">@style/mydropdown</item>-->
+    </style>
+    <!--Changing the color of the background-->
+    <!--<style name="mydropdown" parent="@style/Base.TextAppearance.AppCompat.Widget.DropDownItem">-->
+        <!--<item name="android:background">@color/colorPrimary</item>-->
+        <!--<item name="android:textColor">#FF000000</item>-->
+        <!--<item name="android:textStyle">italic</item>-->
+    <!--</style>-->
+    <style name="MyTextAppearance.Design.Tab" parent="TextAppearance.Design.Tab">
+        <item name="android:textStyle">italic</item>
+        <item name="textAllCaps">false</item>
+    </style>
+</resources>

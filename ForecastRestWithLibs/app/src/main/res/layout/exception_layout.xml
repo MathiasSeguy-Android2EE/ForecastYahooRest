@@ -1,0 +1,43 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#2196F3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/txv_exception_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableLeft="@drawable/ic_exception"
+        android:drawableRight="@drawable/ic_exception"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:textColor="#FFFF0000"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/txv_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:drawableLeft="@drawable/ic_error"
+        android:drawableRight="@drawable/ic_error"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:textColor="#FFFF0000"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/txvNoNetwork"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_action_plane"
+        android:drawableRight="@drawable/ic_action_plane"
+        android:gravity="center"
+        android:text="@string/no_network_message"
+        android:visibility="gone" />
+
+</merge>

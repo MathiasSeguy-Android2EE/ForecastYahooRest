@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ForecastRestYahooSax</string>
+    <string name="action_settings">Paramétrage</string>
+    <string name="hello">The weather looks like</string>
+    <!-- constants for the sharedPreference MyApplication.CONNECTIVITY_STATUS -->
+    <string name="has_wifi">has_wifi</string>
+    <string name="has_network">has_network</string>
+    <string name="telephonyType">telephonyType</string>
+    <string name="networkStateInitialized">networkStateInitialized</string>
+    <string name="last_update">lastUpdateFromNetwork</string>
+    <!-- constants for File names -->
+    <string name="picture_folder_name">picture</string>
+    <!-- Message to display the weather -->
+    <string name="min">%1$d°C</string>
+    <string name="max">%1$d°C</string>
+    <string name="temp">%1$d°C</string>
+    <!-- Messages for user -->
+    <!--We can not obtain data from the YahooForecast. Are you sure you are really connected? check your notification bar to see if there is message on your network connection.-->
+    <string name="no_data_message">Nous ne pouvons obtenir la météo. Etes vous connecté ? Regardez votre barre de notification, peut-être avez-vous un message d\'erreur concernant votre connexion.</string>
+    <string name="title_activity_mother">MotherActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="txv_last_update">Dernière mise à jour: %1$s</string>
+    <string name="txv_last_update_swipe">Tirer la list vers le bas met aussi à jour les données.</string>
+    <string name="txv_updating">Mise à jour des données... Attendez s\'il vous plait...</string>
+    <!--DeleteAlertDialog-->
+    <string name="btn_yes">Oui</string>
+    <string name="btn_no">Non</string>
+    <string name="alertdialog_message">Souhaitez vous réellement détruire la ville %1$s ?</string>
+    <!-- MEnu Url -->
+    <string name="android2ee_url">http://www.android2ee.com</string>
+    <string name="android2ee_url_training">http://www.android2ee.com/formation-presentation-menu/formation-complete.html</string>
+    <string name="mse_dvp_url">http://mathias-seguy.developpez.com/</string>
+    <string name="mse_email">mathias.seguy@android2ee.com</string>
+    <string name="mail_subject">[YahooForecast RestService]Ton sujet:</string>
+    <string name="mail_body">Ton message:</string>
+    <string name="action_author">Auteur</string>
+    <string name="action_search">Chercher la localité</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="title_activity_city">CityActivity</string>
+    <!-- CityActivity message Message -->    
+    <string name="city_act_choose_city">Ajoutez le nom de la ville que vous cherchez</string>
+    <string name="city_act_edt_hint">Le nom de la ville que vous cherchez.</string>
+    <string name="city_act_edt_ime">Chercher</string>
+</resources>

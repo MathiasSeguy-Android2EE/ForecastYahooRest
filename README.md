@@ -1,17 +1,17 @@
 # ForecastYahooRest
 You can find under this repository 2 projects (AndroidStudio) that aim to show how to build an Architecture for your Android project. This repository is bound to conferences I gave on good practices on Android. 
 
-*YahooForecastWithLibs*
+*ForecastRestWithLibs*
 ==========    
 This project is bound to the conference I gave at DevoxxFr 2016 (3h of good practices).
 You'll find a project where the architecture is based on n-tier and MVP, where we use the following librairies :
->-AppCompat/RecyclerView/CardView and Design
->-EventBus
->-SugarOrm
->-Retrofit/OkIo/OkHttp and Moshi (from Square)
->-Junit
->-Mockito
->-Espresso
+>-AppCompat/RecyclerView/CardView and Design    
+>-EventBus    
+>-SugarOrm    
+>-Retrofit/OkIo/OkHttp and Moshi (from Square)    
+>-Junit    
+>-Mockito    
+>-Espresso    
 >-JodaTime   
 
 The project is just there to display forecasts and show how to implement the use of a REST service.
