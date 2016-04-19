@@ -48,7 +48,7 @@ public class MotherActivity extends ActionBarActivity implements ConnectivityIsB
 		super.onCreate(savedInstanceState);
 		Crashlytics.start(this);
 		actionBar = getSupportActionBar();
-		actionBar.setTitle("A REST Architecture");
+		actionBar.setTitle("Weather");
 		actionBar.setSubtitle("By Android2EE");
 	}
 
