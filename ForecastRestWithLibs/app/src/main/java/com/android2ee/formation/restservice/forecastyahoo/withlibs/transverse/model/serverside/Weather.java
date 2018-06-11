@@ -117,4 +117,14 @@ public class Weather {
         this.icon = icon;
     }
 
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Weather{\r\n");
+        sb.append("description='").append(description).append("\r\n\t");
+        sb.append(", id=").append(id).append("\r\n\t");
+        sb.append(", main='").append(main).append("\r\n\t");
+        sb.append(", icon='").append(icon).append("\r\n\t");
+        sb.append('}');
+        return sb.toString();
+    }
 }

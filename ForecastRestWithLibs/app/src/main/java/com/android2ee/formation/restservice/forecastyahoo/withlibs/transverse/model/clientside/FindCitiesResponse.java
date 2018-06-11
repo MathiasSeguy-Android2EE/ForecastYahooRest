@@ -45,7 +45,7 @@ public class FindCitiesResponse {
     int count;
     List<City> cities;
 
-    public FindCitiesResponse(com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.FindCitiesResponse findCities) {
+    public FindCitiesResponse(com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse findCities) {
         if(findCities!=null) {
             message = findCities.getMessage();
             cod = findCities.getCod();

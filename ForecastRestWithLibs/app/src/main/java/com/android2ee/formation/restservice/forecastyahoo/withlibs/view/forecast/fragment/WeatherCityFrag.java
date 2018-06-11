@@ -43,7 +43,7 @@ import android.view.ViewGroup;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.PresenterInjector;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.recyclerview.WeatherRecyclerViewAdapter;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.fragment.recyclerview.WeatherRecyclerViewAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 

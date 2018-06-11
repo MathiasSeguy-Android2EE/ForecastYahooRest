@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Coordinates;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Ephemeris;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Rain;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Snow;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.WeatherDetails;

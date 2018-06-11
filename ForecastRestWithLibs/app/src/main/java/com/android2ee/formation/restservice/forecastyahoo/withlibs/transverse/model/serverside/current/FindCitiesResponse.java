@@ -29,9 +29,7 @@
  * *****************************************************************************************************************</br>
  */
 
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside;
-
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
+package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current;
 
 import java.util.List;
 

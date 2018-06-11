@@ -23,13 +23,16 @@ android {
             // testCoverageEnabled = true
         }
     }
-
+    //Give a name to your dimension
+    flavorDimensions "test_env"
     // If you need to add more flavors, consider using flavor dimensions.
     productFlavors {
         mock {
+            dimension "test_env"
             applicationIdSuffix = ".mock"
         }
         prod {
+            dimension "test_env"
 
         }
     }
@@ -48,44 +51,45 @@ android {
             events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
         }
     }
+    buildToolsVersion '26.0.2'
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.android.support:cardview-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:23.1.1'
+    implementation 'com.android.support:recyclerview-v7:23.1.1'
+    implementation 'com.android.support:cardview-v7:23.1.1'
+    implementation 'com.android.support:design:23.1.1'
 //    I want eventBus
-    compile 'org.greenrobot:eventbus:3.0.0'
+    implementation 'org.greenrobot:eventbus:3.0.0'
 //    I want SugarOrm
-    compile 'com.github.satyan:sugar:1.4'
+    implementation 'com.github.satyan:sugar:1.4'
 //    I want Retrofit,OkIo, OkHttp and Moshi
-    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
-    compile 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
-    compile 'com.squareup.retrofit2:converter-moshi:2.0.0-beta3'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.0.0-RC1'
-    compile 'com.squareup.okio:okio:1.6.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
+    implementation 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.0.0-beta3'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.0.0-RC1'
+    implementation 'com.squareup.okio:okio:1.6.0'
 //    I want Dagger 2
     //I want JodaTime not to drive nuts managing date
-    compile 'net.danlew:android.joda:2.9.2'
+    implementation 'net.danlew:android.joda:2.9.2'
 
     //For the Tests !!!
     // Dependencies for unit tests
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
     //for unit tests
-    testCompile "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+    testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
     // Android Testing Support Library's runner and rules
-    androidTestCompile "com.android.support.test:runner:$rootProject.ext.runnerVersion"
-    androidTestCompile "com.android.support.test:rules:$rootProject.ext.rulesVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
+    androidTestImplementation "com.android.support.test:rules:$rootProject.ext.rulesVersion"
     // Espresso UI Testing dependencies.
-    androidTestCompile "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
-    androidTestCompile "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
     // Espresso-contrib for DatePicker, RecyclerView, Drawer actions, Accessibility checks, CountingIdlingResource
 
-    androidTestCompile "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
-    compile "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
 }
 /*
 Resolves dependency versions across test and production APKs, specifically, transitive

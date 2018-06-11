@@ -10,7 +10,7 @@ public class Forecast {
     private float message;
     private int cnt;
     @Json(name = "list")
-    private java.util.List<com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.List> list ;
+    private java.util.List<WeatherList> weatherList;
 
     /**
      * No args constructor for use in serialization
@@ -19,11 +19,11 @@ public class Forecast {
     public Forecast() {
     }
 
-    public Forecast(City city, int cnt, String cod, java.util.List<List> list, float message) {
+    public Forecast(City city, int cnt, String cod, java.util.List<WeatherList> weatherList, float message) {
         this.city = city;
         this.cnt = cnt;
         this.cod = cod;
-        this.list = list;
+        this.weatherList = weatherList;
         this.message = message;
     }
 
@@ -51,12 +51,12 @@ public class Forecast {
         this.cod = cod;
     }
 
-    public java.util.List<List> getList() {
-        return list;
+    public java.util.List<WeatherList> getWeatherList() {
+        return weatherList;
     }
 
-    public void setList(java.util.List<List> list) {
-        this.list = list;
+    public void setWeatherList(java.util.List<WeatherList> weatherList) {
+        this.weatherList = weatherList;
     }
 
     public float getMessage() {
@@ -74,7 +74,7 @@ public class Forecast {
         sb.append(", cod='").append(cod).append('\'');
         sb.append(", message=").append(message);
         sb.append(", cnt=").append(cnt);
-        sb.append(", list=").append(list);
+        sb.append(", list=").append(weatherList);
         sb.append('}');
         return sb.toString();
     }

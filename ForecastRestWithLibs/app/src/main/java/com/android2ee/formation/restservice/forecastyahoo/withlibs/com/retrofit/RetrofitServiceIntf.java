@@ -30,7 +30,7 @@
  */
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.com.retrofit;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.FindCitiesResponse;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
 

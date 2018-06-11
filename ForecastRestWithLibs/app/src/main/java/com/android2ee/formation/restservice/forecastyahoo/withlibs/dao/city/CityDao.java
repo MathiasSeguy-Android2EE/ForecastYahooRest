@@ -40,7 +40,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.WeatherDetails;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Wind;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Ephemeris;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Ephemeris;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData_City;
 
 import java.util.List;
