@@ -20,7 +20,11 @@ bin/
 gen/
 
 # Gradle files
-.gradle/
+.gradle
+
+#security:Exclude your Keystore and password and accounts from git
+app/gradle/keystore/*
+app/gradle/properties/*
 build/
 
 # idea file
@@ -36,3 +40,6 @@ proguard/
 
 # Log Files
 *.log
+app/libs/
+
+projectFilesBackup/
