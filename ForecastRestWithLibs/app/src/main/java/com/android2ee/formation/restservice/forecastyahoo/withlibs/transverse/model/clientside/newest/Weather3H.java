@@ -39,7 +39,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Wind;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.WeatherForecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherList;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
 import com.orm.dsl.Ignore;
 
 import org.joda.time.DateTime;
@@ -128,17 +128,17 @@ public class Weather3H {
         }
     }
 
-    public Weather3H(WeatherList weatherList)
+    public Weather3H(WeatherForecastItem weatherForecastItem)
     {
         forecastCase=true;
-        if(weatherList!=null) {
-            clouds= new Clouds(weatherList.getClouds());
-            humidity=weatherList.getMain().getHumidity();
-            pressure=weatherList.getMain().getPressure();
-            temp=weatherList.getMain().getTemp();
-            tempMax=weatherList.getMain().getTempMax();
-            tempMin=weatherList.getMain().getTempMin();
-            wind=new Wind(weatherList.getWind());
+        if(weatherForecastItem !=null) {
+            clouds= new Clouds(weatherForecastItem.getClouds());
+            humidity= weatherForecastItem.getMain().getHumidity();
+            pressure= weatherForecastItem.getMain().getPressure();
+            temp= weatherForecastItem.getMain().getTemp();
+            tempMax= weatherForecastItem.getMain().getTempMax();
+            tempMin= weatherForecastItem.getMain().getTempMin();
+            wind=new Wind(weatherForecastItem.getWind());
             //TODO
             //rain and snow ??
            //code
