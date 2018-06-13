@@ -41,8 +41,8 @@ import java.io.File;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.MoshiConverterFactory;
 import retrofit2.Retrofit;
+import retrofit2.converter.moshi.MoshiConverterFactory;
 
 /**
  * Created by Mathias Seguy - Android2EE on 23/02/2016.
