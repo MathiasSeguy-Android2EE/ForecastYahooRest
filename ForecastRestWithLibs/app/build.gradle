@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
         applicationId "com.android2ee.formation.restservice.forecastyahoo.withlibs"
@@ -13,6 +12,7 @@ android {
         //if you want your test to be found using JUnit4
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -23,6 +23,7 @@ android {
             // testCoverageEnabled = true
         }
     }
+
     //Give a name to your dimension
     flavorDimensions "test_env"
     // If you need to add more flavors, consider using flavor dimensions.
@@ -51,32 +52,34 @@ android {
             events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
         }
     }
-    buildToolsVersion '26.0.2'
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:23.1.1'
-    implementation 'com.android.support:recyclerview-v7:23.1.1'
-    implementation 'com.android.support:cardview-v7:23.1.1'
-    implementation 'com.android.support:design:23.1.1'
-//    I want eventBus
-    implementation 'org.greenrobot:eventbus:3.0.0'
-//    I want SugarOrm
-    implementation 'com.github.satyan:sugar:1.4'
-//    I want Retrofit,OkIo, OkHttp and Moshi
-    implementation 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
-    implementation 'com.squareup.okhttp3:okhttp:3.0.0-RC1'
-    implementation 'com.squareup.retrofit2:converter-moshi:2.0.0-beta3'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.0.0-RC1'
-    implementation 'com.squareup.okio:okio:1.6.0'
-//    I want Dagger 2
-    //I want JodaTime not to drive nuts managing date
-    implementation 'net.danlew:android.joda:2.9.2'
+    implementation "com.android.support:appcompat-v7:${supportLibraryVersion}"
+    implementation "com.android.support:recyclerview-v7:${supportLibraryVersion}"
+    implementation "com.android.support:cardview-v7:${supportLibraryVersion}"
+    implementation "com.android.support:design:${supportLibraryVersion}"
+
+    // I want eventBus
+    implementation "org.greenrobot:eventbus:${eventBusVersion}"
+
+    // I want SugarOrm
+    implementation "com.github.satyan:sugar:${sugarOrmVersion}"
+
+    // I want Retrofit,OkIo, OkHttp and Moshi
+    implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    implementation "com.squareup.retrofit2:converter-moshi:${retrofitVersion}"
+    implementation "com.squareup.okhttp3:okhttp:${okhttpVersion}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${okhttpLoginInterceptVersion}"
+    implementation "com.squareup.okio:okio:${okioVersion}"
+
+    // I want JodaTime not to drive nuts managing date
+    implementation "net.danlew:android.joda:${jodaTimeVersion}"
 
     //For the Tests !!!
     // Dependencies for unit tests
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:${junitVersion}"
 
     //for unit tests
     testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
@@ -91,12 +94,13 @@ dependencies {
     androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
     implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
 }
+
 /*
 Resolves dependency versions across test and production APKs, specifically, transitive
 dependencies. This is required since Espresso internally has a dependency on support-annotations.
 */
 configurations.all {
-    resolutionStrategy.force "com.android.support:support-annotations:23.1.1"
+    resolutionStrategy.force "com.android.support:support-annotations:${supportLibraryVersion}"
 }
 
 /*
