@@ -34,7 +34,7 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city
 import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.city.CityDaoIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.daoold.city.CityDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CitiesLoadedEvent;

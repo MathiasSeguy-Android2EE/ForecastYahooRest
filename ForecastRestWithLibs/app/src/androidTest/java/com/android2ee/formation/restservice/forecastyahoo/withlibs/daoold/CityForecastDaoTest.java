@@ -29,12 +29,12 @@
  * *****************************************************************************************************************</br>
  */
 
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao;
+package com.android2ee.formation.restservice.forecastyahoo.withlibs.daoold;
 
 import android.test.AndroidTestCase;
 import android.util.Log;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast.CityForecastDaoIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.daoold.cityforecast.CityForecastDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Coordinates;

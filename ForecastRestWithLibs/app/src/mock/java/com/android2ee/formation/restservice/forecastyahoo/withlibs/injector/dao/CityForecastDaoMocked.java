@@ -31,7 +31,7 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.dao;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast.CityForecastDaoIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.daoold.cityforecast.CityForecastDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
 

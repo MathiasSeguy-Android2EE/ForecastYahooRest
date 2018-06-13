@@ -29,11 +29,11 @@
  * *****************************************************************************************************************</br>
  */
 
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.weather;
+package com.android2ee.formation.restservice.forecastyahoo.withlibs.daoold.weather;
 
 import android.util.Log;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.DaoManager;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.daoold.DaoManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Coordinates;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Rain;

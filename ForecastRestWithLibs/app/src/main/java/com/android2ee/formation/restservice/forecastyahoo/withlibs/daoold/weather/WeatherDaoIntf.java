@@ -28,7 +28,7 @@
  * <em>http://mathias-seguy.developpez.com/</em></br> </br>
  * *****************************************************************************************************************</br>
  */
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.weather;
+package com.android2ee.formation.restservice.forecastyahoo.withlibs.daoold.weather;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 

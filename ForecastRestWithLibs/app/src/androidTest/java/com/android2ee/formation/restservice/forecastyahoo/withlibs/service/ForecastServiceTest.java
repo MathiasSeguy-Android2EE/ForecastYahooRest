@@ -35,7 +35,7 @@ import android.test.AndroidTestCase;
 import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast.CityForecastDaoIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.daoold.cityforecast.CityForecastDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.DataCheck;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityForecastLoadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;

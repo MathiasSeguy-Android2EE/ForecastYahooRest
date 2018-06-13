@@ -1,7 +1,7 @@
 /**
  * <ul>
- * <li>CityForecastDaoIntf</li>
- * <li>com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast</li>
+ * <li>CityDaoIntf</li>
+ * <li>com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.city</li>
  * <li>10/04/2016</li>
  * <p/>
  * <li>======================================================</li>
@@ -28,36 +28,24 @@
  * <em>http://mathias-seguy.developpez.com/</em></br> </br>
  * *****************************************************************************************************************</br>
  */
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast;
+package com.android2ee.formation.restservice.forecastyahoo.withlibs.daoold.city;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
 
 import java.util.List;
 
 /**
  * Created by Mathias Seguy - Android2EE on 10/04/2016.
  */
-public interface CityForecastDaoIntf {
-    /**
-     * The find the current forecast by cityId
-     * @param cityId
-     * @return
-     */
-    CityForecast findCurrentForecastFor(int cityId);
+public interface CityDaoIntf {
+    /***********************************************************
+    *  Business Methods
+    **********************************************************/
+    City findCity(int cityId);
 
-    /**
-     * The find all the forecasts by cityId
-     * @param cityId
-     * @return
-     */
-    List<CityForecast> findAllForecastFor(int cityId);
+    List<City> findAll();
 
-    /**
-     * The insertOrUpdate weather
-     * @param cityForecast
-     * @return
-     */
-    long insertOrUpdate(CityForecast cityForecast);
+    long insertOrUpdate(City city);
 
-    void delete(CityForecast cityForecast);
+    void delete(City city);
 }
