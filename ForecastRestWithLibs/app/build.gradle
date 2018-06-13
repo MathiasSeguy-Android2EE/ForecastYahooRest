@@ -1,29 +1,114 @@
 apply plugin: 'com.android.application'
+/**
+ * Our variables definition for the build script
+ */
+apply from: 'gradle/var_definition.gradle'
+/**
+ * For JAvaCOdeCOverage
+ */
+apply plugin: 'jacoco'
+/**
+ * For Fabrics
+ */
+apply plugin: 'io.fabric'
+/**
+ * Our file to enable code coverage using JAvaCOdeCOverage
+ */
+apply from: 'gradle/toolsReporter/jacoco.gradle'
+/**
+ * Used to deploy on Nexus our apk
+ */
+apply plugin: 'maven'
+/**
+ * This plugin provides a task to generate a HTML license report based on the configuration
+ * You can find the plugin project here :https://github.com/cookpad/license-tools-plugin
+ */
+//apply plugin: 'com.cookpad.android.licensetools' TODO
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion project.compileSdkVersion
 
     defaultConfig {
         applicationId "com.android2ee.formation.restservice.forecastyahoo.withlibs"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        versionCode project.versionCode
+        versionName project.versionName
         //if you want your test to be found using JUnit4
         testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        vectorDrawables.useSupportLibrary = project.useSupportLibVectorDrawable
     }
+
+    /***********************************************************
+     *  Defining and Loading Properties
+     **********************************************************/
+    apply from: 'gradle/load_accounts.gradle'
+    /***********************************************************
+     *  Signing
+     **********************************************************/
+    signingConfigs {
+        debug {
+            storeFile project.ext.JKSFile
+            storePassword project.ext.JKSPassword
+            keyAlias project.ext.JKSKeyAlias
+            keyPassword project.ext.JKSKeyPassword
+        }
+        release {
+            storeFile project.ext.JKSFile
+            storePassword project.ext.JKSPassword
+            keyAlias project.ext.JKSKeyAlias
+            keyPassword project.ext.JKSKeyPassword
+        }
+    }
+
+    /***********************************************************
+     *  Default values for all variants
+     **********************************************************/
+    //define default value for your attibutes
+    defaultConfig {
+        //How to define a BuildConfig attribute
+        buildConfigField("boolean", "isallowed", "true")
+        buildConfigField("String", "isStringallowed", '\"quarante trois\"')
+        buildConfigField("int", "intAllowed", "3")
+        //How to add element in your R class
+        resValue "string", "hidden_string", "I love you my sweety"
+        resValue "color", "color_var", "#FF00ff"
+        resValue "bool", "isBoolAllowed", "true"
+    }
+
+
 
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            useProguard true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //add tests coverage using Jacoco
+            testCoverageEnabled false
         }
         debug {
             // Run code coverage reports by default on debug builds.
             // testCoverageEnabled = true
+            signingConfig signingConfigs.debug
+            applicationIdSuffix '.debug'
+            versionNameSuffix '.debug'
+            //add tests coverage using Jacoco
+            testCoverageEnabled true
+            useProguard false
         }
     }
 
+    /**
+     * You should not do that
+     */
+    lintOptions {
+        abortOnError false
+    }
+    /***********************************************************
+     *  Managing flavors
+     **********************************************************/
     //Give a name to your dimension
     flavorDimensions "test_env"
     // If you need to add more flavors, consider using flavor dimensions.
@@ -34,24 +119,13 @@ android {
         }
         prod {
             dimension "test_env"
-
         }
     }
+    /***********************************************************
+     *  Apply the build hooks here
+     **********************************************************/
+    apply from: 'gradle/builds_hooks.gradle'
 
-    // Remove mockRelease and ProdDebug as it's not needed.
-    android.variantFilter { variant ->
-        if(variant.buildType.name.equals('release')
-                && variant.getFlavors().get(0).name.equals('mock')) {
-            variant.setIgnore(true);
-        }
-    }
-
-    // Always show the result of every unit test, even if it passes.
-    testOptions.unitTests.all {
-        testLogging {
-            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
-        }
-    }
 }
 
 dependencies {
@@ -82,18 +156,26 @@ dependencies {
     testImplementation "junit:junit:${junitVersion}"
 
     //for unit tests
-    testImplementation "org.mockito:mockito-all:$rootProject.ext.mockitoVersion"
+    testImplementation "org.mockito:mockito-all:$project.mockitoVersion"
     // Android Testing Support Library's runner and rules
-    androidTestImplementation "com.android.support.test:runner:$rootProject.ext.runnerVersion"
-    androidTestImplementation "com.android.support.test:rules:$rootProject.ext.rulesVersion"
+    androidTestImplementation "com.android.support.test:runner:$project.runnerVersion"
+    androidTestImplementation "com.android.support.test:rules:$project.rulesVersion"
     // Espresso UI Testing dependencies.
-    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
-    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$project.espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$project.espressoVersion"
     // Espresso-contrib for DatePicker, RecyclerView, Drawer actions, Accessibility checks, CountingIdlingResource
 
-    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
-    implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$project.espressoVersion"
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$project.espressoVersion"
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.3@aar') {
+        transitive = true;
+    }
 }
+/***********************************************************
+ *  Apply your check here
+ **********************************************************/
+apply from: 'gradle/tools_reporter.gradle'
+apply from: 'gradle/release.gradle'
 
 /*
 Resolves dependency versions across test and production APKs, specifically, transitive

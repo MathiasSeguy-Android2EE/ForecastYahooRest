@@ -84,6 +84,7 @@ public class CityServiceMocked implements CityServiceIntf {
      */
     @Override
     public void addCityAsync(City city) {
+        insureCityLoaded();
         cities.add(city);
         EventBus.getDefault().post(new CityAddedEvent(city));
 
@@ -96,6 +97,12 @@ public class CityServiceMocked implements CityServiceIntf {
     public void loadCitiesAsync() {
         //track entrance
         Log.e(TAG, "loadCitiesAsync() has been called and cities"+cities);
+        insureCityLoaded();
+        CitiesLoadedEvent citiesLoadedEvent = new CitiesLoadedEvent(cities);
+        EventBus.getDefault().post(citiesLoadedEvent);
+    }
+
+    private void insureCityLoaded() {
         if(cities==null) {
             cities = new ArrayList<>();
             cities.add(DataGenerator.getCity(1102, "Math Town"));
@@ -103,8 +110,6 @@ public class CityServiceMocked implements CityServiceIntf {
             cities.add(DataGenerator.getCity(0411, "Base Tower"));
             cities.add(DataGenerator.getCity(1911, "Lila castle"));
         }
-        CitiesLoadedEvent citiesLoadedEvent = new CitiesLoadedEvent(cities);
-        EventBus.getDefault().post(citiesLoadedEvent);
     }
 
     /**
@@ -115,6 +120,7 @@ public class CityServiceMocked implements CityServiceIntf {
     @Override
     public void deleteCityAsync(City city) {
 //track entrance
+        insureCityLoaded();
         Log.e(TAG, "deleteCityAsync() has been called");
         if(cities.contains(city)){
             cities.remove(city);
