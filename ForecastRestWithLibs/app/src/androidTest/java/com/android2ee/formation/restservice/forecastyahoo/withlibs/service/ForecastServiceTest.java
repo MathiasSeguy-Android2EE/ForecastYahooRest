@@ -80,9 +80,14 @@ public class ForecastServiceTest extends AndroidTestCase {
 
         eventReceived=new AtomicBoolean(false);
         MyApplication.instance.getServiceManager().getForecastService().loadForecastAsync(testedCityId);
+        int timeout = 0;
         while(!eventReceived.get()){
             Thread.currentThread().sleep(1000);
             Log.e("CityForecastServiceTest", "waiting for the event CityForecastLoadedEvent");
+            if (timeout == 5) {
+                fail("Timeout");
+            }
+            timeout++;
         }
     }
 

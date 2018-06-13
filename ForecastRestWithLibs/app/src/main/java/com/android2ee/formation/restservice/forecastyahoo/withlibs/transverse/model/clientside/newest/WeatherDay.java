@@ -10,7 +10,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Wind;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherList;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -127,8 +127,8 @@ public class WeatherDay extends SugarRecord {
         if(forecast!=null){
             cityId=forecast.getCity().getId();
             forecastCase=true;
-            weather3Hs=new ArrayList<>(forecast.getWeatherList().size());
-            for(WeatherList wList:forecast.getWeatherList()){
+            weather3Hs=new ArrayList<>(forecast.getWeatherForecastItem().size());
+            for(WeatherForecastItem wList:forecast.getWeatherForecastItem()){
                 weather3Hs.add(new Weather3H(wList));
             }
         }else{

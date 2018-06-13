@@ -3,19 +3,24 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.m
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Rain;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Snow;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Wind;
 import com.squareup.moshi.Json;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class WeatherList {
+public class WeatherForecastItem {
 
     private int dt;
     private Main main;
     private java.util.List<Weather> weather = new ArrayList<Weather>();
     private Clouds clouds;
     private Wind wind;
+    private Rain rain;
+    private Snow snow;
     private Sys sys;
     @Json(name = "dt_txt")
     private String dtTxt;
@@ -24,11 +29,11 @@ public class WeatherList {
      * No args constructor for use in serialization
      * 
      */
-    public WeatherList() {
+    public WeatherForecastItem() {
     }
 
     /**
-     * 
+     *
      * @param clouds
      * @param dt
      * @param wind
@@ -37,7 +42,7 @@ public class WeatherList {
      * @param weather
      * @param main
      */
-    public WeatherList(int dt, Main main, java.util.List<Weather> weather, Clouds clouds, Wind wind, Sys sys, String dtTxt) {
+    public WeatherForecastItem(int dt, Main main, java.util.List<Weather> weather, Clouds clouds, Wind wind, Sys sys, String dtTxt) {
         this.dt = dt;
         this.main = main;
         this.weather = weather;
@@ -46,7 +51,17 @@ public class WeatherList {
         this.sys = sys;
         this.dtTxt = dtTxt;
     }
-
+    public WeatherForecastItem(int dt, Main main, List<Weather> weather, Clouds clouds, Wind wind, Rain rain, Snow snow, Sys sys, String dtTxt) {
+        this.dt = dt;
+        this.main = main;
+        this.weather = weather;
+        this.clouds = clouds;
+        this.wind = wind;
+        this.rain = rain;
+        this.snow = snow;
+        this.sys = sys;
+        this.dtTxt = dtTxt;
+    }
     /**
      * 
      * @return
@@ -81,6 +96,23 @@ public class WeatherList {
      */
     public void setMain(Main main) {
         this.main = main;
+    }
+
+
+    public Rain getRain() {
+        return rain;
+    }
+
+    public void setRain(Rain rain) {
+        this.rain = rain;
+    }
+
+    public Snow getSnow() {
+        return snow;
+    }
+
+    public void setSnow(Snow snow) {
+        this.snow = snow;
     }
 
     /**

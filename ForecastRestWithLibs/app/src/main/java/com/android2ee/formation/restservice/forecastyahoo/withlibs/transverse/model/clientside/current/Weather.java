@@ -29,6 +29,7 @@ public class Weather extends SugarRecord {
     @Ignore
     private List<WeatherMetaData_Weather> weatherMetaData = null;
     /**Because of SugarOrm bad management of one to many relationship*/
+
     /**
      *
      * @return

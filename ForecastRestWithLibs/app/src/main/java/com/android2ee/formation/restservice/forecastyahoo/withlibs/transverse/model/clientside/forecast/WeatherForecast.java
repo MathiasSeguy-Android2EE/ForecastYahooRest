@@ -36,7 +36,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Wind;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData_WeatherForecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherList;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -74,7 +74,7 @@ public class WeatherForecast  extends SugarRecord {
     public WeatherForecast() {
     }
 
-    public WeatherForecast(WeatherList worecastForecast){
+    public WeatherForecast(WeatherForecastItem worecastForecast){
         dateTimeStampUtc=worecastForecast.getDt();
         weatherDetails=new WeatherDetails(worecastForecast.getMain());
         //SugarOrm trick to save the weathers

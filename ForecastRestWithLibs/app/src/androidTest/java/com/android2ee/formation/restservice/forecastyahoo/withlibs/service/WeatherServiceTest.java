@@ -81,9 +81,15 @@ public class WeatherServiceTest extends AndroidTestCase {
 
         eventReceived=new AtomicBoolean(false);
         MyApplication.instance.getServiceManager().getWeatherService().loadCurrentWeatherAsync(testedCityId);
+        int timeout = 0;
+
         while(!eventReceived.get()){
             Thread.currentThread().sleep(1000);
             Log.e("WeatherServiceTest", "waiting for the event WeatherLoadedEvent");
+            if (timeout == 5) {
+                fail("Timeout");
+            }
+            timeout++;
         }
     }
 
