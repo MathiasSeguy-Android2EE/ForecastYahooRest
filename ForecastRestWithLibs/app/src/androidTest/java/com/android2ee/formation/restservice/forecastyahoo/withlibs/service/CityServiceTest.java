@@ -69,9 +69,14 @@ public class CityServiceTest extends AndroidTestCase {
     public void testFindCityByNameAsync() throws Exception {
         eventReceived=new AtomicBoolean(false);
         MyApplication.instance.getServiceManager().getCityService().findCityByNameAsync(testedCityName);
+        int timeout = 0;
         while(!eventReceived.get()){
             Thread.currentThread().sleep(500);
             Log.e("CityServiceTest", "waiting for the event FindCitiesResponseEvent");
+            if (timeout == 5) {
+                fail("Timeout");
+            }
+            timeout++;
         }
     }
 

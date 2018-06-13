@@ -89,9 +89,14 @@ public class WeatherDataUpdaterTest extends AndroidTestCase {
     public void testDownloadForecastWeatherAsync() throws Exception {
         eventForecastReceived=new AtomicBoolean(false);
         MyApplication.instance.getServiceManager().getWeatherUpdaterService().downloadForecastWeatherAsync(CITY_ID);
+        int timeout = 0;
         while(!eventForecastReceived.get()){
             Thread.currentThread().sleep(100);
             Log.e("WeatherDataUpdaterTest", "waiting for the event CityForecastDownloadedEvent");
+            if (timeout == 5) {
+                fail("Timeout");
+            }
+            timeout++;
         }
     }
 
