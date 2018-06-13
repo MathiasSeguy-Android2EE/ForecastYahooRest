@@ -32,7 +32,7 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Coordinates;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherList;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -75,9 +75,9 @@ public class CityForecast extends SugarRecord {
             country=forecast.getCity().getCountry();
             cod=forecast.getCod();
             message=forecast.getMessage();
-            if(forecast.getWeatherList()!=null) {
-                ArrayList<WeatherForecast> weatherForecastsTemp = new ArrayList<WeatherForecast>(forecast.getWeatherList().size());
-                for (WeatherList elem : forecast.getWeatherList()) {
+            if(forecast.getWeatherForecastItem()!=null) {
+                ArrayList<WeatherForecast> weatherForecastsTemp = new ArrayList<WeatherForecast>(forecast.getWeatherForecastItem().size());
+                for (WeatherForecastItem elem : forecast.getWeatherForecastItem()) {
                     weatherForecastsTemp.add(new WeatherForecast(elem));
                 }
                 setWeatherForecasts(weatherForecastsTemp);

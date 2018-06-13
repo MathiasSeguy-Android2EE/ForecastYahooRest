@@ -10,7 +10,7 @@ public class Forecast {
     private float message;
     private int cnt;
     @Json(name = "list")
-    private java.util.List<WeatherList> weatherList;
+    private java.util.List<WeatherForecastItem> weatherForecastItem;
 
     /**
      * No args constructor for use in serialization
@@ -19,11 +19,11 @@ public class Forecast {
     public Forecast() {
     }
 
-    public Forecast(City city, int cnt, String cod, java.util.List<WeatherList> weatherList, float message) {
+    public Forecast(City city, int cnt, String cod, java.util.List<WeatherForecastItem> weatherForecastItem, float message) {
         this.city = city;
         this.cnt = cnt;
         this.cod = cod;
-        this.weatherList = weatherList;
+        this.weatherForecastItem = weatherForecastItem;
         this.message = message;
     }
 
@@ -51,12 +51,12 @@ public class Forecast {
         this.cod = cod;
     }
 
-    public java.util.List<WeatherList> getWeatherList() {
-        return weatherList;
+    public java.util.List<WeatherForecastItem> getWeatherForecastItem() {
+        return weatherForecastItem;
     }
 
-    public void setWeatherList(java.util.List<WeatherList> weatherList) {
-        this.weatherList = weatherList;
+    public void setWeatherForecastItem(java.util.List<WeatherForecastItem> weatherForecastItem) {
+        this.weatherForecastItem = weatherForecastItem;
     }
 
     public float getMessage() {
@@ -74,7 +74,7 @@ public class Forecast {
         sb.append(", cod='").append(cod).append('\'');
         sb.append(", message=").append(message);
         sb.append(", cnt=").append(cnt);
-        sb.append(", list=").append(weatherList);
+        sb.append(", list=").append(weatherForecastItem);
         sb.append('}');
         return sb.toString();
     }
