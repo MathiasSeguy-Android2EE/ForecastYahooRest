@@ -20,10 +20,12 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
         foreignKeys = {
                 @ForeignKey(entity = WeatherData.class,
                         parentColumns = "_id",
-                        childColumns = "weatherDataId"),
+                        childColumns = "weatherDataId",
+                        onDelete = ForeignKey.CASCADE),
                 @ForeignKey(entity = WeatherForecastItem.class,
                         parentColumns = "_id",
-                        childColumns = "weatherForecastItemId")}
+                        childColumns = "weatherForecastItemId",
+                        onDelete = ForeignKey.CASCADE)}
 )
 public class Weather {
     @PrimaryKey(autoGenerate = true)

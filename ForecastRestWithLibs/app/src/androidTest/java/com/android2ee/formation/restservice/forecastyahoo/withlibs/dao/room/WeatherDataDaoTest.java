@@ -12,7 +12,10 @@ import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.WeatherDao;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.DataGeneratorSimple;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Clouds;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Snow;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
@@ -46,8 +49,14 @@ public class WeatherDataDaoTest {
     Observer<List<WeatherData>> weatherDataObserver;
     Observer<List<WeatherForecastItem>> weatherForecastItemObserver;
 
+    private int cptWeatherDataCall = 0;
+    private int cptWeatherForecastItemCall = 0;
+
     @Before
     public void createDb() {
+        cptWeatherDataCall = 0;
+        cptWeatherForecastItemCall = 0;
+
         Context context = InstrumentationRegistry.getTargetContext();
         db = Room.inMemoryDatabaseBuilder(context, ForecastDatabase.class)
                 .allowMainThreadQueries().build();
@@ -84,9 +93,11 @@ public class WeatherDataDaoTest {
                 }
             }
         };
+
         //declare the LiveData you listen,
         LiveData<List<WeatherData>> lvWeatherData=db.getWeatherDataDao().loadAllLiveData();
         LiveData<List<WeatherForecastItem>> lvWFI=db.getWeatherForecastItemDao().loadAllLiveData();
+
         //bind the observer to the live data
         lvWFI.observeForever(weatherForecastItemObserver);
         lvWeatherData.observeForever(weatherDataObserver);
@@ -105,8 +116,134 @@ public class WeatherDataDaoTest {
         //it works because you allow the main thread query:allowMainThreadQueries
         lvWeatherData.removeObserver(weatherDataObserver);
         lvWFI.removeObserver(weatherForecastItemObserver);
+    }
+
+    @Test
+    public void testUpdate() {
+        //declare the observer
+        weatherDataObserver=new Observer<List<WeatherData>>() {
+            @Override
+            public void onChanged(@Nullable List<WeatherData> weatherData) {
+                cptWeatherDataCall++;
+
+                // First time = null, Second time = inserted, Third time = updated
+                if (weatherData != null && cptWeatherDataCall == 3) {
+                    Log.e(TAG,"Hello motherfucker");
+                    Assert.assertEquals("TheTotoBase", weatherData.get(0).getBase());
+                    Assert.assertEquals(42, weatherData.get(0).getClouds().getAll());
+                }
+            }
+        };
+        weatherForecastItemObserver=new Observer<List<WeatherForecastItem>>() {
+            @Override
+            public void onChanged(@Nullable List<WeatherForecastItem> weatherForecastItems) {
+                cptWeatherForecastItemCall++;
+
+                // First time = null, Second time = inserted, Third time = updated
+                if (weatherForecastItems != null && cptWeatherForecastItemCall == 3) {
+                    Log.e(TAG,"Hello motherfucker");
+                    Assert.assertEquals(0.03f, weatherForecastItems.get(0).getSnow().get3h());
+                }
+            }
+        };
+
+        //declare the LiveData you listen,
+        LiveData<List<WeatherData>> lvWeatherData=db.getWeatherDataDao().loadAllLiveData();
+        LiveData<List<WeatherForecastItem>> lvWFI=db.getWeatherForecastItemDao().loadAllLiveData();
+
+        //bind the observer to the live data
+        lvWFI.observeForever(weatherForecastItemObserver);
+        lvWeatherData.observeForever(weatherDataObserver);
+
+        /**Make you insertion or DB stuff*/
+        //create the City (no city no foreign key, no weatherData)
+        City city= DataGeneratorSimple.getCity("Palaminy");
+        long cityId=db.getCityDao().insert(city);
+        //create your WeatherData object
+        WeatherData wData= populateWithAWeatherData(cityId);
+        //create your WeatherForecastItem object
+        WeatherForecastItem wForecast= populateWithAWeatherForecastItem(cityId);
+
+        //update your WeatherData object
+        wData.setBase("TheTotoBase");
+        wData.setClouds(new Clouds(42));
+
+        // Update your WeatherForecastItem object
+        wForecast.setSnow(new Snow(0.03f));
+
+        // Let's go!
+        try {
+            db.getWeatherDataDao().update(wData);
+            db.getWeatherForecastItemDao().update(wForecast);
+        } catch (Exception e) {
+            Assert.fail("Exception while updating: " + e.getMessage());
+        }
+
+        //Remove observer
+        //it works because you allow the main thread query:allowMainThreadQueries
+        lvWeatherData.removeObserver(weatherDataObserver);
+        lvWFI.removeObserver(weatherForecastItemObserver);
+    }
 
 
+    @Test
+    public void testDelete(){
+        //declare the observer
+        weatherDataObserver=new Observer<List<WeatherData>>() {
+            @Override
+            public void onChanged(@Nullable List<WeatherData> weatherData) {
+                cptWeatherDataCall++;
+
+                // First time = null, Second time = inserted, Third time = deleted
+                if (weatherData != null && cptWeatherDataCall == 3) {
+                    Log.e(TAG,"Hello motherfucker");
+                    Assert.assertEquals(0, weatherData.size());
+                }
+            }
+        };
+        weatherForecastItemObserver=new Observer<List<WeatherForecastItem>>() {
+            @Override
+            public void onChanged(@Nullable List<WeatherForecastItem> weatherForecastItems) {
+                cptWeatherForecastItemCall++;
+                // First time = null, Second time = inserted, Third time = deleted
+                if (weatherForecastItems != null && cptWeatherForecastItemCall == 3) {
+                    Log.e(TAG,"Hello motherfucker");
+                    Assert.assertEquals(0, weatherForecastItems.size());
+                }
+            }
+        };
+
+        //declare the LiveData you listen,
+        LiveData<List<WeatherData>> lvWeatherData=db.getWeatherDataDao().loadAllLiveData();
+        LiveData<List<WeatherForecastItem>> lvWFI=db.getWeatherForecastItemDao().loadAllLiveData();
+
+        //bind the observer to the live data
+        lvWFI.observeForever(weatherForecastItemObserver);
+        lvWeatherData.observeForever(weatherDataObserver);
+
+        /**Make you insertion or DB stuff*/
+        //create the City (no city no foreign key, no weatherData)
+        City city= DataGeneratorSimple.getCity("Palaminy");
+        long cityId=db.getCityDao().insert(city);
+        city.set_id(cityId);
+        //create your WeatherData object
+        WeatherData wData= populateWithAWeatherData(cityId);
+        //create your WeatherForecastItem object
+        WeatherForecastItem wForecast= populateWithAWeatherForecastItem(cityId);
+        //then check your insertion
+
+        // Let's go!
+        try {
+            db.getWeatherDataDao().delete(wData);
+            db.getWeatherForecastItemDao().delete(wForecast);
+        }catch (Exception e) {
+            Assert.fail("Exception while deleting: " + e.getMessage());
+        }
+
+        //Remove observer
+        //it works because you allow the main thread query:allowMainThreadQueries
+        lvWeatherData.removeObserver(weatherDataObserver);
+        lvWFI.removeObserver(weatherForecastItemObserver);
     }
 
     /**
@@ -120,6 +257,7 @@ public class WeatherDataDaoTest {
         weatherData.setCity_Id(cityId);
         //save it
         long weatherDataId=db.getWeatherDataDao().insert(weatherData);
+        weatherData.set_id(weatherDataId);
         //then persist the sub object
         //Persist Main
         weatherData.getMain().setWeatherDataId(weatherDataId);
@@ -152,6 +290,7 @@ public class WeatherDataDaoTest {
         weatherForecastItem.setCity_Id(cityId);
         //save it
         long weatherDataId=db.getWeatherForecastItemDao().insert(weatherForecastItem);
+        weatherForecastItem.set_id(weatherDataId);
         //then persist the sub object
         //Persist Main
         weatherForecastItem.getMain().setWeatherForecastItemId(weatherDataId);
