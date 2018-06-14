@@ -1,5 +1,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -24,6 +25,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherAc
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherPresenter;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.CityActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.viewpager.MyPagerAdapter;
+
 
 public class WeatherActivity extends MotherActivity implements WeatherViewIntf{
     private static final String TAG = "WeatherActivity";
@@ -221,6 +223,7 @@ public class WeatherActivity extends MotherActivity implements WeatherViewIntf{
     /**
      * The AlertDialog that displays the message are you sure you want to delete
      */
+    @SuppressLint("ValidFragment")
     public class DeleteAlert extends DialogFragment {
 
         public DeleteAlert(){

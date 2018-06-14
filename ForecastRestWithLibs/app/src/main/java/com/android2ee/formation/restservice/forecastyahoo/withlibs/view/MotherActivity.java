@@ -48,7 +48,6 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.ev
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ErrorEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ExceptionManagedEvent;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -71,8 +70,8 @@ public abstract class MotherActivity extends AppCompatActivity {
         //say to the application an activity is alived
         MyApplication.instance.onStartActivity();
         //register for eventBus
-        EventBus.getDefault().register(this);
-        EventBus.getDefault().register(getPresenter());
+//        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(getPresenter());
         manageConnectivityStatus(MyApplication.instance.isConnected());
     }
 
@@ -93,8 +92,8 @@ public abstract class MotherActivity extends AppCompatActivity {
         //say to the application an activity is going away
         MyApplication.instance.onStopActivity();
         //unregister for eventbus
-        EventBus.getDefault().unregister(this);
-        EventBus.getDefault().unregister(getPresenter());
+//        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(getPresenter());
     }
     /***********************************************************
      *  Managing Presenters

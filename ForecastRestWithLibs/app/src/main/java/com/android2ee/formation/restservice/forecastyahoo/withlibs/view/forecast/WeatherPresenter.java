@@ -46,6 +46,8 @@ import java.util.ArrayList;
 /**
  * Created by Mathias Seguy - Android2EE on 09/03/2016.
  */
+
+@Deprecated
 public class WeatherPresenter extends MotherPresenter implements WeatherPresenterIntf {
     /***********************************************************
      * Presenter Pattern

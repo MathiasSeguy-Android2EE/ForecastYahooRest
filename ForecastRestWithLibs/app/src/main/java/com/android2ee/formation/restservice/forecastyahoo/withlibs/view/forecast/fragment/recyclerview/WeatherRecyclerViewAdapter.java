@@ -45,6 +45,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast
 /**
  * Created by Mathias Seguy - Android2EE on 12/10/2015.
  */
+@Deprecated
 public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecyclerViewAdapter.ViewHolder>{
     /***********************************************************
      * Attributes

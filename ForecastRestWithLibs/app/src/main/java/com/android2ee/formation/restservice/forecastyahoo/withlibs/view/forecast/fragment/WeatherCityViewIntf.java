@@ -33,6 +33,7 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecas
 /**
  * Created by Mathias Seguy - Android2EE on 09/03/2016.
  */
+@Deprecated
 public interface WeatherCityViewIntf {
     /**
      * Update the current weather
