@@ -13,7 +13,6 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.Mot
 
 public abstract class MotherCardView<VM extends MotherViewModel> extends CardView {
 
-    private VM motherViewModel;
     protected AppCompatActivity activity;
     long contextId;
 
@@ -47,17 +46,17 @@ public abstract class MotherCardView<VM extends MotherViewModel> extends CardVie
      */
     public abstract String getCardViewModelKey();
 
+    @NonNull
     protected abstract ViewModelProvider.Factory getCardViewFactory();
 
+    @Nullable
     protected VM getViewModel() {
         if (activity == null) return null;
 
         if (getCardViewModelClass() != null) {
-
                 return ViewModelProviders.of(activity, getCardViewFactory())
                         .get(getCardViewModelKey(), getCardViewModelClass());
-
         }
-        return motherViewModel;
+        return null;
     }
 }

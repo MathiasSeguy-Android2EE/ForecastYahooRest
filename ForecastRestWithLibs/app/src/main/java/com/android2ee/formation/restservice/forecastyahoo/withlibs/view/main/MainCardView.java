@@ -75,6 +75,7 @@ public class MainCardView extends MotherCardView {
     }
 
     @Override
+    @NonNull
     protected ViewModelProvider.Factory getCardViewFactory() {
         return new MainModelFactory(contextId, isForecast);
     }
@@ -97,6 +98,7 @@ public class MainCardView extends MotherCardView {
 
     private void initObservers() {
         MainViewModel viewModel = (MainViewModel) getViewModel();
+        //noinspection ConstantConditions
         viewModel.getAllMainLiveData().observe(activity,new Observer<List<Main>>() {
             @Override
             public void onChanged(@Nullable List<Main> mains) {
