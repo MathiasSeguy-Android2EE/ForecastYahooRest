@@ -5,20 +5,18 @@ import android.arch.lifecycle.LiveData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.MotherViewModel;
 
-import java.util.List;
-
 public abstract class MainViewModel extends MotherViewModel {
 
     private Long contextId;
 
-    public MainViewModel(long contextId) {
+    MainViewModel(long contextId) {
         this.contextId = contextId;
     }
 
     /***********************************************************
      *  Attributes
      **********************************************************/
-    LiveData<List<Main>> allMainLiveData;
+    LiveData<Main> mainLiveData;
 
     /***********************************************************
      *  Lifecycle
@@ -35,6 +33,6 @@ public abstract class MainViewModel extends MotherViewModel {
         return contextId;
     }
 
-    public abstract LiveData<List<Main>> getAllMainLiveData();
+    public abstract LiveData<Main> getMainLiveData();
 
 }

@@ -15,8 +15,6 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCa
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.main.MainViewModel;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.main.factory.MainModelFactory;
 
-import java.util.List;
-
 public class MainCardView extends MotherCardView {
 
     /***********************************************************
@@ -99,11 +97,11 @@ public class MainCardView extends MotherCardView {
     private void initObservers() {
         MainViewModel viewModel = (MainViewModel) getViewModel();
         //noinspection ConstantConditions
-        viewModel.getAllMainLiveData().observe(activity,new Observer<List<Main>>() {
+        viewModel.getMainLiveData().observe(activity,new Observer<Main>() {
             @Override
-            public void onChanged(@Nullable List<Main> mains) {
-                if (mains != null) {
-                    updateWith(mains.get(0));
+            public void onChanged(@Nullable Main main) {
+                if (main != null) {
+                    updateWith(main);
                 }
             }
         });

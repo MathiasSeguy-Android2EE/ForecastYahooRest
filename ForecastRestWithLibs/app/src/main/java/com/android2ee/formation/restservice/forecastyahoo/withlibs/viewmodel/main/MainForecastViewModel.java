@@ -5,8 +5,6 @@ import android.arch.lifecycle.LiveData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
 
-import java.util.List;
-
 public class MainForecastViewModel extends MainViewModel {
 
     public MainForecastViewModel(long contextId) {
@@ -17,13 +15,13 @@ public class MainForecastViewModel extends MainViewModel {
      *  Business Methods
      **********************************************************/
 
-    public LiveData<List<Main>> getAllMainLiveData() {
-        if (allMainLiveData == null) {
-            allMainLiveData = ForecastDatabase.getInstance()
+    public LiveData<Main> getMainLiveData() {
+        if (mainLiveData == null) {
+            mainLiveData = ForecastDatabase.getInstance()
                     .getMainDao()
-                    .loadLiveDataWeatherForWeatherForecastItem(getContextId());
+                    .loadLiveDataWeatherForWeatherData(getContextId());
         }
-        return allMainLiveData;
+        return mainLiveData;
     }
 
 }

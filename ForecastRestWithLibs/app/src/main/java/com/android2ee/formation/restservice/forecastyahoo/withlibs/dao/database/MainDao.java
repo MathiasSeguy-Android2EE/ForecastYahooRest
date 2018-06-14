@@ -22,11 +22,11 @@ public interface MainDao {
     @Query("SELECT * FROM main_temp WHERE _id IN (:id)")
     LiveData<Main> loadLiveDataById(long id);
 
-    @Query("SELECT * FROM main_temp WHERE weatherForecastItemId IN (:weatherForecastItemId)")
-    LiveData<List<Main>> loadLiveDataWeatherForWeatherForecastItem(long weatherForecastItemId);
+    @Query("SELECT * FROM main_temp WHERE weatherForecastItemId IN (:weatherForecastItemId) LIMIT 1")
+    LiveData<Main> loadLiveDataWeatherForWeatherForecastItem(long weatherForecastItemId);
 
-    @Query("SELECT * FROM main_temp WHERE weatherDataId IN (:weatherDataId)")
-    LiveData<List<Main>> loadLiveDataWeatherForWeatherData(long weatherDataId);
+    @Query("SELECT * FROM main_temp WHERE weatherDataId IN (:weatherDataId) LIMIT 1")
+    LiveData<Main> loadLiveDataWeatherForWeatherData(long weatherDataId);
 
     /***********************************************************
      *  Insert
