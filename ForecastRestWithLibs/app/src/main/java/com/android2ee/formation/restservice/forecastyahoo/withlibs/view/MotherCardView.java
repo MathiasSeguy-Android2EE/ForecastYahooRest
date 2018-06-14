@@ -47,22 +47,16 @@ public abstract class MotherCardView<VM extends MotherViewModel> extends CardVie
      */
     public abstract String getCardViewModelKey();
 
-    protected ViewModelProvider.Factory getCardViewFactory() {
-        return null;
-    }
+    protected abstract ViewModelProvider.Factory getCardViewFactory();
 
     protected VM getViewModel() {
         if (activity == null) return null;
 
-        if (motherViewModel == null && getCardViewModelClass() != null) {
+        if (getCardViewModelClass() != null) {
 
-             if (getCardViewFactory() == null) {
-                 motherViewModel = ViewModelProviders.of(activity)
+                return ViewModelProviders.of(activity, getCardViewFactory())
                         .get(getCardViewModelKey(), getCardViewModelClass());
-            } else {
-                ViewModelProviders.of(activity, getCardViewFactory())
-                        .get(getCardViewModelKey(), getCardViewModelClass());
-            }
+
         }
         return motherViewModel;
     }

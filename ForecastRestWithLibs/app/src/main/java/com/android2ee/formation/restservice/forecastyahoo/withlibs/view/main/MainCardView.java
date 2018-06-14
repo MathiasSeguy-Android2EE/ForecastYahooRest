@@ -1,6 +1,7 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main;
 
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.main.MainViewModel;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.main.factory.MainModelFactory;
 
 import java.util.List;
 
@@ -26,6 +28,9 @@ public class MainCardView extends MotherCardView {
     private TextView tvTemperatureMax;
     private TextView tvHumidity;
     private TextView tvPressure;
+
+    private int contextId;
+    private boolean isForecast;
 
     /***********************************************************
      *  Constructors
@@ -51,6 +56,11 @@ public class MainCardView extends MotherCardView {
         initObservers();
     }
 
+    public void setContextId(int contextId, boolean isForecast) {
+        this.contextId = contextId;
+        this.isForecast = isForecast;
+    }
+
     /***********************************************************
      *  ModelView management
      **********************************************************/
@@ -62,6 +72,11 @@ public class MainCardView extends MotherCardView {
     @Override
     public String getCardViewModelKey() {
         return MainCardView.class.getName();
+    }
+
+    @Override
+    protected ViewModelProvider.Factory getCardViewFactory() {
+        return new MainModelFactory(contextId, isForecast);
     }
 
     /***********************************************************
