@@ -29,7 +29,6 @@ import com.squareup.moshi.Json;
 public class Main{
     @PrimaryKey(autoGenerate = true)
     private long _id;
-
     @ColumnInfo(name="temp")
     private float temp;
     @ColumnInfo(name="pressure")

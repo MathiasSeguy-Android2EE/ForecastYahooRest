@@ -45,6 +45,7 @@ public interface CityPresenterIntf {
      */
     void searchCity(String cityName);
 
+
     /**
      * This method is called when a city is selected
      *

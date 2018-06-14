@@ -31,20 +31,16 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.city.CityDaoIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CitiesLoadedEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityAddedEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.FindCitiesResponseEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
-
-import org.greenrobot.eventbus.EventBus;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse;
 
 import java.util.List;
 
@@ -61,31 +57,15 @@ public class CityService extends MotherBusinessService implements CityServiceInt
     /**
      * The findCitiesResponse == the list of cities found
      */
-    private FindCitiesResponse findCitiesResponse = null;
+//    private FindCitiesResponse findCitiesResponse = null;
+
+
     /**
-     * The event to send back the information and the data
+     * The list of cities found from the network
+     * You have to observe them
      */
-    private FindCitiesResponseEvent findCitiesResponseEvent=null;
-    /**
-     * The Dao
-     */
-    private CityDaoIntf cityDaoIntf = null;
-    /**
-     * The city to add in the database
-     */
-    private City cityToAdd;
-    /**
-     * The event launched when the city is added
-     */
-    private CityAddedEvent cityAddedEvent;
-    /**
-     * The event launched when the cities are loaded from db
-     */
-    private CitiesLoadedEvent citiesLoadedEvent;
-    /**
-     * The city to add in the database
-     */
-    private City cityToDelete;
+    private MutableLiveData<List<City>> liveFindCitiesResponse=new MutableLiveData<>();
+
     /******************************************************************************************/
     /** Constructors and destructor **************************************************************************/
     /******************************************************************************************/
@@ -126,10 +106,19 @@ public class CityService extends MotherBusinessService implements CityServiceInt
     private void findCityByNameSync(String cityName) {
         Log.d(TAG, "findCityByNameSync() called with: " + "cityName = [" + cityName + "]");
         // Load data from the web
-        findCitiesResponse= Injector.getDataCommunication().findCityByName(cityName);
-        //send send back the answer using eventBus
-        postFindCitiesResponseEvent();
+        FindCitiesResponse findCitiesResponse= Injector.getDataCommunication().getCitiesByName(cityName);
+        //then update the MutableLiveData to update the obeserver
+        liveFindCitiesResponse.postValue(findCitiesResponse.getList());
     }
+
+    /**
+     *The liveData to observe when Querying Cities (from the web)
+     * @return
+     */
+    public MutableLiveData<List<City>> getLiveFindCitiesResponse() {
+        return liveFindCitiesResponse;
+    }
+
     /**
      * @author Mathias Seguy (Android2EE)
      * @goals
@@ -147,33 +136,12 @@ public class CityService extends MotherBusinessService implements CityServiceInt
             findCityByNameSync(cityName);
         }
     }
-    /**
-     * Brodcast the findCitiesResponse event
-     */
-    private void postFindCitiesResponseEvent() {
-        if(findCitiesResponseEvent ==null){
-            findCitiesResponseEvent = new FindCitiesResponseEvent(findCitiesResponse);
-        }else{
-            findCitiesResponseEvent.setFindCitiesResponse(findCitiesResponse);
-        }
-        Log.e(TAG, "FindCitiesResponseEvent posted" );
-        EventBus.getDefault().post(findCitiesResponseEvent);
-    }
 
     /***********************************************************
      *  Reload city from cache
      **********************************************************/
 
-    /**
-     * Reload the FindCitiesResponse :
-     * if not null resent the data
-     */
-    @Override
-    public void reloadFindCitiesResponse(){
-        if(findCitiesResponse!=null){
-         postFindCitiesResponseEvent();
-        }
-    }
+
     /******************************************************************************************/
     /** Add City **************************************************************************/
     /******************************************************************************************/
@@ -186,8 +154,7 @@ public class CityService extends MotherBusinessService implements CityServiceInt
     @Override
     public void addCityAsync(City city) {
         Log.d(TAG, "addCityAsync() called with: " + "city = [" + city + "]");
-        cityToAdd=city;
-        MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit(daoInsertRunnable);
+        MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit(new RunnableAddCity(city));
     }
 
     /**
@@ -196,94 +163,26 @@ public class CityService extends MotherBusinessService implements CityServiceInt
      */
     private void addCitySync(City city) {
         Log.d(TAG, "addCitySync() called with: " + "city = [" + city + "]");
-        // Load data from the database
-        cityDaoIntf = Injector.getDaoManager().getCityDao();
-        cityDaoIntf.insertOrUpdate(city);
-        cityDaoIntf =null;
-        //send  back the answer using eventBus
-        postCityAddedEvent(city);
+        // add it in the DB
+        ForecastDatabase.getInstance().getCityDao().insert(city);
     }
+    /**
+     * This is the runnable that will send the work in a background thread
+     */
+    private class RunnableAddCity implements Runnable {
+        City city;
 
-    /**
-     * The runnable to execute the insert
-     */
-    private DaoInsertRunnable daoInsertRunnable = new DaoInsertRunnable();
-    /**
-     * @author Mathias Seguy (Android2EE)
-     * @goals
-     *        This class aims to implements a Runnable
-     */
-    private class DaoInsertRunnable implements Runnable {
+        public RunnableAddCity(City city) {
+            //
+            this.city = city;
+        }
+
         @Override
         public void run() {
-            addCitySync(cityToAdd);
+            addCitySync(city);
         }
     }
-    /**
-     * Brodcast the city- added event
-     */
-    private void postCityAddedEvent(City city) {
-        if(cityAddedEvent ==null){
-            cityAddedEvent = new CityAddedEvent(city);
-        }else{
-            cityAddedEvent.setCity(city);
-        }
-        Log.e(TAG, "postCityAddedEvent posted" );
-        EventBus.getDefault().post(cityAddedEvent);
-    }
 
-    /******************************************************************************************/
-    /** Load all Cities from database **************************************************************************/
-    /******************************************************************************************/
-
-    /**
-     * Load all the cities from the database asynchronously
-     */
-    @Override
-    public void loadCitiesAsync() {
-        Log.d(TAG, "loadCities() called with: " + "");
-        MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(daoFindAllRunnable);
-    }
-
-    /**
-     *
-     * Load all the cities from the database synchronously
-     */
-    private void loadCitiesSync() {
-        // Load data from DB
-        cityDaoIntf = Injector.getDaoManager().getCityDao();
-        //send back the answer using eventBus
-        postCitiesLoadedEvent(cityDaoIntf.findAll());
-        cityDaoIntf =null;
-    }
-
-    /**
-     * The runnable to execute
-     */
-    private DaoFindAllRunnable daoFindAllRunnable = new DaoFindAllRunnable();
-    /**
-     * @author Mathias Seguy (Android2EE)
-     * @goals
-     *        This class aims to implements a Runnable
-     */
-    private class DaoFindAllRunnable implements Runnable {
-        @Override
-        public void run() {
-            loadCitiesSync();
-        }
-    }
-    /**
-     * Broadcast the Cities Loaded event
-     */
-    private void postCitiesLoadedEvent(List<City> city) {
-        if(citiesLoadedEvent ==null){
-            citiesLoadedEvent = new CitiesLoadedEvent(city);
-        }else{
-            citiesLoadedEvent.setCities(city);
-        }
-        Log.e(TAG, "postCitiesLoadedEvent posted" );
-        EventBus.getDefault().post(citiesLoadedEvent);
-    }
     /******************************************************************************************/
     /** Delete City from database **************************************************************************/
     /******************************************************************************************/
@@ -295,8 +194,7 @@ public class CityService extends MotherBusinessService implements CityServiceInt
     @Override
     public void deleteCityAsync(City city) {
         Log.d(TAG, "deleteCityAsync() called with: " + "city = [" + city + "]");
-        cityToDelete=city;
-        MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit(daoDeleteRunnable);
+        MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit(new RunnableDeleteCity(city));
     }
 
     /**
@@ -305,25 +203,24 @@ public class CityService extends MotherBusinessService implements CityServiceInt
      */
     private void deleteCitySync(City city) {
         Log.d(TAG, "deleteCitySync() called with: " + "city = [" + city + "]");
-        // Load data from the database
-        cityDaoIntf = Injector.getDaoManager().getCityDao();
-        cityDaoIntf.delete(city);
-        cityDaoIntf =null;
+        ForecastDatabase.getInstance().getCityDao().delete(city.get_id());
     }
 
+
     /**
-     * The runnable to execute the deletion
+     * This is the runnable that will send the work in a background thread
      */
-    private DaoDeletionRunnable daoDeleteRunnable = new DaoDeletionRunnable();
-    /**
-     * @author Mathias Seguy (Android2EE)
-     * @goals
-     *        This class aims to implements a Runnable
-     */
-    private class DaoDeletionRunnable implements Runnable {
+    private class RunnableDeleteCity implements Runnable {
+        City city;
+
+        public RunnableDeleteCity(City city) {
+            //
+            this.city = city;
+        }
+
         @Override
         public void run() {
-            deleteCitySync(cityToDelete);
+            deleteCitySync(city);
         }
     }
 }

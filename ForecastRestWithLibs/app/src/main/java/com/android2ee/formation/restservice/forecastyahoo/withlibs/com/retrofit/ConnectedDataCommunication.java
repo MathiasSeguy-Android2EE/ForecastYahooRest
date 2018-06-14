@@ -127,4 +127,51 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
         }
         return null;
     }
+
+    @Override
+    public com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse getCitiesByName(String cityName) {
+        Log.e(TAG, "findCityByName() called with: " + "cityName = [" + cityName + "]");
+        try {
+            findCityByNameCall=webServiceComplex.findCityByName(cityName);
+            return findCityByNameCall.execute().body();
+        } catch (IOException e) {
+            ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));
+        }
+        return null;
+    }
+
+    @Override
+    public WeatherData getWeatherByCityId(long cityId) {
+        Log.e(TAG, "findWeatherByCityId() called with: " + "cityId = [" + cityId + "]");
+        try {
+            findWeatherByCityIdCall=webServiceComplex.findWeatherByCityId(cityId);
+            return findWeatherByCityIdCall.execute().body();
+        } catch (IOException e) {
+            ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));
+        }
+        return null;
+    }
+
+    @Override
+    public Forecast getForecastByCityId(long cityId) {
+        Log.e(TAG, "findForecastByCityId() called with: " + "cityId = [" + cityId + "]");
+        try {
+            findForecastByCityIdCall=webServiceComplex.findForecastByCityId(cityId);
+            Forecast forecast=findForecastByCityIdCall.execute().body();
+            Log.e(TAG,forecast.toString());
+            int maxLogSize = 100;
+            String longString=forecast.toString();
+            for(int i = 0; i <= longString.length() / maxLogSize; i++) {
+                int start = i * maxLogSize;
+                int end = (i+1) * maxLogSize;
+                end = end > longString.length() ? longString.length() : end;
+                Log.e(TAG, longString.substring(start, end));
+            }
+            Log.e(TAG,"Too long?");
+            return forecast;
+        } catch (IOException e) {
+            ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));
+        }
+        return null;
+    }
 }

@@ -30,8 +30,12 @@
  */
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city;
 
+import android.arch.lifecycle.MutableLiveData;
+
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessServiceIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
+
+import java.util.List;
 
 /**
  * Created by Mathias Seguy - Android2EE on 10/04/2016.
@@ -41,15 +45,17 @@ public interface CityServiceIntf extends MotherBusinessServiceIntf{
 
     /**
      * Find the Cities that match the city name in an asynchronous way
+     * get them from the network
      * @param cityName The name of the city searched
      */
     void findCityByNameAsync(String cityName);
 
+
     /**
-     * Reload the FindCitiesResponse :
-     * if not null resent the data
+     * Observe this LiveData to know what are the cities found
+     * @return
      */
-    void reloadFindCitiesResponse();
+    MutableLiveData<List<City>> getLiveFindCitiesResponse();
 
     /**
      * Add a city in the database
@@ -61,7 +67,7 @@ public interface CityServiceIntf extends MotherBusinessServiceIntf{
     /**
      * Load all the cities from the database asynchronously
      */
-    void loadCitiesAsync();
+//    void loadCitiesAsync();
 
     /**
      * Delete a city from the database

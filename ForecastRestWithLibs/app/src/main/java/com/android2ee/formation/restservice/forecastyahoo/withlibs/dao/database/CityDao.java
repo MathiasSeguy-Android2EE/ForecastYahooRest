@@ -23,6 +23,8 @@ public interface CityDao {
     LiveData<City> loadLiveDataById(long id);
 
 
+    @Query("SELECT * FROM city WHERE name LIKE :name")
+    City loadLiveDataByName(String name);
     /***********************************************************
      *  Insert
      **********************************************************/
