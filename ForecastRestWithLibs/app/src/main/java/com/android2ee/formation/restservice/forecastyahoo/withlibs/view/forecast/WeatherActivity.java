@@ -119,7 +119,7 @@ public class WeatherActivity extends MotherActivity implements WeatherViewIntf{
     /***********************************************************
      * Managing Presenters
      **********************************************************/
-    @Override
+
     public MotherPresenter getPresenter() {
         return (MotherPresenter) presenter;
     }

@@ -69,9 +69,6 @@ public abstract class MotherActivity extends AppCompatActivity {
         super.onStart();
         //say to the application an activity is alived
         MyApplication.instance.onStartActivity();
-        //register for eventBus
-//        EventBus.getDefault().register(this);
-//        EventBus.getDefault().register(getPresenter());
         manageConnectivityStatus(MyApplication.instance.isConnected());
     }
 
@@ -91,14 +88,7 @@ public abstract class MotherActivity extends AppCompatActivity {
         super.onStop();
         //say to the application an activity is going away
         MyApplication.instance.onStopActivity();
-        //unregister for eventbus
-//        EventBus.getDefault().unregister(this);
-//        EventBus.getDefault().unregister(getPresenter());
     }
-    /***********************************************************
-     *  Managing Presenters
-     **********************************************************/
-    public abstract MotherPresenter getPresenter();
 
     /******************************************************************************************/
     /** Managing the Exceptions **************************************************************************/

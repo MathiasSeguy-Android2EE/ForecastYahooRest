@@ -37,6 +37,8 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.com.DataCommu
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
 
 /**
  * Created by Mathias Seguy - Android2EE on 24/02/2016.
@@ -57,6 +59,24 @@ public class NoConnectivityDataCommunication implements DataCommunicationIntf {
     @Override
     public CityForecast findForecastByCityId(long cityId) {
         Log.i("NoConnectivityDataCom","Trying to make an Http call findForecastByCityId but there is no connectivity");
+        return null;
+    }
+
+    @Override
+    public com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse getCitiesByName(String cityName) {
+        Log.i("NoConnectivityDataCom","Trying to make an Http call getCitiesByName but there is no connectivity");
+        return null;
+    }
+
+    @Override
+    public WeatherData getWeatherByCityId(long cityId) {
+        Log.i("NoConnectivityDataCom","Trying to make an Http call getWeatherByCityId but there is no connectivity");
+        return null;
+    }
+
+    @Override
+    public Forecast getForecastByCityId(long cityId) {
+        Log.i("NoConnectivityDataCom","Trying to make an Http call getForecastByCityId but there is no connectivity");
         return null;
     }
 }

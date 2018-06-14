@@ -35,16 +35,15 @@ import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast.CityForecastDaoIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.DaoWrapper;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.weather.WeatherDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityForecastDownloadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherDownloadedEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
-
-import org.greenrobot.eventbus.EventBus;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
 
 /**
  * Created by Mathias Seguy - Android2EE on 06/03/2016.
@@ -121,21 +120,10 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
     public void downloadCurrentWeatherSync(int cityId) {
         Log.e(TAG, "downloadCurrentWeatherSync for city =" + cityId);
         // Load data from the web
-        Weather weather=Injector.getDataCommunication().findWeatherByCityId(cityId);
+        WeatherData weatherData=Injector.getDataCommunication().getWeatherByCityId(cityId);
         //store in the database
-        weatherDataDao = Injector.getDaoManager().getWeatherDao();
-        weatherDataDao.insertOrUpdate(weather);
-        weatherDataDao=null;
-        Log.d(TAG, "downloadCurrentWeatherSync found " + weather);
-        //send send back the answer using eventBus
-        if(weatherDownloadedEvent==null){
-            weatherDownloadedEvent= new WeatherDownloadedEvent(weather,cityId);
-        }else{
-            weatherDownloadedEvent.setWeather(weather);
-            weatherDownloadedEvent.setCityId(cityId);
-        }
-        Log.e(TAG, "WeatherDownloadedEvent launched for city =" + cityId);
-        EventBus.getDefault().post(weatherDownloadedEvent);
+        DaoWrapper.getInstance().saveWeatherData(weatherData);
+        Log.d(TAG, "downloadCurrentWeatherSync found " + weatherData);
     }
 
     /**
@@ -182,21 +170,8 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
     public void downloadForecastWeatherSync(int cityId) {
         Log.e(TAG, "downloadForecastWeatherSync for city =" + cityId);
         // Load data from the web
-        CityForecast cityForecast=Injector.getDataCommunication().findForecastByCityId(cityId);
-        //Store those data in the database
-        cityForecastDaoIntf = Injector.getDaoManager().getCityForecastDao();
-        cityForecastDaoIntf.insertOrUpdate(cityForecast);
-        cityForecastDaoIntf =null;
-        Log.d(TAG, "downloadForecastWeatherSync found =" + cityId);
-        //send send back the answer using eventBus
-        if(cityForecastDownloadedEvent==null){
-            cityForecastDownloadedEvent= new CityForecastDownloadedEvent(cityForecast,cityId);
-        }else{
-            cityForecastDownloadedEvent.setCityForecast(cityForecast);
-            cityForecastDownloadedEvent.setCityId(cityId);
-        }
-        Log.d(TAG, "cityForecastDownloadedEvent send =" + cityForecast);
-        EventBus.getDefault().post(cityForecastDownloadedEvent);
+        Forecast forecast=Injector.getDataCommunication().getForecastByCityId(cityId);
+        DaoWrapper.getInstance().saveForecast(forecast);
     }
 
 
