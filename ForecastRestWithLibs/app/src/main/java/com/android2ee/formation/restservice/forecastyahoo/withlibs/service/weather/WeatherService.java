@@ -52,6 +52,7 @@ import org.joda.time.Interval;
  * Created by Mathias Seguy - Android2EE on 25/02/2016.
  * This is a business service, it doesn't need to extends the Android Service
  */
+@Deprecated
 public class WeatherService extends MotherBusinessService implements WeatherServiceIntf {
     private static final String TAG = "WeatherService";
     /******************************************************************************************/

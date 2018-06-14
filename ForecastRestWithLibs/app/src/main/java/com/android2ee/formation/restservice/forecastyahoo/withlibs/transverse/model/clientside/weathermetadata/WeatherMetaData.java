@@ -7,6 +7,7 @@ import com.orm.SugarRecord;
  * Mode info weather condition code
  * Is the Weather class on server side
  */
+@Deprecated
 public class WeatherMetaData extends SugarRecord {
     /**
      * Weather condition id

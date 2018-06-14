@@ -3,6 +3,7 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.m
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Coord;
 
+@Deprecated
 public class City {
 
     private int id;

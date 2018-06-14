@@ -51,6 +51,7 @@ import java.util.List;
 /**
  * Created by Mathias Seguy - Android2EE on 08/03/2016.
  */
+@Deprecated
 public class CityService extends MotherBusinessService implements CityServiceIntf {
     private static final String TAG = "CityService";
     /******************************************************************************************/

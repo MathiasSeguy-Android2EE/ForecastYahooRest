@@ -36,8 +36,10 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 /**
  * Created by Mathias Seguy - Android2EE on 07/03/2016.
  * This class has been created because of sugarOrm one to many relationship management
- * So instead of polluting WeatherMetadat we creat subclass with just the fields to make the link
+ * So instead
+ @Deprecatedof polluting WeatherMetadat we creat subclass with just the fields to make the link
  */
+@Deprecated
 public class WeatherMetaData_City extends WeatherMetaData {
     City city;
 

@@ -36,5 +36,6 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.e
  * This class only exist for avoiding the EventBusException: Subscriber class com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdater and its super classes have no public methods with the @Subscribe annotation
  * So if you want to listen to nothing and you are a service that extends motherService just register to it
  */
+@Deprecated
 public class FakeEvent {
 }

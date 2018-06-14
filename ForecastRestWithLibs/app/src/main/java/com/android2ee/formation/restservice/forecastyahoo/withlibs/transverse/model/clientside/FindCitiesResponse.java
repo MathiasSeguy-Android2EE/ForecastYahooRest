@@ -39,6 +39,7 @@ import java.util.List;
 /**
  * Created by Mathias Seguy - Android2EE on 25/02/2016.
  */
+@Deprecated
 public class FindCitiesResponse {
     String message;
     int cod;

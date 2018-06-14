@@ -38,7 +38,6 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.com.DataCommunicationIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManaged;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
@@ -85,7 +84,7 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
         Log.e(TAG, "findCityByName() called with: " + "cityName = [" + cityName + "]");
         try {
             findCityByNameCall=webServiceComplex.findCityByName(cityName);
-            return new FindCitiesResponse(findCityByNameCall.execute().body());
+            return new City(findCityByNameCall.execute().body());
         } catch (IOException e) {
             ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));
         }

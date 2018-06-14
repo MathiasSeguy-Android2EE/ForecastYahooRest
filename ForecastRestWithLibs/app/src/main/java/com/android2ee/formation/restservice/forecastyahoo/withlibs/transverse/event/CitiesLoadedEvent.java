@@ -38,6 +38,7 @@ import java.util.List;
 /**
  * Created by Mathias Seguy - Android2EE on 09/03/2016.
  */
+@Deprecated
 public class CitiesLoadedEvent {
     List<City> cities;
 

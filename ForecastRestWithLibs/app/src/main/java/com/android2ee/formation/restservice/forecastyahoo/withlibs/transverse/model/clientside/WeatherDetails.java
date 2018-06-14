@@ -8,6 +8,7 @@ import com.orm.SugarRecord;
  * This is the main weather data
  * Is Main on serverSide
  */
+@Deprecated
 public class WeatherDetails extends SugarRecord {
 
     private float temp;

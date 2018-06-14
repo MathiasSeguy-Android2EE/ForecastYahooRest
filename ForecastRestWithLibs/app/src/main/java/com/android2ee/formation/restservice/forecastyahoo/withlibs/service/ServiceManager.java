@@ -60,6 +60,7 @@ import java.util.concurrent.TimeUnit;
  * It can be access only through MyApplication object
  * by calling MyApplication.getServiceManager()
  */
+@Deprecated
 public class ServiceManager implements ServiceManagerIntf {
     private static final String TAG = "ServiceManager";
     /***********************************************************

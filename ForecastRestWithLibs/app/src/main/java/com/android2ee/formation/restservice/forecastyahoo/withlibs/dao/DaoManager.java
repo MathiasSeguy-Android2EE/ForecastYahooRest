@@ -43,6 +43,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.weather.W
  * This class aims to centralize the access to the Dao classes
  * This is usefull for injection (for the test)
  */
+@Deprecated
 public class DaoManager {
     /***********************************************************
     *  Managing LifeCycle

@@ -1,6 +1,7 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast;
 
+@Deprecated
 public class Sys {
 
     private String pod;
