@@ -36,6 +36,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 /**
  * Created by Mathias Seguy - Android2EE on 09/03/2016.
  */
+@Deprecated
 public interface WeatherViewIntf {
     /**
      * The cities have been loaded, you have to update your view

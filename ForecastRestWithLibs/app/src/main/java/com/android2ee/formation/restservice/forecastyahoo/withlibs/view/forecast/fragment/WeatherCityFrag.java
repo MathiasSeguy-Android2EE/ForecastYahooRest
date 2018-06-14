@@ -51,6 +51,7 @@ import org.greenrobot.eventbus.EventBus;
  * Created by Mathias Seguy - Android2EE on 12/10/2015.
  * This fragment aims to display a Weather and a CityForecast
  */
+@Deprecated
 public class WeatherCityFrag extends Fragment implements WeatherCityViewIntf {
     private static final String TAG = "WeatherCityFrag";
     public static final String CITY_ID = "cityId";

@@ -49,6 +49,7 @@ import java.util.ArrayList;
  * The presenter managed the data (here the cities list)
  * And the actions on them
  */
+@Deprecated
 public class CityPresenter extends MotherPresenter implements CityPresenterIntf {
     private static final String TAG = "CityPresenter";
     /***********************************************************
@@ -111,7 +112,7 @@ public class CityPresenter extends MotherPresenter implements CityPresenterIntf 
     @Override
     public void selectCity(int position) {
         //Ok so store the city
-        MyApplication.instance.getServiceManager().getCityService().addCityAsync(cities.get(position));
+//        MyApplication.instance.getServiceManager().getCityService().addCityAsync(cities.get(position));
     }
 
     /**
@@ -130,7 +131,7 @@ public class CityPresenter extends MotherPresenter implements CityPresenterIntf 
     @Override
     public void reloadCities() {
         //Ok reload the city from the cache of the CityService
-        MyApplication.instance.getServiceManager().getCityService().reloadFindCitiesResponse();
+//        MyApplication.instance.getServiceManager().getCityService().reloadFindCitiesResponse();
     }
 
     /******************************************************************************************/

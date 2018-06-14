@@ -33,7 +33,6 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecas
 
 import android.util.Log;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CitiesLoadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherPresenter;
@@ -46,6 +45,8 @@ import java.util.ArrayList;
 /**
  * Created by Mathias Seguy - Android2EE on 09/03/2016.
  */
+
+@Deprecated
 public class WeatherPresenter extends MotherPresenter implements WeatherPresenterIntf {
     /***********************************************************
      * Presenter Pattern
@@ -97,7 +98,7 @@ public class WeatherPresenter extends MotherPresenter implements WeatherPresente
     @Override
     public void deleteCity(City cityToDelete) {
         //first delete from database
-        MyApplication.instance.getServiceManager().getCityService().deleteCityAsync(cityToDelete);
+//        MyApplication.instance.getServiceManager().getCityService().deleteCityAsync(cityToDelete);
         //then delete from current list
         cities.remove(cityToDelete);
         //then manage the consequence of the deletion
@@ -116,7 +117,7 @@ public class WeatherPresenter extends MotherPresenter implements WeatherPresente
      */
     @Override
     public void loadCities() {
-        MyApplication.instance.getServiceManager().getCityService().loadCitiesAsync();
+//        MyApplication.instance.getServiceManager().getCityService().loadCitiesAsync();
     }
     /**
      * Is called by the service when the cities are loaded

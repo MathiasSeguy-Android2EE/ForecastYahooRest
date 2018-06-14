@@ -38,6 +38,8 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.ev
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -130,5 +132,20 @@ public class DataCommunication implements DataCommunicationIntf{
     @Override
     public CityForecast findForecastByCityId(long cityId) {
         return communication.findForecastByCityId(cityId);
+    }
+
+    @Override
+    public com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse getCitiesByName(String cityName) {
+        return communication.getCitiesByName(cityName);
+    }
+
+    @Override
+    public WeatherData getWeatherByCityId(long cityId) {
+        return communication.getWeatherByCityId(cityId);
+    }
+
+    @Override
+    public Forecast getForecastByCityId(long cityId) {
+        return communication.getForecastByCityId(cityId);
     }
 }

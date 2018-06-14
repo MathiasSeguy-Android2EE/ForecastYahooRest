@@ -49,6 +49,7 @@ import org.greenrobot.eventbus.ThreadMode;
 /**
  * Created by Mathias Seguy - Android2EE on 09/03/2016.
  */
+@Deprecated
 public class WeatherCityPresenter extends MotherPresenter implements WeatherCityPresenterIntf {
     private static final String TAG = "WeatherCityPresenter";
     /***********************************************************

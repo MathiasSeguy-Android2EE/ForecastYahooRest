@@ -47,7 +47,7 @@ import android.widget.TextView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManaged;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 
 import java.util.ArrayList;
 
@@ -73,8 +73,14 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 	 * The Earth icon to display googleMap
 	 */
 	Drawable earth;
-    Boolean postJellyBean;
-
+	/**
+	 *
+	 */
+	Boolean postJellyBean;
+	/**
+	 *
+	 */
+	ArrayList<City> list;
 	/**
 	 * @param context
 	 * @param list
@@ -120,17 +126,17 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 		viewHolder = (ViewHolder) rowView.getTag();
 		viewHolder.getTxvCityName().setText(city.getName());
 		viewHolder.getTxvCityType().setText("Not available anymore");
-		if(city.getEphemeris()!=null){
-			viewHolder.getTxvCountry().setText(city.getEphemeris().getCountry());
-		} else {
-			viewHolder.getTxvCountry().setText("Not available anymore");
-		}
+//		if(city.getEphemeris()!=null){
+//			viewHolder.getTxvCountry().setText(city.getEphemeris().getCountry());
+//		} else {
+//			viewHolder.getTxvCountry().setText("Not available anymore");
+//		}
         if(postJellyBean){
             viewHolder.getImvGoogleMap().setBackground(earth);
         }else{
             viewHolder.getImvGoogleMap().setBackgroundDrawable(earth);
         }
-		viewHolder.setLatLon(city.getCoordinates().getLat(), city.getCoordinates().getLon());
+		viewHolder.setLatLon(city.getCoord().getLat(), city.getCoord().getLon());
 		return rowView;
 	}
 

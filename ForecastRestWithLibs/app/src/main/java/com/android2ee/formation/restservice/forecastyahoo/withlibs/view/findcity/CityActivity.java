@@ -1,8 +1,11 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,19 +21,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.PresenterInjector;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherActivity;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherPresenter;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.arrayadapter.CitiesArrayAdapter;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * In a way this is the View of the MVP model
  * It focused on displaying the Data
  * (ok as it is also an Activity it manages the lifecycle and all the activities stuffs)
  */
-public class CityActivity extends MotherActivity implements CityViewIntf {
+public class CityActivity extends MotherActivity {
 	private static final String TAG = "CityActivity";
 	/***********************************************************
 	 *  Presenter
@@ -38,7 +42,7 @@ public class CityActivity extends MotherActivity implements CityViewIntf {
 	/**
 	 * The Presenter associated with that view
 	 */
-	private CityPresenterIntf presenter=null;
+	CityActivityViewModel viewModel;
 
 	/******************************************************************************************/
 	/** Constant **************************************************************************/
@@ -84,7 +88,7 @@ public class CityActivity extends MotherActivity implements CityViewIntf {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//instanciate your presenter here not before not after
-		presenter= PresenterInjector.getCityPresenter(this);
+		viewModel= ViewModelProviders.of(this).get(CityActivityViewModel.class);
 		setContentView(R.layout.activity_city);
 		edtSearchedCity = (EditText) findViewById(R.id.edt_citySearchedName);
         //add the ime action
@@ -116,7 +120,7 @@ public class CityActivity extends MotherActivity implements CityViewIntf {
         });
 		btnSearch = (Button) findViewById(R.id.btn_search_city);
 		lsvCityList = (ListView) findViewById(R.id.lsvCityList);
-		arrayAdapterCities = new CitiesArrayAdapter(this, presenter.getCities());
+		arrayAdapterCities = new CitiesArrayAdapter(this, new ArrayList<City>());
 		lsvCityList.setAdapter(arrayAdapterCities);
 		// adding listeners
 		btnSearch.setEnabled(false);
@@ -152,38 +156,29 @@ public class CityActivity extends MotherActivity implements CityViewIntf {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		//observe the data you want to display (the list of cities)
+		viewModel.getCitiesFoundLiveData().observe(this, new Observer<List<City>>() {
+			@Override
+			public void onChanged(@Nullable List<City> cities) {
+				Log.e(TAG,"Cities list have been updated");
+				updateCities(cities);
+			}
+		});
 	}
 
-	/*
-         * (non-Javadoc)
-         *
-         * @see com.android2ee.formation.restservice.sax.forecastyahoo.MotherActivity#onResume()
-         */
 	@Override
 	protected void onResume() {
 		super.onResume();
 		manageSearchButtonStatus();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onRestoreInstanceState(android.os.Bundle)
-	 */
+
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		super.onRestoreInstanceState(savedInstanceState);
 		edtSearchedCity.setText(savedInstanceState.getString(EDT_SEARCHED_CITY));
-		//reload cities from cache
-		presenter.reloadCities();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onSaveInstanceState(android.os.Bundle,
-	 * android.os.PersistableBundle)
-	 */
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -236,7 +231,7 @@ public class CityActivity extends MotherActivity implements CityViewIntf {
 	 */
 	private void searchCityAction(){
 		//TODO change the button while you waiut for the answer
-		presenter.searchCity(edtSearchedCity.getText().toString());
+		viewModel.searchCity(edtSearchedCity.getText().toString());
 	}
 
 	/**
@@ -244,21 +239,23 @@ public class CityActivity extends MotherActivity implements CityViewIntf {
 	 * @param position
 	 */
 	private void selectCity(int position){
-		presenter.selectCity(position);
+		viewModel.selectCity(arrayAdapterCities.getItem(position));
+		finishView();
 	}
 
 	/******************************************************************************************/
 	/** Updating data **************************************************************************/
 	/******************************************************************************************/
-	@Override
-	public void updateCities(){
+
+	public void updateCities(List<City> cities){
+		arrayAdapterCities.clear();
+		arrayAdapterCities.addAll(cities);
 		arrayAdapterCities.notifyDataSetChanged();
 	}
 
 	/**
 	 * Call this method when the view has to be finished (Activity's notion)
 	 */
-	@Override
 	public void finishView() {
 		//launch the main activity
 		Intent launchMainActivity=new Intent(this,WeatherActivity.class);
@@ -267,11 +264,4 @@ public class CityActivity extends MotherActivity implements CityViewIntf {
 		finish();
 	}
 
-	/***********************************************************
-	 * Managing Presenters
-	 **********************************************************/
-	@Override
-	public MotherPresenter getPresenter() {
-		return (MotherPresenter) presenter;
-	}
 }

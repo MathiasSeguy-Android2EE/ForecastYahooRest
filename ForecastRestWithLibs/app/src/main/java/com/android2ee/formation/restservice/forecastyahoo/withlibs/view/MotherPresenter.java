@@ -40,6 +40,7 @@ import org.greenrobot.eventbus.Subscribe;
  * Have to be inherited by the Presenter
  * That way, MotherActivity can register and unregister them on EventBus
  */
+@Deprecated
 public class MotherPresenter {
     @Subscribe
     public void onEvent(FakeEvent event){
