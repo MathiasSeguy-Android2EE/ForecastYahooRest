@@ -9,8 +9,9 @@ import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCardView;
 
-public class MainCardView extends CardView {
+public class MainCardView extends MotherCardView {
 
     /***********************************************************
      *  Attributes
