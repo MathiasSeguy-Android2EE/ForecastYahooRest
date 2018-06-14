@@ -49,6 +49,9 @@ public interface MainDao {
     @Delete
     int delete(Main main);
 
+    @Delete
+    int deleteAll(List<Main> mainList);
+
     @Query("DELETE  FROM main_temp WHERE _id IN (:id)")
     int delete(long id);
     /***********************************************************

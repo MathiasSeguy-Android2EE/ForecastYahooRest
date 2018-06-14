@@ -1,5 +1,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model;
 
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.Sys;
@@ -95,6 +96,22 @@ public class DataGeneratorSimple {
      return sys;
     }
 
+    /**
+     * Generate a fake main for testing. All value will be set at 0. All foreign keys will be null
+     * @return a fake main
+     */
+    public static Main getMain() {
+        Main main = new Main();
+        main.setGrnd_level(0);
+        main.setHumidity(0);
+        main.setPressure(0);
+        main.setSea_level(0);
+        main.setTemp(0);
+        main.setTempMax(0);
+        main.setTempMin(0);
+
+        return main;
+    }
 
     /***********************************************************
      *  Raw JSon Data

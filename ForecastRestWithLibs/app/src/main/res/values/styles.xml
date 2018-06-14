@@ -27,4 +27,14 @@
         <item name="android:textStyle">italic</item>
         <item name="textAllCaps">false</item>
     </style>
+
+    <style name="MyTextView" parent="@android:style/TextAppearance"/>
+
+    <style name="MyCardView" parent="CardView.Light">
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+    </style>
+
 </resources>
