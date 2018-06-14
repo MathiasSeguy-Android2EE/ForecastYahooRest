@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather.WeatherCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather.WeatherCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_weather">
 
     <android.support.constraint.ConstraintLayout
@@ -36,7 +36,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:layout_marginStart="16dp"
-            android:text="Main Sunny"
+            tools:text="@tools:sample/cities"
             app:layout_constraintBottom_toBottomOf="@+id/imv_ico"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imv_ico"

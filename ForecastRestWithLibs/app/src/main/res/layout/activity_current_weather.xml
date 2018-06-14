@@ -13,10 +13,13 @@
         style="@style/MyCardView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/vg_rv_weather_list"
         app:layout_constraintEnd_toStartOf="@+id/txv_winds"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintHorizontal_weight="50"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside">
 
         <include layout="@layout/cardview_main_content" />
 
@@ -30,7 +33,7 @@
         app:layout_constraintEnd_toStartOf="@+id/txv_snow"
         app:layout_constraintHorizontal_weight="25"
         app:layout_constraintStart_toEndOf="@+id/cdv_main"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cdv_main"
         app:layout_constraintVertical_chainStyle="spread"
         tools:text="WIND" />
 
@@ -42,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_weight="25"
         app:layout_constraintStart_toEndOf="@+id/txv_winds"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cdv_main"
         app:layout_constraintVertical_chainStyle="spread"
         tools:text="SNOW" />
 
@@ -68,9 +71,9 @@
         tools:text="RAIN" />
 
     <FrameLayout
+        android:id="@+id/vg_rv_weather_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/vg_rv_weather_list"
         app:layout_constraintBottom_toTopOf="@+id/cdv_weather_data"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +82,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_weather_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:itemCount="1"
+            tools:listitem="@layout/cardview_weather">
 
         </android.support.v7.widget.RecyclerView>
     </FrameLayout>
@@ -91,7 +96,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/cdv_sys"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vg_rv_weather_list">
 
@@ -99,10 +105,19 @@
 
     </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataCardView>
 
-    <!--<com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView
+        android:id="@+id/cdv_sys"
+        style="@style/MyCardView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/cdv_weather_data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/cdv_weather_data"
+        app:layout_constraintTop_toTopOf="@+id/cdv_weather_data">
 
-    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView>-->
+        <include layout="@layout/cardview_sys"></include>
+
+    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView>
 
 </android.support.constraint.ConstraintLayout>

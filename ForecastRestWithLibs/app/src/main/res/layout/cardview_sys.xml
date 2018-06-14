@@ -30,7 +30,7 @@
             app:layout_constraintEnd_toStartOf="@+id/tv_sunset"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_country"
             tools:text="@tools:sample/date/hhmm" />
 
         <android.support.v7.widget.AppCompatTextView
@@ -41,7 +41,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_sunrise"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_country"
             tools:text="@tools:sample/date/hhmm" />
 
     </android.support.constraint.ConstraintLayout>
