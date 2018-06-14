@@ -37,6 +37,7 @@ import java.util.List;
 /**
  * Created by Mathias Seguy - Android2EE on 10/04/2016.
  */
+@Deprecated
 public interface CityForecastDaoIntf {
     /**
      * The find the current forecast by cityId

@@ -37,6 +37,7 @@ import com.orm.SugarRecord;
 /**
  * Created by Mathias Seguy - Android2EE on 26/02/2016.
  */
+@Deprecated
 public class City extends SugarRecord {
     /***********************************************************
      * Attributes

@@ -23,6 +23,7 @@ import java.util.List;
 /**
  * Is the WeatherData class on server side
  */
+@Deprecated
 public class Weather extends SugarRecord {
     private static final String TAG = "Weather";
     private Coordinates coordinates;

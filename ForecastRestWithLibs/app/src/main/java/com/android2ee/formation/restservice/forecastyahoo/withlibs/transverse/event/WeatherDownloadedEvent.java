@@ -36,6 +36,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 /**
  * Created by Mathias Seguy - Android2EE on 06/03/2016.
  */
+@Deprecated
 public class WeatherDownloadedEvent {
     Weather weather;
     int cityId;

@@ -47,6 +47,7 @@ import org.joda.time.DateTime;
 /**
  * Created by Mathias Seguy - Android2EE on 02/08/2016.
  */
+@Deprecated
 public class Weather3H {
     private static final String TAG = "Weather3H";
     /**

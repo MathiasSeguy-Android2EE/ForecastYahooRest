@@ -48,6 +48,7 @@ import java.util.List;
 /**
  * Created by Mathias Seguy - Android2EE on 25/02/2016.
  */
+@Deprecated
 public class CityDao implements CityDaoIntf{
     /***********************************************************
      * Constructor

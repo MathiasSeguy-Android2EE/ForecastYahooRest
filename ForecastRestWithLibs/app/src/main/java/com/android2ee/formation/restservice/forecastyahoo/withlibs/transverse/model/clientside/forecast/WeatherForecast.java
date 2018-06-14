@@ -45,6 +45,7 @@ import java.util.ArrayList;
 /**
  * Created by Mathias Seguy - Android2EE on 05/03/2016.
  */
+@Deprecated
 public class WeatherForecast  extends SugarRecord {
 
     private int dateTimeStampUtc;

@@ -38,6 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
 /**
  * Created by Mathias Seguy - Android2EE on 10/04/2016.
  */
+@Deprecated
 public interface WeatherServiceIntf extends MotherBusinessServiceIntf {
     /**
      * Load the WeatherData in an asynchronous way

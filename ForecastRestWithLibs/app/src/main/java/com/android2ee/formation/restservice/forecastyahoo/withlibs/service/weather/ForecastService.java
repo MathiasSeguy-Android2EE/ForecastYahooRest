@@ -50,6 +50,7 @@ import org.greenrobot.eventbus.Subscribe;
  * Created by Mathias Seguy - Android2EE on 25/02/2016.
  * This is a business service, it doesn't need to extends the Android Service
  */
+@Deprecated
 public class ForecastService extends MotherBusinessService implements ForecastServiceIntf {
     private static final String TAG = "ForecastService";
     /******************************************************************************************/

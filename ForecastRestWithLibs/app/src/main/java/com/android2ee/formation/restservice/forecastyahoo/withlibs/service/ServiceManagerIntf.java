@@ -40,6 +40,7 @@ import java.util.concurrent.ExecutorService;
 /**
  * Created by Mathias Seguy - Android2EE on 10/04/2016.
  */
+@Deprecated
 public interface ServiceManagerIntf {
     /**
      * To be called when you need to release all the services

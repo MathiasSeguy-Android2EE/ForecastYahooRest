@@ -36,6 +36,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.ex
 /**
  * Created by Mathias Seguy - Android2EE on 24/02/2016.
  */
+@Deprecated
 public class ExceptionManagedEvent {
     private ExceptionManaged exceptionManaged;
 

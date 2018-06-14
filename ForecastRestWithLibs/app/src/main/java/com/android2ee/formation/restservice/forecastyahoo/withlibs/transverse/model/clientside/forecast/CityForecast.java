@@ -42,6 +42,7 @@ import java.util.List;
 /**
  * Created by Mathias Seguy - Android2EE on 05/03/2016.
  */
+@Deprecated
 public class CityForecast extends SugarRecord {
     private int cityId;
     private String name;

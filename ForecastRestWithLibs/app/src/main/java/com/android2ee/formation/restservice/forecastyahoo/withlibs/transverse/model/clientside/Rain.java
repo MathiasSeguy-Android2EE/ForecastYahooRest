@@ -4,6 +4,7 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.m
 
 import com.orm.SugarRecord;
 
+@Deprecated
 public class Rain extends SugarRecord {
 
     /**

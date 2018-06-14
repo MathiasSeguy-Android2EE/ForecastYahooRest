@@ -21,6 +21,7 @@ import java.util.ArrayList;
 /**
  * Is the WeatherData class on server side
  */
+@Deprecated
 public class WeatherDay extends SugarRecord {
     private static final String TAG = "WeatherDay";
     /**

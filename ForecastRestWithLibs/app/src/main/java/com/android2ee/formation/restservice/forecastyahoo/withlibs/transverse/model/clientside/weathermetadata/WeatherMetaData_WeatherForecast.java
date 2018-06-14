@@ -38,6 +38,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
  * This class has been created because of sugarOrm one to many relationship management
  * So instead of polluting WeatherMetadat we creat subclass with just the fields to make the link
  */
+@Deprecated
 public class WeatherMetaData_WeatherForecast extends WeatherMetaData {
     WeatherForecast weatherForecast;
 

@@ -8,6 +8,7 @@ import com.orm.SugarRecord;
  * The system class having country, sunrise and sunset
  * Is the class sys on server side
  */
+@Deprecated
 public class Ephemeris extends SugarRecord {
     private int type;
     private int cityId;
