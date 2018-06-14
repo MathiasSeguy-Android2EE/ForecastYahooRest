@@ -75,7 +75,7 @@ public class WeatherForecast  extends SugarRecord {
     }
 
     public WeatherForecast(WeatherForecastItem worecastForecast){
-        dateTimeStampUtc=worecastForecast.getDt();
+        dateTimeStampUtc= (int) worecastForecast.getDt();
         weatherDetails=new WeatherDetails(worecastForecast.getMain());
         //SugarOrm trick to save the weathers
         if(worecastForecast.getWeather()!=null) {

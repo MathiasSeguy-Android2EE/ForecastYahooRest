@@ -39,4 +39,18 @@ public class Clouds {
         this.all = all;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Clouds)) return false;
+
+        Clouds clouds = (Clouds) o;
+
+        return getAll() == clouds.getAll();
+    }
+
+    @Override
+    public int hashCode() {
+        return getAll();
+    }
 }

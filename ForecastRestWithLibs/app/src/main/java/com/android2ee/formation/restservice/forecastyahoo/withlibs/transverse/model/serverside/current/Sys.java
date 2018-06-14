@@ -1,19 +1,41 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.squareup.moshi.Json;
 
 /**
  * The system class having country, sunrise and sunset
  */
+@Entity(tableName="sys_current",
+        indices = {@Index(value = {"weatherDataId"},unique = false)},
+        foreignKeys = @ForeignKey(entity = WeatherData.class,
+                parentColumns = "_id",
+                childColumns = "weatherDataId"))
 public class Sys{
+    @PrimaryKey(autoGenerate = true)
+    private long _id;
+    @ColumnInfo(name="type")
     private int type;
     @Json(name = "cityId")
-    private int id;
+    @ColumnInfo(name="cityId")
+    private long cityId;
+    @ColumnInfo(name="message")
     private float message;
+    @ColumnInfo(name="country")
     private String country;
+    @ColumnInfo(name="sunrise")
     private int sunrise;
+    @ColumnInfo(name="sunset")
     private int sunset;
+
+    @ColumnInfo(name="weatherDataId")
+    private Long weatherDataId;
 
     /**
      * No args constructor for use in serialization
@@ -25,15 +47,15 @@ public class Sys{
     /**
      * 
      * @param message
-     * @param id
+     * @param cityId
      * @param sunset
      * @param sunrise
      * @param type
      * @param country
      */
-    public Sys(int type, int id, float message, String country, int sunrise, int sunset) {
+    public Sys(int type, int cityId, float message, String country, int sunrise, int sunset) {
         this.type = type;
-        this.id = id;
+        this.cityId = cityId;
         this.message = message;
         this.country = country;
         this.sunrise = sunrise;
@@ -63,17 +85,17 @@ public class Sys{
      * @return
      *     The id
      */
-    public int getId() {
-        return id;
+    public long getCityId() {
+        return cityId;
     }
 
     /**
      * 
-     * @param id
+     * @param cityId
      *     The id
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setCityId(long cityId) {
+        this.cityId = cityId;
     }
 
     /**
@@ -148,4 +170,19 @@ public class Sys{
         this.sunset = sunset;
     }
 
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
+    }
+
+    public Long getWeatherDataId() {
+        return weatherDataId;
+    }
+
+    public void setWeatherDataId(Long weatherDataId) {
+        this.weatherDataId = weatherDataId;
+    }
 }

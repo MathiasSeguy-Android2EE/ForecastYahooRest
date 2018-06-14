@@ -8,10 +8,11 @@ buildscript {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        maven { url 'https://maven.fabric.io/public' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.3'
-
+            classpath 'io.fabric.tools:gradle:1.+'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -25,6 +26,7 @@ allprojects {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        maven { url 'https://maven.fabric.io/public' }
     }
 }
 
@@ -32,30 +34,4 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
-// Define versions in a single place
-ext {
-    // Sdk and tools
-    minSdkVersion = 14
-    targetSdkVersion = 27
-    compileSdkVersion = 27
-
-    // App dependencies
-    supportLibraryVersion = '27.1.1'
-    guavaVersion = '18.0'
-    glideVersion = '3.6.1'
-    junitVersion = '4.12'
-    mockitoVersion = '1.10.19'
-    powerMockito = '1.6.2'
-    hamcrestVersion = '1.3'
-    runnerVersion = '0.5'
-    rulesVersion = '0.5'
-    eventBusVersion = '3.1.1'
-    sugarOrmVersion = '1.4'
-    espressoVersion = '3.0.2'
-    retrofitVersion = '2.4.0'
-    okhttpVersion = '3.10.0'
-    okhttpLoginInterceptVersion = '3.9.0'
-    okioVersion = '1.14.0'
-    jodaTimeVersion = '2.9.2'
-}
 

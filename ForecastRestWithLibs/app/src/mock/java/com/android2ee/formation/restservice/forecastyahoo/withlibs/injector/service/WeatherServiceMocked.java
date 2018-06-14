@@ -33,11 +33,11 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.ser
 
 import android.util.Log;
 
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherServiceIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherDownloadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherLoadedEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse.DataGenerator;
 
 import org.greenrobot.eventbus.EventBus;
 

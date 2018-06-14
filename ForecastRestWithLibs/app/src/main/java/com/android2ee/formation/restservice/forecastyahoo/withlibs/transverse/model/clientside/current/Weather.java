@@ -99,9 +99,9 @@ public class Weather extends SugarRecord {
             clouds = new Clouds(weatherServerSide.getClouds());
             rain = new Rain(weatherServerSide.getRain());
             snow = new Snow(weatherServerSide.getSnow());
-            timeStampUTC=weatherServerSide.getTimeStampUTC();
+            timeStampUTC= (int) weatherServerSide.getTimeStampUTC();
             ephemeris=new Ephemeris(weatherServerSide.getSys());
-            cityId=weatherServerSide.getCityId();
+            cityId= (int) weatherServerSide.getCityId();
             name=weatherServerSide.getName();
             cod=weatherServerSide.getCod();
         }

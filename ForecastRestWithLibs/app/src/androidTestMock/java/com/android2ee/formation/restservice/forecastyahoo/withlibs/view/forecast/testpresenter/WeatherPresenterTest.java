@@ -40,7 +40,6 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.De
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherPresenter;
 
-
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -81,9 +80,15 @@ public class WeatherPresenterTest  extends AndroidTestCase {
         //register on EventBus (because it's done by the real view)
         EventBus.getDefault().register(presenter);
         presenter.loadCities();
+        int timeout = 0;
         while (!citiesLoaded.get()) {
             Thread.currentThread().sleep(500);
             Log.e(TAG, "waiting for the citiesLoaded moment in testLoadCities"+Thread.currentThread().getName());
+
+            if (timeout == 5) {
+                fail("Timeout");
+            }
+            timeout++;
         }
         //and don't forget to unregister
         EventBus.getDefault().unregister(presenter);

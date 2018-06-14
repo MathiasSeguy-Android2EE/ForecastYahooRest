@@ -29,7 +29,7 @@ public class Ephemeris extends SugarRecord {
     public Ephemeris(Sys sys) {
         if(sys!=null) {
             type = sys.getType();
-            cityId = sys.getId();
+//            cityId = sys.getId();
             message = sys.getMessage();
             country = sys.getCountry();
             sunrise = sys.getSunrise();

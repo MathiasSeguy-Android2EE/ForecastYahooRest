@@ -43,16 +43,18 @@ import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ConnectivityChangeEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
-import com.orm.SugarContext;
+import com.crashlytics.android.Crashlytics;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.atomic.AtomicInteger;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by Mathias Seguy - Android2EE on 23/02/2016.
@@ -95,6 +97,7 @@ public class MyApplication extends Application {
         super.onCreate();
         Log.e("MyApplication", "onCreate is called");
         instance = this;
+        Fabric.with(this,new Crashlytics());
 
         //manage connectivity state
         manageConnectivityState();
@@ -109,8 +112,6 @@ public class MyApplication extends Application {
         registerReceiver(connectivityChangedReceiever, filter);
         //initiliaze JodaTime
         JodaTimeAndroid.init(this);
-        //initialize Sugar
-        SugarContext.init(this);
     }
 
 
@@ -118,8 +119,6 @@ public class MyApplication extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        Log.e("MyApplication", "onTerminate is called");
-        SugarContext.terminate();
     }
     /******************************************************************************************/
     /** Managing ServiceManager **************************************************************************/

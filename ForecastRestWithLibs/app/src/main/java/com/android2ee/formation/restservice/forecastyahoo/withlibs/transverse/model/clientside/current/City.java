@@ -96,11 +96,11 @@ public class City extends SugarRecord {
      */
     public City(com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City city) {
         if(city!=null) {
-            cityId = city.getId();
+            cityId = city.getServerId();
             name = city.getName();
             coordinates = new Coordinates(city.getCoord());
             weatherDetails = new WeatherDetails(city.getMain());
-            dateTimeUnix = city.getDt();
+            dateTimeUnix = (int) city.getDt();
             wind = new Wind(city.getWind());
             ephemeris = new Ephemeris(city.getSys());
             clouds = new Clouds(city.getClouds());

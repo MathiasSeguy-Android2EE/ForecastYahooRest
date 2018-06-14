@@ -31,11 +31,17 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Coord;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Wind;
+import com.squareup.moshi.Json;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,16 +49,29 @@ import java.util.List;
 /**
  * Created by Mathias Seguy - Android2EE on 23/02/2016.
  */
-public class City  {
 
-    private int id;
+@Entity(tableName="city")
+public class City  {
+    @PrimaryKey(autoGenerate = true)
+    private long _id;
+    @ColumnInfo(name="serverIdDeMerde")
+    @Json(name="id")
+    private int serverId;
+    @ColumnInfo(name="name")
     private String name;
+    @ColumnInfo(name="dt")
+    private long dt;
+    @ColumnInfo(name="coord")
     private Coord coord;
-    private Main main;
-    private int dt;
-    private Wind wind;
+    @Ignore
     private Sys sys;
+    @Ignore
+    private Main main;
+    @Ignore
+    private Wind wind;
+    @Ignore
     private Clouds clouds;
+    @Ignore
     private List<Weather> weather = new ArrayList<Weather>();
 
     /**
@@ -75,7 +94,7 @@ public class City  {
      * @param main
      */
     public City(int id, String name, Coord coord, Main main, int dt, Wind wind, Sys sys, Clouds clouds, List<Weather> weather) {
-        this.id = id;
+        this.serverId = id;
         this.name = name;
         this.coord = coord;
         this.main = main;
@@ -91,17 +110,17 @@ public class City  {
      * @return
      * The id
      */
-    public int getId() {
-        return id;
+    public int getServerId() {
+        return serverId;
     }
 
     /**
      *
-     * @param id
+     * @param serverId
      * The id
      */
-    public void setId(int id) {
-        this.id = id;
+    public void setServerId(int serverId) {
+        this.serverId = serverId;
     }
 
     /**
@@ -163,7 +182,7 @@ public class City  {
      * @return
      * The dt
      */
-    public int getDt() {
+    public long getDt() {
         return dt;
     }
 
@@ -172,7 +191,7 @@ public class City  {
      * @param dt
      * The dt
      */
-    public void setDt(int dt) {
+    public void setDt(long dt) {
         this.dt = dt;
     }
 
@@ -252,7 +271,7 @@ public class City  {
     public String toString() {
         final StringBuffer sb = new StringBuffer("City{");
         sb.append("clouds=").append(clouds);
-        sb.append(", id=").append(id);
+        sb.append(", id=").append(serverId);
         sb.append(", name='").append(name).append('\'');
         sb.append(", coord=").append(coord);
         sb.append(", main=").append(main);
@@ -263,6 +282,15 @@ public class City  {
         sb.append('}');
         return sb.toString();
     }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
+    }
+
     //    private long Id;
 //    private String name;
 //    private String country;

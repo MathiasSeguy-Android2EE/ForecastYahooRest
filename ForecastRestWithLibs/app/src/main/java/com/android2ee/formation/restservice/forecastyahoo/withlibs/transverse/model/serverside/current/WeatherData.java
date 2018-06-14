@@ -1,6 +1,13 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Coord;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
@@ -12,24 +19,46 @@ import com.squareup.moshi.Json;
 
 import java.util.ArrayList;
 import java.util.List;
-public class WeatherData{
-    private Coord coord;
-    private List<Weather> weather = new ArrayList<Weather>();
-    private String base;
-    private Main main;
-    private Wind wind;
-    private Clouds clouds;
-    private Rain rain;
-    private Snow snow;
 
+@Entity(tableName="weather_data_current",
+        indices = {@Index(value = {"cityId"},unique = false)},
+        foreignKeys = {
+                @ForeignKey(entity = City.class,
+                        parentColumns = "_id",
+                        childColumns = "cityId")}
+)
+public class WeatherData{
+    @PrimaryKey(autoGenerate = true)
+    private long _id;
+    @ColumnInfo(name="coord")
+    private Coord coord;
+    @ColumnInfo(name="base")
+    private String base;
+    @ColumnInfo(name="wind")
+    private Wind wind;
+    @ColumnInfo(name="clouds")
+    private Clouds clouds;
+    @ColumnInfo(name="rain")
+    private Rain rain;
+    @ColumnInfo(name="snow")
+    private Snow snow;
     //When the weather object have been calculated (server side)
     @Json(name = "dt")
-    private int timeStampUTC;
-    private Sys sys;
+    @ColumnInfo(name="dt")
+    private long timeStampUTC;
     @Json(name = "id")
-    private int cityId;
+    @ColumnInfo(name="cityId")
+    private long city_Id;
+    @ColumnInfo(name="name")
     private String name;
+    @ColumnInfo(name="cod")
     private int cod;
+    @Ignore
+    private Sys sys;
+    @Ignore
+    private Main main;
+    @Ignore
+    private List<Weather> weather = new ArrayList<Weather>();
 
 
     /**
@@ -64,7 +93,7 @@ public class WeatherData{
         this.rain = rain;
         this.timeStampUTC = timeStampUTC;
         this.sys = sys;
-        this.cityId = cityId;
+        this.city_Id = cityId;
         this.name = name;
         this.cod = cod;
     }
@@ -200,7 +229,7 @@ public class WeatherData{
      * @return
      *     The dt
      */
-    public int getTimeStampUTC() {
+    public long getTimeStampUTC() {
         return timeStampUTC;
     }
 
@@ -209,7 +238,7 @@ public class WeatherData{
      * @param timeStampUTC
      *     The dt
      */
-    public void setTimeStampUTC(int timeStampUTC) {
+    public void setTimeStampUTC(long timeStampUTC) {
         this.timeStampUTC = timeStampUTC;
     }
 
@@ -236,8 +265,8 @@ public class WeatherData{
      * @return
      *     The id
      */
-    public int getCityId() {
-        return cityId;
+    public long getCityId() {
+        return city_Id;
     }
 
     /**
@@ -245,8 +274,8 @@ public class WeatherData{
      * @param cityId
      *     The id
      */
-    public void setCityId(int cityId) {
-        this.cityId = cityId;
+    public void setCityId(long cityId) {
+        this.city_Id = cityId;
     }
 
     /**
@@ -292,5 +321,72 @@ public class WeatherData{
 
     public void setSnow(Snow snow) {
         this.snow = snow;
+    }
+
+    public long get_id() {
+        return _id;
+    }
+
+    public void set_id(long _id) {
+        this._id = _id;
+    }
+
+    public long getCity_Id() {
+        return city_Id;
+    }
+
+    public void setCity_Id(long city_Id) {
+        this.city_Id = city_Id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof WeatherData)) return false;
+
+        WeatherData that = (WeatherData) o;
+
+        if (get_id() != that.get_id()) return false;
+        if (getTimeStampUTC() != that.getTimeStampUTC()) return false;
+        if (getCity_Id() != that.getCity_Id()) return false;
+        if (getCod() != that.getCod()) return false;
+        if (getCoord() != null ? !getCoord().equals(that.getCoord()) : that.getCoord() != null)
+            return false;
+        if (getBase() != null ? !getBase().equals(that.getBase()) : that.getBase() != null)
+            return false;
+        if (getWind() != null ? !getWind().equals(that.getWind()) : that.getWind() != null)
+            return false;
+        if (getClouds() != null ? !getClouds().equals(that.getClouds()) : that.getClouds() != null)
+            return false;
+        if (getRain() != null ? !getRain().equals(that.getRain()) : that.getRain() != null)
+            return false;
+        if (getSnow() != null ? !getSnow().equals(that.getSnow()) : that.getSnow() != null)
+            return false;
+        if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null)
+            return false;
+        if (getSys() != null ? !getSys().equals(that.getSys()) : that.getSys() != null)
+            return false;
+        if (getMain() != null ? !getMain().equals(that.getMain()) : that.getMain() != null)
+            return false;
+        return getWeather() != null ? getWeather().equals(that.getWeather()) : that.getWeather() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (get_id() ^ (get_id() >>> 32));
+        result = 31 * result + (getCoord() != null ? getCoord().hashCode() : 0);
+        result = 31 * result + (getBase() != null ? getBase().hashCode() : 0);
+        result = 31 * result + (getWind() != null ? getWind().hashCode() : 0);
+        result = 31 * result + (getClouds() != null ? getClouds().hashCode() : 0);
+        result = 31 * result + (getRain() != null ? getRain().hashCode() : 0);
+        result = 31 * result + (getSnow() != null ? getSnow().hashCode() : 0);
+        result = 31 * result + (int) (getTimeStampUTC() ^ (getTimeStampUTC() >>> 32));
+        result = 31 * result + (int) (getCity_Id() ^ (getCity_Id() >>> 32));
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + getCod();
+        result = 31 * result + (getSys() != null ? getSys().hashCode() : 0);
+        result = 31 * result + (getMain() != null ? getMain().hashCode() : 0);
+        result = 31 * result + (getWeather() != null ? getWeather().hashCode() : 0);
+        return result;
     }
 }

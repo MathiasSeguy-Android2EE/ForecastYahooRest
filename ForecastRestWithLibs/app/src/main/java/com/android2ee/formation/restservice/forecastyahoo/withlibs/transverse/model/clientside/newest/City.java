@@ -63,7 +63,7 @@ public class City extends SugarRecord {
      */
     public City(com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City city) {
         if(city!=null) {
-            cityId = city.getId();
+            cityId = city.getServerId();
             name = city.getName();
             coordinates = new Coordinates(city.getCoord());
             country=city.getSys().getCountry();
