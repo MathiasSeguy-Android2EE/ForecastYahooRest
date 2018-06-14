@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MyTextView.Main">
+        <item name="android:textColor">@color/blue_pure_2</item>
+    </style>
+
+    <style name="MyTextView.Main.Primary">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Display2</item>
+    </style>
+
+    <style name="MyTextView.Main.Secondary">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
+    </style>
+
+</resources>
