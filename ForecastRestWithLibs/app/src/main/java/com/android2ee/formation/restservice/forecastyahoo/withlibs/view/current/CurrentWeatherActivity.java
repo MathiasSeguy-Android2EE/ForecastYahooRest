@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataCardView;
@@ -20,6 +21,8 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     private RecyclerView rvWeatherList;
     private WeatherDataCardView weatherDataCardView;
     private SysCardView sysCardView;
+
+    private WeatherData weatherData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +45,8 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     }
 
     private void initLifecycleOwners() {
-        mainCardView.setLifeCycleOwner(this);
-        weatherDataCardView.setLifeCycleOwner(this);
-        sysCardView.setLifeCycleOwner(this);
+        mainCardView.init(this, weatherData);
+        weatherDataCardView.init(this, weatherData);
+        sysCardView.init(this, weatherData);
     }
 }
