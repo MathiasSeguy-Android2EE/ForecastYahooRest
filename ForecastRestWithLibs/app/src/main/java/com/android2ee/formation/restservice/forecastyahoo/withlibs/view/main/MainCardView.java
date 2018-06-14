@@ -1,15 +1,19 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main;
 
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
+import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCardView;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.main.MainViewModel;
+
+import java.util.List;
 
 public class MainCardView extends MotherCardView {
 
@@ -41,13 +45,31 @@ public class MainCardView extends MotherCardView {
         init();
     }
 
+    public void setLifecycleOwner(AppCompatActivity activity) {
+        super.setLifecycleOwner(activity);
+        // Init observer only after having a lifeCycleOwner
+        initObservers();
+    }
+
+    /***********************************************************
+     *  ModelView management
+     **********************************************************/
+    @Override
+    public Class<MainViewModel> getCardViewModelClass() {
+        return MainViewModel.class;
+    }
+
+    @Override
+    public String getCardViewModelKey() {
+        return MainCardView.class.getName();
+    }
+
     /***********************************************************
      *  Private methods
      **********************************************************/
 
     private void init() {
         initViews();
-        initObservers();
     }
 
     private void initViews() {
@@ -59,7 +81,15 @@ public class MainCardView extends MotherCardView {
     }
 
     private void initObservers() {
-        //TODO
+        MainViewModel viewModel = (MainViewModel) getViewModel();
+        viewModel.getAllMainLiveData().observe(activity,new Observer<List<Main>>() {
+            @Override
+            public void onChanged(@Nullable List<Main> mains) {
+                if (mains != null) {
+                    updateWith(mains.get(0));
+                }
+            }
+        });
     }
 
     private void updateWith(@NonNull Main main) {

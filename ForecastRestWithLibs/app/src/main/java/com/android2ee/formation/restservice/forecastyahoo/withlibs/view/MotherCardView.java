@@ -1,16 +1,21 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view;
 
-import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
-public class MotherCardView extends CardView {
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.MotherViewModel;
 
-    private LifecycleOwner lifecycleOwner;
-    private long contextId;
+public abstract class MotherCardView<VM extends MotherViewModel> extends CardView {
+
+    private VM motherViewModel;
+    protected AppCompatActivity activity;
+    long contextId;
 
     /***********************************************************
      *  Constructors
@@ -27,8 +32,38 @@ public class MotherCardView extends CardView {
         super(context, attrs, defStyleAttr);
     }
 
-    public void init(LifecycleOwner lifeCycleOwner, long contextId) {
-        this.lifecycleOwner = lifeCycleOwner;
+    public void setLifecycleOwner(AppCompatActivity activity, long contextId) {
+        this.activity = activity;
         this.contextId = contextId;
+    }
+    /**
+     * Give us the model associated with the mContext
+     * @return The view model class
+     */
+    public abstract Class<VM> getCardViewModelClass();
+    /**
+     * Give us the model associated with the mContext
+     * @return The view model class
+     */
+    public abstract String getCardViewModelKey();
+
+    protected ViewModelProvider.Factory getCardViewFactory() {
+        return null;
+    }
+
+    protected VM getViewModel() {
+        if (activity == null) return null;
+
+        if (motherViewModel == null && getCardViewModelClass() != null) {
+
+             if (getCardViewFactory() == null) {
+                 motherViewModel = ViewModelProviders.of(activity)
+                        .get(getCardViewModelKey(), getCardViewModelClass());
+            } else {
+                ViewModelProviders.of(activity, getCardViewFactory())
+                        .get(getCardViewModelKey(), getCardViewModelClass());
+            }
+        }
+        return motherViewModel;
     }
 }
