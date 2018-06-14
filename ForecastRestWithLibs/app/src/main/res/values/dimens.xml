@@ -6,5 +6,6 @@
     <dimen name="activity_padding">5dp</dimen>
     <dimen name="buttonSize">12dp</dimen>
     <dimen name="corner_button_Size">5dp</dimen>
+    <dimen name="cardview_sys_margin">8dp</dimen>
 
 </resources>
