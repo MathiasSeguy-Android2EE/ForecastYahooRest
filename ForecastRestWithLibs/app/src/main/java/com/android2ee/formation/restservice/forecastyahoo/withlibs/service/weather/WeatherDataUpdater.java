@@ -36,11 +36,11 @@ import android.util.Log;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast.CityForecastDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.weather.WeatherDaoIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityForecastDownloadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherDownloadedEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
 

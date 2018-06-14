@@ -39,10 +39,10 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Inje
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Coordinates;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Ephemeris;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.WeatherDetails;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Wind;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Ephemeris;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData_City;
 

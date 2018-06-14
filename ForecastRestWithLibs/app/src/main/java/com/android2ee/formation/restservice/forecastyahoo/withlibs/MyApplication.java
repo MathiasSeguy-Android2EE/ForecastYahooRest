@@ -47,7 +47,6 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Inje
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ConnectivityChangeEvent;
 import com.crashlytics.android.Crashlytics;
-import com.orm.SugarContext;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -113,8 +112,6 @@ public class MyApplication extends Application {
         registerReceiver(connectivityChangedReceiever, filter);
         //initiliaze JodaTime
         JodaTimeAndroid.init(this);
-        //initialize Sugar
-        SugarContext.init(this);
     }
 
 
@@ -122,8 +119,6 @@ public class MyApplication extends Application {
     @Override
     public void onTerminate() {
         super.onTerminate();
-        Log.e("MyApplication", "onTerminate is called");
-        SugarContext.terminate();
     }
     /******************************************************************************************/
     /** Managing ServiceManager **************************************************************************/

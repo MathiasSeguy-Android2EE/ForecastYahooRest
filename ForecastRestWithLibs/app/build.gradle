@@ -134,6 +134,11 @@ dependencies {
     implementation "com.android.support:recyclerview-v7:${supportLibraryVersion}"
     implementation "com.android.support:cardview-v7:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
+    implementation "android.arch.persistence.room:runtime:${archi_components_version}"
+    annotationProcessor "android.arch.persistence.room:compiler:${archi_components_version}"
+    implementation "android.arch.lifecycle:extensions:${archi_components_version}"
+    annotationProcessor "android.arch.persistence.room:compiler:${archi_components_version}"
+    androidTestImplementation "android.arch.core:core-testing:${archi_components_version}"
 
     // I want eventBus
     implementation "org.greenrobot:eventbus:${eventBusVersion}"
@@ -170,6 +175,10 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.3@aar') {
         transitive = true;
     }
+    // required if you want to use Mockito for unit tests
+    testImplementation 'org.mockito:mockito-core:2.7.22'
+    // required if you want to use Mockito for Android tests
+    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
 }
 /***********************************************************
  *  Apply your check here
