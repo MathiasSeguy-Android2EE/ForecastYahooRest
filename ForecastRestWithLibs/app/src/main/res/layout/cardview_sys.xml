@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_country"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,9 +19,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="@tools:sample/cities" />
+            tools:text="@tools:sample/cities"/>
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_sunrise"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/date/hhmm" />
 
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_sunset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,4 +45,4 @@
             tools:text="@tools:sample/date/hhmm" />
 
     </android.support.constraint.ConstraintLayout>
-</com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView>
+</android.support.v7.widget.CardView>
