@@ -135,8 +135,10 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
             findCityByNameCall=webServiceComplex.findCityByName(cityName);
             Response<com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse> resp=findCityByNameCall.execute();
             if(resp.code()==200){
+                MyLog.e(TAG, "findCityByName() called with: " + "cityName = [" + cityName + "] response 200");
                 return findCityByNameCall.execute().body();
             }else{
+                MyLog.e(TAG, "findCityByName() called with: " + "cityName = [" + cityName + "] failure response "+resp.code());
                 ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc));
             }
         } catch (IOException e) {

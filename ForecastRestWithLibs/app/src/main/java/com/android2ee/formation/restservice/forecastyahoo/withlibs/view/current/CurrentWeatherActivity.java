@@ -1,5 +1,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -23,13 +24,16 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     private WeatherDataCardView weatherDataCardView;
     private SysCardView sysCardView;
 
+    CurrentWeatherActivityModel model;
+
     private WeatherData weatherData;
     private long cityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getIntent().getLongExtra(CityActivity.CITY_ID,-1);
+        cityId=getIntent().getLongExtra(CityActivity.CITY_ID,-1);
+        model=ViewModelProviders.of(this, new CurrentWeatherModelFactory(cityId)).get(CurrentWeatherActivityModel.class);
         setContentView(R.layout.activity_current_weather);
 
         initCardViews();
