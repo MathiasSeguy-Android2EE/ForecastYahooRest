@@ -24,7 +24,6 @@ public class CurrentWeatherActivity extends AppCompatActivity {
 
     private WeatherData weatherData;
     private long cityId;
-    private long weatherDataId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +46,8 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     }
 
     private void initLifecycleOwners() {
-        mainCardView.init(this, weatherDataId);
+        mainCardView.init(this, weatherData.get_id());
         weatherDataCardView.init(this, cityId);
-        sysCardView.init(this, weatherDataId);
+        sysCardView.init(this, weatherData.get_id());
     }
 }
