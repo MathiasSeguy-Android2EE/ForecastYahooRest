@@ -38,16 +38,18 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityAddedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
 /**
  * Created by Mathias Seguy - Android2EE on 08/03/2016.
  */
-@Deprecated
 public class CityService extends MotherBusinessService implements CityServiceIntf {
     private static final String TAG = "CityService";
     /******************************************************************************************/
@@ -164,6 +166,7 @@ public class CityService extends MotherBusinessService implements CityServiceInt
             id=ForecastDatabase.getInstance().getCityDao().insert(city);
         }
         city.set_id(id);
+        EventBus.getDefault().post(new CityAddedEvent(city));
     }
     /**
      * This is the runnable that will send the work in a background thread

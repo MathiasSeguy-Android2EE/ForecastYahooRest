@@ -5,16 +5,22 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.adapter.WeatherRecyclerViewAdapter;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.CityActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataCardView;
+
+import java.util.ArrayList;
 
 public class CurrentWeatherActivity extends AppCompatActivity {
     private static final String TAG = "CurrentWeatherActivity";
@@ -24,9 +30,12 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     private TextView tvRain;
     private TextView tvClouds;
     private RecyclerView rvWeatherList;
+    private WeatherRecyclerViewAdapter recyclerViewAdapter;
     private WeatherDataCardView weatherDataCardView;
     private SysCardView sysCardView;
     private MainCardView mainCardView;
+    private RecyclerView.LayoutManager gridLayoutManager;
+    GridLayoutManager.SpanSizeLookup spanSizeLookup;
 
     CurrentWeatherActivityModel model;
 
@@ -56,10 +65,9 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     }
 
     private void onChangedLiveData(@Nullable WeatherData weatherData) {
-        if (weatherData == null) {
+        if(weatherData==null){
             //ben we do nothing, stupid liveData behavior
-
-        } else {
+        }else {
             this.weatherData = weatherData;
             initLifecycleOwners();
             updateView(weatherData);
@@ -75,15 +83,29 @@ public class CurrentWeatherActivity extends AppCompatActivity {
         rvWeatherList = findViewById(R.id.rv_weather_list);
         weatherDataCardView = findViewById(R.id.cdv_weather_data);
         sysCardView = findViewById(R.id.cdv_sys);
+        //manage recyclerview
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        rvWeatherList.setHasFixedSize(false);
+        // use a linear layout manage
+        rvWeatherList.setLayoutManager(new LinearLayoutManager(this));
+        // specify an adapter (see also next example)
+        recyclerViewAdapter = new WeatherRecyclerViewAdapter(new ArrayList<Weather>(), this);
+        rvWeatherList.setAdapter(recyclerViewAdapter);
     }
-
     private void initLifecycleOwners() {
+        mainCardView.setLifecycleOwner(this, weatherData.get_id());
         weatherDataCardView.setLifecycleOwner(this, cityId);
+        sysCardView.setLifecycleOwner(this, weatherData.get_id());
     }
 
     private void updateView(WeatherData weatherData){
-        this.weatherData = weatherData;
-        mainCardView.setLifecycleOwner(this, weatherData.get_id());
-        sysCardView.setLifecycleOwner(this, weatherData.get_id());
+        //todo
+        this.weatherData=weatherData;
+        tvWind.setText(""+weatherData.getWind().getSpeed());
+        tvClouds.setText(""+weatherData.getClouds().getAll());
+        tvRain.setText(""+weatherData.getRain().get3h());
+        tvSnow.setText(""+weatherData.getSnow().get3h());
+        recyclerViewAdapter.updateWeatherData(weatherData.getWeather());
     }
 }

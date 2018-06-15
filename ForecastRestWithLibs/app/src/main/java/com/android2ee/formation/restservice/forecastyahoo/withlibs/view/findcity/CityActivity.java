@@ -20,11 +20,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityAddedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CurrentWeatherActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.arrayadapter.CitiesArrayAdapter;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -242,7 +246,7 @@ public class CityActivity extends MotherActivity {
 	private void selectCity(int position){
 		City city=arrayAdapterCities.getItem(position);
 		viewModel.selectCity(city);
-		finishView(city.get_id());
+//		finishView(city.get_id());
 	}
 
 	/******************************************************************************************/
@@ -254,7 +258,10 @@ public class CityActivity extends MotherActivity {
 		arrayAdapterCities.addAll(cities);
 		arrayAdapterCities.notifyDataSetChanged();
 	}
-
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onEventMainThread(CityAddedEvent event){
+		finishView(event.getCity().get_id());
+	}
 	/**
 	 * Call this method when the view has to be finished (Activity's notion)
 	 */

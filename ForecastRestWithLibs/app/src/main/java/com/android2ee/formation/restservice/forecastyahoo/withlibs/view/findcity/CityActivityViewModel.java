@@ -47,7 +47,6 @@ public class CityActivityViewModel extends ViewModel {
      */
     public  void selectCity(City city){
         MyApplication.instance.getServiceManager().getCityService().addCityAsync(city);
-
         MyApplication.instance.getServiceManager().getWeatherUpdaterService().downloadCurrentWeatherAsync(city.getServerId());
         MyApplication.instance.getServiceManager().getWeatherUpdaterService().downloadForecastWeatherAsync(city.getServerId());
 
