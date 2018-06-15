@@ -12,12 +12,15 @@ import java.util.List;
  * Created by Created by Mathias Seguy alias Android2ee on 15/06/2018.
  */
 public class CurrentWeatherActivityModel extends ViewModel {
-    LiveData<List<WeatherData>> data;
-    public CurrentWeatherActivityModel() {
+
+    private LiveData<List<WeatherData>> data;
+
+    public CurrentWeatherActivityModel(long cityId) {
         data=ForecastDatabase.getInstance().getWeatherDataDao().loadLiveDataByCityId(cityId);
     }
 
     public LiveData<List<WeatherData>> getLiveData(){
         return data;
     }
+
 }
