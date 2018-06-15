@@ -53,6 +53,8 @@ public class WeatherData{
     private String name;
     @ColumnInfo(name="cod")
     private int cod;
+    @ColumnInfo(name="visibility")
+    private int visibility;
     @Ignore
     private Sys sys;
     @Ignore
@@ -83,7 +85,7 @@ public class WeatherData{
      * @param rain
      * @param main
      */
-    public WeatherData(Coord coord, List<Weather> weather, String base, Main main, Wind wind, Clouds clouds, Rain rain, int timeStampUTC, Sys sys, int cityId, String name, int cod) {
+    public WeatherData(Coord coord, List<Weather> weather, String base, Main main, Wind wind, Clouds clouds, Rain rain, int timeStampUTC, Sys sys, int cityId, String name, int cod, int visibility) {
         this.coord = coord;
         this.weather = weather;
         this.base = base;
@@ -96,6 +98,7 @@ public class WeatherData{
         this.city_Id = cityId;
         this.name = name;
         this.cod = cod;
+        this.visibility = visibility;
     }
 
     /**
@@ -314,6 +317,23 @@ public class WeatherData{
         this.cod = cod;
     }
 
+    /**
+     *
+     * @return
+     *     The visibility
+     */
+    public int getVisibility() {
+        return visibility;
+    }
+
+    /**
+     *
+     * @param visibility
+     *     The visibility
+     */
+    public void setVisibility(int visibility) {
+        this.visibility = visibility;
+    }
 
     public Snow getSnow() {
         return snow;
@@ -342,51 +362,44 @@ public class WeatherData{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof WeatherData)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
 
         WeatherData that = (WeatherData) o;
 
-        if (get_id() != that.get_id()) return false;
-        if (getTimeStampUTC() != that.getTimeStampUTC()) return false;
-        if (getCity_Id() != that.getCity_Id()) return false;
-        if (getCod() != that.getCod()) return false;
-        if (getCoord() != null ? !getCoord().equals(that.getCoord()) : that.getCoord() != null)
-            return false;
-        if (getBase() != null ? !getBase().equals(that.getBase()) : that.getBase() != null)
-            return false;
-        if (getWind() != null ? !getWind().equals(that.getWind()) : that.getWind() != null)
-            return false;
-        if (getClouds() != null ? !getClouds().equals(that.getClouds()) : that.getClouds() != null)
-            return false;
-        if (getRain() != null ? !getRain().equals(that.getRain()) : that.getRain() != null)
-            return false;
-        if (getSnow() != null ? !getSnow().equals(that.getSnow()) : that.getSnow() != null)
-            return false;
-        if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null)
-            return false;
-        if (getSys() != null ? !getSys().equals(that.getSys()) : that.getSys() != null)
-            return false;
-        if (getMain() != null ? !getMain().equals(that.getMain()) : that.getMain() != null)
-            return false;
-        return getWeather() != null ? getWeather().equals(that.getWeather()) : that.getWeather() == null;
+        if (_id != that._id) return false;
+        if (timeStampUTC != that.timeStampUTC) return false;
+        if (city_Id != that.city_Id) return false;
+        if (cod != that.cod) return false;
+        if (visibility != that.visibility) return false;
+        if (coord != null ? !coord.equals(that.coord) : that.coord != null) return false;
+        if (base != null ? !base.equals(that.base) : that.base != null) return false;
+        if (wind != null ? !wind.equals(that.wind) : that.wind != null) return false;
+        if (clouds != null ? !clouds.equals(that.clouds) : that.clouds != null) return false;
+        if (rain != null ? !rain.equals(that.rain) : that.rain != null) return false;
+        if (snow != null ? !snow.equals(that.snow) : that.snow != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (sys != null ? !sys.equals(that.sys) : that.sys != null) return false;
+        if (main != null ? !main.equals(that.main) : that.main != null) return false;
+        return weather != null ? weather.equals(that.weather) : that.weather == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (get_id() ^ (get_id() >>> 32));
-        result = 31 * result + (getCoord() != null ? getCoord().hashCode() : 0);
-        result = 31 * result + (getBase() != null ? getBase().hashCode() : 0);
-        result = 31 * result + (getWind() != null ? getWind().hashCode() : 0);
-        result = 31 * result + (getClouds() != null ? getClouds().hashCode() : 0);
-        result = 31 * result + (getRain() != null ? getRain().hashCode() : 0);
-        result = 31 * result + (getSnow() != null ? getSnow().hashCode() : 0);
-        result = 31 * result + (int) (getTimeStampUTC() ^ (getTimeStampUTC() >>> 32));
-        result = 31 * result + (int) (getCity_Id() ^ (getCity_Id() >>> 32));
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        result = 31 * result + getCod();
-        result = 31 * result + (getSys() != null ? getSys().hashCode() : 0);
-        result = 31 * result + (getMain() != null ? getMain().hashCode() : 0);
-        result = 31 * result + (getWeather() != null ? getWeather().hashCode() : 0);
+        int result = (int) (_id ^ (_id >>> 32));
+        result = 31 * result + (coord != null ? coord.hashCode() : 0);
+        result = 31 * result + (base != null ? base.hashCode() : 0);
+        result = 31 * result + (wind != null ? wind.hashCode() : 0);
+        result = 31 * result + (clouds != null ? clouds.hashCode() : 0);
+        result = 31 * result + (rain != null ? rain.hashCode() : 0);
+        result = 31 * result + (snow != null ? snow.hashCode() : 0);
+        result = 31 * result + (int) (timeStampUTC ^ (timeStampUTC >>> 32));
+        result = 31 * result + (int) (city_Id ^ (city_Id >>> 32));
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + cod;
+        result = 31 * result + visibility;
+        result = 31 * result + (sys != null ? sys.hashCode() : 0);
+        result = 31 * result + (main != null ? main.hashCode() : 0);
+        result = 31 * result + (weather != null ? weather.hashCode() : 0);
         return result;
     }
 }

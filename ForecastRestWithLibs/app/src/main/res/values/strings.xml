@@ -43,5 +43,6 @@
     <string name="txv_last_update">Dernière mise à jour: %1$s</string>
     <string name="txv_last_update_swipe">Tirer la list vers le bas met aussi à jour les données.</string>
     <string name="txv_updating">Mise à jour des données... Attendez s\'il vous plait...</string>
+    <string name="visibility">%1$d m</string>
 
 </resources>

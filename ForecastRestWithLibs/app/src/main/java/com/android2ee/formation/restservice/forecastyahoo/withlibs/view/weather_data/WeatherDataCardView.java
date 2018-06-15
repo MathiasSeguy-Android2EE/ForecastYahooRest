@@ -11,8 +11,10 @@ import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCardView;
+
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 /**
  * Created by Marion Aubard on 14/06/2018.
@@ -32,22 +34,21 @@ public class WeatherDataCardView extends MotherCardView {
     WeatherDataCardViewModel model;
     private WeatherData weatherData;
 
+    private static final String TIME_PATTERN = "HH:mm";
+
     /***********************************************************
      *  Constructors
      **********************************************************/
     public WeatherDataCardView(@NonNull Context context) {
         super(context);
-        init();
     }
 
     public WeatherDataCardView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public WeatherDataCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
     }
 
     /***********************************************************
@@ -73,11 +74,6 @@ public class WeatherDataCardView extends MotherCardView {
     /***********************************************************
      *  Private methods
      **********************************************************/
-
-    private void init() {
-//        initViews();
-    }
-
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
@@ -121,10 +117,10 @@ public class WeatherDataCardView extends MotherCardView {
 
     private void updateWith(@NonNull WeatherData weatherData) {
         tvName.setText(weatherData.getName());
-//        tvVisibility.setText(weatherData.get); //TODO
+        tvVisibility.setText(getResources().getString(R.string.visibility, weatherData.getVisibility()));
         tvCoord.setText(weatherData.getCoord().toString());
         tvBase.setText(weatherData.getBase());
-        tvDt.setText(Long.toString(weatherData.getTimeStampUTC()));
-
+        SimpleDateFormat df = new SimpleDateFormat(TIME_PATTERN, Locale.getDefault());
+        tvDt.setText(df.format(weatherData.getTimeStampUTC()));
     }
 }
