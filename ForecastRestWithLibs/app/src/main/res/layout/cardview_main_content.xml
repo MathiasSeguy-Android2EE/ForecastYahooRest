@@ -4,12 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_margin="@dimen/activity_padding"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="100dp"
     tools:showIn="@layout/cardview_main">
 
     <android.support.v7.widget.AppCompatTextView
@@ -28,13 +25,14 @@
         style="@style/MyTextView.Main.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/red"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_humidity"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintBottom_toTopOf="@+id/tv_min_temperature"
         app:layout_constraintVertical_chainStyle="spread_inside"
-        tools:text="Max: 14.0°C"/>
+        tools:text="14.0°C"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_min_temperature"
@@ -46,19 +44,30 @@
         app:layout_constraintEnd_toStartOf="@+id/tv_pressure"
         app:layout_constraintTop_toBottomOf="@+id/tv_max_temperature"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
-        tools:text="Max: 16.0°C"/>
+        android:textColor="@color/colorPrimaryDarker"
+        tools:text="16.0°C"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_humidity"
         style="@style/MyTextView.Main.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/blue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_max_temperature"
         app:layout_constraintBottom_toTopOf="@+id/tv_pressure"
+        app:layout_constraintEnd_toStartOf="@+id/iv_drop"
         app:layout_constraintVertical_chainStyle="spread_inside"
-        tools:text="Hum: 70%"/>
+        tools:text="70"/>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_drop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:tint="@color/blue"
+        app:srcCompat="@drawable/ic_drop"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_pressure"
@@ -69,6 +78,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_min_temperature"
         app:layout_constraintTop_toBottomOf="@+id/tv_humidity"
-        tools:text="Pres: 1024 hPa"/>
+        tools:text="1024 hPa"/>
 
 </android.support.constraint.ConstraintLayout>

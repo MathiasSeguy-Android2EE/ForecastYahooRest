@@ -269,7 +269,7 @@ public class CityActivity extends MotherActivity {
 		//launch the main activity
 		Intent launchMainActivity=new Intent(this,CurrentWeatherActivity.class);
 		Bundle bun=new Bundle();
-		bun.putLong(CITY_ID,cityId);
+		bun.putLong(CITY_ID, cityId);
 		launchMainActivity.putExtras(bun);
 		startActivity(launchMainActivity);
 		//and die

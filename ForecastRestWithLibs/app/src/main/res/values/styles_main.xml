@@ -8,6 +8,7 @@
     <style name="MyTextView.Main.Primary">
         <item name="android:textStyle">bold</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Display2</item>
+        <item name="android:textSize">@dimen/text_size_title</item>
     </style>
 
     <style name="MyTextView.Main.Secondary">

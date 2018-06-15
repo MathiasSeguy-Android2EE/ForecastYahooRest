@@ -16,6 +16,8 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.mai
 
 public class MainCardView extends MotherCardView {
 
+    private static final float KELVIN_OFFSET_TO_CELSIUS = -273.15f;
+
     /***********************************************************
      *  Attributes
      **********************************************************/
@@ -33,16 +35,19 @@ public class MainCardView extends MotherCardView {
      **********************************************************/
     public MainCardView(@NonNull Context context) {
         super(context);
-        init();
     }
 
     public MainCardView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public MainCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
         init();
     }
 
@@ -83,6 +88,8 @@ public class MainCardView extends MotherCardView {
 
     @Override
     protected void initObservers() {
+        init();
+
         MainViewModel viewModel = (MainViewModel) getViewModel();
         //noinspection ConstantConditions
         viewModel.getMainLiveData().observe(activity, new Observer<Main>() {
@@ -103,9 +110,9 @@ public class MainCardView extends MotherCardView {
     }
 
     private void updateWith(@NonNull Main main) {
-        tvTemperature.setText(getContext().getString(R.string.main_temperature, main.getTemp()));
-        tvTemperatureMin.setText(getContext().getString(R.string.main_temperature_min, main.getTempMin()));
-        tvTemperatureMax.setText(getContext().getString(R.string.main_temperature_max, main.getTempMax()));
+        tvTemperature.setText(getContext().getString(R.string.main_temperature, main.getTemp() + KELVIN_OFFSET_TO_CELSIUS));
+        tvTemperatureMin.setText(getContext().getString(R.string.main_temperature_min, main.getTempMin() + KELVIN_OFFSET_TO_CELSIUS));
+        tvTemperatureMax.setText(getContext().getString(R.string.main_temperature_max, main.getTempMax() + KELVIN_OFFSET_TO_CELSIUS));
         tvHumidity.setText(getContext().getString(R.string.main_humidity, main.getHumidity()));
         tvPressure.setText(getContext().getString(R.string.main_pressure, main.getPressure()));
     }
