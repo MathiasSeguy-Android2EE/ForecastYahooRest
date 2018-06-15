@@ -75,7 +75,7 @@ public class MainCardView extends MotherCardView {
      **********************************************************/
 
     private void init() {
-//        initViews();
+        initViews();
     }
 
     private void initViews() {
