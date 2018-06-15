@@ -1,6 +1,8 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.Sys;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCardView;
 
 /**
@@ -24,22 +27,27 @@ public class SysCardView extends MotherCardView {
     private TextView tvSunrise;
     private TextView tvSunset;
 
+    SysViewModel model;
+
     /***********************************************************
      *  Constructors
      **********************************************************/
     public SysCardView(@NonNull Context context) {
         super(context);
-        init();
     }
 
     public SysCardView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public SysCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        initViews();
     }
 
     /***********************************************************
@@ -66,8 +74,12 @@ public class SysCardView extends MotherCardView {
      *  Private methods
      **********************************************************/
 
-    private void init() {
-        initViews();
+    private void onChangedLiveData(@Nullable Sys sys) {
+        if (sys != null) {
+            tvCountry.setText(sys.getCountry());
+            tvSunrise.setText(sys.getSunrise());
+            tvSunset.setText(sys.getSunset());
+        }
     }
 
     private void initViews() {
@@ -78,7 +90,15 @@ public class SysCardView extends MotherCardView {
 
     @Override
     protected void initObservers() {
-        //TODO
+        model = ViewModelProviders.of(activity, new SysModelFactory(contextId)).get(SysViewModel.class);
+
+        model.getLiveData().observe(activity, new Observer<Sys>() {
+            @Override
+            public void onChanged(@Nullable Sys sys) {
+                onChangedLiveData(sys);
+            }
+        });
+
     }
 
     @Override
