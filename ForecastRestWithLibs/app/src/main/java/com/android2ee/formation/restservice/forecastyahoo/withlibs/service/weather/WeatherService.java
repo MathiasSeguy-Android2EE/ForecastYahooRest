@@ -187,8 +187,8 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
     private void launchWeatherDataUpdater(Long cityId) {
         //ok you can update
         WeatherDataUpdaterIntf updater= MyApplication.instance.getServiceManager().getWeatherUpdaterService();
-        updater.downloadCurrentWeatherSync(cityId);
-        updater.downloadForecastWeatherSync(cityId);
+        updater.downloadCurrentWeatherSync(cityId.intValue());
+        updater.downloadForecastWeatherSync(cityId.intValue());
     }
 
     /**

@@ -22,6 +22,8 @@ public interface CityDao {
     @Query("SELECT * FROM city WHERE _id IN (:id)")
     LiveData<City> loadLiveDataById(long id);
 
+    @Query("SELECT _id FROM city WHERE serverIdDeMerde IN (:serverid)")
+    Long loadLiveDataByServerId(long serverid);
 
     @Query("SELECT * FROM city WHERE name LIKE :name")
     City loadLiveDataByName(String name);

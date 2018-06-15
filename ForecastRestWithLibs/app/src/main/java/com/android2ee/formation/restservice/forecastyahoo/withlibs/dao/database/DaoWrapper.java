@@ -1,5 +1,7 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database;
 
+import android.util.Log;
+
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse;
@@ -41,28 +43,32 @@ public class DaoWrapper {
      * @param weatherData
      */
     public void saveWeatherData(WeatherData weatherData){
-        ForecastDatabase db=ForecastDatabase.getInstance();
-        //save it
-        long weatherDataId=db.getWeatherDataDao().insert(weatherData);
-        weatherData.set_id(weatherDataId);
-        //then persist the sub object
-        //Persist Main
-        weatherData.getMain().setWeatherDataId(weatherDataId);
-        //important trick as you have 2 foreign key,
-        //the on not used should be set to null
-        weatherData.getMain().setWeatherForecastItemId(null);
-        db.getMainDao().insert(weatherData.getMain());
+        try {
+            ForecastDatabase db=ForecastDatabase.getInstance();
+            //save it
+            long weatherDataId=db.getWeatherDataDao().insert(weatherData);
+            weatherData.set_id(weatherDataId);
+            //then persist the sub object
+            //Persist Main
+            weatherData.getMain().setWeatherDataId(weatherDataId);
+            //important trick as you have 2 foreign key,
+            //the on not used should be set to null
+            weatherData.getMain().setWeatherForecastItemId(null);
+            db.getMainDao().insert(weatherData.getMain());
 
-        //Persist the sys object
-        weatherData.getSys().setWeatherDataId(weatherDataId);
-        db.getSysDao().insert(weatherData.getSys());
+            //Persist the sys object
+            weatherData.getSys().setWeatherDataId(weatherDataId);
+            db.getSysDao().insert(weatherData.getSys());
 
-        //persist weather list
-        WeatherDao weatherDao=db.getWeatherDao();
-        for (Weather weather : weatherData.getWeather()) {
-            weather.setWeatherDataId(weatherDataId);
-            weather.setWeatherForecastItemId(null);
-            weatherDao.insert(weather);
+            //persist weather list
+            WeatherDao weatherDao=db.getWeatherDao();
+            for (Weather weather : weatherData.getWeather()) {
+                weather.setWeatherDataId(weatherDataId);
+                weather.setWeatherForecastItemId(null);
+                weatherDao.insert(weather);
+            }
+        } catch (Exception e) {
+            Log.e("TAG", "EXCEPTION : ", e);
         }
     }
 

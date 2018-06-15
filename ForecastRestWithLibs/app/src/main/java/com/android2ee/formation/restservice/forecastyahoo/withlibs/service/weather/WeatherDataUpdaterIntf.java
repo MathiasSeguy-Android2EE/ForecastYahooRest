@@ -43,7 +43,7 @@ public interface WeatherDataUpdaterIntf extends MotherBusinessServiceIntf {
      * @param cityId
      *            The id of the city associated with the forecasts
      */
-    void downloadCurrentWeatherAsync(Long cityId);
+    void downloadCurrentWeatherAsync(int cityId);
 
     /**
      * Download the current Weather in an synchronous way
@@ -51,7 +51,7 @@ public interface WeatherDataUpdaterIntf extends MotherBusinessServiceIntf {
      * @param cityId
      *            The id of the city associated with the forecasts
      */
-    void downloadCurrentWeatherSync(Long cityId);
+    void downloadCurrentWeatherSync(int cityId);
 
     /**
      * Download the current Weather in an asynchronous way
@@ -59,7 +59,7 @@ public interface WeatherDataUpdaterIntf extends MotherBusinessServiceIntf {
      * @param cityId
      *            The id of the city associated with the forecasts
      */
-    void downloadForecastWeatherAsync(Long cityId);
+    void downloadForecastWeatherAsync(int cityId);
 
     /**
      * Download the current Weather in an synchronous way
@@ -67,5 +67,5 @@ public interface WeatherDataUpdaterIntf extends MotherBusinessServiceIntf {
      * @param cityId
      *            The id of the city associated with the forecasts
      */
-    void downloadForecastWeatherSync(Long cityId);
+    void downloadForecastWeatherSync(int cityId);
 }

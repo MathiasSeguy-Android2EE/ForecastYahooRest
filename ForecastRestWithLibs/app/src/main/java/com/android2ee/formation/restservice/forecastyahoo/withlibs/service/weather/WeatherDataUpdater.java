@@ -34,6 +34,7 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weat
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast.CityForecastDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.DaoWrapper;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.weather.WeatherDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessService;
@@ -103,7 +104,7 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadCurrentWeatherAsync(Long cityId) {
+    public void downloadCurrentWeatherAsync(int cityId) {
         MyLog.e(TAG, "downloadCurrentWeatherAsync called with woeid=" + cityId);
          // then launch it
         MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadCurWeatherRunnable(cityId));
@@ -116,11 +117,13 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadCurrentWeatherSync(Long cityId) {
+    public void downloadCurrentWeatherSync(int cityId) {
         MyLog.e(TAG, "downloadCurrentWeatherSync for city =" + cityId);
         // Load data from the web
         WeatherData weatherData=Injector.getDataCommunication().getWeatherByCityId(cityId);
         //store in the database
+        Long id=ForecastDatabase.getInstance().getCityDao().loadLiveDataByServerId(cityId);
+        weatherData.setCityId(id);
         DaoWrapper.getInstance().saveWeatherData(weatherData);
         MyLog.d(TAG, "downloadCurrentWeatherSync found " + weatherData);
     }
@@ -131,9 +134,9 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *        This class aims to implements a Runnable with an Handler
      */
     private class DownloadCurWeatherRunnable implements Runnable {
-        Long cityId;
+        int cityId;
 
-        public DownloadCurWeatherRunnable(Long cityId) {
+        public DownloadCurWeatherRunnable(int cityId) {
             this.cityId = cityId;
         }
 
@@ -153,7 +156,7 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadForecastWeatherAsync(Long cityId) {
+    public void downloadForecastWeatherAsync(int cityId) {
         MyLog.e(TAG, "downloadForecastWeatherAsync called with woeid=" + cityId);
         // then launch it
         MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadForecastWeatherRunnable(cityId));
@@ -166,7 +169,7 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadForecastWeatherSync(Long cityId) {
+    public void downloadForecastWeatherSync(int cityId) {
         MyLog.e(TAG, "downloadForecastWeatherSync for city =" + cityId);
         // Load data from the web
         Forecast forecast=Injector.getDataCommunication().getForecastByCityId(cityId);
@@ -180,9 +183,9 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *        This class aims to implements a Runnable with an Handler
      */
     private class DownloadForecastWeatherRunnable implements Runnable {
-        Long cityId;
+        int cityId;
 
-        public DownloadForecastWeatherRunnable(Long cityId) {
+        public DownloadForecastWeatherRunnable(int cityId) {
             this.cityId = cityId;
         }
 

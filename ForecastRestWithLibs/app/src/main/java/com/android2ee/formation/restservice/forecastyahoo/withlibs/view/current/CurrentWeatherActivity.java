@@ -56,7 +56,7 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     }
 
     private void onChangedLiveData(@Nullable WeatherData weatherData) {
-        if (weatherData == null){
+        if (weatherData == null) {
             //ben we do nothing, stupid liveData behavior
 
         } else {

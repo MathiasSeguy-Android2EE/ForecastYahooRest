@@ -159,8 +159,11 @@ public class CityService extends MotherBusinessService implements CityServiceInt
         MyLog.d(TAG, "addCitySync() called with: " + "city = [" + city + "]");
         // add it in the DB
 
-        long cityID=ForecastDatabase.getInstance().getCityDao().insert(city);
-        city.set_id(cityID);
+        Long id=ForecastDatabase.getInstance().getCityDao().loadLiveDataByServerId(city.getServerId());
+        if(id == null){
+            id=ForecastDatabase.getInstance().getCityDao().insert(city);
+        }
+        city.set_id(id);
     }
     /**
      * This is the runnable that will send the work in a background thread
