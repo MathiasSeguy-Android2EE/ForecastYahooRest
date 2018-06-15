@@ -102,10 +102,10 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     private void updateView(WeatherData weatherData){
         //todo
         this.weatherData=weatherData;
-        tvWind.setText(""+weatherData.getWind().getSpeed());
-        tvClouds.setText(""+weatherData.getClouds().getAll());
-        tvRain.setText(""+weatherData.getRain().get3h());
-        tvSnow.setText(""+weatherData.getSnow().get3h());
+//        tvWind.setText(""+weatherData.getWind().getSpeed());
+//        tvClouds.setText(""+weatherData.getClouds().getAll());
+//        tvRain.setText(""+weatherData.getRain().get3h());
+//        tvSnow.setText(""+weatherData.getSnow().get3h());
         recyclerViewAdapter.updateWeatherData(weatherData.getWeather());
     }
 }
