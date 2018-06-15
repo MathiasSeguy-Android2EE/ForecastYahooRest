@@ -78,12 +78,6 @@ public class MainCardView extends MotherCardView {
 //        initViews();
     }
 
-    @Override
-    protected void onFinishInflate() {
-        super.onFinishInflate();
-        initViews();
-    }
-
     private void initViews() {
         tvTemperature = findViewById(R.id.tv_temperature);
         tvTemperatureMin = findViewById(R.id.tv_min_temperature);
