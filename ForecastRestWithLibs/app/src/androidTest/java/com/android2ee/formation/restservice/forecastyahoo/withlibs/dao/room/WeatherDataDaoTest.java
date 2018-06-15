@@ -8,11 +8,9 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.WeatherDao;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.DataGeneratorSimple;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Snow;
@@ -20,6 +18,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import junit.framework.Assert;
 
@@ -77,7 +76,7 @@ public class WeatherDataDaoTest {
                 if(weatherData.size()==0){
                     //first call
                 }else{
-                    Log.e(TAG,"Toto est un roi");
+                    MyLog.e(TAG,"Toto est un roi");
                     Assert.assertEquals(1,weatherData.size());
                 }
             }
@@ -88,7 +87,7 @@ public class WeatherDataDaoTest {
                 if(weatherForecastItems.size()==0){
                     //first call
                 }else{
-                    Log.e(TAG,"Toto est un roi deux");
+                    MyLog.e(TAG,"Toto est un roi deux");
                     Assert.assertEquals(1,weatherForecastItems.size());
                 }
             }
@@ -128,7 +127,7 @@ public class WeatherDataDaoTest {
 
                 // First time = null, Second time = inserted, Third time = updated
                 if (weatherData != null && cptWeatherDataCall == 3) {
-                    Log.e(TAG,"Hello motherfucker");
+                    MyLog.e(TAG,"Hello motherfucker");
                     Assert.assertEquals("TheTotoBase", weatherData.get(0).getBase());
                     Assert.assertEquals(42, weatherData.get(0).getClouds().getAll());
                 }
@@ -141,7 +140,7 @@ public class WeatherDataDaoTest {
 
                 // First time = null, Second time = inserted, Third time = updated
                 if (weatherForecastItems != null && cptWeatherForecastItemCall == 3) {
-                    Log.e(TAG,"Hello motherfucker");
+                    MyLog.e(TAG,"Hello motherfucker");
                     Assert.assertEquals(0.03f, weatherForecastItems.get(0).getSnow().get3h());
                 }
             }
@@ -196,7 +195,7 @@ public class WeatherDataDaoTest {
 
                 // First time = null, Second time = inserted, Third time = deleted
                 if (weatherData != null && cptWeatherDataCall == 3) {
-                    Log.e(TAG,"Hello motherfucker");
+                    MyLog.e(TAG,"Hello motherfucker");
                     Assert.assertEquals(0, weatherData.size());
                 }
             }
@@ -207,7 +206,7 @@ public class WeatherDataDaoTest {
                 cptWeatherForecastItemCall++;
                 // First time = null, Second time = inserted, Third time = deleted
                 if (weatherForecastItems != null && cptWeatherForecastItemCall == 3) {
-                    Log.e(TAG,"Hello motherfucker");
+                    MyLog.e(TAG,"Hello motherfucker");
                     Assert.assertEquals(0, weatherForecastItems.size());
                 }
             }

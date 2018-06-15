@@ -36,13 +36,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.PresenterInjector;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.fragment.recyclerview.WeatherRecyclerViewAdapter;
 
 import org.greenrobot.eventbus.EventBus;
@@ -140,7 +140,7 @@ public class WeatherCityFrag extends Fragment implements WeatherCityViewIntf {
      * @return The Adapter to use
      */
     protected RecyclerView.Adapter getRecyclerViewAdapter(){
-        Log.e(TAG, "getRecyclerViewAdapter() called with: " + "");
+        MyLog.e(TAG, "getRecyclerViewAdapter() called with: " + "");
         return new WeatherRecyclerViewAdapter(presenter,getActivity());
     }
     /**
@@ -179,7 +179,7 @@ public class WeatherCityFrag extends Fragment implements WeatherCityViewIntf {
      */
     @Override
     public void updateForecast() {
-        Log.e(TAG, "updateForecast() called with: " + "");
+        MyLog.e(TAG, "updateForecast() called with: " + "");
         recyclerViewAdapter.notifyDataSetChanged();
     }
 }

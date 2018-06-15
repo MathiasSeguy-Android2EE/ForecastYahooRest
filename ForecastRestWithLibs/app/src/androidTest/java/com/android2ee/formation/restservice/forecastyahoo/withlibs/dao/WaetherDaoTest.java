@@ -32,7 +32,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.weather.WeatherDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
@@ -47,6 +46,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData_Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.List;
 
@@ -59,7 +59,7 @@ public class WaetherDaoTest extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        Log.i("DataCommunicationTest", "setUp() is called");
+        MyLog.i("DataCommunicationTest", "setUp() is called");
 
     }
 
@@ -81,10 +81,10 @@ public class WaetherDaoTest extends AndroidTestCase {
         }
         //Test insertion
         wdao.insertOrUpdate(testedElement);//the city id is 11021974
-        Log.i(TAG,"testedElement id ="+testedElement.getId());
+        MyLog.i(TAG,"testedElement id ="+testedElement.getId());
         //test loading
         Weather foundElement=  wdao.findCurrentWeatherFor(testedCityId);
-        Log.i(TAG,"foundElement id ="+foundElement.getId());
+        MyLog.i(TAG,"foundElement id ="+foundElement.getId());
         //also test the equality of objects:
         assertEquals(testedElement.toString(), foundElement.toString());
         assertEquals(testedElement.getTimeStampUTC(),foundElement.getTimeStampUTC());
@@ -103,7 +103,7 @@ public class WaetherDaoTest extends AndroidTestCase {
         foundElement.setCityId(13121974);
         wdao.insertOrUpdate(foundElement);
         Weather foundElementUpdated=  wdao.findCurrentWeatherFor(13121974);
-        Log.e(TAG, "foundElementUpdated id =" + foundElementUpdated.getId());
+        MyLog.e(TAG, "foundElementUpdated id =" + foundElementUpdated.getId());
         assertEquals(foundElement.getId(), foundElementUpdated.getId());
         assertEquals(foundElementUpdated.getCityId(), 13121974);
         //test deleting

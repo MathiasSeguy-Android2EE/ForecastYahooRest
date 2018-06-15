@@ -31,8 +31,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.DaoManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Coordinates;
@@ -41,6 +39,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.WeatherForecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData_WeatherForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
@@ -76,14 +75,14 @@ public class CityForecastDao implements CityForecastDaoIntf {
                 .where(Condition.prop("CITY_ID").eq(cityId))
                 .orderBy("ID")
                 .list();
-        Log.i("CityForecastDao", "findCurrentForecastFor " + cityId + " find " + foundElements + " elements\r\n");
+        MyLog.i("CityForecastDao", "findCurrentForecastFor " + cityId + " find " + foundElements + " elements\r\n");
         if(foundElements.size()>0) {
             CityForecast returnedCityForecast = foundElements.get(foundElements.size() - 1);
-            Log.i("CityForecastDao", "findCurrentForecastFor " + cityId + " is " + returnedCityForecast.getId() + " \r\n" + returnedCityForecast);
+            MyLog.i("CityForecastDao", "findCurrentForecastFor " + cityId + " is " + returnedCityForecast.getId() + " \r\n" + returnedCityForecast);
             //Your code here
             long end = System.currentTimeMillis();
-            Log.e(TAG, "findCurrentForecastFor() duration " + (end - begin) + "ms");
-            Log.d(TAG, "findCurrentForecastFor() called with: " + "cityId = [" + cityId + "]");
+            MyLog.e(TAG, "findCurrentForecastFor() duration " + (end - begin) + "ms");
+            MyLog.d(TAG, "findCurrentForecastFor() called with: " + "cityId = [" + cityId + "]");
             return returnedCityForecast;
         }else{
             return null;
@@ -96,7 +95,7 @@ public class CityForecastDao implements CityForecastDaoIntf {
      */
     @Override
     public List<CityForecast>  findAllForecastFor(int cityId){
-        Log.d(TAG, "findAllForecastFor() called with: " + "cityId = [" + cityId + "]");
+        MyLog.d(TAG, "findAllForecastFor() called with: " + "cityId = [" + cityId + "]");
         List<CityForecast> cityForecastList = CityForecast.find(CityForecast.class, "CITY_ID =?", Integer.toString(cityId));
         return cityForecastList;
     }
@@ -107,10 +106,10 @@ public class CityForecastDao implements CityForecastDaoIntf {
      */
     @Override
     public long insertOrUpdate(CityForecast cityForecast){
-        Log.d(TAG, "insertOrUpdate() called with: " + "cityForecast = [" + cityForecast + "]");
+        MyLog.d(TAG, "insertOrUpdate() called with: " + "cityForecast = [" + cityForecast + "]");
         long id;
         if(cityForecast.getId()==null) {
-            Log.i(TAG, "insert case");
+            MyLog.i(TAG, "insert case");
             //insert case
             Coordinates.save(cityForecast.getCoordinates());
             id = CityForecast.save(cityForecast);
@@ -127,7 +126,7 @@ public class CityForecastDao implements CityForecastDaoIntf {
             }
             return id;
         }else{
-            Log.i(TAG, "update case");
+            MyLog.i(TAG, "update case");
             //update case
             cityForecast.getCoordinates().save();
             cityForecast.save();
@@ -147,10 +146,10 @@ public class CityForecastDao implements CityForecastDaoIntf {
     @Override
     public void delete(CityForecast cityForecast) {
         if (cityForecast.getId() != null) {
-            Log.i(TAG, "delete " + cityForecast);
+            MyLog.i(TAG, "delete " + cityForecast);
             //you need to make a recursive deletion
             Coordinates.delete(cityForecast.getCoordinates());
-            Log.i(TAG, "delete coord " + cityForecast.getCoordinates());
+            MyLog.i(TAG, "delete coord " + cityForecast.getCoordinates());
             for (WeatherForecast weatherForecast : cityForecast.getWeatherForecasts()) {
                 for(WeatherMetaData_WeatherForecast wmd_wf:weatherForecast.getWeathers()){
                     WeatherMetaData_WeatherForecast.delete(wmd_wf);

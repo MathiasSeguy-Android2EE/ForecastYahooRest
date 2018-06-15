@@ -40,7 +40,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.test.suitebuilder.annotation.LargeTest;
-import android.util.Log;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
@@ -109,7 +109,7 @@ public class WeatherViewTest {
     @Test
     public void testSearchActivity() {
         //track entrance
-        Log.e(TAG, "testSomething() has been called and the id of menuItem is "+R.id.action_search);
+        MyLog.e(TAG, "testSomething() has been called and the id of menuItem is "+R.id.action_search);
         //open the menu and click on an item
 //        openActionBarOverflowOrOptionsMenu(getTargetContext());<-Do not do that with the toolbar
         int citiesSize=((WeatherPresenter)weatherActivityIntentsTestRule.getActivity().getPresenter()).getCities().size();

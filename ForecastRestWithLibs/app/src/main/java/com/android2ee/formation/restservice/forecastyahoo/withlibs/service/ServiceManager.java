@@ -35,8 +35,6 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.service;
  * Created by Mathias Seguy - Android2EE on 25/02/2016.
  */
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.BuildConfig;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityService;
@@ -47,6 +45,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weath
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdaterIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherServiceIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -93,7 +92,7 @@ public class ServiceManager implements ServiceManagerIntf {
     public ServiceManager(MyApplication application) {
         if(BuildConfig.FLAVOR.equals("mock")){
             //do what you want
-            Log.e(TAG,"Mock Mode on ServiceManager initialization");
+            MyLog.e(TAG,"Mock Mode on ServiceManager initialization");
         }else if (application.serviceManagerAlreadyExist()) {
             throw new ExceptionInInitializerError();
         }
@@ -105,7 +104,7 @@ public class ServiceManager implements ServiceManagerIntf {
      */
     @Override
     public void unbindAndDie() {
-        Log.e("ServiceManager", "UnbindAndDie is called");
+        MyLog.e("ServiceManager", "UnbindAndDie is called");
         //kill your thread
         if (cancelableThreadsExecutor != null) {
             killCancelableThreadExecutor();
@@ -213,14 +212,14 @@ public class ServiceManager implements ServiceManagerIntf {
                     if (!cancelableThreadsExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
                         // Cancel currently executing tasks
                         cancelableThreadsExecutor.shutdownNow();
-                        Log.e("MyApp", "Probably a memory leak here");
+                        MyLog.e("MyApp", "Probably a memory leak here");
                     }
                 }
             } catch (InterruptedException ie) {
                 // (Re-)Cancel if current thread also interrupted
                 cancelableThreadsExecutor.shutdownNow();
                 cancelableThreadsExecutor=null;
-                Log.e("MyApp", "Probably a memory leak here too");
+                MyLog.e("MyApp", "Probably a memory leak here too");
             }
         }
         cancelableThreadsExecutor=null;
@@ -265,14 +264,14 @@ public class ServiceManager implements ServiceManagerIntf {
                     if (!keepAliveThreadsExceutor.awaitTermination(5, TimeUnit.SECONDS)) {
                         // Cancel currently executing tasks
                         keepAliveThreadsExceutor.shutdown();
-                        Log.e("MyApp", "Probably a memory leak here");
+                        MyLog.e("MyApp", "Probably a memory leak here");
                     }
                 }
             } catch (InterruptedException ie) {
                 // (Re-)Cancel if current thread also interrupted
                 keepAliveThreadsExceutor.shutdownNow();
                 keepAliveThreadsExceutor=null;
-                Log.e("MyApp", "Probably a memory leak here too");
+                MyLog.e("MyApp", "Probably a memory leak here too");
             }
         }
         keepAliveThreadsExceutor=null;

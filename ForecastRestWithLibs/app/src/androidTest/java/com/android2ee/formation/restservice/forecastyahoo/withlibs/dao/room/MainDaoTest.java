@@ -7,11 +7,11 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.test.InstrumentationRegistry;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.DataGeneratorSimple;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import junit.framework.Assert;
 
@@ -52,7 +52,7 @@ public class MainDaoTest {
                 if(mainData.size() == 0) {
                     //firstCall
                 } else {
-                    Log.d(TAG, "It's working bitch");
+                    MyLog.d(TAG, "It's working bitch");
                     Assert.assertEquals(1, mainData.size());
                 }
             }
@@ -78,10 +78,10 @@ public class MainDaoTest {
             @Override
             public void onChanged(@Nullable List<Main> mainData) {
                 if(mainData.size() == 0) {
-                    Log.d(TAG, "It's working bitch");
+                    MyLog.d(TAG, "It's working bitch");
                     Assert.assertTrue("Winner", true);
                 } else {
-                    Log.d(TAG, "Wait for it");
+                    MyLog.d(TAG, "Wait for it");
                 }
             }
         };
@@ -108,7 +108,7 @@ public class MainDaoTest {
                 if(mainData.size() == 0) {
                     //firstCall
                 } else {
-                    Log.d(TAG, "It's working bitch");
+                    MyLog.d(TAG, "It's working bitch");
                     if(mainData.size() == 10) {
                         Assert.assertTrue(true);
                     }
@@ -137,7 +137,7 @@ public class MainDaoTest {
             public void onChanged(@Nullable List<Main> mainData) {
                 if(mainData.size() == 0) {
                     //firstCall
-                    Log.d(TAG, "It's working bitch");
+                    MyLog.d(TAG, "It's working bitch");
                     Assert.assertTrue(true);
                 } else {
                     // Nothing we don't care
@@ -173,7 +173,7 @@ public class MainDaoTest {
                     if(mainData.get(0).getPressure() == 100000) {
                         Assert.assertTrue(true);
                     } else {
-                        Log.d(TAG, "Waiting update");
+                        MyLog.d(TAG, "Waiting update");
                     }
                 }
             }

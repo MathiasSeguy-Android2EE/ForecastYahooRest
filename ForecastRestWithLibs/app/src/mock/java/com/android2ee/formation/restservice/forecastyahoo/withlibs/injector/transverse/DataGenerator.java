@@ -31,7 +31,7 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse;
 
-import android.util.Log;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
@@ -58,7 +58,7 @@ public class DataGenerator {
         try {
             Weather weather=adapter.fromJson(weatherStr);
             weather.setCityId(cityId);
-            Log.i("DataGenerator","Weather has been generated :"+weather);
+            MyLog.i("DataGenerator","Weather has been generated :"+weather);
             return weather;
         } catch (IOException e) {
             e.printStackTrace();
@@ -76,7 +76,7 @@ public class DataGenerator {
                 moshi.adapter(City.class);
         try {
             City toulouse=adapter.fromJson(cityToulouse);
-            Log.i("DataGenerator","City has been generated :"+toulouse);
+            MyLog.i("DataGenerator","City has been generated :"+toulouse);
             return toulouse;
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,7 +92,7 @@ public class DataGenerator {
                 moshi.adapter(City.class);
         try {
             City toulouse=adapter.fromJson(cityToulouse);
-            Log.i("DataGenerator","City has been generated :"+toulouse);
+            MyLog.i("DataGenerator","City has been generated :"+toulouse);
             toulouse.setCityId(cityID);
             if(cityName!=null){
                 toulouse.setName(cityName);
@@ -113,7 +113,7 @@ public class DataGenerator {
                 moshi.adapter(CityForecast.class);
         try {
             CityForecast cityF=adapter.fromJson(cityForecastStr);
-            Log.i("DataGenerator","City has been generated :"+cityF);
+            MyLog.i("DataGenerator","City has been generated :"+cityF);
             cityF.setCityId(cityID);
             return cityF;
         } catch (IOException e) {
@@ -132,7 +132,7 @@ public class DataGenerator {
                 moshi.adapter(FindCitiesResponse.class);
         try {
             FindCitiesResponse findCitiesResponse=adapter.fromJson(findCitiesResponseStr);
-            Log.i("DataGenerator","FindCitiesResponse has been generated :"+findCitiesResponse);
+            MyLog.i("DataGenerator","FindCitiesResponse has been generated :"+findCitiesResponse);
             return findCitiesResponse;
         } catch (IOException e) {
             e.printStackTrace();

@@ -29,10 +29,9 @@
  */
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ErrorEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ExceptionManagedEvent;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -66,7 +65,7 @@ public class ExceptionManager {
 	public synchronized static void displayAnError(String errorMessage) {
 		EventBus.getDefault().post(new ErrorEvent(errorMessage));
 		//You should make a feedback to the team
-		Log.e("ExceptionManaged", "Error managed :" + errorMessage);
+		MyLog.e("ExceptionManaged", "Error managed :" + errorMessage);
 	}
 	/******************************************************************************************/
 	/** Private method **************************************************************************/
@@ -82,9 +81,9 @@ public class ExceptionManager {
 			// Should prevent the backend server
 			//You should do it, This tutorial has no backend$
 			
-			//log
-			Log.e("ExceptionManaged", exc.getErrorMessage(), exc);
-			Log.e(exc.getRootClass().getSimpleName(), exc.getErrorMessage(), exc);
+			//MyLog
+			MyLog.e("ExceptionManaged", exc.getErrorMessage(), exc);
+			MyLog.e(exc.getRootClass().getSimpleName(), exc.getErrorMessage(), exc);
 		}
 	}
 	

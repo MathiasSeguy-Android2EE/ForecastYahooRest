@@ -8,11 +8,11 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.DataGeneratorSimple;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import junit.framework.Assert;
 
@@ -67,7 +67,7 @@ public class CityDaoTest {
                 if(cities.size() == 0){
                     //first call
                 } else{
-                    Log.e(TAG,"Toto est un roi");
+                    MyLog.e(TAG,"Toto est un roi");
                     Assert.assertEquals(1, cities.size());
                 }
             }
@@ -98,7 +98,7 @@ public class CityDaoTest {
                 if(cities.size() == 0){
                     //first call
                 } else{
-                    Log.e(TAG,"Toto est un roi");
+                    MyLog.e(TAG,"Toto est un roi");
                     Assert.assertEquals(2, cities.size());
                 }
             }
@@ -158,7 +158,7 @@ public class CityDaoTest {
                 if (cities.size() == 1){
                     //first call
                 } else if(cities.size() == 0){
-                    Log.e(TAG,"Toto est un roi");
+                    MyLog.e(TAG,"Toto est un roi");
                     Assert.assertEquals(0, cities.size());
                 }
             }
@@ -192,7 +192,7 @@ public class CityDaoTest {
                 if (cities.size() == 1){
                     //first call
                 } else if(cities.size() == 0){
-                    Log.e(TAG,"Toto est un roi");
+                    MyLog.e(TAG,"Toto est un roi");
                     Assert.assertEquals(0, cities.size());
                 }
             }
@@ -226,11 +226,11 @@ public class CityDaoTest {
                     //first call
                     City city = cities.get(0);
                     if (CITY_PALAMINY.equals(city.getName())) {
-                        Log.e(TAG,"Toto est le roi de " + CITY_PALAMINY);
+                        MyLog.e(TAG,"Toto est le roi de " + CITY_PALAMINY);
                         Assert.assertEquals(CITY_PALAMINY, city.getName());
                     }
                     else if (CITY_SAINT_QUENTIN.equals(city.getName())) {
-                        Log.e(TAG,"Toto est le roi de " + CITY_SAINT_QUENTIN);
+                        MyLog.e(TAG,"Toto est le roi de " + CITY_SAINT_QUENTIN);
                         Assert.assertEquals(CITY_SAINT_QUENTIN, city.getName());
                     }
                 }

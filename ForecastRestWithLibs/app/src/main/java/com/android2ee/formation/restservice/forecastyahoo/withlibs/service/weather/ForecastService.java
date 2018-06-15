@@ -31,7 +31,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather;
 
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
@@ -42,6 +41,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.Servi
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityForecastDownloadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityForecastLoadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -105,7 +105,7 @@ public class ForecastService extends MotherBusinessService implements ForecastSe
      */
     @Override
     public void loadForecastAsync(int cityId) {
-        Log.e(TAG, "loadForecastAsync() called with: " + "cityId = [" + cityId + "]");
+        MyLog.e(TAG, "loadForecastAsync() called with: " + "cityId = [" + cityId + "]");
         reload = false;
         if (cityForcastList.get(cityId)!=null) {
             reload = true;
@@ -126,7 +126,7 @@ public class ForecastService extends MotherBusinessService implements ForecastSe
      *            The id of the city associated with the forecasts
      */
     private void loadForecastSync(int cityId) {
-        Log.e(TAG, "loadForecastSync() called with: " + "cityId = [" + cityId + "]");
+        MyLog.e(TAG, "loadForecastSync() called with: " + "cityId = [" + cityId + "]");
         // Load data from database
         cityForecastDaoIntf = Injector.getDaoManager().getCityForecastDao();
         CityForecast cityForecast = cityForecastDaoIntf.findCurrentForecastFor(cityId);
@@ -160,14 +160,14 @@ public class ForecastService extends MotherBusinessService implements ForecastSe
      * Brodcast the Weather loaded event
      */
     private void postForecastDataLoadedEvent(CityForecast cityForecast,int cityId) {
-        Log.e(TAG, "postForecastDataLoadedEvent() called as found CityForecast with " + cityForecast.getWeatherForecasts().size() + " elements and cityId="+cityId);
+        MyLog.e(TAG, "postForecastDataLoadedEvent() called as found CityForecast with " + cityForecast.getWeatherForecasts().size() + " elements and cityId="+cityId);
         if(cityForecastLoadedEvent==null){
             cityForecastLoadedEvent= new CityForecastLoadedEvent(cityForecast,cityId);
         }else{
             cityForecastLoadedEvent.setCityForecast(cityForecast);
             cityForecastLoadedEvent.setCityId(cityId);
         }
-        Log.e(TAG, "postForecastDataLoadedEvent() returns event:" + cityForecastLoadedEvent.getCityForecast() + " elements and cityId="+cityForecastLoadedEvent.getCityId());
+        MyLog.e(TAG, "postForecastDataLoadedEvent() returns event:" + cityForecastLoadedEvent.getCityForecast() + " elements and cityId="+cityForecastLoadedEvent.getCityId());
         EventBus.getDefault().post(cityForecastLoadedEvent);
     }
     /***********************************************************
@@ -176,7 +176,7 @@ public class ForecastService extends MotherBusinessService implements ForecastSe
     @Override
     @Subscribe
     public void onEvent(CityForecastDownloadedEvent event){
-        Log.e(TAG, "onEvent() called with: " + "event = [" + event + "] and cityId="+event.getCityId());
+        MyLog.e(TAG, "onEvent() called with: " + "event = [" + event + "] and cityId="+event.getCityId());
         //update the event
         if(event.getCityForecast()!=null) {
             //update your own cache

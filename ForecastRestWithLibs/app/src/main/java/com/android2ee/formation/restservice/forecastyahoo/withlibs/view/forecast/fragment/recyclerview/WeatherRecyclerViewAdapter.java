@@ -77,7 +77,7 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
      */
     @Override
     public WeatherRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-       // Log.e("RecyclerViewAdapter"," onCreateViewHolder viewtype="+viewType);
+       // MyLog.e("RecyclerViewAdapter"," onCreateViewHolder viewtype="+viewType);
         tNewView=inflater.inflate(R.layout.weather_cardview_item,parent,false);
         tViewHolder=new ViewHolder(tNewView);
         return tViewHolder;

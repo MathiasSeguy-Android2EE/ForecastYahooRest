@@ -32,7 +32,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast.CityForecastDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
@@ -40,6 +39,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Coordinates;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.WeatherForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.List;
 
@@ -56,7 +56,7 @@ public class CityForecastDaoTest extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        Log.i("DataCommunicationTest", "setUp() is called");
+        MyLog.i("DataCommunicationTest", "setUp() is called");
 
     }
 
@@ -86,7 +86,7 @@ public class CityForecastDaoTest extends AndroidTestCase {
         //test deleting
         deletion(cfDao);
         long end = System.currentTimeMillis();
-        Log.i(TAG, "testCRUD() duration " + (end - begin) + "ms");
+        MyLog.i(TAG, "testCRUD() duration " + (end - begin) + "ms");
     }
 
     private void deletion(CityForecastDaoIntf cfDao) {
@@ -104,7 +104,7 @@ public class CityForecastDaoTest extends AndroidTestCase {
             assertNull(WeatherForecast.findById(WeatherForecast.class, wf.getId()));
         }
         end=System.currentTimeMillis();
-        Log.w(TAG, "deletion() duration " + (end - begin) +"ms");
+        MyLog.w(TAG, "deletion() duration " + (end - begin) +"ms");
     }
 
     private void update(CityForecastDaoIntf cfDao) {
@@ -112,18 +112,18 @@ public class CityForecastDaoTest extends AndroidTestCase {
         foundElement.setCityId(13121974);
         cfDao.insertOrUpdate(foundElement);
         foundElementUpdated=  cfDao.findCurrentForecastFor(13121974);
-        Log.i(TAG, "foundElementUpdated id =" + foundElementUpdated.getId());
+        MyLog.i(TAG, "foundElementUpdated id =" + foundElementUpdated.getId());
         assertEquals(foundElement.getId(), foundElementUpdated.getId());
         assertEquals(foundElementUpdated.getCityId(), 13121974);
         end=System.currentTimeMillis();
-        Log.w(TAG, "update() duration " + (end - begin) +"ms");
+        MyLog.w(TAG, "update() duration " + (end - begin) +"ms");
     }
 
     private void equality() {
         begin=System.currentTimeMillis();
         assertEquals(testedElement, foundElement);
         end=System.currentTimeMillis();
-        Log.w(TAG, "equality() duration " + (end - begin) +"ms");
+        MyLog.w(TAG, "equality() duration " + (end - begin) +"ms");
     }
 
     private void fieldsEquality() {
@@ -136,23 +136,23 @@ public class CityForecastDaoTest extends AndroidTestCase {
         assertEquals(testedElement.getName(),foundElement.getName());
         assertEquals(testedElement.getWeatherForecasts(),foundElement.getWeatherForecasts());
         end=System.currentTimeMillis();
-        Log.w(TAG, "fieldsEquality() duration " + (end - begin) +"ms");
+        MyLog.w(TAG, "fieldsEquality() duration " + (end - begin) +"ms");
     }
 
     private void loadingCurrent(CityForecastDaoIntf cfDao) {
         begin=System.currentTimeMillis();
         foundElement=  cfDao.findCurrentForecastFor(testedCityId);
-        Log.i(TAG, "foundElement id =" + foundElement.getId());
+        MyLog.i(TAG, "foundElement id =" + foundElement.getId());
         end=System.currentTimeMillis();
-        Log.w(TAG, "loadingCurrent() duration " + (end - begin) +"ms");
+        MyLog.w(TAG, "loadingCurrent() duration " + (end - begin) +"ms");
     }
 
     private void insertion(CityForecast testedElement, CityForecastDaoIntf cfDao) {
         begin=System.currentTimeMillis();
         cfDao.insertOrUpdate(testedElement);//the city id is 11021974
-        Log.i(TAG, "testedElement id =" + testedElement.getId());
+        MyLog.i(TAG, "testedElement id =" + testedElement.getId());
         end=System.currentTimeMillis();
-        Log.w(TAG, "insertion() duration " + (end - begin) + "ms");
+        MyLog.w(TAG, "insertion() duration " + (end - begin) + "ms");
     }
 
     private void loadAll(CityForecastDaoIntf cfDao) {
@@ -162,6 +162,6 @@ public class CityForecastDaoTest extends AndroidTestCase {
             initialElementNumber=cityForecasts.size();
         }
         end=System.currentTimeMillis();
-        Log.w(TAG, "loadAll() duration " + (end - begin) +"ms");
+        MyLog.w(TAG, "loadAll() duration " + (end - begin) +"ms");
     }
 }

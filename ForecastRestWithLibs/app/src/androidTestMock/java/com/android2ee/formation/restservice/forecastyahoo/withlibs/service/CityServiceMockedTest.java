@@ -32,7 +32,7 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse.DataGenerator;
@@ -62,13 +62,13 @@ public class CityServiceMockedTest extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        Log.e(TAG, "setUp() is called");
+        MyLog.e(TAG, "setUp() is called");
         EventBus.getDefault().register(this);
     }
 
     public void tearDown() throws Exception {
         super.tearDown();
-        Log.e(TAG, "tearDown() is called");
+        MyLog.e(TAG, "tearDown() is called");
         EventBus.getDefault().unregister(this);
     }
 
@@ -80,7 +80,7 @@ public class CityServiceMockedTest extends AndroidTestCase {
 
     public void testFindCityByNameAsync() throws Exception {
         //track entrance
-        Log.e(TAG, "testFindCityByNameAsync() has been called");
+        MyLog.e(TAG, "testFindCityByNameAsync() has been called");
         eventReceived = new AtomicBoolean(false);
         //be sure to use the real ServiceManager (don't myApp.getServiceManager
         // because you'll have the MockedServiceManager)
@@ -88,12 +88,12 @@ public class CityServiceMockedTest extends AndroidTestCase {
         serviceManager.getCityService().findCityByNameAsync(testedCityName);
         while (!eventReceived.get()) {
             Thread.currentThread().sleep(500);
-            Log.e(TAG, "waiting for the event FindCitiesResponseEvent in testFindCityByNameAsync");
+            MyLog.e(TAG, "waiting for the event FindCitiesResponseEvent in testFindCityByNameAsync");
         }
     }
 
     public void testReloadFindCitiesResponse() throws Exception {
-        Log.e(TAG, "testReloadFindCitiesResponse() has been called");
+        MyLog.e(TAG, "testReloadFindCitiesResponse() has been called");
         eventReceived = new AtomicBoolean(false);
         //be sure to use the real ServiceManager (don't myApp.getServiceManager
         // because you'll have the MockedServiceManager)
@@ -101,14 +101,14 @@ public class CityServiceMockedTest extends AndroidTestCase {
         serviceManager.getCityService().findCityByNameAsync(testedCityName);
         while (!eventReceived.get()) {
             Thread.currentThread().sleep(500);
-            Log.e(TAG, "waiting for the event FindCitiesResponseEvent in testReloadFindCitiesResponse");
+            MyLog.e(TAG, "waiting for the event FindCitiesResponseEvent in testReloadFindCitiesResponse");
         }
     }
 
     @Subscribe
     public void onEvent(FindCitiesResponseEvent event) {
-        Log.e(TAG, "FindCitiesResponseEvent received");
-        Log.e(TAG, "FindCitiesResponseEvent received" + event.getFindCitiesResponse().getCities().get(0));
+        MyLog.e(TAG, "FindCitiesResponseEvent received");
+        MyLog.e(TAG, "FindCitiesResponseEvent received" + event.getFindCitiesResponse().getCities().get(0));
         assertNotNull(event);
         assertNotNull(event.getFindCitiesResponse());
         assertNotNull(event.getFindCitiesResponse().getCities());
@@ -125,7 +125,7 @@ public class CityServiceMockedTest extends AndroidTestCase {
      **********************************************************/
     public void testAddCityAsync() throws Exception {
         //track entrance
-        Log.e(TAG, "testAddCityAsync() has been called on thread "+Thread.currentThread().getName());
+        MyLog.e(TAG, "testAddCityAsync() has been called on thread "+Thread.currentThread().getName());
         eventReceived = new AtomicBoolean(false);
         //be sure to use the real ServiceManager (don't myApp.getServiceManager
         // because you'll have the MockedServiceManager)
@@ -133,13 +133,13 @@ public class CityServiceMockedTest extends AndroidTestCase {
         serviceManager.getCityService().addCityAsync(DataGenerator.getCity());
         while (!eventReceived.get()) {
             Thread.currentThread().sleep(500);
-            Log.e(TAG, "waiting for the event FindCitiesResponseEvent in testAddCityAsync");
+            MyLog.e(TAG, "waiting for the event FindCitiesResponseEvent in testAddCityAsync");
         }
     }
 
     @Subscribe
     public void onEvent(CityAddedEvent event) {
-        Log.e(TAG, "CityAddedEvent received" + event.getCity()+" on thread "+Thread.currentThread().getName());
+        MyLog.e(TAG, "CityAddedEvent received" + event.getCity()+" on thread "+Thread.currentThread().getName());
         DataCheck.getInstance().checkCity(event.getCity());
         DeepDataCheck.getInstance().checkCity(DataGenerator.getCity(), event.getCity());
         eventReceived.set(true);
@@ -149,7 +149,7 @@ public class CityServiceMockedTest extends AndroidTestCase {
      **********************************************************/
     public void testLoadCitiesAsync() throws Exception {
         //track entrance
-        Log.e(TAG, "testAddCityAsync() has been called");
+        MyLog.e(TAG, "testAddCityAsync() has been called");
         eventReceived = new AtomicBoolean(false);
         //be sure to use the real ServiceManager (don't myApp.getServiceManager
         // because you'll have the MockedServiceManager)
@@ -157,13 +157,13 @@ public class CityServiceMockedTest extends AndroidTestCase {
         serviceManager.getCityService().loadCitiesAsync();
         while (!eventReceived.get()) {
             Thread.currentThread().sleep(500);
-            Log.e(TAG, "waiting for the event FindCitiesResponseEvent in testAddCityAsync");
+            MyLog.e(TAG, "waiting for the event FindCitiesResponseEvent in testAddCityAsync");
         }
     }
 
     @Subscribe
     public void onEvent(CitiesLoadedEvent event) {
-        Log.e(TAG, "CityAddedEvent received" + event.getCities());
+        MyLog.e(TAG, "CityAddedEvent received" + event.getCities());
         ArrayList<City> cities= (ArrayList<City>) event.getCities();
         //There should be 4 cities
         assertTrue(cities.size()==4);
@@ -182,7 +182,7 @@ public class CityServiceMockedTest extends AndroidTestCase {
      **********************************************************/
     public void testDeleteCityAsync() throws Exception {
         //track entrance
-        Log.e(TAG, "testAddCityAsync() has been called");
+        MyLog.e(TAG, "testAddCityAsync() has been called");
         eventReceived = new AtomicBoolean(false);
         //be sure to use the real ServiceManager (don't myApp.getServiceManager
         // because you'll have the MockedServiceManager)

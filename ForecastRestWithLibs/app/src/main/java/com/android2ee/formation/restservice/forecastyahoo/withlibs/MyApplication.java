@@ -41,11 +41,11 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.telephony.TelephonyManager;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ConnectivityChangeEvent;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.crashlytics.android.Crashlytics;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -95,7 +95,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.e("MyApplication", "onCreate is called");
+        MyLog.e("MyApplication", "onCreate is called");
         instance = this;
         Fabric.with(this,new Crashlytics());
 
@@ -137,7 +137,7 @@ public class MyApplication extends Application {
      * @return the serviceManager
      */
     public final ServiceManagerIntf getServiceManager() {
-        Log.d(TAG, "getServiceManager() called with: " + "");
+        MyLog.d(TAG, "getServiceManager() called with: " + "");
         if (null == serviceManagerIntf) {
             serviceManagerIntf = Injector.getServiceManager(this);
             servcieManagerAlreadyExist = true;
@@ -163,7 +163,7 @@ public class MyApplication extends Application {
      * To be called by activities when they go in their onStop method
      */
     public void onStartActivity() {
-        Log.e(TAG, "onStartActivity() called with: " + "");
+        MyLog.e(TAG, "onStartActivity() called with: " + "");
         isActivityAlive.set(isActivityAlive.get()+1);
         // launch the Runnable in 2 seconds
         mServiceKillerHandler.postDelayed(mServiceKiller, 1000);
@@ -172,7 +172,7 @@ public class MyApplication extends Application {
      * To be called by activities when they go in their onResume method
      */
     public void onStopActivity() {
-        Log.e(TAG, "onStopActivity() called with: " + "");
+        MyLog.e(TAG, "onStopActivity() called with: " + "");
         isActivityAlive.set(isActivityAlive.get()-1);
         // launch the Runnable in 2 seconds
         mServiceKillerHandler.postDelayed(mServiceKiller, 1000);
@@ -184,7 +184,7 @@ public class MyApplication extends Application {
     Handler mServiceKillerHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            Log.e("MyApplication", "in the Handler isActivityAlive==" + isActivityAlive.get());
+            MyLog.e("MyApplication", "in the Handler isActivityAlive==" + isActivityAlive.get());
             if(isActivityAlive.get()==0) {
                 //What you should do when application should die
                 applicationShouldDie();
@@ -194,7 +194,7 @@ public class MyApplication extends Application {
     };
 
     private void applicationShouldDie(){
-        Log.e("MyApplication","applicationShouldDie is called");
+        MyLog.e("MyApplication","applicationShouldDie is called");
         //first unregister broadcast
         if(connectivityChangedReceiever!=null) {
             unregisterReceiver(connectivityChangedReceiever);
@@ -237,7 +237,7 @@ public class MyApplication extends Application {
      * Kill the service manager and all the services managed by it
      */
     private void killServiceManager() {
-        Log.e("MyApplication", "killServiceManager is called");
+        MyLog.e("MyApplication", "killServiceManager is called");
         if (null != serviceManagerIntf) {
             serviceManagerIntf.unbindAndDie();
             serviceManagerIntf =null;
@@ -268,7 +268,7 @@ public class MyApplication extends Application {
      * Manage the connectivity state of the device
      */
     public void manageConnectivityState() {
-        Log.e(TAG, "manageConnectivityState() called with: " + "");
+        MyLog.e(TAG, "manageConnectivityState() called with: " + "");
         // Here we are because we receive either the boot completed event
         // either the connection changed event
         // either the wifi state changed event
@@ -307,7 +307,7 @@ public class MyApplication extends Application {
             }
         }
         notifyConnectivityChanged();
-        Log.e("MyApplication", "manageConnectivityState called and return isConnected=" + isConnected + ", isWifi="
+        MyLog.e("MyApplication", "manageConnectivityState called and return isConnected=" + isConnected + ", isWifi="
                 + isWifi + ", telephonyType=" + telephonyType);
     }
 
@@ -315,7 +315,7 @@ public class MyApplication extends Application {
      * This method is called when we switch from no connectivity to connected to the internet
      */
     private void notifyConnectivityChanged() {
-        Log.d(TAG, "notifyConnectivityChanged() called with: " + "");
+        MyLog.d(TAG, "notifyConnectivityChanged() called with: " + "");
         // notify the listeners (if there is some because this method can be called even if no
         // activity alived)
         EventBus.getDefault().post(new ConnectivityChangeEvent(telephonyType,isConnected,isWifi));
@@ -326,7 +326,7 @@ public class MyApplication extends Application {
      * @return the isConnected
      */
     public final boolean isConnected() {
-        Log.e("MyApplication","isConnected : "+isConnected);
+        MyLog.e("MyApplication","isConnected : "+isConnected);
         return isConnected;
     }
 
@@ -336,7 +336,7 @@ public class MyApplication extends Application {
      * @return the isWifi
      */
     public final boolean isWifi() {
-        Log.d(TAG, "isWifi() called with: " + "");
+        MyLog.d(TAG, "isWifi() called with: " + "");
         return isWifi;
     }
 
@@ -348,7 +348,7 @@ public class MyApplication extends Application {
      * @return the telephonyType
      */
     public final int getTelephonyType() {
-        Log.d(TAG, "getTelephonyType() called with: " + "");
+        MyLog.d(TAG, "getTelephonyType() called with: " + "");
         return telephonyType;
     }
 

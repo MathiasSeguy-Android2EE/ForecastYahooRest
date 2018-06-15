@@ -31,8 +31,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.WeatherDetails;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Wind;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
@@ -40,6 +38,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData_Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import junit.framework.TestCase;
 
@@ -63,7 +62,7 @@ public class DataCheck extends TestCase {
      * @param cityForecast
      */
     public void checkCityForecast(CityForecast cityForecast,int cityId) {
-        Log.i("DataCheck", "testFindForecastByCityId find" + cityForecast.toString());
+        MyLog.i("DataCheck", "testFindForecastByCityId find" + cityForecast.toString());
         assertNotNull(cityForecast);
         assertEquals("Toulouse", cityForecast.getName());
         assertEquals("FR", cityForecast.getCountry());
@@ -94,7 +93,7 @@ public class DataCheck extends TestCase {
         assertTrue(weather.getCod() != 0);
         assertTrue(weather.getTimeStampUTC() != 0);
         assertNotNull(weather.getBase());
-        Log.i("DataCheck", "testFindWeatherByCityId find: " + weather.toString());
+        MyLog.i("DataCheck", "testFindWeatherByCityId find: " + weather.toString());
         //check coordinates
         assertNotNull(weather.getCoordinates());
         assertEquals(1.44f, weather.getCoordinates().getLon());

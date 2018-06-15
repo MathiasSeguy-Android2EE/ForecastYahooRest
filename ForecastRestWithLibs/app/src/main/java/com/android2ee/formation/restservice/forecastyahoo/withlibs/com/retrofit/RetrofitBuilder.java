@@ -86,7 +86,7 @@ public class RetrofitBuilder {
         return new OkHttpClient.Builder()
                 //add a cach
                 .cache(cacheDir)
-                        //add interceptor (here to log the request)
+                        //add interceptor (here to MyLog the request)
 //                .addInterceptor(customLoggingInterceptor)
                 .addInterceptor(httpLogInterceptor)
                 .build();

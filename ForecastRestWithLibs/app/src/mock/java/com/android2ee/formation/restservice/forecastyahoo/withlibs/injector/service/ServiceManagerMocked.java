@@ -35,7 +35,7 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.ser
  * Created by Mathias Seguy - Android2EE on 25/02/2016.
  */
 
-import android.util.Log;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessServiceIntf;
@@ -93,7 +93,7 @@ public class ServiceManagerMocked implements ServiceManagerIntf{
      * Is managed by the MyApplication object in fact
      */
     public void unbindAndDie() {
-        Log.e("ServiceManager", "UnbindAndDie is called");
+        MyLog.e("ServiceManager", "UnbindAndDie is called");
         //kill your thread
         if (cancelableThreadsExecutor != null) {
             killCancelableThreadExecutor();
@@ -197,14 +197,14 @@ public class ServiceManagerMocked implements ServiceManagerIntf{
                     if (!cancelableThreadsExecutor.awaitTermination(5, TimeUnit.SECONDS)) {
                         // Cancel currently executing tasks
                         cancelableThreadsExecutor.shutdownNow();
-                        Log.e("MyApp", "Probably a memory leak here");
+                        MyLog.e("MyApp", "Probably a memory leak here");
                     }
                 }
             } catch (InterruptedException ie) {
                 // (Re-)Cancel if current thread also interrupted
                 cancelableThreadsExecutor.shutdownNow();
                 cancelableThreadsExecutor=null;
-                Log.e("MyApp", "Probably a memory leak here too");
+                MyLog.e("MyApp", "Probably a memory leak here too");
             }
         }
         cancelableThreadsExecutor=null;
@@ -248,14 +248,14 @@ public class ServiceManagerMocked implements ServiceManagerIntf{
                     if (!keepAliveThreadsExceutor.awaitTermination(5, TimeUnit.SECONDS)) {
                         // Cancel currently executing tasks
                         keepAliveThreadsExceutor.shutdown();
-                        Log.e("MyApp", "Probably a memory leak here");
+                        MyLog.e("MyApp", "Probably a memory leak here");
                     }
                 }
             } catch (InterruptedException ie) {
                 // (Re-)Cancel if current thread also interrupted
                 keepAliveThreadsExceutor.shutdownNow();
                 keepAliveThreadsExceutor=null;
-                Log.e("MyApp", "Probably a memory leak here too");
+                MyLog.e("MyApp", "Probably a memory leak here too");
             }
         }
         keepAliveThreadsExceutor=null;

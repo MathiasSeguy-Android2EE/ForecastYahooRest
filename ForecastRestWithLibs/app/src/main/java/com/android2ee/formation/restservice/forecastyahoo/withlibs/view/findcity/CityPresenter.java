@@ -31,12 +31,11 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityAddedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.FindCitiesResponseEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherPresenter;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -97,7 +96,7 @@ public class CityPresenter extends MotherPresenter implements CityPresenterIntf 
      */
     @Override
     public void searchCity(String cityName) {
-        Log.e("CityActivity ", "searchCity called ");
+        MyLog.e("CityActivity ", "searchCity called ");
         // Call the service
         MyApplication.instance.getServiceManager().getCityService()
                 .findCityByNameAsync(cityName);
@@ -143,14 +142,14 @@ public class CityPresenter extends MotherPresenter implements CityPresenterIntf 
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(FindCitiesResponseEvent event){
-        Log.e(TAG, "FindCitiesResponseEvent received ");
+        MyLog.e(TAG, "FindCitiesResponseEvent received ");
         this.cities.clear();
         // if returned cities are not null, fill the list with them
         if (event != null
                 && event.getFindCitiesResponse()!=null
                 && event.getFindCitiesResponse().getCities()!=null) {
             for (City city : event.getFindCitiesResponse().getCities()) {
-                Log.e(TAG, "Found " + city);
+                MyLog.e(TAG, "Found " + city);
                 this.cities.add(city);
             }
             cityView.updateCities();
@@ -163,7 +162,7 @@ public class CityPresenter extends MotherPresenter implements CityPresenterIntf 
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(CityAddedEvent event){
-        Log.e("CityActivity ", "cityAdded=" + event.getCity());
+        MyLog.e("CityActivity ", "cityAdded=" + event.getCity());
         // then finish
         cityView.finishView();
     }

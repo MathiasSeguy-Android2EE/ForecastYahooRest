@@ -31,8 +31,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.fragment;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityForecastLoadedEvent;
@@ -41,6 +39,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.ex
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherPresenter;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -149,7 +148,7 @@ public class WeatherCityPresenter extends MotherPresenter implements WeatherCity
      **********************************************************/
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(CityForecastLoadedEvent event){
-        Log.e(TAG, "CityForecastLoadedEvent event received = [" + event + "] and event.getCity="+event.getCityId()+" this.cityId="+cityId);
+        MyLog.e(TAG, "CityForecastLoadedEvent event received = [" + event + "] and event.getCity="+event.getCityId()+" this.cityId="+cityId);
         //only update your view if it's your data
         if(event.getCityId()==cityId){
             cityForecast=event.getCityForecast();
@@ -158,7 +157,7 @@ public class WeatherCityPresenter extends MotherPresenter implements WeatherCity
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(WeatherLoadedEvent event){
-        Log.e(TAG,"WeatherLoadedEvent event received = [" + event + "]");
+        MyLog.e(TAG,"WeatherLoadedEvent event received = [" + event + "]");
         //only update your view if it's your data
         if(event.getCityId()==cityId){
             weather=event.getWeather();

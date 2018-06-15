@@ -32,7 +32,7 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.testpresenter;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.DataCheck;
@@ -57,12 +57,12 @@ public class WeatherPresenterTest  extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        Log.e(TAG, "setUp() is called");
+        MyLog.e(TAG, "setUp() is called");
     }
 
     public void tearDown() throws Exception {
         super.tearDown();
-        Log.e(TAG, "tearDown() is called");
+        MyLog.e(TAG, "tearDown() is called");
     }
 
     /***********************************************************
@@ -83,7 +83,7 @@ public class WeatherPresenterTest  extends AndroidTestCase {
         int timeout = 0;
         while (!citiesLoaded.get()) {
             Thread.currentThread().sleep(500);
-            Log.e(TAG, "waiting for the citiesLoaded moment in testLoadCities"+Thread.currentThread().getName());
+            MyLog.e(TAG, "waiting for the citiesLoaded moment in testLoadCities"+Thread.currentThread().getName());
 
             if (timeout == 5) {
                 fail("Timeout");
@@ -97,7 +97,7 @@ public class WeatherPresenterTest  extends AndroidTestCase {
 
     public void loadCitiesCallBack(WeatherPresenter presenter){
         //track entrance
-        Log.e(TAG, "loadCitiesCallBack() has been called on thread "+Thread.currentThread().getName());
+        MyLog.e(TAG, "loadCitiesCallBack() has been called on thread "+Thread.currentThread().getName());
         assertNotNull(presenter.getCities());
         //By the way we can admit that we have test also the getCities, don't we ?
         ArrayList<City> cities= (ArrayList<City>) presenter.getCities();
@@ -128,19 +128,19 @@ public class WeatherPresenterTest  extends AndroidTestCase {
        // and then, wtf
         while (!citiesDeletedEmptyCase.get()) {
             Thread.currentThread().sleep(500);
-            Log.e(TAG, "waiting for the citiesDeleted empty case moment in testDeleteCity"+Thread.currentThread().getName());
+            MyLog.e(TAG, "waiting for the citiesDeleted empty case moment in testDeleteCity"+Thread.currentThread().getName());
         }
         presenter.getCities().add(DataGenerator.getCity(1));
         presenter.getCities().add(DataGenerator.getCity(2));
         presenter.deleteCity(DataGenerator.getCity(2));
         while (!citiesDeleted.get()) {
             Thread.currentThread().sleep(500);
-            Log.e(TAG, "waiting for the citiesDeleted moment in testDeleteCity"+Thread.currentThread().getName());
+            MyLog.e(TAG, "waiting for the citiesDeleted moment in testDeleteCity"+Thread.currentThread().getName());
         }
     }
     public void launchCityActivity(WeatherPresenter presenter){
         //track entrance
-        Log.e(TAG, "launchCityActivity() has been called on thread "+Thread.currentThread().getName());
+        MyLog.e(TAG, "launchCityActivity() has been called on thread "+Thread.currentThread().getName());
         assertNotNull(presenter.getCities());
         //By the way we can admit that we have test also the getCities, don't we ?
         ArrayList<City> cities= (ArrayList<City>) presenter.getCities();
@@ -149,7 +149,7 @@ public class WeatherPresenterTest  extends AndroidTestCase {
     }
     public void cityDeleted(WeatherPresenter presenter){
         //track entrance
-        Log.e(TAG, "cityDeleted() has been called on thread "+Thread.currentThread().getName());
+        MyLog.e(TAG, "cityDeleted() has been called on thread "+Thread.currentThread().getName());
         assertNotNull(presenter.getCities());
         //By the way we can admit that we have test also the getCities, don't we ?
         ArrayList<City> cities= (ArrayList<City>) presenter.getCities();

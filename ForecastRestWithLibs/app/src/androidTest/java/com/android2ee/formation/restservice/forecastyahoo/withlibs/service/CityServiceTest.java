@@ -32,12 +32,12 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.DataCheck;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.FindCitiesResponseEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,12 +53,12 @@ public class CityServiceTest extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        Log.e("CityServiceTest", "setUp() is called");
+        MyLog.e("CityServiceTest", "setUp() is called");
         EventBus.getDefault().register(this);
     }
     public void tearDown() throws Exception {
         super.tearDown();
-        Log.e("CityServiceTest", "tearDown() is called");
+        MyLog.e("CityServiceTest", "tearDown() is called");
         EventBus.getDefault().unregister(this);
     }
     AtomicBoolean eventReceived;
@@ -72,7 +72,7 @@ public class CityServiceTest extends AndroidTestCase {
         int timeout = 0;
         while(!eventReceived.get()){
             Thread.currentThread().sleep(500);
-            Log.e("CityServiceTest", "waiting for the event FindCitiesResponseEvent");
+            MyLog.e("CityServiceTest", "waiting for the event FindCitiesResponseEvent");
             if (timeout == 5) {
                 fail("Timeout");
             }
@@ -82,8 +82,8 @@ public class CityServiceTest extends AndroidTestCase {
 
     @Subscribe
     public void onEvent(FindCitiesResponseEvent event){
-        Log.e("CityServiceTest", "FindCitiesResponseEvent received");
-        Log.e("CityServiceTest", "FindCitiesResponseEvent received" + event.getFindCitiesResponse().getCities().get(0));
+        MyLog.e("CityServiceTest", "FindCitiesResponseEvent received");
+        MyLog.e("CityServiceTest", "FindCitiesResponseEvent received" + event.getFindCitiesResponse().getCities().get(0));
         assertNotNull(event);
         assertNotNull(event.getFindCitiesResponse());
         assertNotNull(event.getFindCitiesResponse().getCities());

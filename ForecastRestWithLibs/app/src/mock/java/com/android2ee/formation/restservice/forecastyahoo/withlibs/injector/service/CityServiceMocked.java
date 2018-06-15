@@ -31,7 +31,7 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.service;
 
-import android.util.Log;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
@@ -59,7 +59,7 @@ public class CityServiceMocked implements CityServiceIntf {
     @Override
     public void findCityByNameAsync(String cityName) {
         //track entrance
-        Log.e(TAG, "findCityByNameAsync() has been called");
+        MyLog.e(TAG, "findCityByNameAsync() has been called");
         FindCitiesResponseEvent findCitiesResponseEvent = new FindCitiesResponseEvent(DataGenerator.getFindCitiesResponse());
         EventBus.getDefault().post(findCitiesResponseEvent);
     }
@@ -71,7 +71,7 @@ public class CityServiceMocked implements CityServiceIntf {
     @Override
     public void reloadFindCitiesResponse() {
         //track entrance
-        Log.e(TAG, "reloadFindCitiesResponse() has been called");
+        MyLog.e(TAG, "reloadFindCitiesResponse() has been called");
         FindCitiesResponseEvent findCitiesResponseEvent = new FindCitiesResponseEvent(DataGenerator.getFindCitiesResponse());
         EventBus.getDefault().post(findCitiesResponseEvent);
     }
@@ -96,7 +96,7 @@ public class CityServiceMocked implements CityServiceIntf {
     @Override
     public void loadCitiesAsync() {
         //track entrance
-        Log.e(TAG, "loadCitiesAsync() has been called and cities"+cities);
+        MyLog.e(TAG, "loadCitiesAsync() has been called and cities"+cities);
         insureCityLoaded();
         CitiesLoadedEvent citiesLoadedEvent = new CitiesLoadedEvent(cities);
         EventBus.getDefault().post(citiesLoadedEvent);
@@ -121,7 +121,7 @@ public class CityServiceMocked implements CityServiceIntf {
     public void deleteCityAsync(City city) {
 //track entrance
         insureCityLoaded();
-        Log.e(TAG, "deleteCityAsync() has been called");
+        MyLog.e(TAG, "deleteCityAsync() has been called");
         if(cities.contains(city)){
             cities.remove(city);
         }

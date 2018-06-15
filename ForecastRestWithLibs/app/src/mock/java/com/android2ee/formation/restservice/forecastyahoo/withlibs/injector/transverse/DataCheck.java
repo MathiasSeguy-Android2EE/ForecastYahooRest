@@ -31,7 +31,7 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse;
 
-import android.util.Log;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.WeatherDetails;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Wind;
@@ -63,7 +63,7 @@ public class DataCheck extends TestCase {
      * @param cityForecast
      */
     public void checkCityForecast(CityForecast cityForecast,int cityId) {
-        Log.i("DataCheck", "testFindForecastByCityId find" + cityForecast.toString());
+        MyLog.i("DataCheck", "testFindForecastByCityId find" + cityForecast.toString());
         assertNotNull(cityForecast);
         assertEquals("Toulouse", cityForecast.getName());
         assertEquals("FR", cityForecast.getCountry());
@@ -94,7 +94,7 @@ public class DataCheck extends TestCase {
         assertTrue(weather.getCod() != 0);
         assertTrue(weather.getTimeStampUTC() != 0);
         assertNotNull(weather.getBase());
-        Log.i("DataCheck", "testFindWeatherByCityId find: " + weather.toString());
+        MyLog.i("DataCheck", "testFindWeatherByCityId find: " + weather.toString());
         //check coordinates
         assertNotNull(weather.getCoordinates());
         assertEquals(1.44f, weather.getCoordinates().getLon());
