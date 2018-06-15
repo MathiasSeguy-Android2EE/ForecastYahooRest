@@ -48,7 +48,7 @@ public interface ForecastServiceIntf extends MotherBusinessServiceIntf {
      * @param cityId
      *            The id of the city associated with the forecasts
      */
-    void loadForecastAsync(int cityId);
+    void loadForecastAsync(Long cityId);
 
     /***********************************************************
      *  Listening for downloaded data events

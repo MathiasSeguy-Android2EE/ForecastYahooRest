@@ -40,9 +40,9 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 @Deprecated
 public class WeatherLoadedEvent {
     Weather weather;
-    int cityId;
+    Long cityId;
 
-    public WeatherLoadedEvent(Weather weather,int cityId) {
+    public WeatherLoadedEvent(Weather weather,Long cityId) {
         this.cityId=cityId;
         this.weather = weather;
     }
@@ -58,11 +58,11 @@ public class WeatherLoadedEvent {
         this.weather = weather;
     }
 
-    public int getCityId() {
+    public Long getCityId() {
         return cityId;
     }
 
-    public void setCityId(int cityId) {
+    public void setCityId(Long cityId) {
         this.cityId = cityId;
     }
 }

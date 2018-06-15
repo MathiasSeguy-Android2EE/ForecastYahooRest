@@ -104,19 +104,19 @@ public class ForecastService extends MotherBusinessService implements ForecastSe
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void loadForecastAsync(int cityId) {
+    public void loadForecastAsync(Long cityId) {
         MyLog.e(TAG, "loadForecastAsync() called with: " + "cityId = [" + cityId + "]");
         reload = false;
-        if (cityForcastList.get(cityId)!=null) {
+        /*if (cityForcastList.get(cityId)!=null) {
             reload = true;
-        }
+        }*/
         // use the caching mechanism
         if (reload) {
             //send send back the answer using eventBus
-            postForecastDataLoadedEvent(cityForcastList.get(cityId),cityId);
+            //postForecastDataLoadedEvent(cityForcastList.get(cityId),cityId);
         } else {
             // then launch it
-            MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit(new DaoLoadRunnable(cityId));
+            //MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit(new DaoLoadRunnable(cityId));
         }
     }
     /**

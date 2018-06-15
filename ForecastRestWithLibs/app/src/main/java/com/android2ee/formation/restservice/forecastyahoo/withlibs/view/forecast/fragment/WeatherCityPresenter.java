@@ -65,7 +65,7 @@ public class WeatherCityPresenter extends MotherPresenter implements WeatherCity
     /**
      * The cityId of the dataset displayed
      */
-    int cityId=-1;
+    Long cityId=-1L;
     /***********************************************************
      * Presenter Pattern
      **********************************************************/
@@ -99,7 +99,7 @@ public class WeatherCityPresenter extends MotherPresenter implements WeatherCity
      * @param cityId
      */
     @Override
-    public void loadForecast(int cityId) {
+    public void loadForecast(Long cityId) {
         if(this.cityId==-1){
             this.cityId=cityId;
         }else if(this.cityId != cityId){
@@ -114,7 +114,7 @@ public class WeatherCityPresenter extends MotherPresenter implements WeatherCity
      * @param cityId
      */
     @Override
-    public void loadCurrentWeather(int cityId) {
+    public void loadCurrentWeather(Long cityId) {
         if(this.cityId==-1){
             this.cityId=cityId;
         }else if(this.cityId != cityId){

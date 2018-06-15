@@ -120,8 +120,8 @@ public class WeatherCityFrag extends Fragment implements WeatherCityViewIntf {
         EventBus.getDefault().register(presenter);
         //load the weather and the forecast
         int cityId=getArguments().getInt(CITY_ID);
-        presenter.loadCurrentWeather(cityId);
-        presenter.loadForecast(cityId);
+        /*presenter.loadCurrentWeather(cityId);
+        presenter.loadForecast(cityId);*/
     }
 
     @Override

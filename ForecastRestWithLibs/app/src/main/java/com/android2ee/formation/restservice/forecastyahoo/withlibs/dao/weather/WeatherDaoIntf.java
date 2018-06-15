@@ -44,14 +44,14 @@ public interface WeatherDaoIntf {
      * @param cityId
      * @return
      */
-    Weather findCurrentWeatherFor(int cityId);
+    Weather findCurrentWeatherFor(Long cityId);
 
     /**
      * The find list of current weather by cityId
      * @param cityId
      * @return
      */
-    List<Weather> findAllCurrentWeatherFor(int cityId);
+    List<Weather> findAllCurrentWeatherFor(Long cityId);
 
     /**
      * The insertOrUpdate weather

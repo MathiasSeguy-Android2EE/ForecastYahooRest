@@ -43,13 +43,13 @@ public interface WeatherCityPresenterIntf {
      * Load the Forecast for that city
      * @param cityId
      */
-    void loadForecast(int cityId);
+    void loadForecast(Long cityId);
 
     /**
      * Load the current weather for that city
      * @param cityId
      */
-    void loadCurrentWeather(int cityId);
+    void loadCurrentWeather(Long cityId);
 
     /**
      * get the current cityForecast to display

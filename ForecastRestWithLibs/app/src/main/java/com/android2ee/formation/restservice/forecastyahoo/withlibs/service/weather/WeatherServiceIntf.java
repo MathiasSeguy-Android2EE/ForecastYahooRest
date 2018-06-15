@@ -46,7 +46,7 @@ public interface WeatherServiceIntf extends MotherBusinessServiceIntf {
      * @param cityId
      *            The id of the city associated with the forecasts
      */
-    void loadCurrentWeatherAsync(int cityId);
+    void loadCurrentWeatherAsync(Long cityId);
 
     /***********************************************************
      *  Listening for downloaded data events

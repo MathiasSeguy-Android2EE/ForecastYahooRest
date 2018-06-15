@@ -69,7 +69,7 @@ public class WeatherDao implements WeatherDaoIntf {
      * @return
      */
     @Override
-    public Weather findCurrentWeatherFor(int cityId){
+    public Weather findCurrentWeatherFor(Long cityId){
         MyLog.e(TAG,"findCurrentWeatherFor is called");
         try {
             List<Weather> foundElements=Select.from(Weather.class)
@@ -95,9 +95,9 @@ public class WeatherDao implements WeatherDaoIntf {
      * @return
      */
     @Override
-    public List<Weather> findAllCurrentWeatherFor(int cityId){
+    public List<Weather> findAllCurrentWeatherFor(Long cityId){
         try {
-            List<Weather> weathers = Weather.find(Weather.class, "CITY_ID =?", Integer.toString(cityId));
+            List<Weather> weathers = Weather.find(Weather.class, "CITY_ID =?", Long.toString(cityId));
 //            if (weathers != null) {
 //                for(Weather w:weathers){
 //                    MyLog.e("WeatherDao","+++++++++++++++++++++++++++++++++++++++++++++++");

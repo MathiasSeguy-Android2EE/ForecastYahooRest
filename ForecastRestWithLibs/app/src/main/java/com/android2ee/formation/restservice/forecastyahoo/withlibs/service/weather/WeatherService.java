@@ -106,16 +106,16 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void loadCurrentWeatherAsync(int cityId) {
+    public void loadCurrentWeatherAsync(Long cityId) {
         MyLog.e(TAG, "loadCurrentWeatherAsync called with cityId=" + cityId);
         reload = false;
-        if (weatherList.get(cityId)!=null) {
+        if (weatherList.get(cityId.intValue())!=null) {
             reload = true;
         }
         // use the caching mechanism
         if (reload) {
             //send send back the answer using eventBus
-            postWeatherDataLoadedEvent(cityId,weatherList.get(cityId));
+            postWeatherDataLoadedEvent(cityId,weatherList.get(cityId.intValue()));
         } else {
             // then launch it
             MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit(new DaoLoadRunnable(cityId));
@@ -127,14 +127,14 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
      * @param cityId
      *            The id of the city associated with the forecasts
      */
-    private void loadCurrentWeatherSync(int cityId) {
+    private void loadCurrentWeatherSync(Long cityId) {
         MyLog.e(TAG, "loadCurrentWeatherSync called with cityId=" + cityId);
         // Load data from database
         weatherDataDao = Injector.getDaoManager().getWeatherDao();
         Weather weather = weatherDataDao.findCurrentWeatherFor(cityId);
         weatherDataDao = null;
         //store the result
-        weatherList.put(cityId,weather);
+        weatherList.put(cityId.intValue(),weather);
         MyLog.e("WeatherService", "loadCurrentWeatherSync has returned=" + weather);
         //send send back the answer using eventBus
         postWeatherDataLoadedEvent(cityId,weather);
@@ -147,9 +147,9 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
      *        This class aims to implements a Runnable with an Handler
      */
     private class DaoLoadRunnable implements Runnable {
-        int cityId;
+        Long cityId;
 
-        public DaoLoadRunnable(int cityId) {
+        public DaoLoadRunnable(Long cityId) {
             this.cityId = cityId;
         }
 
@@ -165,11 +165,11 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
      * Called when the forecast are built
      * Return that list to the calling Activity using the ForecastCallBack
      */
-    private void updateDataIfNeeded(int cityId) {
+    private void updateDataIfNeeded(Long cityId) {
         MyLog.e(TAG, "updateDataIfNeeded() called with: " + "");
-        if(weatherList.get(cityId) !=null){
-            Interval interval=new Interval(weatherList.get(cityId).getTimeStamp(), new DateTime());
-            MyLog.e(TAG, "updateDataIfNeeded() weather.getTimeStamp(): " +weatherList.get(cityId).getTimeStamp());
+        if(weatherList.get(cityId.intValue()) !=null){
+            Interval interval=new Interval(weatherList.get(cityId.intValue()).getTimeStamp(), new DateTime());
+            MyLog.e(TAG, "updateDataIfNeeded() weather.getTimeStamp(): " +weatherList.get(cityId.intValue()).getTimeStamp());
             MyLog.e(TAG, "updateDataIfNeeded() new DateTime(): " +new DateTime());
             MyLog.e(TAG, "updateDataIfNeeded() duration in day found: " +interval.toDuration().getStandardDays());
             if(interval.toDuration().getStandardDays()>1){
@@ -184,7 +184,7 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
     /**
      * Launch the update of the data
      */
-    private void launchWeatherDataUpdater(int cityId) {
+    private void launchWeatherDataUpdater(Long cityId) {
         //ok you can update
         WeatherDataUpdaterIntf updater= MyApplication.instance.getServiceManager().getWeatherUpdaterService();
         updater.downloadCurrentWeatherSync(cityId);
@@ -194,7 +194,7 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
     /**
      * Brodcast the Weather loaded event
      */
-    private void postWeatherDataLoadedEvent(int cityId,Weather weather) {
+    private void postWeatherDataLoadedEvent(Long cityId, Weather weather) {
         if(weatherLoadedEvent ==null){
             weatherLoadedEvent = new WeatherLoadedEvent(weather,cityId);
         }else{
@@ -212,7 +212,7 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
     public void onEvent(WeatherDownloadedEvent event){
         //update the event
         if(event.getWeather()!=null) {
-            weatherList.put(event.getCityId(),event.getWeather());
+            weatherList.put(event.getCityId().intValue(), event.getWeather());
             //then broadcast the information
             postWeatherDataLoadedEvent(event.getCityId(),event.getWeather());
         }else{

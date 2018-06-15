@@ -56,9 +56,10 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     }
 
     private void onChangedLiveData(@Nullable WeatherData weatherData) {
-        if(weatherData==null){
+        if (weatherData == null){
             //ben we do nothing, stupid liveData behavior
-        }else {
+
+        } else {
             this.weatherData = weatherData;
             initLifecycleOwners();
             updateView(weatherData);
@@ -77,13 +78,12 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     }
 
     private void initLifecycleOwners() {
-        mainCardView.setLifecycleOwner(this, weatherData.get_id());
         weatherDataCardView.setLifecycleOwner(this, cityId);
-        sysCardView.setLifecycleOwner(this, weatherData.get_id());
     }
 
     private void updateView(WeatherData weatherData){
-        //todo
-        this.weatherData=weatherData;
+        this.weatherData = weatherData;
+        mainCardView.setLifecycleOwner(this, weatherData.get_id());
+        sysCardView.setLifecycleOwner(this, weatherData.get_id());
     }
 }
