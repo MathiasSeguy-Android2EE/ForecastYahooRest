@@ -102,22 +102,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/vg_rv_weather_list">
 
-        <include layout="@layout/cardview_weatherdata"></include>
+        <include layout="@layout/cardview_weatherdata"/>
 
     </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataCardView>
 
     <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView
         android:id="@+id/cdv_sys"
-        style="@style/MyCardView"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/cdv_weather_data"
+        android:layout_height="0dp"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintBottom_toBottomOf="@+id/cdv_weather_data"
         app:layout_constraintStart_toEndOf="@+id/cdv_weather_data"
-        app:layout_constraintTop_toTopOf="@+id/cdv_weather_data">
+        app:layout_constraintTop_toTopOf="@+id/cdv_weather_data"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin">
 
-        <include layout="@layout/cardview_sys"></include>
+        <include layout="@layout/cardview_sys"/>
 
     </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView>
 
