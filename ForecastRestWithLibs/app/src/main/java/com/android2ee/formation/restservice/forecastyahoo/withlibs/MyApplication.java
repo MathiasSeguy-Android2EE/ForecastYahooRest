@@ -47,6 +47,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.Servi
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ConnectivityChangeEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.crashlytics.android.Crashlytics;
+import com.facebook.stetho.Stetho;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -98,6 +99,8 @@ public class MyApplication extends Application {
         MyLog.e("MyApplication", "onCreate is called");
         instance = this;
         Fabric.with(this,new Crashlytics());
+
+        Stetho.initializeWithDefaults(this);
 
         //manage connectivity state
         manageConnectivityState();
