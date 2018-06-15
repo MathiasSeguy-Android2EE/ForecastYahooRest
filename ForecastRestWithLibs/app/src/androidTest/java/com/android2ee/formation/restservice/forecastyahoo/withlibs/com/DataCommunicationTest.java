@@ -1,7 +1,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.com;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
@@ -10,6 +9,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 
 /**
@@ -21,7 +21,7 @@ public class DataCommunicationTest extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        Log.e("DataCommunicationTest", "setUp() is called");
+        MyLog.e("DataCommunicationTest", "setUp() is called");
     }
 
     public void tearDown() throws Exception {
@@ -34,14 +34,14 @@ public class DataCommunicationTest extends AndroidTestCase {
      */
     public void testFindCityByName() throws Exception {
         if(MyApplication.instance.isConnected()) {
-            Log.i("DataCommunicationTest", "testFindCityByName isConnected=true");
+            MyLog.i("DataCommunicationTest", "testFindCityByName isConnected=true");
             FindCitiesResponse citiesFound = Injector.getDataCommunication().findCityByName("Toulouse");
 
             assertEquals("like",citiesFound.getMessage());
             assertEquals(200, citiesFound.getCod());
 //            assertEquals(1, citiesFound.getCount());
             City toulouse = citiesFound.getCities().get(0);
-            Log.i("DataCommunicationTest", "testFindCityByName find toulouse: " + toulouse.toString());
+            MyLog.i("DataCommunicationTest", "testFindCityByName find toulouse: " + toulouse.toString());
             //check the main information
             assertEquals(CITY_ID,toulouse.getCityId());
             assertEquals("Toulouse", toulouse.getName());
@@ -59,7 +59,7 @@ public class DataCommunicationTest extends AndroidTestCase {
             //clouds
             assertNotNull(toulouse.getClouds());
         }else{
-            Log.i("DataCommunicationTest", "testFindCityByName isConnected=false");
+            MyLog.i("DataCommunicationTest", "testFindCityByName isConnected=false");
             FindCitiesResponse citiesFound = Injector.getDataCommunication().findCityByName("Toulouse");
             assertNull(citiesFound);
         }
@@ -75,11 +75,11 @@ public class DataCommunicationTest extends AndroidTestCase {
      */
     public void testFindWeatherByCityId() throws Exception {
         if(MyApplication.instance.isConnected()) {
-            Log.i("DataCommunicationTest", "testFindWeatherByCityId isConnected=true");
+            MyLog.i("DataCommunicationTest", "testFindWeatherByCityId isConnected=true");
             Weather weather= Injector.getDataCommunication().findWeatherByCityId(CITY_ID);
             DataCheck.getInstance().checkWeather(weather,CITY_ID);
         }else{
-            Log.i("DataCommunicationTest", "testFindWeatherByCityId isConnected=true");
+            MyLog.i("DataCommunicationTest", "testFindWeatherByCityId isConnected=true");
             Weather weather=Injector.getDataCommunication().findWeatherByCityId(CITY_ID);
             assertNull(weather);
         }
@@ -89,10 +89,10 @@ public class DataCommunicationTest extends AndroidTestCase {
 
     public void testFindForecastByCityId() throws Exception {
         if(MyApplication.instance.isConnected()) {
-            Log.i("DataCommunicationTest", "testFindForecastByCityId isConnected=true");
+            MyLog.i("DataCommunicationTest", "testFindForecastByCityId isConnected=true");
             CityForecast cityForecast=Injector.getDataCommunication().findForecastByCityId(CITY_ID);
         }else{
-            Log.i("DataCommunicationTest", "testFindWeatherByCityId isConnected=true");
+            MyLog.i("DataCommunicationTest", "testFindWeatherByCityId isConnected=true");
             CityForecast forecast=Injector.getDataCommunication().findForecastByCityId(CITY_ID);
             assertNull(forecast);
         }

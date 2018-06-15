@@ -32,7 +32,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast.CityForecastDaoIntf;
@@ -41,6 +40,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.Da
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityForecastLoadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,12 +56,12 @@ public class ForecastServiceTest extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        Log.e("CityForecastServiceTest", "setUp() is called");
+        MyLog.e("CityForecastServiceTest", "setUp() is called");
         EventBus.getDefault().register(this);
     }
     public void tearDown() throws Exception {
         super.tearDown();
-        Log.e("CityForecastServiceTest", "tearDown() is called");
+        MyLog.e("CityForecastServiceTest", "tearDown() is called");
         EventBus.getDefault().unregister(this);
     }
     AtomicBoolean eventReceived;
@@ -83,7 +83,7 @@ public class ForecastServiceTest extends AndroidTestCase {
         int timeout = 0;
         while(!eventReceived.get()){
             Thread.currentThread().sleep(1000);
-            Log.e("CityForecastServiceTest", "waiting for the event CityForecastLoadedEvent");
+            MyLog.e("CityForecastServiceTest", "waiting for the event CityForecastLoadedEvent");
             if (timeout == 5) {
                 fail("Timeout");
             }
@@ -93,7 +93,7 @@ public class ForecastServiceTest extends AndroidTestCase {
 
     @Subscribe
     public void onEvent(CityForecastLoadedEvent event){
-        Log.e("CityForecastServiceTest", "CityForecastLoadedEvent received");
+        MyLog.e("CityForecastServiceTest", "CityForecastLoadedEvent received");
         assertNotNull(event);
         eventReceived.set(true);
         try{

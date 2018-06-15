@@ -31,7 +31,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather;
 
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
@@ -42,6 +41,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.Servi
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherDownloadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherLoadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -107,7 +107,7 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
      */
     @Override
     public void loadCurrentWeatherAsync(int cityId) {
-        Log.e(TAG, "loadCurrentWeatherAsync called with cityId=" + cityId);
+        MyLog.e(TAG, "loadCurrentWeatherAsync called with cityId=" + cityId);
         reload = false;
         if (weatherList.get(cityId)!=null) {
             reload = true;
@@ -128,14 +128,14 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
      *            The id of the city associated with the forecasts
      */
     private void loadCurrentWeatherSync(int cityId) {
-        Log.e(TAG, "loadCurrentWeatherSync called with cityId=" + cityId);
+        MyLog.e(TAG, "loadCurrentWeatherSync called with cityId=" + cityId);
         // Load data from database
         weatherDataDao = Injector.getDaoManager().getWeatherDao();
         Weather weather = weatherDataDao.findCurrentWeatherFor(cityId);
         weatherDataDao = null;
         //store the result
         weatherList.put(cityId,weather);
-        Log.e("WeatherService", "loadCurrentWeatherSync has returned=" + weather);
+        MyLog.e("WeatherService", "loadCurrentWeatherSync has returned=" + weather);
         //send send back the answer using eventBus
         postWeatherDataLoadedEvent(cityId,weather);
         //update the data if needed
@@ -166,12 +166,12 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
      * Return that list to the calling Activity using the ForecastCallBack
      */
     private void updateDataIfNeeded(int cityId) {
-        Log.e(TAG, "updateDataIfNeeded() called with: " + "");
+        MyLog.e(TAG, "updateDataIfNeeded() called with: " + "");
         if(weatherList.get(cityId) !=null){
             Interval interval=new Interval(weatherList.get(cityId).getTimeStamp(), new DateTime());
-            Log.e(TAG, "updateDataIfNeeded() weather.getTimeStamp(): " +weatherList.get(cityId).getTimeStamp());
-            Log.e(TAG, "updateDataIfNeeded() new DateTime(): " +new DateTime());
-            Log.e(TAG, "updateDataIfNeeded() duration in day found: " +interval.toDuration().getStandardDays());
+            MyLog.e(TAG, "updateDataIfNeeded() weather.getTimeStamp(): " +weatherList.get(cityId).getTimeStamp());
+            MyLog.e(TAG, "updateDataIfNeeded() new DateTime(): " +new DateTime());
+            MyLog.e(TAG, "updateDataIfNeeded() duration in day found: " +interval.toDuration().getStandardDays());
             if(interval.toDuration().getStandardDays()>1){
                 launchWeatherDataUpdater(cityId);
             }
@@ -201,7 +201,7 @@ public class WeatherService extends MotherBusinessService implements WeatherServ
             weatherLoadedEvent.setWeather(weather);
             weatherLoadedEvent.setCityId(cityId);
         }
-        Log.e(TAG, "WeatherLoadedEvent posted" );
+        MyLog.e(TAG, "WeatherLoadedEvent posted" );
         EventBus.getDefault().post(weatherLoadedEvent);
     }
     /***********************************************************

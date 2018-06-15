@@ -35,7 +35,6 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,6 +47,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManaged;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.ArrayList;
 
@@ -100,7 +100,7 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 	@Override
 	public void notifyDataSetChanged() {
 		super.notifyDataSetChanged();
-		Log.e(TAG, "notifyDataSetChanged() called with: ");
+		MyLog.e(TAG, "notifyDataSetChanged() called with: ");
 	}
 /******************************************************************************************/
 	/** Managing View **************************************************************************/

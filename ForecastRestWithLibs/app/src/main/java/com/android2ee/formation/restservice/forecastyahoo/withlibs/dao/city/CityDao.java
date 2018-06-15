@@ -31,8 +31,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.city;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.DaoManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Clouds;
@@ -42,6 +40,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Wind;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData_City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.List;
 
@@ -92,7 +91,7 @@ public class CityDao implements CityDaoIntf{
         //insert element if and only if the cityId is not already in the database
         List<City> cities= City.find(City.class, "CITY_ID =?", Integer.toString(city.getCityId()));
         if(city.getId()==null&&cities.size()==0) {
-            Log.e(TAG, "insert case" + city);
+            MyLog.e(TAG, "insert case" + city);
             //you need to manually save others elements (first)
             Coordinates.save(city.getCoordinates());
             WeatherDetails.save(city.getWeatherDetails());
@@ -113,7 +112,7 @@ public class CityDao implements CityDaoIntf{
                 //so you have to do the same with them: Delete the existing records
                 WeatherMetaData_City.deleteAll(WeatherMetaData_City.class,"CITY =?",cities.get(0).getId().toString());
             }
-            Log.e(TAG, "update " + city);
+            MyLog.e(TAG, "update " + city);
             city.getCoordinates().save();
             city.getWeatherDetails().save();
             city.getWind().save();
@@ -133,7 +132,7 @@ public class CityDao implements CityDaoIntf{
     @Override
     public void delete(City city){
         if(city.getId()!=null) {
-            Log.e(TAG, "delete case" + city);
+            MyLog.e(TAG, "delete case" + city);
             //you need to manually delete others elements (first)
             Coordinates.delete(city.getCoordinates());
             WeatherDetails.delete(city.getWeatherDetails());

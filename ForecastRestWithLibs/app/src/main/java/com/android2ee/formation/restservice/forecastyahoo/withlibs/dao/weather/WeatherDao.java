@@ -31,8 +31,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.weather;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.DaoManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Coordinates;
@@ -43,6 +41,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Wind;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData_Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 
@@ -71,7 +70,7 @@ public class WeatherDao implements WeatherDaoIntf {
      */
     @Override
     public Weather findCurrentWeatherFor(int cityId){
-        Log.e(TAG,"findCurrentWeatherFor is called");
+        MyLog.e(TAG,"findCurrentWeatherFor is called");
         try {
             List<Weather> foundElements=Select.from(Weather.class)
 //                    .orderBy("TIME_STAMP_UTC")
@@ -80,13 +79,13 @@ public class WeatherDao implements WeatherDaoIntf {
                     .list();
             if(foundElements.size()>0) {
                 Weather returnedWeather = foundElements.get(foundElements.size() - 1);
-                Log.e("WeatherDao", "findCurrentWeatherFor " + cityId + " is " + returnedWeather.getId() + " \r\n" + returnedWeather);
+                MyLog.e("WeatherDao", "findCurrentWeatherFor " + cityId + " is " + returnedWeather.getId() + " \r\n" + returnedWeather);
                 return returnedWeather;
             }else{
                 return null;
             }
         }catch(Exception e){
-            Log.e(TAG,"findCurrentWeatherFor",e);
+            MyLog.e(TAG,"findCurrentWeatherFor",e);
         }
         return null;
     }
@@ -101,13 +100,13 @@ public class WeatherDao implements WeatherDaoIntf {
             List<Weather> weathers = Weather.find(Weather.class, "CITY_ID =?", Integer.toString(cityId));
 //            if (weathers != null) {
 //                for(Weather w:weathers){
-//                    Log.e("WeatherDao","+++++++++++++++++++++++++++++++++++++++++++++++");
-//                    Log.e("WeatherDao","find a lot of weathers "+w);
+//                    MyLog.e("WeatherDao","+++++++++++++++++++++++++++++++++++++++++++++++");
+//                    MyLog.e("WeatherDao","find a lot of weathers "+w);
 //                }
 //            }
             return weathers;
         }catch(Exception e){
-            Log.e(TAG,"findCurrentWeatherFor",e);
+            MyLog.e(TAG,"findCurrentWeatherFor",e);
         }
         return null;
     }
@@ -121,7 +120,7 @@ public class WeatherDao implements WeatherDaoIntf {
     public long insertOrUpdate(Weather weather){
         long id;
         if(weather.getId()==null) {
-            Log.e(TAG, "insert case " + weather);
+            MyLog.e(TAG, "insert case " + weather);
             //you need to manually save others elements (first)
             Coordinates.save(weather.getCoordinates());
             WeatherDetails.save(weather.getWeatherDetails());
@@ -131,13 +130,13 @@ public class WeatherDao implements WeatherDaoIntf {
             Snow.save(weather.getSnow());
             Ephemeris.save(weather.getEphemeris());
              id = Weather.save(weather);
-            Log.e(TAG, "insertOrUpdate coord " + weather.getCoordinates());
+            MyLog.e(TAG, "insertOrUpdate coord " + weather.getCoordinates());
             for (WeatherMetaData_Weather weatherMetaD : weather.getWeatherMetaData()) {
                 weatherMetaD.setWeather(weather);
                 WeatherMetaData_Weather.save(weatherMetaD);
             }
         }else{
-            Log.e(TAG, "update " + weather);
+            MyLog.e(TAG, "update " + weather);
             weather.getCoordinates().save();
             weather.getWeatherDetails().save();
             weather.getWind().save();
@@ -158,7 +157,7 @@ public class WeatherDao implements WeatherDaoIntf {
     @Override
     public void delete(Weather weather) {
         if (weather.getId() != null) {
-            Log.e(TAG, "delete " + weather);
+            MyLog.e(TAG, "delete " + weather);
             //you need to manually save others elements (first)
             Coordinates.delete(weather.getCoordinates());
             WeatherDetails.delete(weather.getWeatherDetails());
@@ -167,7 +166,7 @@ public class WeatherDao implements WeatherDaoIntf {
             Rain.delete(weather.getRain());
             Snow.delete(weather.getSnow());
             Ephemeris.delete(weather.getEphemeris());
-            Log.e(TAG, "delete coord " + weather.getCoordinates());
+            MyLog.e(TAG, "delete coord " + weather.getCoordinates());
             for (WeatherMetaData_Weather weatherMetaD : weather.getWeatherMetaData()) {
                 WeatherMetaData_Weather.delete(weatherMetaD);
             }

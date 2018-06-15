@@ -31,11 +31,10 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 
@@ -57,7 +56,7 @@ public class DataGenerator {
         try {
             Weather weather=adapter.fromJson(weatherStr);
             weather.setCityId(cityId);
-            Log.i("DataGenerator","Weather has been generated :"+weather);
+            MyLog.i("DataGenerator","Weather has been generated :"+weather);
             return weather;
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,7 +74,7 @@ public class DataGenerator {
                 moshi.adapter(City.class);
         try {
             City toulouse=adapter.fromJson(cityToulouse);
-            Log.i("DataGenerator","City has been generated :"+toulouse);
+            MyLog.i("DataGenerator","City has been generated :"+toulouse);
             return toulouse;
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,7 +92,7 @@ public class DataGenerator {
                 moshi.adapter(CityForecast.class);
         try {
             CityForecast cityF=adapter.fromJson(cityForecastStr);
-            Log.i("DataGenerator","City has been generated :"+cityF);
+            MyLog.i("DataGenerator","City has been generated :"+cityF);
             cityF.setCityId(cityID);
             return cityF;
         } catch (IOException e) {

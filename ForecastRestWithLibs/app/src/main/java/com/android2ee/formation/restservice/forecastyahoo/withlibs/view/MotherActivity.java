@@ -36,7 +36,6 @@ import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,7 +46,9 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ConnectivityChangeEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ErrorEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ExceptionManagedEvent;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -70,6 +71,7 @@ public abstract class MotherActivity extends AppCompatActivity {
         //say to the application an activity is alived
         MyApplication.instance.onStartActivity();
         manageConnectivityStatus(MyApplication.instance.isConnected());
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -88,6 +90,7 @@ public abstract class MotherActivity extends AppCompatActivity {
         super.onStop();
         //say to the application an activity is going away
         MyApplication.instance.onStopActivity();
+        EventBus.getDefault().unregister(this);
     }
 
     /******************************************************************************************/
@@ -230,7 +233,7 @@ public abstract class MotherActivity extends AppCompatActivity {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(ConnectivityChangeEvent event){
-        Log.d(TAG, "onEventMainThread() called with: " + "event = [" + event + "] and isConnected "+event.isConnected());
+        MyLog.d(TAG, "onEventMainThread() called with: " + "event = [" + event + "] and isConnected "+event.isConnected());
         manageConnectivityStatus(event.isConnected());
     }
 

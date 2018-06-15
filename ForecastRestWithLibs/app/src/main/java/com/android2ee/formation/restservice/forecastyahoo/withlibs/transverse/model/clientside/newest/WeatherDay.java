@@ -1,8 +1,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.newest;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Ephemeris;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Rain;
@@ -11,6 +9,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.orm.SugarRecord;
 import com.orm.dsl.Ignore;
 
@@ -94,7 +93,7 @@ public class WeatherDay extends SugarRecord {
         if(timeStamp==null){
             timeStamp=new DateTime(timeStampUTC*1000L);
         }
-        Log.e(TAG, "getTimeStamp() returned: " + timeStamp+" and  "+timeStampUTC);
+        MyLog.e(TAG, "getTimeStamp() returned: " + timeStamp+" and  "+timeStampUTC);
         return timeStamp;
     }
       /**

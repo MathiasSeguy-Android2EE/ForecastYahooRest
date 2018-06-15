@@ -32,12 +32,12 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.DataCheck;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityForecastDownloadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherDownloadedEvent;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,12 +53,12 @@ public class WeatherDataUpdaterTest extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        Log.e("WeatherDataUpdaterTest", "setUp() is called");
+        MyLog.e("WeatherDataUpdaterTest", "setUp() is called");
         EventBus.getDefault().register(this);
     }
     public void tearDown() throws Exception {
         super.tearDown();
-        Log.e("WeatherDataUpdaterTest", "tearDown() is called");
+        MyLog.e("WeatherDataUpdaterTest", "tearDown() is called");
         EventBus.getDefault().unregister(this);
     }
     AtomicBoolean eventReceived,eventForecastReceived;
@@ -73,7 +73,7 @@ public class WeatherDataUpdaterTest extends AndroidTestCase {
         int timeout = 0;
         while(!eventReceived.get()){
             Thread.currentThread().sleep(1000);
-            Log.e("WeatherDataUpdaterTest", "waiting for the event WeatherDownloadedEvent");
+            MyLog.e("WeatherDataUpdaterTest", "waiting for the event WeatherDownloadedEvent");
 
             if (timeout == 5) {
                 fail("Timeout");
@@ -84,7 +84,7 @@ public class WeatherDataUpdaterTest extends AndroidTestCase {
 
     @Subscribe
     public void onEvent(WeatherDownloadedEvent event){
-        Log.e("WeatherDataUpdaterTest", "WeatherDownloadedEvent received");
+        MyLog.e("WeatherDataUpdaterTest", "WeatherDownloadedEvent received");
         assertNotNull(event);
         DataCheck.getInstance().checkWeather(event.getWeather(),CITY_ID);
         eventReceived.set(true);
@@ -98,7 +98,7 @@ public class WeatherDataUpdaterTest extends AndroidTestCase {
         int timeout = 0;
         while(!eventForecastReceived.get()){
             Thread.currentThread().sleep(100);
-            Log.e("WeatherDataUpdaterTest", "waiting for the event CityForecastDownloadedEvent");
+            MyLog.e("WeatherDataUpdaterTest", "waiting for the event CityForecastDownloadedEvent");
             if (timeout == 5) {
                 fail("Timeout");
             }
@@ -108,7 +108,7 @@ public class WeatherDataUpdaterTest extends AndroidTestCase {
 
     @Subscribe
     public void onEvent(CityForecastDownloadedEvent event){
-        Log.e("WeatherDataUpdaterTest", "CityForecastDownloadedEvent received");
+        MyLog.e("WeatherDataUpdaterTest", "CityForecastDownloadedEvent received");
         assertNotNull(event);
         DataCheck.getInstance().checkCityForecast(event.getCityForecast(),CITY_ID);
         eventForecastReceived.set(true);

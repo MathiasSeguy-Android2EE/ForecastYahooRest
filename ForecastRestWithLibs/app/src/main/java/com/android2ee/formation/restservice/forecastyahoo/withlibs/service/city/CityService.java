@@ -32,7 +32,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city;
 
 import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
@@ -41,6 +40,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.Mothe
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.List;
 
@@ -53,13 +53,6 @@ public class CityService extends MotherBusinessService implements CityServiceInt
     /******************************************************************************************/
     /** Attributes **************************************************************************/
     /******************************************************************************************/
-
-    /**
-     * The findCitiesResponse == the list of cities found
-     */
-//    private FindCitiesResponse findCitiesResponse = null;
-
-
     /**
      * The list of cities found from the network
      * You have to observe them
@@ -96,7 +89,7 @@ public class CityService extends MotherBusinessService implements CityServiceInt
      */
     @Override
     public void findCityByNameAsync(String cityName) {
-        Log.d(TAG, "findCityByNameAsync() called with: " + "cityName = [" + cityName + "]");
+        MyLog.d(TAG, "findCityByNameAsync() called with: " + "cityName = [" + cityName + "]");
         MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadRunnable(cityName));
     }
     /**
@@ -104,7 +97,7 @@ public class CityService extends MotherBusinessService implements CityServiceInt
      * @param cityName The name of the city searched
      */
     private void findCityByNameSync(String cityName) {
-        Log.d(TAG, "findCityByNameSync() called with: " + "cityName = [" + cityName + "]");
+        MyLog.d(TAG, "findCityByNameSync() called with: " + "cityName = [" + cityName + "]");
         // Load data from the web
         FindCitiesResponse findCitiesResponse= Injector.getDataCommunication().getCitiesByName(cityName);
         //then update the MutableLiveData to update the obeserver
@@ -153,7 +146,7 @@ public class CityService extends MotherBusinessService implements CityServiceInt
      */
     @Override
     public void addCityAsync(City city) {
-        Log.d(TAG, "addCityAsync() called with: " + "city = [" + city + "]");
+        MyLog.d(TAG, "addCityAsync() called with: " + "city = [" + city + "]");
         MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit(new RunnableAddCity(city));
     }
 
@@ -162,7 +155,7 @@ public class CityService extends MotherBusinessService implements CityServiceInt
      * @param city
      */
     private void addCitySync(City city) {
-        Log.d(TAG, "addCitySync() called with: " + "city = [" + city + "]");
+        MyLog.d(TAG, "addCitySync() called with: " + "city = [" + city + "]");
         // add it in the DB
         ForecastDatabase.getInstance().getCityDao().insert(city);
     }
@@ -193,7 +186,7 @@ public class CityService extends MotherBusinessService implements CityServiceInt
      */
     @Override
     public void deleteCityAsync(City city) {
-        Log.d(TAG, "deleteCityAsync() called with: " + "city = [" + city + "]");
+        MyLog.d(TAG, "deleteCityAsync() called with: " + "city = [" + city + "]");
         MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit(new RunnableDeleteCity(city));
     }
 
@@ -202,7 +195,7 @@ public class CityService extends MotherBusinessService implements CityServiceInt
      * @param city
      */
     private void deleteCitySync(City city) {
-        Log.d(TAG, "deleteCitySync() called with: " + "city = [" + city + "]");
+        MyLog.d(TAG, "deleteCitySync() called with: " + "city = [" + city + "]");
         ForecastDatabase.getInstance().getCityDao().delete(city.get_id());
     }
 

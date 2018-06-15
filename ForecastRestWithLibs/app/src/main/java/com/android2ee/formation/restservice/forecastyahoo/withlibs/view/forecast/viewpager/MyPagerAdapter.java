@@ -35,9 +35,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherPresenterIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.fragment.WeatherCityFrag;
 
@@ -121,7 +121,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getItemPosition(Object object) {
         //track entrance
-        Log.e(TAG, "getItemPosition() has been called"+ PagerAdapter.POSITION_NONE);
+        MyLog.e(TAG, "getItemPosition() has been called"+ PagerAdapter.POSITION_NONE);
         // refresh all fragments when data set changed
         return PagerAdapter.POSITION_NONE;
     }
@@ -134,7 +134,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
     @Override
     public long getItemId(int position) {
         //track entrance
-        Log.e(TAG, "getItemId() has been called and returns "+(baseId + position));
+        MyLog.e(TAG, "getItemId() has been called and returns "+(baseId + position));
         // give an ID different from position when position has been changed
         return baseId + position;
     }
@@ -144,7 +144,7 @@ public class MyPagerAdapter extends FragmentPagerAdapter {
      */
     public void notifyRebuildAll() {
         //track entrance
-        Log.e(TAG, "notifyRebuildAll() has been called");
+        MyLog.e(TAG, "notifyRebuildAll() has been called");
         // shift the ID returned by getItemId outside the range of all previous fragments
         baseId += getCount() +getCount();
         //then also rebuild your id to display

@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +21,7 @@ import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.arrayadapter.CitiesArrayAdapter;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherActivity;
@@ -107,7 +107,7 @@ public class CityActivity extends MotherActivity {
              */
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				Log.d(TAG, "onEditorAction() called with: " + "v = [" + v + "], actionId = [" + actionId + "], event = [" + event + "]");
+				MyLog.d(TAG, "onEditorAction() called with: " + "v = [" + v + "], actionId = [" + actionId + "], event = [" + event + "]");
 				if (actionId == R.id.edt_citySearchedName_ime
                         ||actionId == EditorInfo.IME_ACTION_DONE
                         ||actionId == EditorInfo.IME_NULL) {
@@ -160,7 +160,7 @@ public class CityActivity extends MotherActivity {
 		viewModel.getCitiesFoundLiveData().observe(this, new Observer<List<City>>() {
 			@Override
 			public void onChanged(@Nullable List<City> cities) {
-				Log.e(TAG,"Cities list have been updated");
+				MyLog.e(TAG,"Cities list have been updated");
 				updateCities(cities);
 			}
 		});

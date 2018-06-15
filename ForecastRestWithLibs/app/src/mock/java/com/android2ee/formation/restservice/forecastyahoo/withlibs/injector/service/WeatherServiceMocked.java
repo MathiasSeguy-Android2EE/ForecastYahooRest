@@ -31,7 +31,7 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.service;
 
-import android.util.Log;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
@@ -54,7 +54,7 @@ public class WeatherServiceMocked implements WeatherServiceIntf{
     @Override
     public void loadCurrentWeatherAsync(int cityId) {
         WeatherLoadedEvent weatherLoadedEvent = new WeatherLoadedEvent(DataGenerator.getWeather(cityId),cityId);
-        Log.e(TAG, "WeatherLoadedEvent posted" );
+        MyLog.e(TAG, "WeatherLoadedEvent posted" );
         EventBus.getDefault().post(weatherLoadedEvent);
     }
 

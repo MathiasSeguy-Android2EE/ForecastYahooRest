@@ -31,7 +31,7 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.testpresenter;
 
-import android.util.Log;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherPresenter;
@@ -66,7 +66,7 @@ public class WeatherViewMocked implements WeatherViewIntf {
     @Override
     public void citiesLoaded() {
         //track entrance
-        Log.e(TAG, "citiesLoaded() has been called");
+        MyLog.e(TAG, "citiesLoaded() has been called");
         callBack.loadCitiesCallBack(presenter);
     }
 

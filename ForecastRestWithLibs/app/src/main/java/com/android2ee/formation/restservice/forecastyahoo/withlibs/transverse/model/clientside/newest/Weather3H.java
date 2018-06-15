@@ -31,8 +31,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.newest;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Rain;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.Snow;
@@ -40,6 +38,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.WeatherForecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.orm.dsl.Ignore;
 
 import org.joda.time.DateTime;
@@ -159,7 +158,7 @@ public class Weather3H {
         if(timeStamp==null){
             timeStamp=new DateTime(timeStampUTC*1000L);
         }
-        Log.e(TAG, "getTimeStamp() returned: " + timeStamp+" and  "+timeStampUTC);
+        MyLog.e(TAG, "getTimeStamp() returned: " + timeStamp+" and  "+timeStampUTC);
         return timeStamp;
     }
 

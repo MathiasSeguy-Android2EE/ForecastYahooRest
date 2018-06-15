@@ -32,7 +32,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.weather.WeatherDaoIntf;
@@ -41,6 +40,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.Da
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherLoadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -56,12 +56,12 @@ public class WeatherServiceTest extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        Log.e("WeatherServiceTest", "setUp() is called");
+        MyLog.e("WeatherServiceTest", "setUp() is called");
         EventBus.getDefault().register(this);
     }
     public void tearDown() throws Exception {
         super.tearDown();
-        Log.e("WeatherServiceTest", "tearDown() is called");
+        MyLog.e("WeatherServiceTest", "tearDown() is called");
         EventBus.getDefault().unregister(this);
     }
     AtomicBoolean eventReceived;
@@ -85,7 +85,7 @@ public class WeatherServiceTest extends AndroidTestCase {
 
         while(!eventReceived.get()){
             Thread.currentThread().sleep(1000);
-            Log.e("WeatherServiceTest", "waiting for the event WeatherLoadedEvent");
+            MyLog.e("WeatherServiceTest", "waiting for the event WeatherLoadedEvent");
             if (timeout == 5) {
                 fail("Timeout");
             }
@@ -95,7 +95,7 @@ public class WeatherServiceTest extends AndroidTestCase {
 
     @Subscribe
     public void onEvent(WeatherLoadedEvent event){
-        Log.e("WeatherServiceTest", "WeatherLoadedEvent received");
+        MyLog.e("WeatherServiceTest", "WeatherLoadedEvent received");
         assertNotNull(event);
         eventReceived.set(true);
         try{

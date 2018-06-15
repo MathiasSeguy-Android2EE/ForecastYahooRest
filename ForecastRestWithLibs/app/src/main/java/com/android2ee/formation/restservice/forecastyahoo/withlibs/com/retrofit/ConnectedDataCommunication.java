@@ -31,21 +31,22 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.com.retrofit;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.com.DataCommunicationIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManaged;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.io.IOException;
 
 import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Mathias Seguy - Android2EE on 24/02/2016.
@@ -75,16 +76,16 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
      * Constructor
      */
     public ConnectedDataCommunication() {
-        Log.e(TAG, "ConnectedDataCommunication() called with: " + "");
+        MyLog.e(TAG, "ConnectedDataCommunication() called with: " + "");
         webServiceComplex = RetrofitBuilder.getComplexClient(MyApplication.instance);
     }
 
     @Override
     public com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse findCityByName(String cityName) {
-        Log.e(TAG, "findCityByName() called with: " + "cityName = [" + cityName + "]");
+        MyLog.e(TAG, "findCityByName() called with: " + "cityName = [" + cityName + "]");
         try {
             findCityByNameCall=webServiceComplex.findCityByName(cityName);
-            return new City(findCityByNameCall.execute().body());
+            return new FindCitiesResponse(findCityByNameCall.execute().body());
         } catch (IOException e) {
             ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));
         }
@@ -94,7 +95,7 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
 
     @Override
     public Weather findWeatherByCityId(long cityId) {
-        Log.e(TAG, "findWeatherByCityId() called with: " + "cityId = [" + cityId + "]");
+        MyLog.e(TAG, "findWeatherByCityId() called with: " + "cityId = [" + cityId + "]");
         try {
             findWeatherByCityIdCall=webServiceComplex.findWeatherByCityId(cityId);
             return new Weather(findWeatherByCityIdCall.execute().body());
@@ -106,20 +107,20 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
 
     @Override
     public CityForecast findForecastByCityId(long cityId) {
-        Log.e(TAG, "findForecastByCityId() called with: " + "cityId = [" + cityId + "]");
+        MyLog.e(TAG, "findForecastByCityId() called with: " + "cityId = [" + cityId + "]");
         try {
             findForecastByCityIdCall=webServiceComplex.findForecastByCityId(cityId);
             Forecast forecast=findForecastByCityIdCall.execute().body();
-            Log.e(TAG,forecast.toString());
+            MyLog.e(TAG,forecast.toString());
             int maxLogSize = 100;
             String longString=forecast.toString();
             for(int i = 0; i <= longString.length() / maxLogSize; i++) {
                 int start = i * maxLogSize;
                 int end = (i+1) * maxLogSize;
                 end = end > longString.length() ? longString.length() : end;
-                Log.e(TAG, longString.substring(start, end));
+                MyLog.e(TAG, longString.substring(start, end));
             }
-            Log.e(TAG,"Too long?");
+            MyLog.e(TAG,"Too long?");
             return new CityForecast(forecast);
         } catch (IOException e) {
             ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));
@@ -129,10 +130,15 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
 
     @Override
     public com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse getCitiesByName(String cityName) {
-        Log.e(TAG, "findCityByName() called with: " + "cityName = [" + cityName + "]");
+        MyLog.e(TAG, "findCityByName() called with: " + "cityName = [" + cityName + "]");
         try {
             findCityByNameCall=webServiceComplex.findCityByName(cityName);
-            return findCityByNameCall.execute().body();
+            Response<com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse> resp=findCityByNameCall.execute();
+            if(resp.code()==200){
+                return findCityByNameCall.execute().body();
+            }else{
+                ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc));
+            }
         } catch (IOException e) {
             ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));
         }
@@ -141,7 +147,7 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
 
     @Override
     public WeatherData getWeatherByCityId(long cityId) {
-        Log.e(TAG, "findWeatherByCityId() called with: " + "cityId = [" + cityId + "]");
+        MyLog.e(TAG, "findWeatherByCityId() called with: " + "cityId = [" + cityId + "]");
         try {
             findWeatherByCityIdCall=webServiceComplex.findWeatherByCityId(cityId);
             return findWeatherByCityIdCall.execute().body();
@@ -153,20 +159,20 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
 
     @Override
     public Forecast getForecastByCityId(long cityId) {
-        Log.e(TAG, "findForecastByCityId() called with: " + "cityId = [" + cityId + "]");
+        MyLog.e(TAG, "findForecastByCityId() called with: " + "cityId = [" + cityId + "]");
         try {
             findForecastByCityIdCall=webServiceComplex.findForecastByCityId(cityId);
             Forecast forecast=findForecastByCityIdCall.execute().body();
-            Log.e(TAG,forecast.toString());
+            MyLog.e(TAG,forecast.toString());
             int maxLogSize = 100;
             String longString=forecast.toString();
             for(int i = 0; i <= longString.length() / maxLogSize; i++) {
                 int start = i * maxLogSize;
                 int end = (i+1) * maxLogSize;
                 end = end > longString.length() ? longString.length() : end;
-                Log.e(TAG, longString.substring(start, end));
+                MyLog.e(TAG, longString.substring(start, end));
             }
-            Log.e(TAG,"Too long?");
+            MyLog.e(TAG,"Too long?");
             return forecast;
         } catch (IOException e) {
             ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));

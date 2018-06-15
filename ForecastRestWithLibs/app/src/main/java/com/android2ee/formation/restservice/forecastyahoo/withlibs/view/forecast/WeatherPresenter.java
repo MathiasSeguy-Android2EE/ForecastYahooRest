@@ -31,10 +31,9 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CitiesLoadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherPresenter;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -125,17 +124,17 @@ public class WeatherPresenter extends MotherPresenter implements WeatherPresente
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(CitiesLoadedEvent event){
         //track entrance
-        Log.e("WeatherPresenter", "onEvent() has been called");
+        MyLog.e("WeatherPresenter", "onEvent() has been called");
         if(event.getCities().size()==0){
             weatherView.launchCityActivity(true);
         }else {
             cities.clear();
             for (City city : event.getCities()) {
-                Log.e("WeatherPresenter", "onEvent(CitiesLoadedEvent) has found a new city "+city.getName());
+                MyLog.e("WeatherPresenter", "onEvent(CitiesLoadedEvent) has found a new city "+city.getName());
                 cities.add(city);
             }
             //prevent the view
-            Log.e("WeatherPresenter", "weatherView.citiesLoaded has been called");
+            MyLog.e("WeatherPresenter", "weatherView.citiesLoaded has been called");
             weatherView.citiesLoaded();
         }
     }

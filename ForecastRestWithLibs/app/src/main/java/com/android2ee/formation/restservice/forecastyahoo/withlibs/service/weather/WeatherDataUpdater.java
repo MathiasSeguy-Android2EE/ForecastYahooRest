@@ -31,8 +31,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather;
 
-import android.util.Log;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast.CityForecastDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.DaoWrapper;
@@ -44,6 +42,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.ev
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherDownloadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 /**
  * Created by Mathias Seguy - Android2EE on 06/03/2016.
@@ -105,7 +104,7 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      */
     @Override
     public void downloadCurrentWeatherAsync(int cityId) {
-        Log.e(TAG, "downloadCurrentWeatherAsync called with woeid=" + cityId);
+        MyLog.e(TAG, "downloadCurrentWeatherAsync called with woeid=" + cityId);
          // then launch it
         MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadCurWeatherRunnable(cityId));
 
@@ -118,12 +117,12 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      */
     @Override
     public void downloadCurrentWeatherSync(int cityId) {
-        Log.e(TAG, "downloadCurrentWeatherSync for city =" + cityId);
+        MyLog.e(TAG, "downloadCurrentWeatherSync for city =" + cityId);
         // Load data from the web
         WeatherData weatherData=Injector.getDataCommunication().getWeatherByCityId(cityId);
         //store in the database
         DaoWrapper.getInstance().saveWeatherData(weatherData);
-        Log.d(TAG, "downloadCurrentWeatherSync found " + weatherData);
+        MyLog.d(TAG, "downloadCurrentWeatherSync found " + weatherData);
     }
 
     /**
@@ -155,7 +154,7 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      */
     @Override
     public void downloadForecastWeatherAsync(int cityId) {
-        Log.e(TAG, "downloadForecastWeatherAsync called with woeid=" + cityId);
+        MyLog.e(TAG, "downloadForecastWeatherAsync called with woeid=" + cityId);
         // then launch it
         MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadForecastWeatherRunnable(cityId));
 
@@ -168,7 +167,7 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      */
     @Override
     public void downloadForecastWeatherSync(int cityId) {
-        Log.e(TAG, "downloadForecastWeatherSync for city =" + cityId);
+        MyLog.e(TAG, "downloadForecastWeatherSync for city =" + cityId);
         // Load data from the web
         Forecast forecast=Injector.getDataCommunication().getForecastByCityId(cityId);
         DaoWrapper.getInstance().saveForecast(forecast);

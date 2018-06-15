@@ -12,7 +12,6 @@ import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -21,6 +20,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.PresenterInjector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.test.EspressoIdlingResource;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherPresenter;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.CityActivity;
@@ -68,7 +68,7 @@ public class WeatherActivity extends MotherActivity implements WeatherViewIntf{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e(TAG, "onCreate() called with: " + "savedInstanceState = [" + savedInstanceState + "]");
+        MyLog.e(TAG, "onCreate() called with: " + "savedInstanceState = [" + savedInstanceState + "]");
         presenter= PresenterInjector.getWeatherPresenter(this);
         setContentView(R.layout.activity_main);
         txvText= (TextView) findViewById(R.id.txvTest);
@@ -99,14 +99,14 @@ public class WeatherActivity extends MotherActivity implements WeatherViewIntf{
 //        if(presenter==null){
 //            presenter=new WeatherPresenter(this);
 //        }
-        Log.e(TAG, "onStart() called with: " + "");
+        MyLog.e(TAG, "onStart() called with: " + "");
         presenter.loadCities();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e(TAG, "onStop() called with: " + "");
+        MyLog.e(TAG, "onStop() called with: " + "");
         //invalidate the DialogFragment to avoid stupid memory leak
         if (deleteDialog != null) {
             if (deleteDialog.isVisible()) {

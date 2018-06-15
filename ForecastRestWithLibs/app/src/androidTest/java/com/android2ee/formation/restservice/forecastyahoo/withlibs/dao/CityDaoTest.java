@@ -32,7 +32,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao;
 
 import android.test.AndroidTestCase;
-import android.util.Log;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.city.CityDaoIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
@@ -45,6 +44,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.weathermetadata.WeatherMetaData_City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public class CityDaoTest  extends AndroidTestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        Log.i("DataCommunicationTest", "setUp() is called");
+        MyLog.i("DataCommunicationTest", "setUp() is called");
 
     }
 
@@ -80,12 +80,12 @@ public class CityDaoTest  extends AndroidTestCase {
         }
         //Test insertion
         cityDaoIntf.insertOrUpdate(toulouse);//the city id is 11021974
-        Log.i(TAG,"testedElement id ="+toulouse.getId());
+        MyLog.i(TAG,"testedElement id ="+toulouse.getId());
         //test loading
         City foundElement=  cityDaoIntf.findCity(testedCityId);
-        Log.i(TAG, "foundElement id =" + foundElement.getId());
-        Log.i(TAG, "toulouse =" + toulouse);
-        Log.i(TAG, "foundElement =" + foundElement);
+        MyLog.i(TAG, "foundElement id =" + foundElement.getId());
+        MyLog.i(TAG, "toulouse =" + toulouse);
+        MyLog.i(TAG, "foundElement =" + foundElement);
         //also test the equality of objects:
         assertEquals(toulouse.toString(), foundElement.toString());
         assertEquals(toulouse.getTimeStamp(),foundElement.getTimeStamp());
@@ -103,7 +103,7 @@ public class CityDaoTest  extends AndroidTestCase {
         foundElement.setCityId(13121974);
         cityDaoIntf.insertOrUpdate(foundElement);
         City foundElementUpdated=  cityDaoIntf.findCity(13121974);
-        Log.i(TAG, "foundElementUpdated id =" + foundElementUpdated.getId());
+        MyLog.i(TAG, "foundElementUpdated id =" + foundElementUpdated.getId());
         assertEquals(foundElement.getId(), foundElementUpdated.getId());
         assertEquals(foundElementUpdated.getCityId(), 13121974);
         //test deleting
