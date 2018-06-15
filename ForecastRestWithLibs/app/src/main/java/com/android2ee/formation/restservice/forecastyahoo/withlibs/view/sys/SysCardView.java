@@ -34,17 +34,20 @@ public class SysCardView extends MotherCardView {
      **********************************************************/
     public SysCardView(@NonNull Context context) {
         super(context);
-        init();
     }
 
     public SysCardView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init();
     }
 
     public SysCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        initViews();
     }
 
     /***********************************************************
@@ -71,17 +74,6 @@ public class SysCardView extends MotherCardView {
      *  Private methods
      **********************************************************/
 
-    private void init() {
-        model = ViewModelProviders.of(activity, new SysModelFactory(contextId)).get(SysViewModel.class);
-        initViews();
-        model.getLiveData().observe(activity, new Observer<Sys>() {
-            @Override
-            public void onChanged(@Nullable Sys sys) {
-                onChangedLiveData(sys);
-            }
-        });
-    }
-
     private void onChangedLiveData(@Nullable Sys sys) {
         if (sys != null) {
             tvCountry.setText(sys.getCountry());
@@ -98,7 +90,15 @@ public class SysCardView extends MotherCardView {
 
     @Override
     protected void initObservers() {
-        //TODO
+        model = ViewModelProviders.of(activity, new SysModelFactory(contextId)).get(SysViewModel.class);
+
+        model.getLiveData().observe(activity, new Observer<Sys>() {
+            @Override
+            public void onChanged(@Nullable Sys sys) {
+                onChangedLiveData(sys);
+            }
+        });
+
     }
 
     @Override
