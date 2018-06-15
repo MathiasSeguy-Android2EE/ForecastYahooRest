@@ -75,6 +75,12 @@ public class MainCardView extends MotherCardView {
      **********************************************************/
 
     private void init() {
+//        initViews();
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
         initViews();
     }
 

@@ -43,14 +43,14 @@ import retrofit2.http.Query;
  */
 public interface RetrofitServiceIntf {
     //find the city id
-    @GET("find?type=like&sort=population&cnt=30&appid=5bdd3591cd56feae91bc8ac10c51ac8d")
+    @GET("find?type=like&sort=population&cnt=30&appid=f0d9fc3927ae0d4a6070472222b8f451")
     Call<FindCitiesResponse> findCityByName(@Query("q")String cityName);
 
     //find the weather
-    @GET("weather?appid=5bdd3591cd56feae91bc8ac10c51ac8d")
+    @GET("weather?appid=f0d9fc3927ae0d4a6070472222b8f451")
     Call<WeatherData> findWeatherByCityId(@Query("id")long cityId);
 
     //find the forecast
-    @GET("forecast?appid=5bdd3591cd56feae91bc8ac10c51ac8d")
+    @GET("forecast?appid=f0d9fc3927ae0d4a6070472222b8f451")
     Call<Forecast> findForecastByCityId(@Query("id")long cityId);
 }
