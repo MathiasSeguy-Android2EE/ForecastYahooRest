@@ -7,12 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
-
 public class MotherCardView extends CardView {
 
     private LifecycleOwner lifecycleOwner;
-    private WeatherData weatherData;
+    private long contextId;
 
     /***********************************************************
      *  Constructors
@@ -29,8 +27,8 @@ public class MotherCardView extends CardView {
         super(context, attrs, defStyleAttr);
     }
 
-    public void init(LifecycleOwner lifeCycleOwner, WeatherData weatherData) {
+    public void init(LifecycleOwner lifeCycleOwner, long contextId) {
         this.lifecycleOwner = lifeCycleOwner;
-        this.weatherData = weatherData;
+        this.contextId = contextId;
     }
 }
