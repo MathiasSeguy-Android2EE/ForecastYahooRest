@@ -100,7 +100,9 @@ public class MyApplication extends Application {
         instance = this;
         Fabric.with(this,new Crashlytics());
 
-        Stetho.initializeWithDefaults(this);
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this);
+        }
 
         //manage connectivity state
         manageConnectivityState();

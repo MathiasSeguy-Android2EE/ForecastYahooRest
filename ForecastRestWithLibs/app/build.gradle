@@ -142,8 +142,8 @@ dependencies {
     androidTestImplementation "android.arch.core:core-testing:${archi_components_version}"
     implementation "com.android.support.constraint:constraint-layout:${constraint_layout_version}"
 
-    debugImplementation "com.facebook.stetho:stetho:1.5.0"
-    debugImplementation "com.facebook.stetho:stetho-okhttp3:1.5.0"
+    implementation "com.facebook.stetho:stetho:1.5.0"
+    implementation "com.facebook.stetho:stetho-okhttp3:1.5.0"
 
     // I want eventBus
     implementation "org.greenrobot:eventbus:${eventBusVersion}"
