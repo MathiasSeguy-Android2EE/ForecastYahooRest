@@ -99,7 +99,8 @@ public class CityService extends MotherBusinessService implements CityServiceInt
     private void findCityByNameSync(String cityName) {
         MyLog.d(TAG, "findCityByNameSync() called with: " + "cityName = [" + cityName + "]");
         // Load data from the web
-        FindCitiesResponse findCitiesResponse= Injector.getDataCommunication().getCitiesByName(cityName);
+            FindCitiesResponse findCitiesResponse = Injector.getDataCommunication().getCitiesByName(cityName);
+        MyLog.d(TAG, "findCityByNameSync() updating with[" + cityName + "] with numCity:"+findCitiesResponse.getList());
         //then update the MutableLiveData to update the obeserver
         liveFindCitiesResponse.postValue(findCitiesResponse.getList());
     }
@@ -157,6 +158,7 @@ public class CityService extends MotherBusinessService implements CityServiceInt
     private void addCitySync(City city) {
         MyLog.d(TAG, "addCitySync() called with: " + "city = [" + city + "]");
         // add it in the DB
+
         long cityID=ForecastDatabase.getInstance().getCityDao().insert(city);
         city.set_id(cityID);
     }
