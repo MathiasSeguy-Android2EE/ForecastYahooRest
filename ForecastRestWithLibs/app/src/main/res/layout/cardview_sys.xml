@@ -33,6 +33,7 @@
             app:layout_constraintBottom_toTopOf="@+id/tv_sunrise"
             app:layout_constraintEnd_toEndOf="@+id/tv_sunrise"
             app:layout_constraintDimensionRatio="W,1:1"
+            app:tint="@color/yellow_sunrise"
             app:srcCompat="@drawable/ic_sunrise"/>
 
         <android.support.v7.widget.AppCompatTextView
@@ -53,6 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:padding="@dimen/activity_padding"
+            app:tint="@color/yellow_sunset"
             app:layout_constraintEnd_toEndOf="@+id/tv_sunset"
             app:layout_constraintTop_toTopOf="@+id/iv_sunrise"
             app:layout_constraintBottom_toBottomOf="@+id/iv_sunrise"

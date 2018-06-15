@@ -10,6 +10,8 @@
 
     <color name="red">#e51c23</color>
     <color name="blue">#2a36b1</color>
+    <color name="yellow_sunrise">#ffd740</color>
+    <color name="yellow_sunset">#ff7043</color>
 
     <color name="transparent">#00000000</color>
 
