@@ -1,4 +1,4 @@
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather.adapter;
+package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

@@ -19,7 +19,6 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_
 public class CurrentWeatherActivity extends AppCompatActivity {
     private static final String TAG = "CurrentWeatherActivity";
 
-    private MainCardView mainCardView;
     private TextView tvWind;
     private TextView tvSnow;
     private TextView tvRain;
@@ -27,6 +26,7 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     private RecyclerView rvWeatherList;
     private WeatherDataCardView weatherDataCardView;
     private SysCardView sysCardView;
+    private MainCardView mainCardView;
 
     CurrentWeatherActivityModel model;
 

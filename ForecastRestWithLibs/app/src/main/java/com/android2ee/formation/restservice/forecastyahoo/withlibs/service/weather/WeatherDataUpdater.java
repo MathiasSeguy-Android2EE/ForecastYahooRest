@@ -103,7 +103,7 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadCurrentWeatherAsync(int cityId) {
+    public void downloadCurrentWeatherAsync(Long cityId) {
         MyLog.e(TAG, "downloadCurrentWeatherAsync called with woeid=" + cityId);
          // then launch it
         MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadCurWeatherRunnable(cityId));
@@ -116,7 +116,7 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadCurrentWeatherSync(int cityId) {
+    public void downloadCurrentWeatherSync(Long cityId) {
         MyLog.e(TAG, "downloadCurrentWeatherSync for city =" + cityId);
         // Load data from the web
         WeatherData weatherData=Injector.getDataCommunication().getWeatherByCityId(cityId);
@@ -131,9 +131,9 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *        This class aims to implements a Runnable with an Handler
      */
     private class DownloadCurWeatherRunnable implements Runnable {
-        int cityId;
+        Long cityId;
 
-        public DownloadCurWeatherRunnable(int cityId) {
+        public DownloadCurWeatherRunnable(Long cityId) {
             this.cityId = cityId;
         }
 
@@ -153,7 +153,7 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadForecastWeatherAsync(int cityId) {
+    public void downloadForecastWeatherAsync(Long cityId) {
         MyLog.e(TAG, "downloadForecastWeatherAsync called with woeid=" + cityId);
         // then launch it
         MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadForecastWeatherRunnable(cityId));
@@ -166,7 +166,7 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadForecastWeatherSync(int cityId) {
+    public void downloadForecastWeatherSync(Long cityId) {
         MyLog.e(TAG, "downloadForecastWeatherSync for city =" + cityId);
         // Load data from the web
         Forecast forecast=Injector.getDataCommunication().getForecastByCityId(cityId);
@@ -180,9 +180,9 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *        This class aims to implements a Runnable with an Handler
      */
     private class DownloadForecastWeatherRunnable implements Runnable {
-        int cityId;
+        Long cityId;
 
-        public DownloadForecastWeatherRunnable(int cityId) {
+        public DownloadForecastWeatherRunnable(Long cityId) {
             this.cityId = cityId;
         }
 
