@@ -46,6 +46,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.ut
 import java.io.IOException;
 
 import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Mathias Seguy - Android2EE on 24/02/2016.
@@ -132,7 +133,12 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
         MyLog.e(TAG, "findCityByName() called with: " + "cityName = [" + cityName + "]");
         try {
             findCityByNameCall=webServiceComplex.findCityByName(cityName);
-            return findCityByNameCall.execute().body();
+            Response<com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse> resp=findCityByNameCall.execute();
+            if(resp.code()==200){
+                return findCityByNameCall.execute().body();
+            }else{
+                ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc));
+            }
         } catch (IOException e) {
             ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));
         }

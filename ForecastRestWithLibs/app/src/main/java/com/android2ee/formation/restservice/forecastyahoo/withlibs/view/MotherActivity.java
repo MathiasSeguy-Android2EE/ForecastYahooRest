@@ -48,6 +48,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.ev
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ExceptionManagedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -70,6 +71,7 @@ public abstract class MotherActivity extends AppCompatActivity {
         //say to the application an activity is alived
         MyApplication.instance.onStartActivity();
         manageConnectivityStatus(MyApplication.instance.isConnected());
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -88,6 +90,7 @@ public abstract class MotherActivity extends AppCompatActivity {
         super.onStop();
         //say to the application an activity is going away
         MyApplication.instance.onStopActivity();
+        EventBus.getDefault().unregister(this);
     }
 
     /******************************************************************************************/
