@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataCardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/activity_horizontal_margin">
@@ -65,3 +70,5 @@
         tools:text="Dt" />
 
 </android.support.constraint.ConstraintLayout>
+
+</com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataCardView>
