@@ -1,5 +1,6 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,6 +44,26 @@ public class WeatherCardView extends MotherCardView {
     }
 
     /***********************************************************
+     *  ViewModel management
+     *********************************************************/
+
+    @Override
+    public Class getCardViewModelClass() {
+        return null;
+    }
+
+    @Override
+    public String getCardViewModelKey() {
+        return null;
+    }
+
+    @NonNull
+    @Override
+    protected ViewModelProvider.Factory getCardViewFactory() {
+        return null;
+    }
+
+    /***********************************************************
      *  Private methods
      **********************************************************/
 
@@ -57,7 +78,13 @@ public class WeatherCardView extends MotherCardView {
         tvMain = findViewById(R.id.txv_main);
     }
 
-    private void initObservers() {
+    @Override
+    protected void initObservers() {
+        //TODO
+    }
+
+    @Override
+    protected void removeObservers() {
         //TODO
     }
 

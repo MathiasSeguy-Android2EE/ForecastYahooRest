@@ -5,7 +5,6 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -27,7 +26,6 @@ public class MainCardView extends MotherCardView {
     private TextView tvHumidity;
     private TextView tvPressure;
 
-    private int contextId;
     private boolean isForecast;
 
     /***********************************************************
@@ -46,17 +44,6 @@ public class MainCardView extends MotherCardView {
     public MainCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
-    }
-
-    public void setLifecycleOwner(AppCompatActivity activity) {
-        super.setLifecycleOwner(activity);
-        // Init observer only after having a lifeCycleOwner
-        initObservers();
-    }
-
-    public void setContextId(int contextId, boolean isForecast) {
-        this.contextId = contextId;
-        this.isForecast = isForecast;
     }
 
     /***********************************************************
@@ -94,10 +81,11 @@ public class MainCardView extends MotherCardView {
         tvPressure = findViewById(R.id.tv_pressure);
     }
 
-    private void initObservers() {
+    @Override
+    protected void initObservers() {
         MainViewModel viewModel = (MainViewModel) getViewModel();
         //noinspection ConstantConditions
-        viewModel.getMainLiveData().observe(activity,new Observer<Main>() {
+        viewModel.getMainLiveData().observe(activity, new Observer<Main>() {
             @Override
             public void onChanged(@Nullable Main main) {
                 if (main != null) {
@@ -105,6 +93,13 @@ public class MainCardView extends MotherCardView {
                 }
             }
         });
+    }
+
+    @Override
+    protected void removeObservers() {
+        MainViewModel viewModel = (MainViewModel) getViewModel();
+        //noinspection ConstantConditions
+        viewModel.getMainLiveData().removeObservers(activity);
     }
 
     private void updateWith(@NonNull Main main) {

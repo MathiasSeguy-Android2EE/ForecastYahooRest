@@ -8,13 +8,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.MotherViewModel;
 
 public abstract class MotherCardView<VM extends MotherViewModel> extends CardView {
 
     protected AppCompatActivity activity;
-    long contextId;
+    protected long contextId;
 
     /***********************************************************
      *  Constructors
@@ -34,12 +35,25 @@ public abstract class MotherCardView<VM extends MotherViewModel> extends CardVie
     public void setLifecycleOwner(AppCompatActivity activity, long contextId) {
         this.activity = activity;
         this.contextId = contextId;
+        initObservers();
     }
+
+    @Override
+    public void onViewRemoved(View child) {
+        super.onViewRemoved(child);
+        removeObservers();
+    }
+
+    protected abstract void initObservers();
+
+    protected abstract void removeObservers();
+
     /**
      * Give us the model associated with the mContext
      * @return The view model class
      */
     public abstract Class<VM> getCardViewModelClass();
+
     /**
      * Give us the model associated with the mContext
      * @return The view model class
