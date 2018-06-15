@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.CityActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataCardView;
@@ -28,6 +29,7 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getIntent().getLongExtra(CityActivity.CITY_ID,-1);
         setContentView(R.layout.activity_current_weather);
 
         initCardViews();

@@ -23,8 +23,8 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherActivity;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CurrentWeatherActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.arrayadapter.CitiesArrayAdapter;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +36,7 @@ import java.util.List;
  */
 public class CityActivity extends MotherActivity {
 	private static final String TAG = "CityActivity";
+	public static final String CITY_ID = "CityId";
 	/***********************************************************
 	 *  Presenter
 	 **********************************************************/
@@ -239,8 +240,9 @@ public class CityActivity extends MotherActivity {
 	 * @param position
 	 */
 	private void selectCity(int position){
-		viewModel.selectCity(arrayAdapterCities.getItem(position));
-		finishView();
+		City city=arrayAdapterCities.getItem(position);
+		viewModel.selectCity(city);
+		finishView(city.get_id());
 	}
 
 	/******************************************************************************************/
@@ -256,9 +258,12 @@ public class CityActivity extends MotherActivity {
 	/**
 	 * Call this method when the view has to be finished (Activity's notion)
 	 */
-	public void finishView() {
+	public void finishView(long cityId) {
 		//launch the main activity
-		Intent launchMainActivity=new Intent(this,WeatherActivity.class);
+		Intent launchMainActivity=new Intent(this,CurrentWeatherActivity.class);
+		Bundle bun=new Bundle();
+		bun.putLong(CITY_ID,cityId);
+		launchMainActivity.putExtras(bun);
 		startActivity(launchMainActivity);
 		//and die
 		finish();
