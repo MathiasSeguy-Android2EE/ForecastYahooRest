@@ -34,7 +34,7 @@ public class Weather {
      * Weather condition id
      */
     @Ignore
-    private int id;
+    private long id;
     /**
      * weather.main Group of weather parameters (Rain, Snow, Extreme etc.)
      */
@@ -103,7 +103,7 @@ public class Weather {
      * @param description
      * @param main
      */
-    public Weather(int id, String main, String description, String icon) {
+    public Weather(long id, String main, String description, String icon) {
         this.id = id;
 
         this.main = main;
@@ -115,7 +115,7 @@ public class Weather {
      * @return The id
      */
     @Ignore
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -123,7 +123,7 @@ public class Weather {
      * @param id The id
      */
     @Ignore
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

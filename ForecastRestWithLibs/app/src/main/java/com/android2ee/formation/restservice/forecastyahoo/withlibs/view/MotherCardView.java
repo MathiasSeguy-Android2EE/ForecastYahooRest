@@ -1,16 +1,21 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view;
 
-import android.arch.lifecycle.LifecycleOwner;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
+import android.view.View;
 
-public class MotherCardView extends CardView {
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.MotherViewModel;
 
-    private LifecycleOwner lifecycleOwner;
-    private long contextId;
+public abstract class MotherCardView<VM extends MotherViewModel> extends CardView {
+
+    protected AppCompatActivity activity;
+    protected long contextId;
 
     /***********************************************************
      *  Constructors
@@ -27,8 +32,45 @@ public class MotherCardView extends CardView {
         super(context, attrs, defStyleAttr);
     }
 
-    public void init(LifecycleOwner lifeCycleOwner, long contextId) {
-        this.lifecycleOwner = lifeCycleOwner;
+    public void setLifecycleOwner(AppCompatActivity activity, long contextId) {
+        this.activity = activity;
         this.contextId = contextId;
+        initObservers();
+    }
+
+    @Override
+    public void onViewRemoved(View child) {
+        super.onViewRemoved(child);
+        removeObservers();
+    }
+
+    protected abstract void initObservers();
+
+    protected abstract void removeObservers();
+
+    /**
+     * Give us the model associated with the mContext
+     * @return The view model class
+     */
+    public abstract Class<VM> getCardViewModelClass();
+
+    /**
+     * Give us the model associated with the mContext
+     * @return The view model class
+     */
+    public abstract String getCardViewModelKey();
+
+    @NonNull
+    protected abstract ViewModelProvider.Factory getCardViewFactory();
+
+    @Nullable
+    protected VM getViewModel() {
+        if (activity == null) return null;
+
+        if (getCardViewModelClass() != null) {
+                return ViewModelProviders.of(activity, getCardViewFactory())
+                        .get(getCardViewModelKey(), getCardViewModelClass());
+        }
+        return null;
     }
 }

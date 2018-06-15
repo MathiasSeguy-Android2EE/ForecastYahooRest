@@ -1,15 +1,18 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCardView;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.main.MainViewModel;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.main.factory.MainModelFactory;
 
 public class MainCardView extends MotherCardView {
 
@@ -22,6 +25,8 @@ public class MainCardView extends MotherCardView {
     private TextView tvTemperatureMax;
     private TextView tvHumidity;
     private TextView tvPressure;
+
+    private boolean isForecast;
 
     /***********************************************************
      *  Constructors
@@ -42,12 +47,30 @@ public class MainCardView extends MotherCardView {
     }
 
     /***********************************************************
+     *  ModelView management
+     **********************************************************/
+    @Override
+    public Class<MainViewModel> getCardViewModelClass() {
+        return MainViewModel.class;
+    }
+
+    @Override
+    public String getCardViewModelKey() {
+        return MainCardView.class.getName();
+    }
+
+    @Override
+    @NonNull
+    protected ViewModelProvider.Factory getCardViewFactory() {
+        return new MainModelFactory(contextId, isForecast);
+    }
+
+    /***********************************************************
      *  Private methods
      **********************************************************/
 
     private void init() {
         initViews();
-        initObservers();
     }
 
     private void initViews() {
@@ -58,8 +81,25 @@ public class MainCardView extends MotherCardView {
         tvPressure = findViewById(R.id.tv_pressure);
     }
 
-    private void initObservers() {
-        //TODO
+    @Override
+    protected void initObservers() {
+        MainViewModel viewModel = (MainViewModel) getViewModel();
+        //noinspection ConstantConditions
+        viewModel.getMainLiveData().observe(activity, new Observer<Main>() {
+            @Override
+            public void onChanged(@Nullable Main main) {
+                if (main != null) {
+                    updateWith(main);
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void removeObservers() {
+        MainViewModel viewModel = (MainViewModel) getViewModel();
+        //noinspection ConstantConditions
+        viewModel.getMainLiveData().removeObservers(activity);
     }
 
     private void updateWith(@NonNull Main main) {

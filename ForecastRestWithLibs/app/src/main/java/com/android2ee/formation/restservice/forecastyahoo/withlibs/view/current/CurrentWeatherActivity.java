@@ -35,7 +35,7 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     }
 
     private void initCardViews() {
-        mainCardView = findViewById(R.id.main_card_view);
+        mainCardView = findViewById(R.id.cdv_main);
         tvWind = findViewById(R.id.txv_winds);
         tvSnow = findViewById(R.id.txv_snow);
         tvRain = findViewById(R.id.txv_rain);
@@ -46,8 +46,8 @@ public class CurrentWeatherActivity extends AppCompatActivity {
     }
 
     private void initLifecycleOwners() {
-        mainCardView.init(this, weatherData.get_id());
-        weatherDataCardView.init(this, cityId);
-        sysCardView.init(this, weatherData.get_id());
+        mainCardView.setLifecycleOwner(this, weatherData.get_id());
+        weatherDataCardView.setLifecycleOwner(this, cityId);
+        sysCardView.setLifecycleOwner(this, weatherData.get_id());
     }
 }

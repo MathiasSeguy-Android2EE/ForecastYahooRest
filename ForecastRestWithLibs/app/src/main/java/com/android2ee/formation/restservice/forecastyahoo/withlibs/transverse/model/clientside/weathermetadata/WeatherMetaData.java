@@ -12,7 +12,7 @@ public class WeatherMetaData extends SugarRecord {
     /**
      * Weather condition id
      */
-    private int weatherConditionId;
+    private long weatherConditionId;
     /**
      * weather.main Group of weather parameters (Rain, Snow, Extreme etc.)
      * */
@@ -65,7 +65,7 @@ public class WeatherMetaData extends SugarRecord {
      * @return
      *     The id
      */
-    public int getWeatherConditionId() {
+    public long getWeatherConditionId() {
         return weatherConditionId;
     }
 
@@ -161,7 +161,7 @@ public class WeatherMetaData extends SugarRecord {
 
     @Override
     public int hashCode() {
-        int result = getWeatherConditionId();
+        int result = (int) getWeatherConditionId();
         result = 31 * result + (getMain() != null ? getMain().hashCode() : 0);
         result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
         result = 31 * result + (getIcon() != null ? getIcon().hashCode() : 0);
