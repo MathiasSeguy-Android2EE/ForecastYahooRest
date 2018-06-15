@@ -14,10 +14,16 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.Sys;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCardView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 /**
  * Created by Marion Aubard on 14/06/2018.
  */
 public class SysCardView extends MotherCardView {
+
+    private static final String TIME_FORMAT = "hh:mm a";
 
     /***********************************************************
      *  Attributes
@@ -77,8 +83,8 @@ public class SysCardView extends MotherCardView {
     private void onChangedLiveData(@Nullable Sys sys) {
         if (sys != null) {
             tvCountry.setText(sys.getCountry());
-            tvSunrise.setText(sys.getSunrise());
-            tvSunset.setText(sys.getSunset());
+            tvSunrise.setText(new SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(sys.getSunrise()));
+            tvSunset.setText(new SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(sys.getSunset()));
         }
     }
 
