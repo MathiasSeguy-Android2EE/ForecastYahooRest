@@ -132,12 +132,6 @@ public class CityService extends MotherBusinessService implements CityServiceInt
             findCityByNameSync(cityName);
         }
     }
-
-    /***********************************************************
-     *  Reload city from cache
-     **********************************************************/
-
-
     /******************************************************************************************/
     /** Add City **************************************************************************/
     /******************************************************************************************/
@@ -223,6 +217,44 @@ public class CityService extends MotherBusinessService implements CityServiceInt
         @Override
         public void run() {
             deleteCitySync(city);
+        }
+    }
+
+    /******************************************************************************************/
+    /** Method name: deleteCityById
+     /* Description : Delete the city with the specific id **********/
+    /* Param: long cityIdToDelete
+    /******************************************************************************************/
+    /**
+     * Should only be called from a background thread (So only by another Service's method)
+     * Don't ever call this method from the UI Thread
+     */
+    public void deleteCityByIdSync(long cityIdToDelete) {
+        ForecastDatabase.getInstance().getCityDao().delete(cityIdToDelete);
+    }
+
+    /**
+     * Should be called by the View
+     */
+    public void deleteCityByIdAsynch(long cityIdToDelete) {
+        MyLog.d(TAG, "deleteCityByIdAsynch() called with: " + "cityId = [" + cityIdToDelete + "]");
+        MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor().submit( new RunnableDeleteCityById(cityIdToDelete));
+}
+
+    /**
+     * This is the runnable that will send the work in a background thread
+     */
+    private class RunnableDeleteCityById implements Runnable {
+        long cityIdToDelete;
+
+        public RunnableDeleteCityById(long cityIdToDelete) {
+            //
+            this.cityIdToDelete = cityIdToDelete;
+        }
+
+        @Override
+        public void run() {
+            deleteCityByIdSync(cityIdToDelete);
         }
     }
 }

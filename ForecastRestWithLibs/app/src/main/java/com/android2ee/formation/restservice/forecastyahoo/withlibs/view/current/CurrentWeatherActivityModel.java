@@ -4,6 +4,7 @@ import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Transformations;
 
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
@@ -58,6 +59,18 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
 
             }
         });
+    }
+
+    /***********************************************************
+    *  Business Methods
+    **********************************************************/
+    /**
+     * Delete the current City
+     * @param cityId
+     */
+    public void deleteCity(long cityId){
+        //Call the service
+        MyApplication.instance.getServiceManager().getCityService().deleteCityByIdAsynch(cityId);
     }
 
     /***********************************************************

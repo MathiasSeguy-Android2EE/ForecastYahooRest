@@ -73,4 +73,10 @@ public interface CityServiceIntf extends MotherBusinessServiceIntf{
      * @param city
      */
     void deleteCityAsync(City city);
+
+    /**
+     * Delete a city with this id from the database
+     * @param cityIdToDelete
+     */
+    void deleteCityByIdAsynch(long cityIdToDelete);
 }
