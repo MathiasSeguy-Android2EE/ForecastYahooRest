@@ -1,0 +1,188 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="92dp"
+            android:height="92dp"
+            android:viewportWidth="92"
+            android:viewportHeight="92">
+            <group
+                android:name="group_3"
+                android:pivotY="72"
+                android:translateY="-24">
+                <path
+                    android:name="path"
+                    android:pathData="M 78.041 47.7 C 77.98 47.7 77.92 47.7 77.86 47.702 C 76.658 39.653 69.759 33.669 61.537 33.669 C 54.543 33.669 48.231 38.189 45.935 44.746 C 44.762 44.416 43.538 44.242 42.356 44.242 C 35.84 44.242 30.382 48.943 29.361 55.296 C 29.069 55.267 28.795 55.252 28.525 55.252 C 23.366 55.252 19.168 59.456 19.168 64.622 C 19.168 69.784 23.366 73.983 28.525 73.983 L 78.041 73.983 C 85.29 73.984 91.186 68.091 91.186 60.848 C 91.186 53.597 85.29 47.7 78.041 47.7 Z"
+                    android:fillColor="#eeeeee"
+                    android:strokeColor="#000000"
+                    android:strokeWidth="1"/>
+            </group>
+            <group
+                android:name="group_2"
+                android:pivotX="48"
+                android:pivotY="48"
+                android:translateX="-25"
+                android:translateY="-15">
+                <path
+                    android:name="second_front_cloud"
+                    android:pathData="M 78.041 47.7 C 77.98 47.7 77.92 47.7 77.86 47.702 C 76.658 39.653 69.759 33.669 61.537 33.669 C 54.543 33.669 48.231 38.189 45.935 44.746 C 44.762 44.416 43.538 44.242 42.356 44.242 C 35.84 44.242 30.382 48.943 29.361 55.296 C 29.069 55.267 28.795 55.252 28.525 55.252 C 23.366 55.252 19.168 59.456 19.168 64.622 C 19.168 69.784 23.366 73.983 28.525 73.983 L 78.041 73.983 C 85.29 73.984 91.186 68.091 91.186 60.848 C 91.186 53.597 85.29 47.7 78.041 47.7 Z"
+                    android:fillColor="#cccccc"
+                    android:strokeColor="#000000"
+                    android:strokeWidth="1"/>
+            </group>
+            <group android:name="group_1">
+                <path
+                    android:name="back_cloud"
+                    android:pathData="M 78.041 47.7 C 77.98 47.7 77.92 47.7 77.86 47.702 C 76.658 39.653 69.759 33.669 61.537 33.669 C 54.543 33.669 48.231 38.189 45.935 44.746 C 44.762 44.416 43.538 44.242 42.356 44.242 C 35.84 44.242 30.382 48.943 29.361 55.296 C 29.069 55.267 28.795 55.252 28.525 55.252 C 23.366 55.252 19.168 59.456 19.168 64.622 C 19.168 69.784 23.366 73.983 28.525 73.983 L 78.041 73.983 C 85.29 73.984 91.186 68.091 91.186 60.848 C 91.186 53.597 85.29 47.7 78.041 47.7 Z"
+                    android:fillColor="#aaaaaa"
+                    android:strokeColor="#000000"
+                    android:strokeWidth="1"/>
+            </group>
+            <group android:name="group">
+                <path
+                    android:name="front_cloud"
+                    android:pathData="M 78.041 47.7 C 77.98 47.7 77.92 47.7 77.86 47.702 C 76.658 39.653 69.759 33.669 61.537 33.669 C 54.543 33.669 48.231 38.189 45.935 44.746 C 44.762 44.416 43.538 44.242 42.356 44.242 C 35.84 44.242 30.382 48.943 29.361 55.296 C 29.069 55.267 28.795 55.252 28.525 55.252 C 23.366 55.252 19.168 59.456 19.168 64.622 C 19.168 69.784 23.366 73.983 28.525 73.983 L 78.041 73.983 C 85.29 73.984 91.186 68.091 91.186 60.848 C 91.186 53.597 85.29 47.7 78.041 47.7 Z"
+                    android:fillColor="#dddddd"
+                    android:strokeColor="#000000"
+                    android:strokeWidth="1"/>
+            </group>
+        </vector>
+    </aapt:attr>
+    <target android:name="group">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="translateX"
+                    android:duration="4514"
+                    android:valueFrom="-90"
+                    android:valueTo="15"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/linear_interpolator"/>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:duration="4514"
+                    android:valueFrom="0"
+                    android:valueTo="-1"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/linear_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="group_2">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="translateX"
+                    android:duration="4514"
+                    android:valueFrom="15"
+                    android:valueTo="-25"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/linear_interpolator"/>
+                <objectAnimator
+                    android:propertyName="scaleX"
+                    android:duration="4514"
+                    android:valueFrom="1"
+                    android:valueTo="2"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/linear_interpolator"/>
+                <objectAnimator
+                    android:propertyName="scaleY"
+                    android:duration="4514"
+                    android:valueFrom="1"
+                    android:valueTo="1.2"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/linear_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="group_3">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="scaleY"
+                    android:duration="4514"
+                    android:valueFrom="1"
+                    android:valueTo="1.4"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/linear_interpolator"/>
+                <objectAnimator
+                    android:propertyName="translateX"
+                    android:duration="4514"
+                    android:valueFrom="-20"
+                    android:valueTo="10"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/linear_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="group_1">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="translateX"
+                    android:duration="4514"
+                    android:valueFrom="-15"
+                    android:valueTo="25"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/linear_interpolator"/>
+                <objectAnimator
+                    android:propertyName="translateY"
+                    android:duration="4514"
+                    android:valueFrom="0"
+                    android:valueTo="10"
+                    android:valueType="floatType"
+                    android:interpolator="@android:anim/linear_interpolator"/>
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="path">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="strokeAlpha"
+                android:startOffset="4514"
+                android:duration="486"
+                android:valueFrom="1"
+                android:valueTo="0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        </aapt:attr>
+    </target>
+    <target android:name="second_front_cloud">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="strokeAlpha"
+                android:startOffset="4514"
+                android:duration="486"
+                android:valueFrom="1"
+                android:valueTo="0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        </aapt:attr>
+    </target>
+    <target android:name="back_cloud">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="strokeAlpha"
+                android:startOffset="4514"
+                android:duration="486"
+                android:valueFrom="1"
+                android:valueTo="0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        </aapt:attr>
+    </target>
+    <target android:name="front_cloud">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:propertyName="strokeAlpha"
+                android:startOffset="4514"
+                android:duration="486"
+                android:valueFrom="1"
+                android:valueTo="0"
+                android:valueType="floatType"
+                android:interpolator="@android:interpolator/fast_out_slow_in"/>
+        </aapt:attr>
+    </target>
+</animated-vector>
