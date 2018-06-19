@@ -18,16 +18,43 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
     /***********************************************************
      *  Managing the WeatherData
      **********************************************************/
-
+    /**
+     * The main Live Data of the Use case: This is the main entity represents by the activity
+     */
     LiveData<WeatherData> data;
+    /**
+     * Sub LiveData depending on the data:
+     * When the data changes, this live data should request new live stream
+     * Because it's a sub list of the object WeatherData
+     * But as we manage weatherData as an entity, weatherData.getWeathers==null always
+     * So this is the big new pattern to learn: it uses Transformations
+     */
     LiveData<List<Weather>> weatherForWeatherData;
-    LiveData<List<Weather>> allWeather=null;
+    /***********************************************************
+    *  Constructors
+    **********************************************************/
+    /**
+     * You manage your entity by their id
+     * So you need to know which id is the entity you want to manage
+     * @param cityId
+     */
     public CurrentWeatherActivityModel(long cityId) {
-        data=ForecastDatabase.getInstance().getWeatherDataDao().loadLiveDataCurrentByCityId(cityId);
+        //instanciate your LiveData for your UI
+        data= ForecastDatabase.getInstance().getWeatherDataDao().loadLiveDataCurrentByCityId(cityId);
+        //transform the main data to the weather List
+        //So you said, if the liveData (first paremeter) changes, I rebuild a new LiveData
+        //you use switchmap because you change your query (the cityId has changed)
         weatherForWeatherData= Transformations.switchMap(data, new Function<WeatherData, LiveData<List<Weather>>>() {
             @Override
             public LiveData<List<Weather>> apply(WeatherData input) {
-                return ForecastDatabase.getInstance().getWeatherDao().loadLiveDataWeatherForWeatherData(input.getCityId());
+                //So you have the new WeatherData live streamed by the livedata
+                //and you want to load its list of weathers
+                //So you instanciate your new LiveData according to that query:
+                //I want the Weathers with the foreign key weatherdata_id equels to weatherData.getId
+                //And it's done
+                //And the previous liveData unregister from its previous query and plug to the new one
+                //because you switchMap (if you had map only, you would have both streams)
+                return ForecastDatabase.getInstance().getWeatherDao().loadLiveDataWeatherForWeatherData(input.get_id());
 
             }
         });
@@ -36,14 +63,19 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
     /***********************************************************
      *  Getters for the Views
      **********************************************************/
+    /**
+     * The liveData to observe when displaying a WethaerData with the id passed in parameter of the constructor
+     * @return the liveData to observe when displaying a WeatherData
+     */
     public LiveData<WeatherData> getLiveData(){
         return data;
     }
+
+    /**
+     * The liveData to observe when displaying the weathers list of the WethaerData with the id passed in parameter of the constructor
+     * @return The liveData to observe when displaying the weathers list
+     */
     public LiveData<List<Weather>> getWeather(){
         return weatherForWeatherData;
-    }
-    @Override
-    public void onViewAttached() {
-
     }
 }
