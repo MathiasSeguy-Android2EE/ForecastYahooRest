@@ -18,7 +18,7 @@ project.ext{
     //Can not decrease
     versionCode = 3
     //Gradle groupd name (for your own tasks)
-    myGradleGroup="Multiplication Basile tasks"
+    myGradleGroup="Forecast tasks"
 
     //Please use the support library and use
     useSupportLibVectorDrawable = true
