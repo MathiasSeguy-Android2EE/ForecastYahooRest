@@ -19,8 +19,13 @@ import java.util.Locale;
 
 /**
  * Created by Marion Aubard on 14/06/2018.
+ * This card is dedicated to display the data from the WeatherData object that represents
+ * from where the data are provided (station/beacon...), when, where and the visibility associated
+ * (why the visibility here, no idea, it's weird, yes we agree, but didn't find a best place)
+ * So it obesrve a Weather Data and displays its:
+ * Name/visibility/coord/base(station/beacon)
  */
-public class WeatherDataCardView extends MotherCardView {
+public class WeatherDataBeaconCardView extends MotherCardView {
 
     /***********************************************************
      *  Attributes
@@ -32,7 +37,7 @@ public class WeatherDataCardView extends MotherCardView {
     private TextView tvBase;
     private TextView tvDt;
 
-    WeatherDataCardViewModel model;
+    WeatherDataBeaconCardViewModel model;
     private WeatherData weatherData;
 
     private static final String TIME_PATTERN = "EEE HH:mm";
@@ -40,15 +45,15 @@ public class WeatherDataCardView extends MotherCardView {
     /***********************************************************
      *  Constructors
      **********************************************************/
-    public WeatherDataCardView(@NonNull Context context) {
+    public WeatherDataBeaconCardView(@NonNull Context context) {
         super(context);
     }
 
-    public WeatherDataCardView(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public WeatherDataBeaconCardView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public WeatherDataCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public WeatherDataBeaconCardView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -100,8 +105,7 @@ public class WeatherDataCardView extends MotherCardView {
 
     @Override
     protected void initObservers() {
-        model = ViewModelProviders.of(activity, new WeatherDataModelFactory(contextId)).get(WeatherDataCardViewModel.class);
-
+        model = ViewModelProviders.of(activity, new WeatherDataBeaconModelFactory(contextId)).get(WeatherDataBeaconCardViewModel.class);
         //start observing
         model.getLiveData().observe(activity, new Observer<WeatherData>() {
             @Override

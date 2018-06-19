@@ -79,7 +79,7 @@
         </FrameLayout>
 
 
-        <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataCardView
+        <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataBeaconCardView
             android:id="@+id/cdv_weather_data"
             style="@style/MyCardView"
             android:layout_width="0dp"
@@ -92,7 +92,7 @@
 
             <include layout="@layout/cardview_weatherdata" />
 
-        </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataCardView>
+        </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataBeaconCardView>
 
         <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView
             android:id="@+id/cdv_sys"

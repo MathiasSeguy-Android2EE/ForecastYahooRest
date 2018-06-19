@@ -6,9 +6,9 @@ import android.arch.lifecycle.ViewModel;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 
-public class WeatherDataCardViewModel extends ViewModel {
+public class WeatherDataBeaconCardViewModel extends ViewModel {
     LiveData<WeatherData> data;
-    public WeatherDataCardViewModel(long cityId) {
+    public WeatherDataBeaconCardViewModel(long cityId) {
         data = ForecastDatabase.getInstance().getWeatherDataDao().loadLiveDataCurrentByCityId(cityId);
     }
 
