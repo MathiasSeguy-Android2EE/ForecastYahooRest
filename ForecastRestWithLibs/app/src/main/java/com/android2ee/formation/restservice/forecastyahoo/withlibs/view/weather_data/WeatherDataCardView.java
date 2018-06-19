@@ -14,6 +14,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCardView;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -34,7 +35,7 @@ public class WeatherDataCardView extends MotherCardView {
     WeatherDataCardViewModel model;
     private WeatherData weatherData;
 
-    private static final String TIME_PATTERN = "HH:mm";
+    private static final String TIME_PATTERN = "EEE HH:mm";
 
     /***********************************************************
      *  Constructors
@@ -120,7 +121,8 @@ public class WeatherDataCardView extends MotherCardView {
         tvVisibility.setText(getResources().getString(R.string.visibility, weatherData.getVisibility()));
         tvCoord.setText(weatherData.getCoord().toString());
         tvBase.setText(weatherData.getBase());
+        Date dtMilli = new java.util.Date(weatherData.getTimeStampUTC()*1000L);
         SimpleDateFormat df = new SimpleDateFormat(TIME_PATTERN, Locale.getDefault());
-        tvDt.setText(df.format(weatherData.getTimeStampUTC()));
+        tvDt.setText(df.format(dtMilli));
     }
 }

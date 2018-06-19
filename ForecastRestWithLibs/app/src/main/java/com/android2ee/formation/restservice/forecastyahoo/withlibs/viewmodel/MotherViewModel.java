@@ -4,6 +4,5 @@ import android.arch.lifecycle.ViewModel;
 
 public abstract class MotherViewModel extends ViewModel {
 
-    public abstract void onViewAttached();
 
 }

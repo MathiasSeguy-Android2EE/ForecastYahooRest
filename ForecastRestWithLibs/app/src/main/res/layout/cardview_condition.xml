@@ -1,0 +1,125 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CurrentWeatherActivity">
+
+
+    <!--/***********************************************************-->
+    <!--* Winds Section-->
+    <!--**********************************************************/-->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txv_winds"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        app:autoSizeMinTextSize="16sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/txv_clouds"
+        app:layout_constraintEnd_toStartOf="@+id/txv_snow"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="WIND" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_winds"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:padding="@dimen/activity_padding"
+        app:layout_constraintBottom_toTopOf="@+id/txv_clouds"
+        app:layout_constraintEnd_toStartOf="@+id/txv_snow"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_wind_anim" />
+
+    <!--/***********************************************************-->
+    <!--* Snow Section-->
+    <!--**********************************************************/-->
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txv_snow"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        app:autoSizeMinTextSize="16sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/txv_rain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txv_winds"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:text="SNOW" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_snow"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:gravity="fill_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/txv_rain"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txv_winds"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread"
+        app:srcCompat="@drawable/ic_snow_anim" />
+
+    <!--/***********************************************************-->
+    <!--* Clouds Section-->
+    <!--**********************************************************/-->
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_clouds"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:gravity="fill"
+        app:srcCompat="@drawable/ic_clouds_anim"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txv_rain"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_winds"
+        app:layout_constraintVertical_chainStyle="spread" />
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txv_clouds"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        app:autoSizeMinTextSize="16sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txv_rain"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_winds"
+        app:layout_constraintVertical_chainStyle="spread"
+        tools:text="CLOUDS" />
+
+
+    <!--/***********************************************************-->
+    <!--* Rain Section-->
+    <!--**********************************************************/-->
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_rain"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:gravity="left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txv_snow"
+        app:srcCompat="@drawable/ic_rain_anim" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txv_rain"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        app:autoSizeMinTextSize="16sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txv_clouds"
+        app:layout_constraintTop_toBottomOf="@+id/txv_snow"
+        tools:text="RAIN" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,11 +1,15 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys;
 
+import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -14,8 +18,8 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.Sys;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCardView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -23,7 +27,7 @@ import java.util.Locale;
  */
 public class SysCardView extends MotherCardView {
 
-    private static final String TIME_FORMAT = "hh:mm a";
+    private static final String TIME_FORMAT = "HH:mm";
 
     /***********************************************************
      *  Attributes
@@ -32,6 +36,8 @@ public class SysCardView extends MotherCardView {
     private TextView tvCountry;
     private TextView tvSunrise;
     private TextView tvSunset;
+    private AppCompatImageView ivSunset;
+    private AppCompatImageView ivSunrise;
 
     SysViewModel model;
 
@@ -80,11 +86,24 @@ public class SysCardView extends MotherCardView {
      *  Private methods
      **********************************************************/
 
+    @SuppressLint("NewApi")
     private void onChangedLiveData(@Nullable Sys sys) {
         if (sys != null) {
             tvCountry.setText(sys.getCountry());
-            tvSunrise.setText(new SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(sys.getSunrise()));
-            tvSunset.setText(new SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(sys.getSunset()));
+            Date sunrise = new java.util.Date(sys.getSunrise()*1000L);
+            Date sunset = new java.util.Date(sys.getSunset()*1000L);
+            tvSunrise.setText(new SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(sunrise));
+            tvSunset.setText(new SimpleDateFormat(TIME_FORMAT, Locale.getDefault()).format(sunset));
+            if(ivSunset.getDrawable() instanceof AnimatedVectorDrawableCompat){
+                ((AnimatedVectorDrawableCompat)ivSunset.getDrawable()).start();
+            }else{
+                ((AnimatedVectorDrawable)ivSunset.getDrawable()).start();
+            }
+            if(ivSunrise.getDrawable() instanceof AnimatedVectorDrawableCompat){
+                ((AnimatedVectorDrawableCompat)ivSunrise.getDrawable()).start();
+            }else{
+                ((AnimatedVectorDrawable)ivSunrise.getDrawable()).start();
+            }
         }
     }
 
@@ -92,6 +111,9 @@ public class SysCardView extends MotherCardView {
         tvCountry = findViewById(R.id.tv_country);
         tvSunrise = findViewById(R.id.tv_sunrise);
         tvSunset = findViewById(R.id.tv_sunset);
+        ivSunset = findViewById(R.id.iv_sunset);
+        ivSunrise = findViewById(R.id.iv_sunrise);
+
     }
 
     @Override
