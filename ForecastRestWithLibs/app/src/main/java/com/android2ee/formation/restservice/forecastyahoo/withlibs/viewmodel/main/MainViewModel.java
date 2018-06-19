@@ -21,10 +21,7 @@ public abstract class MainViewModel extends MotherViewModel {
     /***********************************************************
      *  Lifecycle
      **********************************************************/
-    @Override
-    public void onViewAttached() {
-        //ignore for the moment
-    }
+
 
     /***********************************************************
      *  Business Methods

@@ -40,6 +40,9 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
      * @param cityId
      */
     public CurrentWeatherActivityModel(long cityId) {
+        if(cityId==CurrentWeatherActivity.NULL_VALUE){
+            return;
+        }
         //instanciate your LiveData for your UI
         data= ForecastDatabase.getInstance().getWeatherDataDao().loadLiveDataCurrentByCityId(cityId);
         //transform the main data to the weather List

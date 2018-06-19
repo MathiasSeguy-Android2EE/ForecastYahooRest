@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.forecast.WeatherActivity">
+        <activity android:name=".view.current.CurrentWeatherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,7 +38,6 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.android2ee.formation.restservice.forecastyahoo.withlibs" />
 
-        <activity android:name=".view.current.CurrentWeatherActivity"></activity>
     </application>
 
 </manifest>

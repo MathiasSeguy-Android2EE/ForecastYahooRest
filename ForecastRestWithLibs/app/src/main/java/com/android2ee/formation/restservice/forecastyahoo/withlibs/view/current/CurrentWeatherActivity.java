@@ -37,6 +37,7 @@ import java.util.List;
 
 public class CurrentWeatherActivity extends MotherActivity {
     private static final String TAG = "CurrentWeatherActivity";
+    public static final int NULL_VALUE = -1;
 
     /***********************************************************
      *  UI Attributes
@@ -104,7 +105,7 @@ public class CurrentWeatherActivity extends MotherActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //get you data context
-        cityId=getIntent().getLongExtra(CityActivity.CITY_ID,-1);
+        cityId=getIntent().getLongExtra(CityActivity.CITY_ID, NULL_VALUE);
         MyLog.e(TAG,"found the cityId = "+cityId);
         //load your model
         model=ViewModelProviders.of(this, new CurrentWeatherModelFactory(cityId)).get(CurrentWeatherActivityModel.class);
@@ -116,6 +117,10 @@ public class CurrentWeatherActivity extends MotherActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        if(cityId==NULL_VALUE){
+            launchCityActivity(true);
+            return;
+        }
         //start observing the weatherData entity
         model.getLiveData().observe(this, new Observer<WeatherData>() {
             @Override
@@ -299,6 +304,9 @@ public class CurrentWeatherActivity extends MotherActivity {
         // then launch the CityActivity to select a city
         Intent launchCityActivity = new Intent(this, CityActivity.class);
         startActivity(launchCityActivity);
+        if(finish){
+            finish();
+        }
     }
     /******************************************************************************************/
     /** Managing AlertDialog **************************************************************************/

@@ -21,8 +21,4 @@ public class SysViewModel extends MotherViewModel {
         return data;
     }
 
-    @Override
-    public void onViewAttached() {
-
-    }
 }
