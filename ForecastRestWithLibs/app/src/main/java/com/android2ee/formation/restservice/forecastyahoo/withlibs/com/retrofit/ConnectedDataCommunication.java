@@ -165,15 +165,15 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
         try {
             findForecastByCityIdCall=webServiceComplex.findForecastByCityId(cityId);
             Forecast forecast=findForecastByCityIdCall.execute().body();
-            MyLog.e(TAG,forecast.toString());
-            int maxLogSize = 100;
-            String longString=forecast.toString();
-            for(int i = 0; i <= longString.length() / maxLogSize; i++) {
-                int start = i * maxLogSize;
-                int end = (i+1) * maxLogSize;
-                end = end > longString.length() ? longString.length() : end;
-                MyLog.e(TAG, longString.substring(start, end));
-            }
+//            MyLog.e(TAG,forecast.toString());
+//            int maxLogSize = 100;
+//            String longString=forecast.toString();
+//            for(int i = 0; i <= longString.length() / maxLogSize; i++) {
+//                int start = i * maxLogSize;
+//                int end = (i+1) * maxLogSize;
+//                end = end > longString.length() ? longString.length() : end;
+//                MyLog.e(TAG, longString.substring(start, end));
+//            }
             MyLog.e(TAG,"Too long?");
             return forecast;
         } catch (IOException e) {
