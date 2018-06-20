@@ -8,8 +8,8 @@
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/imv_ico"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="92dp"
+        android:layout_height="92dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="16dp"
@@ -19,8 +19,7 @@
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread_inside"
-        app:srcCompat="@drawable/btn_earth" />
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/txv_main"

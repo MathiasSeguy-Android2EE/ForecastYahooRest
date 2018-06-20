@@ -8,6 +8,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.PictureCacheDownloader;
 
 /**
  * Created by Created by Mathias Seguy alias Android2ee on 14/06/2018.
@@ -66,6 +67,14 @@ public class DaoWrapper {
                 weather.setWeatherDataId(weatherDataId);
                 weather.setWeatherForecastItemId(null);
                 weatherDao.insert(weather);
+                //then download the picture
+                if(PictureCacheDownloader.isPictureSavedOnDisk(weather.getIcon())){
+                    //nothing to do
+                }else{
+                    //donwload and store it:
+                    PictureCacheDownloader.savePicture(weather.getIcon(),
+                            PictureCacheDownloader.downloadPicture("http://openweathermap.org/img/w/"+weather.getIcon()+".png"));
+                }
             }
         } catch (Exception e) {
             Log.e("TAG", "EXCEPTION : ", e);

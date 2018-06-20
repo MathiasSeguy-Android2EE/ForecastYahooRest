@@ -2,14 +2,18 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current
 
 import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
+import android.graphics.Bitmap;
 import android.support.annotation.Nullable;
+import android.util.SparseArray;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.PictureCacheDownloader;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.MotherViewModel;
 
 import java.util.ArrayList;
@@ -94,10 +98,14 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
                         }
                     };
                 }
-
-
             }
         });
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        holderToBitmapLiveData=null;
     }
 
     /***********************************************************
@@ -137,5 +145,43 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
      */
     public LiveData<List<City>> getOnStageCities() {
         return onStageCities;
+    }
+
+    /***********************************************************
+     *  Managing Loading Image
+     **********************************************************/
+    /**
+     * The sparse array that maps the holder with the stream of bitmap
+     * The goal is to have for each Holder a specific LiveData<Bitmap> for its icon
+     * So it updates it accordng to it's icon value
+     */
+    SparseArray<MutableLiveData<Bitmap>> holderToBitmapLiveData=new SparseArray<>();
+
+    /**
+     * First find you LiveData and register to it
+     * This method provide you the liveData to observe
+     * @param holderHash
+     * @return
+     */
+    public MutableLiveData<Bitmap> getIconByHolder(int holderHash){
+        if(holderToBitmapLiveData.get(holderHash)!=null){
+            return holderToBitmapLiveData.get(holderHash);
+        }
+        //else create it and add it to the HashMap
+        MutableLiveData<Bitmap> current=new MutableLiveData<Bitmap>();
+        holderToBitmapLiveData.put(holderHash,current);
+        return current;
+    }
+
+    /**
+     * Then update the LiveData the Holder is observing, it will changes its icon
+     * @param holderHash
+     * @param iconName
+     */
+    public void updateIcon(int holderHash,String iconName){
+        MutableLiveData<Bitmap> current=holderToBitmapLiveData.get(holderHash);
+        if(current!=null){
+            current.postValue(PictureCacheDownloader.loadPictureFromDisk(iconName));
+        }
     }
 }

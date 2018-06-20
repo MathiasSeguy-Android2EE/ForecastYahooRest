@@ -82,7 +82,7 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
      *  Attributes : Model and data
      **********************************************************/
     /**     * Model      */
-    CurrentWeatherActivityModel model;
+    private CurrentWeatherActivityModel model;
     /**     * Pointer to the LiveData observed     */
     private WeatherData weatherData;
     /**     * The name of the city on Stage     */
@@ -172,7 +172,7 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
         limn.setOrientation(LinearLayoutManager.HORIZONTAL);
         rvWeatherList.setLayoutManager(limn);
         // specify an adapter (see also next example)
-        recyclerViewAdapter = new WeatherRecyclerViewAdapter(new ArrayList<Weather>(), this);
+        recyclerViewAdapter = new WeatherRecyclerViewAdapter(new ArrayList<Weather>(), this,model);
         rvWeatherList.setAdapter(recyclerViewAdapter);
     }
 
