@@ -6,6 +6,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
@@ -27,7 +28,7 @@ public class MainCardView extends MotherCardView {
     private TextView tvTemperatureMax;
     private TextView tvHumidity;
     private TextView tvPressure;
-
+    private ImageView ivDrop;
     private boolean isForecast;
 
     /***********************************************************
@@ -84,6 +85,7 @@ public class MainCardView extends MotherCardView {
         tvTemperatureMax = findViewById(R.id.tv_max_temperature);
         tvHumidity = findViewById(R.id.tv_humidity);
         tvPressure = findViewById(R.id.tv_pressure);
+        ivDrop=findViewById(R.id.iv_drop);
     }
 
     @Override
@@ -110,4 +112,22 @@ public class MainCardView extends MotherCardView {
         tvPressure.setText(getContext().getString(R.string.main_pressure, main.getPressure()));
     }
 
+    /***********************************************************
+     *  Accessor
+     **********************************************************/
+    public TextView getTvTemperature() {
+        return tvTemperature;
+    }
+
+    public TextView getTvTemperatureMin() {
+        return tvTemperatureMin;
+    }
+
+    public TextView getTvTemperatureMax() {
+        return tvTemperatureMax;
+    }
+
+    public ImageView getIvDrop() {
+        return ivDrop;
+    }
 }

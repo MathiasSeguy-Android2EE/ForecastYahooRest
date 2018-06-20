@@ -29,6 +29,7 @@
  */
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.arrayadapter;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -48,6 +49,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.ex
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView;
 
 import java.util.ArrayList;
 
@@ -60,7 +62,12 @@ import java.util.ArrayList;
  *        </ul>
  */
 public class CitiesArrayAdapter extends ArrayAdapter<City> {
+
 	private static final String TAG = "CitiesArrayAdapter";
+	/**
+	 *
+	 */
+	private static final float KELVIN_OFFSET_TO_CELSIUS = -273.15f;
 	/**
 	 * *The layout inflater to build the view
 	 */
@@ -114,6 +121,7 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 	 * 
 	 * @see android.widget.ArrayAdapter#getView(int, android.view.View, android.view.ViewGroup)
 	 */
+	@SuppressLint("NewApi")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		rowView = convertView;
@@ -125,12 +133,10 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 		}
 		viewHolder = (ViewHolder) rowView.getTag();
 		viewHolder.getTxvCityName().setText(city.getName());
-		viewHolder.getTxvCityType().setText("Not available anymore");
-//		if(city.getEphemeris()!=null){
-//			viewHolder.getTxvCountry().setText(city.getEphemeris().getCountry());
-//		} else {
-//			viewHolder.getTxvCountry().setText("Not available anymore");
-//		}
+		viewHolder.getTxvCountry().setText(city.getSys().getCountry());
+		viewHolder.getMainCardView().getTvTemperature().setText(getContext().getString(R.string.main_temperature, city.getMain().getTemp() + KELVIN_OFFSET_TO_CELSIUS));
+		viewHolder.getMainCardView().getTvTemperatureMin().setText(getContext().getString(R.string.main_temperature_min, city.getMain().getTempMin() + KELVIN_OFFSET_TO_CELSIUS));
+		viewHolder.getMainCardView().getTvTemperatureMax().setText(getContext().getString(R.string.main_temperature_max, city.getMain().getTempMax() + KELVIN_OFFSET_TO_CELSIUS));
         if(postJellyBean){
             viewHolder.getImvGoogleMap().setBackground(earth);
         }else{
@@ -146,12 +152,15 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 	/******************************************************************************************/
 
 	private class ViewHolder {
-		TextView txvCityType = null;
 		TextView txvCityName = null;
 		TextView txvCountry = null;
 		ImageView imvGoogleMap = null;
 		Uri uri;
 		View rowView;
+        /**
+         * The CardView to use when displaying the main inforation of the weather (min/max/temp/humidity/pressure)
+         */
+        private MainCardView mainCardView;
 
 		/**
 		 * @param rowView
@@ -166,25 +175,16 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 					launchGoogleEarth(v) ;
 				}
 			});
-		}
-
-		/**
-		 * @return the txvCityType
-		 */
-		public final TextView getTxvCityType() {
-			if (txvCityType == null) {
-				txvCityType = (TextView) rowView.findViewById(R.id.txvCityType);
-			}
-			return txvCityType;
+            txvCityName = rowView.findViewById(R.id.txvCityName);
+            txvCountry = rowView.findViewById(R.id.txvCountry);
+            mainCardView=rowView.findViewById(R.id.cdv_main_city);
+            mainCardView.getIvDrop().setVisibility(View.GONE);
 		}
 
 		/**
 		 * @return the txvCityName
 		 */
 		public final TextView getTxvCityName() {
-			if (txvCityName == null) {
-				txvCityName = (TextView) rowView.findViewById(R.id.txvCityName);
-			}
 			return txvCityName;
 		}
 
@@ -192,9 +192,6 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 		 * @return the txvCountry
 		 */
 		public final TextView getTxvCountry() {
-			if (txvCountry == null) {
-				txvCountry = (TextView) rowView.findViewById(R.id.txvCountry);
-			}
 			return txvCountry;
 		}
 
@@ -205,7 +202,11 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 			return imvGoogleMap;
 		}
 
-		/**
+        public MainCardView getMainCardView() {
+            return mainCardView;
+        }
+
+        /**
 		 * Launch GoogleMap using an Intent
 		 */
 		private void launchGoogleEarth(View v) {
