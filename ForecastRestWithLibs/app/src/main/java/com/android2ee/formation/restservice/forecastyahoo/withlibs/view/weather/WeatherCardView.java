@@ -83,11 +83,6 @@ public class WeatherCardView extends MotherCardView {
         //TODO
     }
 
-    @Override
-    protected void removeObservers() {
-        //TODO
-    }
-
     private void updateWith(@NonNull Weather weather) {
         tvDescription.setText(weather.getDescription());
         tvMain.setText(weather.getMain());

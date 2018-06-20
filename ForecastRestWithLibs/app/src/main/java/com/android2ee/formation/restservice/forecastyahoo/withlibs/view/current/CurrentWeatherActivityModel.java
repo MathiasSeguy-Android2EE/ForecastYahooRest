@@ -3,13 +3,16 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current
 import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Transformations;
+import android.support.annotation.Nullable;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.MotherViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +22,11 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
     /***********************************************************
      *  Managing the WeatherData
      **********************************************************/
+
+    /**
+     * The cities displayed/on stage/on screen
+     */
+    LiveData<List<City>> onStageCities;
     /**
      * The main Live Data of the Use case: This is the main entity represents by the activity
      */
@@ -34,17 +42,34 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
     /***********************************************************
     *  Constructors
     **********************************************************/
+    @Deprecated
+    public CurrentWeatherActivityModel(long cityId) {
+        this();
+    }
     /**
      * You manage your entity by their id
      * So you need to know which id is the entity you want to manage
-     * @param cityId
+     * To do that we listen for the onStageCities stream
      */
-    public CurrentWeatherActivityModel(long cityId) {
-        if(cityId==CurrentWeatherActivity.NULL_VALUE){
-            return;
-        }
+    public CurrentWeatherActivityModel() {
+        onStageCities=MyApplication.instance.getServiceManager().getCityService().loadOnStageCities();
         //instanciate your LiveData for your UI
-        data= ForecastDatabase.getInstance().getWeatherDataDao().loadLiveDataCurrentByCityId(cityId);
+        data= Transformations.switchMap(onStageCities, new Function<List<City>, LiveData<WeatherData>>() {
+            @Override
+            public LiveData<WeatherData> apply(List<City> input) {
+                if(input.size()!=0){
+                    return ForecastDatabase.getInstance().getWeatherDataDao().loadLiveDataCurrentByCityId(input.get(0).get_id());
+                }else{
+                    return new LiveData<WeatherData>() {
+                        @Nullable
+                        @Override
+                        public WeatherData getValue() {
+                            return null;
+                        }
+                    };
+                }
+            }
+        });
         //transform the main data to the weather List
         //So you said, if the liveData (first paremeter) changes, I rebuild a new LiveData
         //you use switchmap because you change your query (the cityId has changed)
@@ -58,7 +83,18 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
                 //And it's done
                 //And the previous liveData unregister from its previous query and plug to the new one
                 //because you switchMap (if you had map only, you would have both streams)
-                return ForecastDatabase.getInstance().getWeatherDao().loadLiveDataWeatherForWeatherData(input.get_id());
+                if(input!=null){
+                    return ForecastDatabase.getInstance().getWeatherDao().loadLiveDataWeatherForWeatherData(input.get_id());
+                }else{
+                    return new LiveData<List<Weather>>() {
+                        @Nullable
+                        @Override
+                        public List<Weather> getValue() {
+                            return new ArrayList<>();
+                        }
+                    };
+                }
+
 
             }
         });
@@ -93,5 +129,13 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
      */
     public LiveData<List<Weather>> getWeather(){
         return weatherForWeatherData;
+    }
+
+    /**
+     * The liveData to observe when displaying the city of the WethaerData with the id passed in parameter of the constructor
+     * @return The liveData to observe when displaying the city
+     */
+    public LiveData<List<City>> getOnStageCities() {
+        return onStageCities;
     }
 }

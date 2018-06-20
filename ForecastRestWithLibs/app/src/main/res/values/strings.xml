@@ -44,5 +44,12 @@
     <string name="txv_last_update_swipe">Tirer la list vers le bas met aussi à jour les données.</string>
     <string name="txv_updating">Mise à jour des données... Attendez s\'il vous plait...</string>
     <string name="visibility">%1$d m</string>
+    <string name="title_activity_navigation_drawer">NavigationDrawerActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="generic_crud_failure">A crud operation was tried but it failed ... sorry</string>
 
 </resources>

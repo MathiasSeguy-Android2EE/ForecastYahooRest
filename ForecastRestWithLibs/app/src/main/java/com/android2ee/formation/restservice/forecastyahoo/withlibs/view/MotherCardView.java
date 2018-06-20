@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
-import android.view.View;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.MotherViewModel;
 
@@ -38,15 +37,8 @@ public abstract class MotherCardView<VM extends MotherViewModel> extends CardVie
         initObservers();
     }
 
-    @Override
-    public void onViewRemoved(View child) {
-        super.onViewRemoved(child);
-        removeObservers();
-    }
 
     protected abstract void initObservers();
-
-    protected abstract void removeObservers();
 
     /**
      * Give us the model associated with the mContext

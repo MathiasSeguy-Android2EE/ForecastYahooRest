@@ -24,7 +24,8 @@ import java.util.List;
         foreignKeys = {
                 @ForeignKey(entity = com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City.class,
                         parentColumns = "_id",
-                        childColumns = "cityId")}
+                        childColumns = "cityId",
+                        onDelete = ForeignKey.CASCADE)}
 )
 public class WeatherForecastItem {
     @PrimaryKey(autoGenerate = true)

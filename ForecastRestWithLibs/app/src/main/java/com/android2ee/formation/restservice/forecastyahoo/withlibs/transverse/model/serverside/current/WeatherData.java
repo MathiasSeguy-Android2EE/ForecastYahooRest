@@ -25,7 +25,8 @@ import java.util.List;
         foreignKeys = {
                 @ForeignKey(entity = City.class,
                         parentColumns = "_id",
-                        childColumns = "cityId")}
+                        childColumns = "cityId",
+                        onDelete = ForeignKey.CASCADE)}
 )
 public class WeatherData{
     @PrimaryKey(autoGenerate = true)
@@ -263,23 +264,7 @@ public class WeatherData{
         this.sys = sys;
     }
 
-    /**
-     * 
-     * @return
-     *     The id
-     */
-    public long getCityId() {
-        return city_Id;
-    }
 
-    /**
-     * 
-     * @param cityId
-     *     The id
-     */
-    public void setCityId(long cityId) {
-        this.city_Id = cityId;
-    }
 
     /**
      * 
@@ -357,6 +342,23 @@ public class WeatherData{
 
     public void setCity_Id(long city_Id) {
         this.city_Id = city_Id;
+    }
+    /**
+     *
+     * @return
+     *     The id
+     */
+    public long getCityId() {
+        return city_Id;
+    }
+
+    /**
+     *
+     * @param cityId
+     *     The id
+     */
+    public void setCityId(long cityId) {
+        this.city_Id = cityId;
     }
 
     @Override

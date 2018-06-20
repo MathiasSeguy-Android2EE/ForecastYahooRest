@@ -102,13 +102,6 @@ public class MainCardView extends MotherCardView {
         });
     }
 
-    @Override
-    protected void removeObservers() {
-        MainViewModel viewModel = (MainViewModel) getViewModel();
-        //noinspection ConstantConditions
-        viewModel.getMainLiveData().removeObservers(activity);
-    }
-
     private void updateWith(@NonNull Main main) {
         tvTemperature.setText(getContext().getString(R.string.main_temperature, main.getTemp() + KELVIN_OFFSET_TO_CELSIUS));
         tvTemperatureMin.setText(getContext().getString(R.string.main_temperature_min, main.getTempMin() + KELVIN_OFFSET_TO_CELSIUS));

@@ -30,6 +30,7 @@
  */
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessServiceIntf;
@@ -41,6 +42,30 @@ import java.util.List;
  * Created by Mathias Seguy - Android2EE on 10/04/2016.
  */
 public interface CityServiceIntf extends MotherBusinessServiceIntf{
+
+    /**
+     * Load All the cities in the base
+     * @return
+     */
+    LiveData<List<City>> loadAllLiveDate();
+
+    /**
+     * Load the cities to be displayed on screen
+     * @return
+     */
+    LiveData<List<City>> loadOnStageCities();
+
+    /**
+     * Define this cityId as the new one on Stage
+     * @param newCityOnStageId The one to put on stage
+     */
+    void onStage(long newCityOnStageId);
+
+    /**
+     *
+     * @return The number of cities in DataBase
+     */
+    LiveData<Integer> countCities();
 
     /**
      * Find the Cities that match the city name in an asynchronous way

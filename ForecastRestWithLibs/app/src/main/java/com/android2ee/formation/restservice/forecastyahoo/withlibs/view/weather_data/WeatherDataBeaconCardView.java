@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherCardView;
 
 import java.text.SimpleDateFormat;
@@ -26,6 +27,7 @@ import java.util.Locale;
  * Name/visibility/coord/base(station/beacon)
  */
 public class WeatherDataBeaconCardView extends MotherCardView {
+    private static final String TAG = "WeatherDataBeaconCardVi";
 
     /***********************************************************
      *  Attributes
@@ -87,6 +89,7 @@ public class WeatherDataBeaconCardView extends MotherCardView {
     }
 
     private void onChangedLiveData(@Nullable WeatherData weatherData) {
+        MyLog.e(TAG,"onChangedLiveData and weatherData is null : "+(weatherData==null));
         if(weatherData == null){
             //ben we do nothing, stupid liveData behavior
         }else {
@@ -105,6 +108,7 @@ public class WeatherDataBeaconCardView extends MotherCardView {
 
     @Override
     protected void initObservers() {
+        MyLog.e(TAG,"initObserver with contextId="+contextId);
         model = ViewModelProviders.of(activity, new WeatherDataBeaconModelFactory(contextId)).get(WeatherDataBeaconCardViewModel.class);
         //start observing
         model.getLiveData().observe(activity, new Observer<WeatherData>() {
@@ -115,12 +119,8 @@ public class WeatherDataBeaconCardView extends MotherCardView {
         });
     }
 
-    @Override
-    protected void removeObservers() {
-        //TODO
-    }
-
     private void updateWith(@NonNull WeatherData weatherData) {
+        MyLog.e(TAG,"updateWith "+weatherData.getName());
         tvName.setText(weatherData.getName());
         tvVisibility.setText(getResources().getString(R.string.visibility, weatherData.getVisibility()));
         tvCoord.setText(weatherData.getCoord().toString());

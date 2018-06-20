@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.findcity.CityActivity"></activity>
+        <activity android:name=".view.findcity.CityActivity" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
@@ -38,6 +38,10 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.android2ee.formation.restservice.forecastyahoo.withlibs" />
 
+        <activity
+            android:name=".view.current.CityNavDrawerActivity"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -54,7 +54,7 @@ import java.util.List;
 public class City  {
     @PrimaryKey(autoGenerate = true)
     private long _id;
-    @ColumnInfo(name="serverIdDeMerde")
+    @ColumnInfo(name="serverId")
     @Json(name="id")
     private int serverId;
     @ColumnInfo(name="name")
@@ -63,6 +63,9 @@ public class City  {
     private long dt;
     @ColumnInfo(name="coord")
     private Coord coord;
+    /**To know if it's the city shown to the user, the one on screen*/
+    @ColumnInfo(name="on_stage")
+    private Boolean onStage;
     @Ignore
     private Sys sys;
     @Ignore
@@ -291,112 +294,11 @@ public class City  {
         this._id = _id;
     }
 
-    //    private long Id;
-//    private String name;
-//    private String country;
-//    private Coord coord;
-//
-//    /**
-//     * No args constructor for use in serialization
-//     *
-//     */
-//    public City() {
-//    }
-//
-//    /**
-//     *
-//     * @param coord
-//     * @param name
-//     * @param Id
-//     * @param country
-//     */
-//    public City(long Id, String name, String country, Coord coord) {
-//        this.Id = Id;
-//        this.name = name;
-//        this.country = country;
-//        this.coord = coord;
-//    }
-//
-//    /**
-//     *
-//     * @return
-//     * The Id
-//     */
-//    public long getId() {
-//        return Id;
-//    }
-//
-//    /**
-//     *
-//     * @param Id
-//     * The _id
-//     */
-//    public void setId(long Id) {
-//        this.Id = Id;
-//    }
-//
-//    /**
-//     *
-//     * @return
-//     * The name
-//     */
-//    public String getName() {
-//        return name;
-//    }
-//
-//    /**
-//     *
-//     * @param name
-//     * The name
-//     */
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    /**
-//     *
-//     * @return
-//     * The country
-//     */
-//    public String getCountry() {
-//        return country;
-//    }
-//
-//    /**
-//     *
-//     * @param country
-//     * The country
-//     */
-//    public void setCountry(String country) {
-//        this.country = country;
-//    }
-//
-//    /**
-//     *
-//     * @return
-//     * The coord
-//     */
-//    public Coord getCoord() {
-//        return coord;
-//    }
-//
-//    /**
-//     *
-//     * @param coord
-//     * The coord
-//     */
-//    public void setCoord(Coord coord) {
-//        this.coord = coord;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        final StringBuffer sb = new StringBuffer("City{");
-//        sb.append("coord=").append(coord);
-//        sb.append(", Id=").append(Id);
-//        sb.append(", name='").append(name).append('\'');
-//        sb.append(", country='").append(country).append('\'');
-//        sb.append('}');
-//        return sb.toString();
-//    }
+    public Boolean getOnStage() {
+        return onStage;
+    }
+
+    public void setOnStage(Boolean onStage) {
+        this.onStage = onStage;
+    }
 }

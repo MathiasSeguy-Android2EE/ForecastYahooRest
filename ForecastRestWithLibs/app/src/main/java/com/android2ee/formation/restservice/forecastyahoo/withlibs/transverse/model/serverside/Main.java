@@ -18,13 +18,13 @@ import com.squareup.moshi.Json;
 @Entity(tableName="main_temp",
         indices = {@Index(value = {"weatherDataId","weatherForecastItemId"},unique = false)},
         foreignKeys = {@ForeignKey(entity = WeatherData.class,
-                parentColumns = "_id",
-                childColumns = "weatherDataId",
-        onDelete = ForeignKey.CASCADE),
+                    parentColumns = "_id",
+                    childColumns = "weatherDataId",
+                    onDelete = ForeignKey.CASCADE),
                 @ForeignKey(entity = WeatherForecastItem.class,
-                parentColumns = "_id",
-                childColumns = "weatherForecastItemId",
-                        onDelete = ForeignKey.CASCADE)}
+                    parentColumns = "_id",
+                    childColumns = "weatherForecastItemId",
+                            onDelete = ForeignKey.CASCADE)}
                 )
 public class Main{
     @PrimaryKey(autoGenerate = true)

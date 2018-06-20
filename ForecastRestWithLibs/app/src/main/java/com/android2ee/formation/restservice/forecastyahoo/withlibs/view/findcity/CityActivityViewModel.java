@@ -32,7 +32,6 @@ public class CityActivityViewModel extends ViewModel {
     public MutableLiveData<List<City>> getCitiesFoundLiveData() {
         return citiesFoundLiveData;
     }
-
     /**
      * Launch the Http Query
      * @param cityName
@@ -40,7 +39,6 @@ public class CityActivityViewModel extends ViewModel {
     public void searchCity(String cityName){
         MyApplication.instance.getServiceManager().getCityService().findCityByNameAsync(cityName);
     }
-
     /**
      * Selecting a City
      * @param city
@@ -49,6 +47,5 @@ public class CityActivityViewModel extends ViewModel {
         MyApplication.instance.getServiceManager().getCityService().addCityAsync(city);
         MyApplication.instance.getServiceManager().getWeatherUpdaterService().downloadCurrentWeatherAsync(city.getServerId());
         MyApplication.instance.getServiceManager().getWeatherUpdaterService().downloadForecastWeatherAsync(city.getServerId());
-
     }
 }

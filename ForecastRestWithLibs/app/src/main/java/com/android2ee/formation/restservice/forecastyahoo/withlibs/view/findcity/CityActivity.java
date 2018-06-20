@@ -80,10 +80,6 @@ public class CityActivity extends MotherActivity {
 	 * The boolean to know if the edittext is empty
 	 */
 	private boolean isEdtSizeEnough = true;
-	/**
-	 * The selected city
-	 */
-	private City selectedCity;
 
 	/******************************************************************************************/
 	/** Managing LifeCycle **************************************************************************/
@@ -165,7 +161,6 @@ public class CityActivity extends MotherActivity {
 		viewModel.getCitiesFoundLiveData().observe(this, new Observer<List<City>>() {
 			@Override
 			public void onChanged(@Nullable List<City> cities) {
-				MyLog.e(TAG,"Cities list have been updated");
 				updateCities(cities);
 			}
 		});
@@ -246,7 +241,6 @@ public class CityActivity extends MotherActivity {
 	private void selectCity(int position){
 		City city=arrayAdapterCities.getItem(position);
 		viewModel.selectCity(city);
-//		finishView(city.get_id());
 	}
 
 	/******************************************************************************************/
@@ -260,17 +254,14 @@ public class CityActivity extends MotherActivity {
 	}
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onEventMainThread(CityAddedEvent event){
-		finishView(event.getCity().get_id());
+		finishView();
 	}
 	/**
 	 * Call this method when the view has to be finished (Activity's notion)
 	 */
-	public void finishView(long cityId) {
+	public void finishView() {
 		//launch the main activity
 		Intent launchMainActivity=new Intent(this,CurrentWeatherActivity.class);
-		Bundle bun=new Bundle();
-		bun.putLong(CITY_ID, cityId);
-		launchMainActivity.putExtras(bun);
 		startActivity(launchMainActivity);
 		//and die
 		finish();

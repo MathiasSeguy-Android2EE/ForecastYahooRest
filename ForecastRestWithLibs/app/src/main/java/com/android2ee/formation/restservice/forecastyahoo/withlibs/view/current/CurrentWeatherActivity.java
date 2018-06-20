@@ -1,18 +1,13 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,11 +18,11 @@ import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.adapter.WeatherRecyclerViewAdapter;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.CityActivity;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.dialog.DeleteAlert;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataBeaconCardView;
@@ -35,7 +30,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrentWeatherActivity extends MotherActivity {
+public class CurrentWeatherActivity extends CityNavDrawerActivity implements DeleteAlert.DeletionCallBack {
     private static final String TAG = "CurrentWeatherActivity";
     public static final int NULL_VALUE = -1;
 
@@ -90,10 +85,8 @@ public class CurrentWeatherActivity extends MotherActivity {
     CurrentWeatherActivityModel model;
     /**     * Pointer to the LiveData observed     */
     private WeatherData weatherData;
-    /**     * Context of reference of the displayed object
-     * This is the cityId for the WeatherData to displays
-     */
-    private long cityId;
+    /**     * The name of the city on Stage     */
+    private String cityName;
     /**
      * The Alertdialog to confirm deletion
      */
@@ -102,25 +95,27 @@ public class CurrentWeatherActivity extends MotherActivity {
     *  Managing LifeCycle
     **********************************************************/
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //get you data context
-        cityId=getIntent().getLongExtra(CityActivity.CITY_ID, NULL_VALUE);
-        MyLog.e(TAG,"found the cityId = "+cityId);
         //load your model
-        model=ViewModelProviders.of(this, new CurrentWeatherModelFactory(cityId)).get(CurrentWeatherActivityModel.class);
+        model=ViewModelProviders.of(this).get(CurrentWeatherActivityModel.class);
         //set and init your views
-        setContentView(R.layout.activity_current_weather);
+        setContentView(R.layout.activity_navigation_drawer);
+//        setContentView(R.layout.activity_current_weather);
         initCardViews();
+        super.initView();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(cityId==NULL_VALUE){
-            launchCityActivity(true);
-            return;
-        }
+        model.getOnStageCities().observe(this, new Observer<List<City>>() {
+                    @Override
+                    public void onChanged(@Nullable List<City> cities) {
+                        updateCity(cities);
+                    }
+                }
+        );
         //start observing the weatherData entity
         model.getLiveData().observe(this, new Observer<WeatherData>() {
             @Override
@@ -185,8 +180,9 @@ public class CurrentWeatherActivity extends MotherActivity {
      * When you have the Id of your weatherData displayed, init your others card models and views
      */
     private void initLifecycleOwners() {
+        MyLog.e(TAG,"Init observer with "+weatherData.get_id());
         mainCardView.setLifecycleOwner(this, weatherData.get_id());
-        weatherDataBeaconCardView.setLifecycleOwner(this, cityId);
+        weatherDataBeaconCardView.setLifecycleOwner(this, weatherData.getCityId());
         sysCardView.setLifecycleOwner(this, weatherData.get_id());
     }
 
@@ -198,14 +194,13 @@ public class CurrentWeatherActivity extends MotherActivity {
      * @param weatherData New entity to display
      */
     private void onChangedLiveData(@Nullable WeatherData weatherData) {
+        MyLog.e(TAG,"WeatherLiveData changed with "+weatherData);
         if(weatherData==null){
-            //ben we do nothing, stupid liveData behavior
+            //clear the UI
         }else {
             this.weatherData = weatherData;
             initLifecycleOwners();
             updateView(weatherData);
-            //observe the Weathers
-
         }
     }
 
@@ -214,8 +209,6 @@ public class CurrentWeatherActivity extends MotherActivity {
      * @param weatherData
      */
     private void updateView(WeatherData weatherData){
-        //todo
-        this.weatherData=weatherData;
         tvWind.setText(""+(weatherData.getWind()!=null?weatherData.getWind().getSpeed():" 0 "));
         tvClouds.setText(""+(weatherData.getClouds()!=null?weatherData.getClouds().getAll():" 0 "));
         tvRain.setText(""+(weatherData.getRain()!=null?weatherData.getRain().get3h():" 0 "));
@@ -227,6 +220,14 @@ public class CurrentWeatherActivity extends MotherActivity {
     }
 
 
+    private void updateCity(List<City> cities){
+        if(cities.size()!=0){
+            cityName=cities.get(0).getName();
+            super.getSupportActionBar().setSubtitle(cityName);
+        }else{
+            super.getSupportActionBar().setSubtitle("No onStage city found");
+        }
+    }
     /**
      * Start AnimationVectorDrawables
      * @param drawable Start the animation of this VectorDrawable
@@ -284,69 +285,24 @@ public class CurrentWeatherActivity extends MotherActivity {
         deleteDialog=(DeleteAlert)fm.findFragmentByTag("deleteDialog");
         if(deleteDialog==null){
             deleteDialog=new DeleteAlert();
+            deleteDialog.setDeletionCallBack(this);
         }
         deleteDialog.show(getSupportFragmentManager(), "deleteDialog");
+    }
+
+
+    /***********************************************************
+     *  Managing DeletionCallback methods
+     **********************************************************/
+    @Override
+    public String getCurrentCityName() {
+        return cityName;
     }
     /**
      * Delete the current city and then do what is needed in term of navigation
      */
-    private void deleteCurrentCity(){
-        model.deleteCity(cityId);
-    }
-    /******************************************************************************************/
-    /** Managing navigation **************************************************************************/
-    /******************************************************************************************/
-
-    /**
-     * When there is no city in the Database, you have to launch the search activity from here
-     */
-    public void launchCityActivity(boolean finish){
-        // then launch the CityActivity to select a city
-        Intent launchCityActivity = new Intent(this, CityActivity.class);
-        startActivity(launchCityActivity);
-        if(finish){
-            finish();
-        }
-    }
-    /******************************************************************************************/
-    /** Managing AlertDialog **************************************************************************/
-    /******************************************************************************************/
-
-    /**
-     * The AlertDialog that displays the message are you sure you want to delete
-     */
-    @SuppressLint("ValidFragment")
-    public class DeleteAlert extends DialogFragment {
-
-        public DeleteAlert(){
-            //empty constructor is mandatory
-        }
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("");
-            builder.setPositiveButton(R.string.btn_yes, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    deleteCurrentCity();
-                }
-            });
-            builder.setNegativeButton(R.string.btn_no, null);
-            return builder.create();
-        }
-
-        /**
-         * Called when the fragment is visible to the user and actively running.
-         * This is generally
-         * tied to {@link android.app.Activity#onResume() Activity.onResume} of the containing
-         * Activity's lifecycle.
-         */
-        @Override
-        public void onResume() {
-            super.onResume();
-            //TODO
-//            City cityToDelete=presenter.getCities().get(viewPager.getCurrentItem());
-//            ((AlertDialog)getDialog()).setMessage(getString(R.string.alertdialog_message,cityToDelete.getName()));
-        }
+    @Override
+    public void deleteCurrentCity(){
+        model.deleteCity(weatherData.getCityId());
     }
 }
