@@ -6,6 +6,9 @@ import android.text.TextUtils;
 import android.webkit.URLUtil;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.PictureLoadedEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -87,6 +90,8 @@ public class PictureCacheDownloader {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
             //The close properly your stream
             fos.flush();
+
+            EventBus.getDefault().post(new PictureLoadedEvent(fileName));
         } finally {
             if (fos != null) {
                 fos.close();
