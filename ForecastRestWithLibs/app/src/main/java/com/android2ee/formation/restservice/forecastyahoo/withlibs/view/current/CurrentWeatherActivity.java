@@ -3,12 +3,14 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +32,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrentWeatherActivity extends CityNavDrawerActivity implements DeleteAlert.DeletionCallBack {
+public class CurrentWeatherActivity extends CityNavDrawerActivity implements DeleteAlert.DeletionCallBack, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "CurrentWeatherActivity";
     public static final int NULL_VALUE = -1;
 
@@ -53,6 +55,8 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
     private TextView tvClouds;
     /**     * CompatImageView containing AVD for Clouds     */
     private AppCompatImageView ivClouds;
+    /**     *Refresh data     */
+    private SwipeRefreshLayout swipeView;
     /***********************************************************
      *  Attributes Recycler View
      **********************************************************/
@@ -163,6 +167,14 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
         rvWeatherList = findViewById(R.id.rv_weather_list);
         weatherDataBeaconCardView = findViewById(R.id.cdv_weather_data);
         sysCardView = findViewById(R.id.cdv_sys);
+        //Refresh Layout
+        swipeView = (SwipeRefreshLayout) findViewById(R.id.swipe_view);
+        swipeView.setOnRefreshListener(this);
+        swipeView.setColorSchemeColors(Color.GRAY, Color.GREEN, Color.BLUE,
+                Color.RED, Color.CYAN);
+        swipeView.setDistanceToTriggerSync(20);// in dips
+        swipeView.setSize(SwipeRefreshLayout.DEFAULT);// LARGE also can be used
+
         //manage recyclerview
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
@@ -184,6 +196,21 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
         mainCardView.setLifecycleOwner(this, weatherData.get_id());
         weatherDataBeaconCardView.setLifecycleOwner(this, weatherData.getCityId());
         sysCardView.setLifecycleOwner(this, weatherData.get_id());
+    }
+
+    /***********************************************************
+     *  Managing Refresh
+     **********************************************************/
+    /**
+     * Called when a swipe gesture triggers a refresh.
+     */
+    @Override
+    public void onRefresh() {
+        //onRefresh
+        swipeView.setRefreshing(true);
+        //load data
+        model.updateDataOfCitiesOnStage();
+
     }
 
     /***********************************************************
@@ -209,6 +236,9 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
      * @param weatherData
      */
     private void updateView(WeatherData weatherData){
+        //finish refreshing
+        swipeView.setRefreshing(false);
+        //update the UI
         tvWind.setText(""+(weatherData.getWind()!=null?weatherData.getWind().getSpeed():" 0 "));
         tvClouds.setText(""+(weatherData.getClouds()!=null?weatherData.getClouds().getAll():" 0 "));
         tvRain.setText(""+(weatherData.getRain()!=null?weatherData.getRain().get3h():" 0 "));
@@ -305,4 +335,6 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
     public void deleteCurrentCity(){
         model.deleteCity(weatherData.getCityId());
     }
+
+
 }

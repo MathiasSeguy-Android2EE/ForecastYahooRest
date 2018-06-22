@@ -140,8 +140,8 @@ public class DataCommunication implements DataCommunicationIntf{
     }
 
     @Override
-    public WeatherData getWeatherByCityId(long cityId) {
-        return communication.getWeatherByCityId(cityId);
+    public WeatherData getWeatherByCityServerId(long cityId) {
+        return communication.getWeatherByCityServerId(cityId);
     }
 
     @Override

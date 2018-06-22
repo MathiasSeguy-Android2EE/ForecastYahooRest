@@ -51,7 +51,7 @@ public class NoConnectivityDataCommunication implements DataCommunicationIntf {
 
     @Override
     public Weather findWeatherByCityId(long cityId) {
-        MyLog.i("NoConnectivityDataCom","Trying to make an Http call findWeatherByCityId but there is no connectivity");
+        MyLog.i("NoConnectivityDataCom","Trying to make an Http call findWeatherByCityServerId but there is no connectivity");
         return null;
     }
 
@@ -68,8 +68,8 @@ public class NoConnectivityDataCommunication implements DataCommunicationIntf {
     }
 
     @Override
-    public WeatherData getWeatherByCityId(long cityId) {
-        MyLog.i("NoConnectivityDataCom","Trying to make an Http call getWeatherByCityId but there is no connectivity");
+    public WeatherData getWeatherByCityServerId(long cityId) {
+        MyLog.i("NoConnectivityDataCom","Trying to make an Http call getWeatherByCityServerId but there is no connectivity");
         return null;
     }
 

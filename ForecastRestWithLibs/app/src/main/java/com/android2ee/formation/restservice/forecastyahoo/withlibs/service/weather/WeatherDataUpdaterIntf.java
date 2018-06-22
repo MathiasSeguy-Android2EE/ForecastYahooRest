@@ -40,32 +40,32 @@ public interface WeatherDataUpdaterIntf extends MotherBusinessServiceIntf {
     /**
      * Download the current Weather in an asynchronous way
      *
-     * @param cityId
-     *            The id of the city associated with the forecasts
+     * @param cityServerId
+     *            The id SERVER SIDE of the city associated with the forecasts
      */
-    void downloadCurrentWeatherAsync(int cityId);
+    void downloadCurrentWeatherAsync(long cityServerId);
 
     /**
      * Download the current Weather in an synchronous way
      *
-     * @param cityId
-     *            The id of the city associated with the forecasts
+     * @param cityServerId
+     *            The id SERVER SIDE of the city associated with the forecasts
      */
-    void downloadCurrentWeatherSync(int cityId);
+    void downloadCurrentWeatherSync(long cityServerId);
 
     /**
      * Download the current Weather in an asynchronous way
      *
-     * @param cityId
-     *            The id of the city associated with the forecasts
+     * @param cityServerId
+     *            The id SERVER SIDE of the city associated with the forecasts
      */
-    void downloadForecastWeatherAsync(int cityId);
+    void downloadForecastWeatherAsync(long cityServerId);
 
     /**
      * Download the current Weather in an synchronous way
      *
-     * @param cityId
-     *            The id of the city associated with the forecasts
+     * @param cityServerId
+     *            The id SERVER SIDE of the city associated with the forecasts
      */
-    void downloadForecastWeatherSync(int cityId);
+    void downloadForecastWeatherSync(long cityServerId);
 }

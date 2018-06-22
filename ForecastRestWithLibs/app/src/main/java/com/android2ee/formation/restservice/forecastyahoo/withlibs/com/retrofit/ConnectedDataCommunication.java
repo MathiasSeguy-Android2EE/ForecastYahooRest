@@ -95,9 +95,9 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
 
     @Override
     public Weather findWeatherByCityId(long cityId) {
-        MyLog.e(TAG, "findWeatherByCityId() called with: " + "cityId = [" + cityId + "]");
+        MyLog.e(TAG, "findWeatherByCityServerId() called with: " + "cityId = [" + cityId + "]");
         try {
-            findWeatherByCityIdCall=webServiceComplex.findWeatherByCityId(cityId);
+            findWeatherByCityIdCall=webServiceComplex.findWeatherByCityServerId(cityId);
             return new Weather(findWeatherByCityIdCall.execute().body());
         } catch (IOException e) {
             ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));
@@ -148,10 +148,10 @@ public class ConnectedDataCommunication implements DataCommunicationIntf {
     }
 
     @Override
-    public WeatherData getWeatherByCityId(long cityId) {
-        MyLog.e(TAG, "findWeatherByCityId() called with: " + "cityId = [" + cityId + "]");
+    public WeatherData getWeatherByCityServerId(long cityId) {
+        MyLog.e(TAG, "findWeatherByCityServerId() called with: " + "cityId = [" + cityId + "]");
         try {
-            findWeatherByCityIdCall=webServiceComplex.findWeatherByCityId(cityId);
+            findWeatherByCityIdCall=webServiceComplex.findWeatherByCityServerId(cityId);
             return findWeatherByCityIdCall.execute().body();
         } catch (IOException e) {
             ExceptionManager.manage(new ExceptionManaged(ConnectedDataCommunication.class, R.string.datacom_findcity_ioexc,e));

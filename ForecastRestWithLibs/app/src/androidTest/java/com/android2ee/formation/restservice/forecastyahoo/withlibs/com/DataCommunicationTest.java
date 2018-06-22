@@ -70,7 +70,7 @@ public class DataCommunicationTest extends AndroidTestCase {
 
 
     /**
-     * Testing the findWeatherByCityId
+     * Testing the findWeatherByCityServerId
      * @throws Exception
      */
     public void testFindWeatherByCityId() throws Exception {

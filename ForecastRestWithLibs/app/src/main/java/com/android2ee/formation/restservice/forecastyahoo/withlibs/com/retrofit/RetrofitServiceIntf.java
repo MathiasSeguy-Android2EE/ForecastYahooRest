@@ -48,7 +48,7 @@ public interface RetrofitServiceIntf {
 
     //find the weather
     @GET("weather?appid=5bdd3591cd56feae91bc8ac10c51ac8d")
-    Call<WeatherData> findWeatherByCityId(@Query("id")long cityId);
+    Call<WeatherData> findWeatherByCityServerId(@Query("id")long cityId);
 
     //find the forecast
     @GET("forecast?appid=5bdd3591cd56feae91bc8ac10c51ac8d")

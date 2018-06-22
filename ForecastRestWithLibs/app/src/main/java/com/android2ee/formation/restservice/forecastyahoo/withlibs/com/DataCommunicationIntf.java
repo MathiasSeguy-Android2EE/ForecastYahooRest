@@ -54,7 +54,7 @@ public interface DataCommunicationIntf {
     //find the city using its name
     com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse getCitiesByName(String cityName);
     //find the weather using the city ID
-    WeatherData getWeatherByCityId(long cityId);
+    WeatherData getWeatherByCityServerId(long cityId);
     //find the forecast using the city ID
     Forecast getForecastByCityId(long cityId);
 

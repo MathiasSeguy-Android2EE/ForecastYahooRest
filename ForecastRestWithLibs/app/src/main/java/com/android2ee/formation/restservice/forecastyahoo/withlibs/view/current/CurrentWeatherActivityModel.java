@@ -14,6 +14,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.ev
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.PictureCacheDownloader;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.MotherViewModel;
 
@@ -29,6 +30,7 @@ import java.util.List;
  * Created by Created by Mathias Seguy alias Android2ee on 15/06/2018.
  */
 public class CurrentWeatherActivityModel extends MotherViewModel {
+    private static final String TAG = "CurrentWeatherActivityM";
     /***********************************************************
      *  Managing the WeatherData
      **********************************************************/
@@ -125,11 +127,6 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
             }
         });
     }
-
-    /***********************************************************
-     *  Getters for the Views
-     **********************************************************/
-
     @Override
     protected void onCleared() {
         super.onCleared();
@@ -137,6 +134,26 @@ public class CurrentWeatherActivityModel extends MotherViewModel {
         iconNotFoundNameToBitmapLiveData = null;
         EventBus.getDefault().unregister(this);
     }
+
+
+    /**
+     * Donwload the cities data
+     */
+    public void updateDataOfCitiesOnStage(){
+        MyLog.e(TAG,"updateDataOfCitiesOnStage");
+        for (City city : onStageCities.getValue()) {
+            MyLog.e(TAG,"updateDataOfCitiesOnStage updating the city data of "+city.getName());
+            MyApplication.instance.getServiceManager().getWeatherUpdaterService().downloadCurrentWeatherAsync(city.getServerId());
+            MyApplication.instance.getServiceManager().getWeatherUpdaterService().downloadForecastWeatherAsync(city.getServerId());
+        }
+    }
+
+
+    /***********************************************************
+     *  Getters for the Views
+     **********************************************************/
+
+
 
     /**
      * Delete the current City

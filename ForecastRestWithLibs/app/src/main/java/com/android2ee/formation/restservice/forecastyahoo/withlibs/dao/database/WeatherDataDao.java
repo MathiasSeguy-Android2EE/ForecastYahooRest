@@ -24,8 +24,8 @@ public interface WeatherDataDao {
 
     @Query("SELECT * FROM weather_data_current WHERE cityId IN (:cityId)")
     LiveData<List<WeatherData>> loadLiveDataByCityId(long cityId);
-    @Query("SELECT * FROM weather_data_current WHERE cityId IN (:cityId) ORDER BY dt DESC LIMIT 1 ")
-    LiveData<WeatherData> loadLiveDataCurrentByCityId(long cityId);
+    @Query("SELECT * FROM weather_data_current WHERE cityId IN (:cityServerId) ORDER BY dt DESC LIMIT 1 ")
+    LiveData<WeatherData> loadLiveDataCurrentByCityId(long cityServerId);
     /***********************************************************
      *  Insert
      **********************************************************/

@@ -100,32 +100,34 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
     /**
      * Download the current Weather in an asynchronous way
      *
-     * @param cityId
+     * @param cityServerId
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadCurrentWeatherAsync(int cityId) {
-        MyLog.e(TAG, "downloadCurrentWeatherAsync called with woeid=" + cityId);
+    public void downloadCurrentWeatherAsync(long cityServerId) {
+        MyLog.e(TAG, "downloadCurrentWeatherAsync called with woeid=" + cityServerId);
          // then launch it
-        MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadCurWeatherRunnable(cityId));
+        MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadCurWeatherRunnable(cityServerId));
 
     }
     /**
      * Download the current Weather in an synchronous way
      *
-     * @param cityId
+     * @param cityServerId
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadCurrentWeatherSync(int cityId) {
-        MyLog.e(TAG, "downloadCurrentWeatherSync for city =" + cityId);
+    public void downloadCurrentWeatherSync(long cityServerId) {
+        MyLog.e(TAG, "downloadCurrentWeatherSync for city =" + cityServerId);
         // Load data from the web
-        WeatherData weatherData=Injector.getDataCommunication().getWeatherByCityId(cityId);
-        //store in the database
-        Long id=ForecastDatabase.getInstance().getCityDao().loadLiveDataByServerId(cityId);
-        weatherData.setCityId(id);
-        DaoWrapper.getInstance().saveWeatherData(weatherData);
-        MyLog.d(TAG, "downloadCurrentWeatherSync found " + weatherData);
+        WeatherData weatherData=Injector.getDataCommunication().getWeatherByCityServerId(cityServerId);
+        if(weatherData!=null) {
+            //store in the database
+            Long id = ForecastDatabase.getInstance().getCityDao().loadLiveDataByServerId(cityServerId);
+            weatherData.setCityId(id);
+            DaoWrapper.getInstance().saveWeatherData(weatherData);
+            MyLog.d(TAG, "downloadCurrentWeatherSync found " + weatherData);
+        }
     }
 
     /**
@@ -134,9 +136,9 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *        This class aims to implements a Runnable with an Handler
      */
     private class DownloadCurWeatherRunnable implements Runnable {
-        int cityId;
+        long cityId;
 
-        public DownloadCurWeatherRunnable(int cityId) {
+        public DownloadCurWeatherRunnable(long cityId) {
             this.cityId = cityId;
         }
 
@@ -152,28 +154,30 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
     /**
      * Download the current Weather in an asynchronous way
      *
-     * @param cityId
+     * @param cityServerId
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadForecastWeatherAsync(int cityId) {
-        MyLog.e(TAG, "downloadForecastWeatherAsync called with woeid=" + cityId);
+    public void downloadForecastWeatherAsync(long cityServerId) {
+        MyLog.e(TAG, "downloadForecastWeatherAsync called with woeid=" + cityServerId);
         // then launch it
-        MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadForecastWeatherRunnable(cityId));
+        MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new DownloadForecastWeatherRunnable(cityServerId));
 
     }
     /**
      * Download the current Weather in an synchronous way
      *
-     * @param cityId
+     * @param cityServerId
      *            The id of the city associated with the forecasts
      */
     @Override
-    public void downloadForecastWeatherSync(int cityId) {
-        MyLog.e(TAG, "downloadForecastWeatherSync for city =" + cityId);
+    public void downloadForecastWeatherSync(long cityServerId) {
+        MyLog.e(TAG, "downloadForecastWeatherSync for city =" + cityServerId);
         // Load data from the web
-        Forecast forecast=Injector.getDataCommunication().getForecastByCityId(cityId);
-        DaoWrapper.getInstance().saveForecast(forecast);
+        Forecast forecast=Injector.getDataCommunication().getForecastByCityId(cityServerId);
+        if(forecast!=null) {
+            DaoWrapper.getInstance().saveForecast(forecast);
+        }
     }
 
 
@@ -183,9 +187,9 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *        This class aims to implements a Runnable with an Handler
      */
     private class DownloadForecastWeatherRunnable implements Runnable {
-        int cityId;
+        long cityId;
 
-        public DownloadForecastWeatherRunnable(int cityId) {
+        public DownloadForecastWeatherRunnable(long cityId) {
             this.cityId = cityId;
         }
 
