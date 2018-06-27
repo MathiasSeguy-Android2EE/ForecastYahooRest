@@ -1,4 +1,4 @@
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel;
+package com.android2ee.formation.restservice.forecastyahoo.withlibs.view;
 
 import android.arch.lifecycle.ViewModel;
 

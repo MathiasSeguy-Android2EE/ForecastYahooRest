@@ -23,7 +23,7 @@ public interface SysDao {
     LiveData<Sys> loadLiveDataById(long id);
 
 //    @Query("SELECT * FROM sys_current WHERE weatherForecastItemId IN (:weatherForecastItemId)")
-//    LiveData<List<Sys>> loadLiveDataWeatherForWeatherForecastItem(long weatherForecastItemId);
+//    LiveData<List<Sys>> loadLiveDataMainForWeatherForecastItem(long weatherForecastItemId);
 
     @Query("SELECT * FROM sys_current WHERE weatherDataId IN (:weatherDataId)")
     LiveData<Sys> loadLiveDataSysByWeatherDataId(long weatherDataId);

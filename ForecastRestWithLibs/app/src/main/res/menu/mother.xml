@@ -1,6 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:a2ee="http://schemas.android.com/apk/res-auto"  >
-
+    <item
+        android:id="@+id/action_switch"
+        a2ee:showAsAction="always"
+        android:icon="@drawable/ic_last_update"
+        android:title="@string/action_search"/>
     <item
         android:id="@+id/action_author"
         a2ee:showAsAction="ifRoom"

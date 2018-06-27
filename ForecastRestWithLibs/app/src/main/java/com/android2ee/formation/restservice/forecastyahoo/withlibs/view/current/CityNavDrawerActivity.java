@@ -23,7 +23,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity
 
 import java.util.List;
 
-public class CityNavDrawerActivity extends MotherActivity
+public abstract class CityNavDrawerActivity extends MotherActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "NavigationDrawerActivit";
     /***********************************************************
@@ -166,15 +166,7 @@ public class CityNavDrawerActivity extends MotherActivity
     /**
      * @param cityId
      */
-    public void selectCity(long cityId) {
-        MyLog.e(TAG,"New cityId on stage:"+cityId);
-        MyApplication.instance.getServiceManager().getCityService().onStage(cityId);
-        //launch the main activity
-        Intent launchMainActivity = new Intent(this, CurrentWeatherActivity.class);
-        startActivity(launchMainActivity);
-        //and die
-        finish();
-    }
+    public abstract void selectCity(long cityId);
 
     /**
      * @param finish

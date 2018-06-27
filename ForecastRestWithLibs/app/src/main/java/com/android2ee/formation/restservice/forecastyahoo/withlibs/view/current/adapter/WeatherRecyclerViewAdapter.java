@@ -28,6 +28,9 @@ import java.util.List;
  */
 public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecyclerViewAdapter.MyViewHolder> {
     private static final String TAG = "WeatherRecyclerViewAdap";
+    /***********************************************************
+     *  Attributes
+     **********************************************************/
     private CurrentWeatherActivityModel parentModel;
     private ArrayList<Weather> weathers;
     private LayoutInflater inflater;
@@ -35,6 +38,9 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
     private WeatherCardView cv;
     private Weather weatherTemp;
     private LifecycleOwner lfOwner;
+    /***********************************************************
+    *  Constructors
+    **********************************************************/
     public WeatherRecyclerViewAdapter(ArrayList<Weather> weathers, AppCompatActivity ctx, CurrentWeatherActivityModel model) {
         lfOwner=ctx;
         parentModel=model;

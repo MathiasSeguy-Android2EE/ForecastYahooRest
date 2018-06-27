@@ -3,6 +3,7 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
@@ -18,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
@@ -25,6 +27,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.adapter.WeatherRecyclerViewAdapter;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.dialog.DeleteAlert;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.ForecastWeatherActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataBeaconCardView;
@@ -191,7 +194,7 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
     /**
      * When you have the Id of your weatherData displayed, init your others card models and views
      */
-    private void initLifecycleOwners() {
+    private void updateLifecycleOwners() {
         MyLog.e(TAG,"Init observer with "+weatherData.get_id());
         mainCardView.setLifecycleOwner(this, weatherData.get_id());
         weatherDataBeaconCardView.setLifecycleOwner(this, weatherData.getCityId());
@@ -226,7 +229,7 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
             //clear the UI
         }else {
             this.weatherData = weatherData;
-            initLifecycleOwners();
+            updateLifecycleOwners();
             updateView(weatherData);
         }
     }
@@ -298,6 +301,9 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
                 //Delete the current city
                 onDeleteCurrentCity();
                 return true;
+            case R.id.action_switch:
+                launchForecast();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -320,7 +326,28 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
         deleteDialog.show(getSupportFragmentManager(), "deleteDialog");
     }
 
+    /**
+     * @param cityId
+     */
+    public void selectCity(long cityId) {
+        MyLog.e(TAG,"New cityId on stage:"+cityId);
+        MyApplication.instance.getServiceManager().getCityService().onStage(cityId);
+        //launch the main activity
+        Intent launchMainActivity = new Intent(this, CurrentWeatherActivity.class);
+        startActivity(launchMainActivity);
+        //and die
+        finish();
+    }
 
+    /**
+     *
+     */
+    private void launchForecast() {
+        MyLog.e(TAG,"launchForecast");
+        //launch the main activity
+        Intent launchMainActivity = new Intent(this, ForecastWeatherActivity.class);
+        startActivity(launchMainActivity);
+    }
     /***********************************************************
      *  Managing DeletionCallback methods
      **********************************************************/

@@ -2,18 +2,23 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database
 
 import android.util.Log;
 
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManaged;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.PictureCacheDownloader;
 
 /**
  * Created by Created by Mathias Seguy alias Android2ee on 14/06/2018.
  */
 public class DaoWrapper {
+    private static final String TAG = "DaoWrapper";
     /***********************************************************
      *  Singleton
      **********************************************************/
@@ -85,6 +90,7 @@ public class DaoWrapper {
         ForecastDatabase db=ForecastDatabase.getInstance();
         //find the city id in the local db
         long cityId=db.getCityDao().loadLiveDataByName(forecast.getCity().getName()).get_id();
+        MyLog.e(TAG,"save forecast found cityId="+cityId+" for the city :"+forecast.getCity().getName());
         //then  save each forecast
         WeatherForecastItemDao wfiDao=db.getWeatherForecastItemDao();
         MainDao mainDao=db.getMainDao();
@@ -106,22 +112,29 @@ public class DaoWrapper {
                                          WeatherForecastItemDao wfiDao,
                                          MainDao mainDao,
                                          WeatherDao wDao){
-        //save it
-        long weatherDataId=wfiDao.insert(weatherForecastItem);
-        weatherForecastItem.set_id(weatherDataId);
-        //then persist the sub object
-        //Persist Main
-        weatherForecastItem.getMain().setWeatherForecastItemId(weatherDataId);
-        //important trick as you have 2 foreign key,
-        //the on not used should be set to null
-        weatherForecastItem.getMain().setWeatherDataId(null);
-        mainDao.insert(weatherForecastItem.getMain());
+        try {
+            //save it
+            long weatherDataId = wfiDao.insert(weatherForecastItem);
 
-        //persist weather list
-        for (Weather weather : weatherForecastItem.getWeather()) {
-            weather.setWeatherDataId(weatherDataId);
-            weather.setWeatherForecastItemId(null);
-            wDao.insert(weather);
+//            MyLog.e(TAG, "saveWeatherForecastItem has saved" + weatherDataId + " for the cityId set to :" + weatherForecastItem.getCity_Id());
+            weatherForecastItem.set_id(weatherDataId);
+            //then persist the sub object
+            //Persist Main
+            //important trick as you have 2 foreign key,
+            //the on not used should be set to null
+            weatherForecastItem.getMain().setWeatherForecastItemId(weatherDataId);
+            weatherForecastItem.getMain().setWeatherDataId(null);
+            mainDao.insert(weatherForecastItem.getMain());
+
+            //persist weather list
+            for (Weather weather : weatherForecastItem.getWeather()) {
+                weather.setWeatherDataId(null);
+                weather.setWeatherForecastItemId(weatherDataId);
+                wDao.insert(weather);
+            }
+        }catch (Exception e){
+            ExceptionManager.manage(new ExceptionManaged(DaoWrapper.class, R.string.exc_database_cannot_open,e));
+//            MyLog.e(TAG,"A fuck occured",e);
         }
     }
 

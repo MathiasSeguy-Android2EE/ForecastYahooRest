@@ -23,10 +23,10 @@ public interface MainDao {
     LiveData<Main> loadLiveDataById(long id);
 
     @Query("SELECT * FROM main_temp WHERE weatherForecastItemId IN (:weatherForecastItemId) LIMIT 1")
-    LiveData<Main> loadLiveDataWeatherForWeatherForecastItem(long weatherForecastItemId);
+    LiveData<Main> loadLiveDataMainForWeatherForecastItem(long weatherForecastItemId);
 
     @Query("SELECT * FROM main_temp WHERE weatherDataId IN (:weatherDataId) LIMIT 1")
-    LiveData<Main> loadLiveDataWeatherForWeatherData(long weatherDataId);
+    LiveData<Main> loadLiveDataMainForWeatherData(long weatherDataId);
 
     /***********************************************************
      *  Insert

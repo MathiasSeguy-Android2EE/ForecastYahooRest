@@ -4,7 +4,7 @@ import android.arch.lifecycle.LiveData;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.Sys;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.MotherViewModel;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherViewModel;
 
 /**
  * Created by Marion Aubard on 15/06/2018.

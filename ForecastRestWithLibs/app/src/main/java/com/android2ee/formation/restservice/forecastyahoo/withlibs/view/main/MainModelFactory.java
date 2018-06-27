@@ -1,11 +1,8 @@
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.main.factory;
+package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main;
 
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
-
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.main.MainCurrentViewModel;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.main.MainForecastViewModel;
 
 public class MainModelFactory extends ViewModelProvider.NewInstanceFactory {
 
@@ -23,9 +20,9 @@ public class MainModelFactory extends ViewModelProvider.NewInstanceFactory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (isForecast) {
-            return (T) new MainForecastViewModel(contextId);
+            return (T) new MainViewModel(contextId,MainViewModel.FORECAST_CONTEXT);
         } else {
-            return (T) new MainCurrentViewModel(contextId);
+            return (T) new MainViewModel(contextId,MainViewModel.CURRENT_CONTEXT);
         }
     }
 }

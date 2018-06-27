@@ -9,8 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.viewmodel.MotherViewModel;
-
 public abstract class MotherCardView<VM extends MotherViewModel> extends CardView {
 
     protected AppCompatActivity activity;
