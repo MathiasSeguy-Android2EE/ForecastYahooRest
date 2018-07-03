@@ -4,6 +4,7 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.m
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.Nullable;
@@ -28,7 +29,7 @@ import com.squareup.moshi.Json;
                 )
 public class Main{
     @PrimaryKey(autoGenerate = true)
-    private long _id;
+    private long _id_m;
     @ColumnInfo(name="temp")
     private float temp;
     @ColumnInfo(name="pressure")
@@ -92,6 +93,7 @@ public class Main{
      * @param temp
      * @param tempMin
      */
+    @Ignore
     public Main(float temp, float pressure, int humidity, float tempMin, float tempMax) {
         this.temp = temp;
         this.pressure = pressure;
@@ -190,12 +192,12 @@ public class Main{
         this.tempMax = tempMax;
     }
 
-    public long get_id() {
-        return _id;
+    public long get_id_m() {
+        return _id_m;
     }
 
-    public void set_id(long _id) {
-        this._id = _id;
+    public void set_id_m(long _id_m) {
+        this._id_m = _id_m;
     }
 
     public Long getWeatherDataId() {

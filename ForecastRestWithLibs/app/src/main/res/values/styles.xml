@@ -31,12 +31,22 @@
     </style>
 
     <style name="MyTextView" parent="@android:style/TextAppearance" />
-
+    <!--Style for Small Card View-->
+    <style name="MySmallCardView" parent="MyCardView">
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_small_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_small_margin</item>
+        <item name="android:layout_marginTop">@dimen/activity_vertical_small_margin</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_small_margin</item>
+    </style>
     <style name="MyCardView" parent="CardView.Light">
         <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
         <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+    </style>
+    <style name="MyCardView_VerticalConstraints" parent="CardView.Light">
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

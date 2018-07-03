@@ -5,9 +5,11 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Transaction;
 import android.arch.persistence.room.Update;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecatsItemWithMainAndWeathers;
 
 import java.util.List;
 
@@ -25,6 +27,22 @@ public interface WeatherForecastItemDao {
     @Query("SELECT * FROM weather_forecast_item WHERE cityId IN (:cityId)")
     LiveData<List<WeatherForecastItem>> loadLiveDataByCityId(long cityId);
 
+
+    //Avoid to have _id from weather_forecast_item and main_temp by giving the list of column you want
+    @Transaction
+    @Query("SELECT * "+
+            "FROM weather_forecast_item " +
+            "INNER JOIN main_temp ON weather_forecast_item._id = main_temp.weatherForecastItemId " +
+            "WHERE cityId IN (:cityId)")
+    List<WeatherForecatsItemWithMainAndWeathers> getWeatherForecastItemWithMainAndWeathers(long cityId);
+
+    //Avoid to have _id from weather_forecast_item and main_temp by giving the list of column you want
+    @Transaction
+    @Query("SELECT * "+
+            "FROM weather_forecast_item " +
+            "INNER JOIN main_temp ON weather_forecast_item._id = main_temp.weatherForecastItemId " +
+            "WHERE cityId IN (:cityId)")
+    LiveData<List<WeatherForecatsItemWithMainAndWeathers>> getWeatherForecastItemWithMainAndWeathersLD(long cityId);
     /***********************************************************
      *  Insert
      **********************************************************/

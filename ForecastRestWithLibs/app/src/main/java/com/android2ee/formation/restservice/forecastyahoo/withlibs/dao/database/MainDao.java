@@ -19,8 +19,12 @@ public interface MainDao {
     @Query("SELECT * FROM main_temp ")
     LiveData<List<Main>> loadAllLiveData();
 
-    @Query("SELECT * FROM main_temp WHERE _id IN (:id)")
+    @Query("SELECT * FROM main_temp WHERE _id_m IN (:id)")
     LiveData<Main> loadLiveDataById(long id);
+
+    @Query("SELECT * FROM main_temp WHERE weatherForecastItemId IN (:weatherForecastItemId)")
+    LiveData<List<Main>> loadLiveDataMainForWeatherForecastItems(Long[] weatherForecastItemId);
+
 
     @Query("SELECT * FROM main_temp WHERE weatherForecastItemId IN (:weatherForecastItemId) LIMIT 1")
     LiveData<Main> loadLiveDataMainForWeatherForecastItem(long weatherForecastItemId);
@@ -52,7 +56,7 @@ public interface MainDao {
     @Delete
     int deleteAll(List<Main> mainList);
 
-    @Query("DELETE  FROM main_temp WHERE _id IN (:id)")
+    @Query("DELETE  FROM main_temp WHERE _id_m IN (:id)")
     int delete(long id);
     /***********************************************************
      *  For the examples

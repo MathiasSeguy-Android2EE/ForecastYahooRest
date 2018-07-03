@@ -3,8 +3,11 @@
     <string name="no_error_message">We should have a message to display explaining you the problem, but once again the developer forget to set it :( we already fired him, don\'t worry.</string>
     <string name="datacom_findcity_ioexc">The Http call to find a city using its name failed.</string>
     <string name="datacom_findWeatherByCityId_ioexc">The Http call to find the weather associated to the current city failed.</string>
+    <string name="datacom_geticon_ioexc">The Http call to find the icon failed.</string>
+    <string name="picdownload_save_fnfexc">Trying to save picture on disk but, file not found.</string>
+    <string name="picdownload_save_ioexc">Trying to save picture on disk but, ioExpection.</string>
     <!-- error Message -->
-    <string name="txv_exception_clicktodismiss">\r\n(Click to dismiss.)</string>
+    <string name="txv_exception_clicktodismiss">\n(Click to dismiss.)</string>
     <string name="exc_database_cannot_open">The database don\'t want to open. Please re-try later. Nothing to do. We are sorry about that.</string>
     <string name="exc_date_parsing">We have a problem to understand the date... Perhaps date are not well displayed. We apologize.</string>
     <string name="exc_sql_insert">We have a problem to store the data in database. Nothing to worry about. We apologize.</string>

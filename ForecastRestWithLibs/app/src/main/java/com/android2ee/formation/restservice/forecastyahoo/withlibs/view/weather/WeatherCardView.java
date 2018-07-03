@@ -83,10 +83,22 @@ public class WeatherCardView extends MotherCardView {
         //TODO
     }
 
-    private void updateWith(@NonNull Weather weather) {
-        tvDescription.setText(weather.getDescription());
-        tvMain.setText(weather.getMain());
+    public void updateWith(@NonNull Weather weather) {
         // TODO set ico
+        if(weather!=null) {
+            if(tvMain==null){
+                initViews();
+            }
+            tvMain.setText(weather.getMain()+":"+weather.getIcon());
+//            txvDescription.setText(weather.getDescription());
+            tvDescription.setText("4: "+contextId);
+            //TODO
+            //imv_ico.setImageBitmap(PictureCacheDownloader.loadPictureFromDisk(weather.getIcon()));
+        }else{
+
+            tvMain.setText("Null");
+            tvDescription.setText("4: "+contextId);
+        }
     }
 
 }

@@ -3,6 +3,7 @@
 <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather.WeatherCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_vertical_margin"
     android:id="@+id/cv_weather">
 
     <include layout="@layout/cardview_weather_item_content" />

@@ -13,10 +13,11 @@ import android.view.MenuItem;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecatsItemWithMainAndWeathers;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CityNavDrawerActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.arrayadapter.ForecastItemAdapter;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.arrayadapter.LinearLayoutManagerFixed;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class ForecastWeatherActivity extends CityNavDrawerActivity{
         setContentView(R.layout.activity_forecast_entrypoint);
         rcv_forecast=findViewById(R.id.rcv_forecast);
         // use a linear layout manage
-        LinearLayoutManager limn=new LinearLayoutManager(this);
+        LinearLayoutManager limn=new LinearLayoutManagerFixed(this);
         limn.setOrientation(LinearLayoutManager.VERTICAL);
         rcv_forecast.setLayoutManager(limn);
         // specify an adapter (see also next example)
@@ -56,13 +57,13 @@ public class ForecastWeatherActivity extends CityNavDrawerActivity{
                     }
                 }
         );
-        model.getData().observe(this, new Observer<List<WeatherForecastItem>>() {
-            @Override
-            public void onChanged(@Nullable List<WeatherForecastItem> weatherForecastItems) {
-                MyLog.e(TAG,"adapter.notifyDataSetChanged()"+(weatherForecastItems!=null?weatherForecastItems.size():"0")+" forecast elements");
-                adapter.notifyDataSetChanged();
-            }
-        });
+        model.getData().observe(this, new Observer<List<WeatherForecatsItemWithMainAndWeathers>>() {
+                    @Override
+                    public void onChanged(@Nullable List<WeatherForecatsItemWithMainAndWeathers> weatherForecatsItemWithMainAndWeathers) {
+                        updateArrayAdapter(weatherForecatsItemWithMainAndWeathers);
+                    }
+                }
+        );
     }
 
     private void updateCity(List<City> cities){
@@ -86,6 +87,13 @@ public class ForecastWeatherActivity extends CityNavDrawerActivity{
         startActivity(launchMainActivity);
         //and die
         finish();
+    }
+
+
+
+    private void updateArrayAdapter(List<WeatherForecatsItemWithMainAndWeathers> weatherForecatsItemWithMainAndWeathers){
+//you just need to updateEntity
+        adapter.updateList(weatherForecatsItemWithMainAndWeathers);
     }
 
     /***********************************************************

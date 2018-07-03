@@ -14,5 +14,7 @@
     <style name="MyTextView.Main.Secondary">
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
     </style>
-
+    <style name="MyTextView.Main.Tertiary">
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Display3</item>
+    </style>
 </resources>

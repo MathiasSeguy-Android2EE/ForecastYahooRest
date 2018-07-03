@@ -4,9 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_margin="@dimen/activity_padding"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:minHeight="96dp"
+    android:minWidth="128dp"
+    android:padding="@dimen/activity_padding"
     tools:showIn="@layout/cardview_main">
 
     <android.support.v7.widget.AppCompatTextView
@@ -39,13 +42,13 @@
         style="@style/MyTextView.Main.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/colorPrimaryDarker"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/tv_pressure"
-        app:layout_constraintTop_toBottomOf="@+id/tv_max_temperature"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
-        android:textColor="@color/colorPrimaryDarker"
-        tools:text="16.0°C"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_max_temperature"
+        tools:text="16.0°C" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_humidity"
@@ -74,10 +77,12 @@
         style="@style/MyTextView.Main.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv_min_temperature"
         app:layout_constraintTop_toBottomOf="@+id/tv_humidity"
-        tools:text="1024 hPa"/>
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
+        tools:text="1024 hPa" />
 
 </android.support.constraint.ConstraintLayout>

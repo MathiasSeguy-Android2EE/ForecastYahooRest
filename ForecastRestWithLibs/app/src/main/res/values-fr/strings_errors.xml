@@ -4,7 +4,7 @@
     <string name="datacom_findWeatherByCityId_ioexc">L\'appel Http pour trouver le temps associé à la ville courante a lamentablement raté.The Http call to find the weather associated to the current city failed.</string>
     <!-- error Message -->
     <string name="no_error_message">Une exception a eu lieu, personne ne sait ce qu\'il s\'est passé, désolé, le développeur a été viré.</string>
-    <string name="txv_exception_clicktodismiss">\r\n(Click pour faire disparaitre.)</string>
+    <string name="txv_exception_clicktodismiss">\n(Click pour faire disparaitre.)</string>
     <!--<string name="exc_database_cannot_open">The database don\\'t want to open. Please re-try later. Nothing to do. We are sorry about that.</string>-->
     <string name="exc_database_cannot_open">La base de données ne veut pas s\'ouvrir. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
     <!--<string name="exc_date_parsing">We have a problem to understand the date... Perhaps date are not well displayed. We apologize.</string>-->

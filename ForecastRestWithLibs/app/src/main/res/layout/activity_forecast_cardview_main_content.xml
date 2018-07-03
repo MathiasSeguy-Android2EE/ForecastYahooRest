@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/yellow_sunrise"
+    tools:showIn="@layout/cardview_forecast_main_item">
+
+    <!--<android.support.v7.widget.AppCompatTextView-->
+        <!--android:id="@+id/tv_temperature"-->
+        <!--style="@style/MyTextView.Main.Primary"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/tv_humidity"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/tv_pressure"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--tools:text="15,4°C"/>-->
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_humidity"
+        style="@style/MyTextView.Main.Tertiary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
+        android:textColor="@color/blue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/iv_drop"
+        app:layout_constraintBottom_toTopOf="@+id/tv_pressure"
+        tools:text="70"/>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_drop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_pressure"
+        app:srcCompat="@drawable/ic_drop_humidity_percent"
+        app:tint="@color/blue" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_pressure"
+        style="@style/MyTextView.Main.Tertiary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_humidity"
+        android:layout_marginRight="1dp"
+        android:layout_marginEnd="1dp"
+        tools:text="1024 hPa" />
+
+</android.support.constraint.ConstraintLayout>

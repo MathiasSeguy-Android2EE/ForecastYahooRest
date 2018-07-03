@@ -31,6 +31,7 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityServiceIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastRepository;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastServiceIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdaterIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherServiceIntf;
@@ -62,6 +63,10 @@ public interface ServiceManagerIntf {
      * @return the forecastServiceData
      */
     ForecastServiceIntf getForecastService();
+    /**
+     * @return the ForecastRepository
+     */
+    ForecastRepository getForecastRepository();
 
     /**
      * @return the cityService

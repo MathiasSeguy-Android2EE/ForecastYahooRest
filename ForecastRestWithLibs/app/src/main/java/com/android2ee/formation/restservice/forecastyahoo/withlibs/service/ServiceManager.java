@@ -39,6 +39,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.BuildConfig;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityServiceIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastRepository;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastServiceIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdater;
@@ -74,6 +75,10 @@ public class ServiceManager implements ServiceManagerIntf {
      * The  Forecast Updater service
      */
     WeatherDataUpdaterIntf weatherUpdaterService = null;
+    /**
+     * The  Forecast Repository
+     */
+    ForecastRepository forecastRepository = null;
     /**
      * The  City Forecast service
      */
@@ -119,6 +124,7 @@ public class ServiceManager implements ServiceManagerIntf {
         //release your pointer
         weatherServiceIntf = null;
         weatherUpdaterService=null;
+        forecastRepository=null;
         forecastServiceIntf =null;
         cityServiceIntf =null;
     }
@@ -158,6 +164,15 @@ public class ServiceManager implements ServiceManagerIntf {
             motherBusinessServices.add(forecastServiceIntf);
         }
         return forecastServiceIntf;
+    }
+
+
+    public ForecastRepository getForecastRepository(){
+        if (null == forecastRepository) {
+            forecastRepository = new ForecastRepository(this);
+            motherBusinessServices.add(forecastRepository);
+        }
+        return forecastRepository;
     }
     /**
      * @return the cityService

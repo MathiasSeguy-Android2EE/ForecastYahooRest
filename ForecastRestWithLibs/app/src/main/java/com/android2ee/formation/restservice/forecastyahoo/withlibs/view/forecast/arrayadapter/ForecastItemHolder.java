@@ -1,8 +1,8 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.arrayadapter;
 
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.graphics.Bitmap;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
@@ -12,36 +12,33 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecatsItemWithMainAndWeathers;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather.WeatherCardView;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.ForercastWeatherActivityModel;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Created by Mathias Seguy alias Android2ee on 23/06/2018.
  */
 public class ForecastItemHolder extends RecyclerView.ViewHolder{
     private static final String TAG = "ForecatsItemHolder";
+    /**
+     *
+     */
+    private static final float KELVIN_OFFSET_TO_CELSIUS = -273.15f;
     /***********************************************************
      *  Attributes
      **********************************************************/
     private View item;
-    /**
-     * The CardView to use when displaying the main inforamtion of the weather (min/max/temp/humidity/pressure)
-     * Needs a
-     */
-    private MainCardView mainCardView;
-    /**
-     * The cardView used to display the Weather icon
-     */
-    public WeatherCardView weatherCardView;
     private AppCompatImageView imv_ico;
     private AppCompatTextView txvMain;
-    private AppCompatTextView txvDescription;
     /***********************************************************
      *  UI Attributes of the WeatherCondition
      **********************************************************/
@@ -62,29 +59,33 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
     /**     * CompatImageView containing AVD for Clouds     */
     private AppCompatImageView ivClouds;
 
+    private TextView tvTemperature=null;
+    private TextView tvHumidity=null;
+    private TextView tvPressure=null;
+    private ImageView ivDrop=null;
 
-
-    /**
-     * The Id of the displayed forecast
-     * Mandatory for Main
-     */
-    Long weatherForecastItemId;
-    /**
-     * LifeCycleOwner
-     */
-    AppCompatActivity lfOwner;
-    LiveData<WeatherForecastItem> streamToListen;
-    Observer<WeatherForecastItem> forecastItemObserver;
-    LiveData<Weather> weatherStream;
-    Observer<Weather> weatherObserver;
+    private AppCompatTextView txvTime;
+    AppCompatActivity ctx;
+    String previousIconName=null;
+    ForercastWeatherActivityModel model;
+    Observer<Bitmap> bitmapObserver;
     /***********************************************************
     *  Constructors
     **********************************************************/
-    public ForecastItemHolder(View itemView,  AppCompatActivity lfOwner) {
+    public ForecastItemHolder(View itemView, AppCompatActivity lfOwner, ForercastWeatherActivityModel model) {
         super(itemView);
         item=itemView;
-        this.lfOwner=lfOwner;
-        //The condition elements:
+        this.model=model;
+        ctx=lfOwner;
+        bitmapObserver = new Observer<Bitmap>() {
+            @Override
+            public void onChanged(@Nullable Bitmap bitmap) {
+                //updating BitMap
+                if(bitmap!=null){
+                    imv_ico.setImageBitmap(bitmap);
+                }
+            }
+        };
         tvWind = item.findViewById(R.id.txv_winds);
         tvSnow = item.findViewById(R.id.txv_snow);
         tvRain = item.findViewById(R.id.txv_rain);
@@ -93,88 +94,41 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
         ivSnow=item.findViewById(R.id.iv_snow);
         ivRain=item.findViewById(R.id.iv_rain);
         ivClouds=item.findViewById(R.id.iv_clouds);
-
-
-        weatherCardView = item.findViewById(R.id.cdv_weather);
         imv_ico=item.findViewById(R.id.imv_ico);
         txvMain=item.findViewById(R.id.txv_main);
-        txvDescription=item.findViewById(R.id.txv_description);
-        //use its own model
-        mainCardView = item.findViewById(R.id.cdv_main);
-        mainCardView.setIsForecast(true);
-        //using the parent model
-        weatherCardView=item.findViewById(R.id.cdv_weather);
-        forecastItemObserver = new Observer<WeatherForecastItem>() {
-            @Override
-            public void onChanged(@Nullable WeatherForecastItem weatherForecastItem) {
-                updateView(weatherForecastItem);
-            }
-        };
-        weatherObserver=new Observer<Weather>() {
-            @Override
-            public void onChanged(@Nullable Weather weather) {
-                updateWeather(weather);
-            }
-        };
-    }
-
-    /**
-     * Define which stream the Holder is linked to
-     * @param streamToListen
-     */
-    public void setStreamToListen(LiveData<WeatherForecastItem> streamToListen) {
-        if(this.streamToListen!=null){
-            this.streamToListen.removeObserver(forecastItemObserver);
-        }
-        this.streamToListen=streamToListen;
-        streamToListen.observe(lfOwner, forecastItemObserver);
-    }
-    /**
-     * Define which stream the Holder is linked to
-     * @param weatherStream
-     */
-    public void setWeatherStreamToObserve(LiveData<Weather> weatherStream) {
-        if(this.weatherStream!=null){
-            this.weatherStream.removeObserver(weatherObserver);
-        }
-        this.weatherStream=weatherStream;
-        weatherStream.observe(lfOwner, weatherObserver);
-    }
-
-    public void updateWeather(Weather weather){
-        if(weather!=null) {
-            txvMain.setText(weather.getMain()+":"+weather.getIcon());
-//            txvDescription.setText(weather.getDescription());
-            txvDescription.setText("4: "+weatherForecastItemId);
-            //TODO
-            //imv_ico.setImageBitmap(PictureCacheDownloader.loadPictureFromDisk(weather.getIcon()));
-        }else{
-
-            txvMain.setText("Null");
-            txvDescription.setText("4: "+weatherForecastItemId);
-        }
-
+        tvTemperature = item.findViewById(R.id.tv_temperature);
+        tvHumidity = item.findViewById(R.id.tv_humidity);
+        tvPressure = item.findViewById(R.id.tv_pressure);
+        ivDrop = item.findViewById(R.id.iv_drop);
+        txvTime=item.findViewById(R.id.txv_time);
     }
     /**
      * Update the view
      * @param weatherForecastItem
      */
-    private void updateView(WeatherForecastItem weatherForecastItem){
-        weatherForecastItemId=weatherForecastItem.get_id();
-        MyLog.e(TAG,"holder is updating the item with id="+weatherForecastItem.get_id());
+    public void updateView(WeatherForecatsItemWithMainAndWeathers weatherForecastItem){
+        MyLog.e(TAG,"holder is updating the item with id="+weatherForecastItem.getForecastItem().get_id());
         //update the UI
-        tvWind.setText(""+(weatherForecastItem.getWind()!=null?weatherForecastItem.getWind().getSpeed():" 0 "));
-        tvClouds.setText(""+(weatherForecastItem.getClouds()!=null?weatherForecastItem.getClouds().getAll():" 0 "));
-        tvRain.setText(""+(weatherForecastItem.getRain()!=null?weatherForecastItem.getRain().get3h():" 0 "));
-        tvSnow.setText(""+(weatherForecastItem.getSnow()!=null?weatherForecastItem.getSnow().get3h():" 0 "));
-        tvSnow.setText(""+weatherForecastItem.get_id());
-        startAVDAnimation(ivClouds.getDrawable());
-        startAVDAnimation(ivWind.getDrawable());
-        startAVDAnimation(ivRain.getDrawable());
-        startAVDAnimation(ivSnow.getDrawable());
+        tvWind.setText(""+(weatherForecastItem.getForecastItem().getWind()!=null?weatherForecastItem.getForecastItem().getWind().getSpeed():" 0 "));
+        tvClouds.setText(""+(weatherForecastItem.getForecastItem().getClouds()!=null?weatherForecastItem.getForecastItem().getClouds().getAll():" 0 "));
+        tvRain.setText(""+(weatherForecastItem.getForecastItem().getRain()!=null?weatherForecastItem.getForecastItem().getRain().get3h():" 0 "));
+        tvSnow.setText(""+(weatherForecastItem.getForecastItem().getSnow()!=null?weatherForecastItem.getForecastItem().getSnow().get3h():" 0 "));
+        tvSnow.setText(""+weatherForecastItem.getForecastItem().get_id());
+        txvMain.setText(weatherForecastItem.getWeathers().get(0).getMain());
+        tvTemperature.setText(ctx.getString(R.string.main_temperature, weatherForecastItem.getTemp() + KELVIN_OFFSET_TO_CELSIUS));
+        tvHumidity.setText(ctx.getString(R.string.main_humidity, weatherForecastItem.getHumidity()));
+        tvPressure.setText(""+((int)weatherForecastItem.getPressure()));
+        //unibserve previous icon observation
+        if(previousIconName!=null){
+            model.getIconBitmap(previousIconName)
+                    .removeObserver(bitmapObserver);
+        }
+        //add the new observer
+        model.getIconBitmap(weatherForecastItem.getWeathers().get(0).getIcon())
+                .observe(ctx, bitmapObserver);
+        previousIconName=weatherForecastItem.getWeathers().get(0).getIcon();
+        txvTime.setText(formatTime(weatherForecastItem.getForecastItem().getDt()));
 
-        //Update stream
-        mainCardView.setLifecycleOwner(lfOwner, weatherForecastItem.get_id());
     }
     /**
      * Start AnimationVectorDrawables
@@ -187,5 +141,13 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
         } else {
             ((AnimatedVectorDrawable) drawable).start();
         }
+    }
+
+    private static final String TIME_FORMAT = "dd MMM HH:mm";
+    SimpleDateFormat sdf=new SimpleDateFormat(TIME_FORMAT, Locale.getDefault());
+    Date dateTemp = new Date();
+    private String formatTime(long utcTime){
+        dateTemp.setTime(utcTime*1000L);
+        return sdf.format(dateTemp);
     }
 }

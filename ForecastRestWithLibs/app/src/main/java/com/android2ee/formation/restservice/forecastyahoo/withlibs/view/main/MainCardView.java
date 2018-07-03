@@ -124,15 +124,25 @@ public class MainCardView extends MotherCardView {
         //Observe again
         viewModel.getMainLiveData(hashCode()).observe(activity, mainObserver);
     }
-    private void updateWith(@NonNull Main main) {
+    public void updateWith(@NonNull Main main) {
         MyLog.e(TAG,"Data has been updated for "+contextId);
-        tvTemperature.setText(getContext().getString(R.string.main_temperature, main.getTemp() + KELVIN_OFFSET_TO_CELSIUS));
-        tvTemperatureMin.setText(getContext().getString(R.string.main_temperature_min, main.getTempMin() + KELVIN_OFFSET_TO_CELSIUS));
-        tvTemperatureMax.setText(getContext().getString(R.string.main_temperature_max, main.getTempMax() + KELVIN_OFFSET_TO_CELSIUS));
-        tvHumidity.setText(getContext().getString(R.string.main_humidity, main.getHumidity()));
-//        tvPressure.setText(getContext().getString(R.string.main_pressure, main.getPressure()));
-        tvPressure.setText(""+contextId);
+        if(main!=null) {
+            tvTemperature.setText(getContext().getString(R.string.main_temperature, main.getTemp() + KELVIN_OFFSET_TO_CELSIUS));
+            tvTemperatureMin.setText(getContext().getString(R.string.main_temperature_min, main.getTempMin() + KELVIN_OFFSET_TO_CELSIUS));
+            tvTemperatureMax.setText(getContext().getString(R.string.main_temperature_max, main.getTempMax() + KELVIN_OFFSET_TO_CELSIUS));
+            tvHumidity.setText(getContext().getString(R.string.main_humidity, main.getHumidity()));
+        tvPressure.setText(getContext().getString(R.string.main_pressure, main.getPressure()));
+//            tvPressure.setText("" + contextId);
 //        tvHumidity.setText("id="+main.get_id());
+        }else{
+
+            tvTemperature.setText("Null");
+            tvTemperatureMin.setText("Null");
+            tvTemperatureMax.setText("Null");
+            tvHumidity.setText("Null");
+//        tvPressure.setText(getContext().getString(R.string.main_pressure, main.getPressure()));
+            tvPressure.setText("" + contextId);
+        }
     }
 
     /**

@@ -1,0 +1,30 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="160dp"
+            android:height="160dp"
+            android:viewportWidth="160"
+            android:viewportHeight="160">
+
+            <group
+                android:name="leaf_1"
+                android:pivotX="48"
+                android:pivotY="48"
+                android:rotation="-790"
+                android:translateX="88"
+                android:translateY="-15">
+
+                <path
+                    android:name="leaf"
+                    android:pathData="M 42.164 65.756 C 46.34 65.756 50.515 64.774 54.322 62.932 C 63.164 58.511 68.936 49.669 69.55 39.721 L 69.673 37.265 L 67.217 37.879 C 63.778 38.739 60.217 39.353 56.655 39.598 C 51.375 40.09 47.568 39.844 44.375 39.721 C 40.322 39.476 37.129 39.23 33.813 40.949 C 28.901 43.528 25.585 49.3 23.989 58.142 L 23.743 59.248 L 24.603 59.984 C 29.884 63.669 36.024 65.756 42.164 65.756 Z M 35.656 44.142 C 38.112 42.914 40.445 43.037 44.375 43.283 C 47.568 43.528 51.62 43.774 57.147 43.16 C 59.971 42.914 62.919 42.423 65.743 41.932 C 64.515 49.546 59.726 56.177 52.848 59.616 C 45.971 63.055 37.866 62.809 31.112 59.37 C 33.322 59.37 35.533 59.125 37.743 58.634 C 41.55 57.774 45.234 56.3 48.55 54.212 C 49.41 53.721 49.655 52.493 49.164 51.634 C 48.673 50.774 47.445 50.528 46.585 51.02 C 43.638 52.862 40.445 54.212 37.006 54.949 C 34.305 55.563 31.48 55.686 28.656 55.441 C 29.884 49.669 32.34 45.862 35.656 44.142 Z"
+                    android:strokeColor="#000000"
+                    android:strokeWidth="1"/>
+            </group>
+
+        </vector>
+    </aapt:attr>
+
+</animated-vector>

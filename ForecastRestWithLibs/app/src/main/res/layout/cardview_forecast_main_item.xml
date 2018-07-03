@@ -1,60 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
     tools:context="com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherActivity">
 
-    <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView
-        android:id="@+id/cdv_main"
-        style="@style/MyCardView"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cdv_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/cdv_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cdv_weather"
+        app:layout_constraintTop_toTopOf="parent">
 
-        app:layout_constraintHorizontal_chainStyle="spread"
-        >
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/activity_vertical_small_margin">
 
-        <include layout="@layout/cardview_main_content" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imv_ico"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/txv_main"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread_inside" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txv_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/txv_time"
+                app:layout_constraintStart_toEndOf="@+id/imv_ico"
+                tools:text="@tools:sample/cities" />
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/txv_time"
+                style="@style/MyTextView.Main.Secondary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:layout_constraintStart_toEndOf="@+id/txv_main"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/tv_temperature"
+                tools:text="28 juin 20:00"
+                />
 
-    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView>
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_temperature"
+                style="@style/MyTextView.Main.Primary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_small_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_small_margin"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txv_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txv_time"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="15,4°C" />
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 
 
-    <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather.WeatherCardView
-        android:id="@+id/cdv_weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/cdv_conditions"
-        app:layout_constraintStart_toEndOf="@+id/cdv_main"
-        app:layout_constraintTop_toTopOf="@+id/cdv_main"
-        app:layout_constraintBottom_toBottomOf="@id/cdv_main">
+    <!--<com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView-->
+        <!--android:id="@+id/cdv_main"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/colorPrimary"-->
+        <!--app:layout_constraintDimensionRatio="1:1"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/cdv_conditions"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/cdv_conditions"-->
+        <!--app:layout_constraintHorizontal_chainStyle="spread"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/cdv_conditions">-->
 
-        <include layout="@layout/cardview_weather_item_content" />
+        <!--<include layout="@layout/activity_forecast_cardview_main_content"/>-->
+    <!--</com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView>-->
 
-    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather.WeatherCardView>
 
     <android.support.v7.widget.CardView
         android:id="@+id/cdv_conditions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="0dp"
+        android:layout_height="76dp"
+        android:background="@color/colorPrimaryDarkerTranslucent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cdv_weather"
-        app:layout_constraintTop_toTopOf="@+id/cdv_weather"
-        app:layout_constraintBottom_toBottomOf="@id/cdv_weather">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cdv_header">
 
-        <include layout="@layout/cardview_condition" />
+        <include layout="@layout/activity_forecast_cardview_condition" />
     </android.support.v7.widget.CardView>
+
 </android.support.constraint.ConstraintLayout>

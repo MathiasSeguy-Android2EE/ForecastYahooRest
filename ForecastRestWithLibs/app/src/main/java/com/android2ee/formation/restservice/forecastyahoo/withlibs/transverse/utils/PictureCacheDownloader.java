@@ -1,16 +1,21 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.text.TextUtils;
 import android.webkit.URLUtil;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.PictureLoadedEvent;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManaged;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,28 +37,35 @@ public class PictureCacheDownloader {
     private static final String TAG = "PictureCacheDownloader";
     private static OkHttpClient client = null;
 
-    public static Bitmap downloadPicture(String urlGetPicture) throws IOException {
+
+
+
+    public static Bitmap downloadPicture(String urlGetPicture) {
         MyLog.e(TAG, "downloadPicture picture of " + urlGetPicture);
-        if (!TextUtils.isEmpty(urlGetPicture) && URLUtil.isNetworkUrl(urlGetPicture)) {
-            Request request = new Request.Builder()
-                    .url(urlGetPicture)
-                    .get()
-                    .build();
-            if (client == null) {
-                OkHttpClient.Builder builder = new OkHttpClient.Builder();
-                client = builder.build();
+        try {
+            if (!TextUtils.isEmpty(urlGetPicture) && URLUtil.isNetworkUrl(urlGetPicture)) {
+                Request request = new Request.Builder()
+                        .url(urlGetPicture)
+                        .get()
+                        .build();
+                if (client == null) {
+                    OkHttpClient.Builder builder = new OkHttpClient.Builder();
+                    client = builder.build();
+                }
+                Call postCall = client.newCall(request);
+                Response response = postCall.execute();
+                if (response.code() == 200) {
+                    ResponseBody in = response.body();
+                    InputStream is = in.byteStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+                    is.close();
+                    response.body().close();
+                    // Now do a stuff, for example store it
+                    return bitmap;
+                }
             }
-            Call postCall = client.newCall(request);
-            Response response = postCall.execute();
-            if (response.code() == 200) {
-                ResponseBody in = response.body();
-                InputStream is = in.byteStream();
-                Bitmap bitmap = BitmapFactory.decodeStream(is);
-                is.close();
-                response.body().close();
-                // Now do a stuff, for example store it
-                return bitmap;
-            }
+        }catch(IOException e){
+            ExceptionManager.manage(new ExceptionManaged(PictureCacheDownloader.class, R.string.datacom_geticon_ioexc,e));
         }
         return null;
     }
@@ -65,7 +77,7 @@ public class PictureCacheDownloader {
      * @param bitmap
      * @throws IOException
      */
-    public static void savePicture(String fileName, Bitmap bitmap) throws IOException {
+    public static void savePicture(String fileName, Bitmap bitmap) {
         MyLog.e(TAG, "savePicture picture of " + fileName);
         //Second save the picture
         //--------------------------
@@ -92,13 +104,53 @@ public class PictureCacheDownloader {
             fos.flush();
 
             EventBus.getDefault().post(new PictureLoadedEvent(fileName));
+        } catch (FileNotFoundException e) {
+            ExceptionManager.manage(new ExceptionManaged(PictureCacheDownloader.class, R.string.picdownload_save_fnfexc,e));
+        } catch (IOException e) {
+            ExceptionManager.manage(new ExceptionManaged(PictureCacheDownloader.class, R.string.picdownload_save_ioexc,e));
         } finally {
             if (fos != null) {
-                fos.close();
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    ExceptionManager.manage(new ExceptionManaged(PictureCacheDownloader.class, R.string.picdownload_save_ioexc,e));
+                }
             }
         }
     }
 
+
+
+
+
+    // /******************************************************************************************/
+    /** Method name: loadPictureFromDisk
+     /* Description :  **********/
+    /* Param: type:String name:fileName
+    /* Return: type:MutableLiveData<Bitmap> name: bitmapLvDt
+     */
+    /******************************************************************************************/
+
+    /**
+     * Should only be called from a background thread (So only by another Service's method)
+     * Don't ever call this method from the UI Thread
+     */
+    public static MutableLiveData<Bitmap> loadPictureFromDiskSync(String fileName, MutableLiveData<Bitmap> bitmapLvDt) {
+        //return
+        MutableLiveData<Bitmap> returned;
+        //null case
+        if (bitmapLvDt == null) {
+            returned = new MutableLiveData<>();
+        } else {
+            returned = bitmapLvDt;
+        }
+        Bitmap bitmapLvDt_value=loadPictureFromDisk(fileName);
+        savePicture(fileName,bitmapLvDt_value);
+        //Assign the result to the MutableLiveData
+        bitmapLvDt.postValue(bitmapLvDt_value);
+        return bitmapLvDt;
+
+    }
     public static Bitmap loadPictureFromDisk(String fileName) {
         MyLog.e(TAG, "loadPictureFromDisk picture of " + fileName);
         //Second save the picture
@@ -127,6 +179,41 @@ public class PictureCacheDownloader {
             return null;
         }
     }
+    /**
+     * Should be called by the View
+     */
+    public static MutableLiveData<Bitmap> loadPictureFromDiskAsynch(String fileName) {
+        //create the LiveData
+        MutableLiveData<Bitmap> bitmapLvDt = new MutableLiveData<>();
+        MyApplication.instance.getServiceManager().getCancelableThreadsExecutor().submit(new RunnableLoadPictureFromDisk(fileName,bitmapLvDt));
+        return bitmapLvDt;
+    }
+
+    /**
+     * This is the runnable that will send the work in a background thread
+     */
+    private static class RunnableLoadPictureFromDisk implements Runnable {
+        //first argument
+        String fileName;
+        //MutableObject
+        MutableLiveData<Bitmap> bitmapLvDt;
+
+        public RunnableLoadPictureFromDisk(String fileName, MutableLiveData<Bitmap> bitmapLvDt) {
+            //assign the parameter as class members
+            this.fileName = fileName;
+            this.bitmapLvDt = bitmapLvDt;
+        }
+
+        @Override
+        public void run() {
+            loadPictureFromDiskSync(fileName, bitmapLvDt);
+        }
+    }
+
+    /***********************************************************
+     *  Managing File existence on Disk
+     **********************************************************/
+
 
     /**
      * To know if the picture has been cached on the disk
@@ -135,7 +222,7 @@ public class PictureCacheDownloader {
      * @return
      */
     public static boolean isPictureSavedOnDisk(String fileName) {
-        return isFileCachedOnDisk(FolderName.PICTURE_CACHE, fileName);
+        return isFileOnDisk(FolderName.CACHE_FOLDER,FolderName.PICTURE_CACHE, fileName);
     }
     /**
      * To know if a file has been store in the Cache area
@@ -196,5 +283,6 @@ public class PictureCacheDownloader {
             return false;
         }
     }
+
 
 }
