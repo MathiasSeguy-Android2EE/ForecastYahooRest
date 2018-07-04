@@ -9,12 +9,13 @@ import android.content.Context;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.calculated.WeatherOfTheDay;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.Sys;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
 
-@Database(entities = {Weather.class, Sys.class, WeatherForecastItem.class, City.class, Main.class, WeatherData.class}, version = 2)
+@Database(entities = {Weather.class, Sys.class, WeatherForecastItem.class, City.class, Main.class, WeatherData.class, WeatherOfTheDay.class}, version = 2)
 @TypeConverters({WeatherConverter.class})
 public abstract class ForecastDatabase extends RoomDatabase {
     /***********************************************************
@@ -48,4 +49,5 @@ public abstract class ForecastDatabase extends RoomDatabase {
     public abstract WeatherDataDao getWeatherDataDao();
     public abstract CityDao getCityDao();
     public abstract SysDao getSysDao();
+    public abstract WeatherOfThDayDAO getWeatherOfTheDayDao();
 }

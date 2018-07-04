@@ -15,11 +15,15 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Snow;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Wind;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.DayHashCreator;
 import com.squareup.moshi.Json;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is the representation of the Weather of now for a specific city
+ */
 @Entity(tableName="weather_data_current",
         indices = {@Index(value = {"cityId"},unique = false)},
         foreignKeys = {
@@ -45,7 +49,7 @@ public class WeatherData{
     private Snow snow;
     //When the weather object have been calculated (server side)
     @Json(name = "dt")
-    @ColumnInfo(name="dt")
+    @ColumnInfo(name="dateTime")
     private long timeStampUTC;
     @Json(name = "id")
     @ColumnInfo(name="cityId")
@@ -56,6 +60,8 @@ public class WeatherData{
     private int cod;
     @ColumnInfo(name="visibility")
     private int visibility;
+    @ColumnInfo(name="day_hash")
+    private int dayHash;
     @Ignore
     private Sys sys;
     @Ignore
@@ -100,8 +106,16 @@ public class WeatherData{
         this.name = name;
         this.cod = cod;
         this.visibility = visibility;
+        setDayStamp();
     }
 
+    private void setDayStamp(){
+        dayHash= DayHashCreator.getTempKeyFromDay(timeStampUTC);
+    }
+    public void setDtAndSyncDayHash(long timeStampUTC){
+        this.timeStampUTC = timeStampUTC;
+        setDayStamp();
+    }
     /**
      * 
      * @return
@@ -208,6 +222,13 @@ public class WeatherData{
      */
     public void setClouds(Clouds clouds) {
         this.clouds = clouds;
+    }
+    public int getDayHash() {
+        return dayHash;
+    }
+
+    public void setDayHash(int dayHash) {
+        this.dayHash = dayHash;
     }
 
     /**

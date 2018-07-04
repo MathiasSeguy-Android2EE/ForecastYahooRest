@@ -1,4 +1,4 @@
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils;
+package com.android2ee.formation.restservice.forecastyahoo.withlibs.service;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.graphics.Bitmap;
@@ -11,6 +11,8 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.PictureLoadedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManaged;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.FolderName;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
 

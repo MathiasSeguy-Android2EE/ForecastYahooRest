@@ -7,9 +7,9 @@ import android.arch.lifecycle.Transformations;
 import android.graphics.Bitmap;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.PictureCacheDownloader;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecatsItemWithMainAndWeathers;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.PictureCacheDownloader;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherViewModel;
 
 import java.lang.ref.WeakReference;

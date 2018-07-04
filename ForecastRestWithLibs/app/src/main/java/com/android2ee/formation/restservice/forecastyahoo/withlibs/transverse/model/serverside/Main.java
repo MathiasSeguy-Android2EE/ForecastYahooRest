@@ -17,7 +17,9 @@ import com.squareup.moshi.Json;
  * This is the main weather data
  */
 @Entity(tableName="main_temp",
-        indices = {@Index(value = {"weatherDataId","weatherForecastItemId"},unique = false)},
+        indices = {
+                @Index(value = {"weatherDataId"},unique = false),
+                @Index(value = {"weatherForecastItemId"},unique = false)},
         foreignKeys = {@ForeignKey(entity = WeatherData.class,
                     parentColumns = "_id",
                     childColumns = "weatherDataId",
@@ -36,9 +38,15 @@ public class Main{
     private float pressure;
     @ColumnInfo(name="humidity")
     private int humidity;
+    /**
+     * accuracy of temp (min value)
+     */
     @Json(name = "temp_min")
     @ColumnInfo(name="temp_min")
     private float tempMin;
+    /**
+     * accuracy of temp (min value)
+     */
     @Json(name = "temp_max")
     @ColumnInfo(name="temp_max")
     private float tempMax;

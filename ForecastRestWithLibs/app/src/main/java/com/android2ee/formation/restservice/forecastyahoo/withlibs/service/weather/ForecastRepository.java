@@ -7,9 +7,9 @@ import android.graphics.Bitmap;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessService;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.PictureCacheDownloader;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecatsItemWithMainAndWeathers;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.PictureCacheDownloader;
 
 import java.util.List;
 
@@ -23,9 +23,7 @@ public class ForecastRepository extends MotherBusinessService {
     }
 
 
-    public LiveData<List<WeatherForecatsItemWithMainAndWeathers>> loadForecastItemWithMainAndWeatherSync(Long cityId) {
-        return ForecastDatabase.getInstance().getWeatherForecastItemDao().getWeatherForecastItemWithMainAndWeathersLD(cityId);
-    }
+
 
     /**
      * Clean your resource when your service die
@@ -38,7 +36,14 @@ public class ForecastRepository extends MotherBusinessService {
     /***********************************************************
      *  Attributes
      **********************************************************/
-
+    /**
+     * Main data to observe
+     * @param cityId
+     * @return
+     */
+    public LiveData<List<WeatherForecatsItemWithMainAndWeathers>> loadForecastItemWithMainAndWeatherSync(Long cityId) {
+        return ForecastDatabase.getInstance().getWeatherForecastItemDao().getWeatherForecastItemWithMainAndWeathersLD(cityId);
+    }
 
     /**
      *

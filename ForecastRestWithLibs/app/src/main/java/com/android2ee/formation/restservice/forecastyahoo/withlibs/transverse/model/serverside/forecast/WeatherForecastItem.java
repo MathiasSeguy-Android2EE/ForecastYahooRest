@@ -14,11 +14,15 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Snow;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Wind;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.DayHashCreator;
 import com.squareup.moshi.Json;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The is the representation of the weather forecast (almost the same as WeatherData)
+ */
 @Entity(tableName="weather_forecast_item",
         indices = {@Index(value = {"cityId"},unique = false)},
         foreignKeys = {
@@ -47,6 +51,8 @@ public class WeatherForecastItem {
     @Json(name = "dt_txt")
     @Ignore
     private String dtTxt;
+    @ColumnInfo(name="day_hash")
+    private int dayHash=-1;
     @Ignore
     private Main main;
     @Ignore
@@ -70,7 +76,7 @@ public class WeatherForecastItem {
      * @param weather
      * @param main
      */
-    public WeatherForecastItem(int dt, Main main, java.util.List<Weather> weather, Clouds clouds, Wind wind, Sys sys, String dtTxt) {
+    public WeatherForecastItem(long dt, Main main, java.util.List<Weather> weather, Clouds clouds, Wind wind, Sys sys, String dtTxt) {
         this.dt = dt;
         this.main = main;
         this.weather = weather;
@@ -78,8 +84,9 @@ public class WeatherForecastItem {
         this.wind = wind;
         this.sys = sys;
         this.dtTxt = dtTxt;
+        setDayStamp();
     }
-    public WeatherForecastItem(int dt, Main main, List<Weather> weather, Clouds clouds, Wind wind, Rain rain, Snow snow, Sys sys, String dtTxt) {
+    public WeatherForecastItem(long dt, Main main, List<Weather> weather, Clouds clouds, Wind wind, Rain rain, Snow snow, Sys sys, String dtTxt) {
         this.dt = dt;
         this.main = main;
         this.weather = weather;
@@ -89,7 +96,16 @@ public class WeatherForecastItem {
         this.snow = snow;
         this.sys = sys;
         this.dtTxt = dtTxt;
+        setDayStamp();
     }
+    public void setDayStamp(){
+        dayHash= DayHashCreator.getTempKeyFromDay(dt);
+    }
+    public void setDtAndSyncDayHash(long dt){
+        this.dt = dt;
+        setDayStamp();
+    }
+
     /**
      * 
      * @return
@@ -106,7 +122,9 @@ public class WeatherForecastItem {
      */
     public void setDt(long dt) {
         this.dt = dt;
+
     }
+
 
     /**
      * 
@@ -222,6 +240,17 @@ public class WeatherForecastItem {
      */
     public String getDtTxt() {
         return dtTxt;
+    }
+
+    public int getDayHash() {
+        if(dayHash==-1){
+            setDayStamp();
+        }
+        return dayHash;
+    }
+
+    public void setDayHash(int dayHash) {
+        this.dayHash = dayHash;
     }
 
     /**

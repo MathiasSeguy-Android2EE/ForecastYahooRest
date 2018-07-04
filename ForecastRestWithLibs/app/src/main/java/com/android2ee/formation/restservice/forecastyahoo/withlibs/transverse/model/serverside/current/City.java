@@ -48,6 +48,8 @@ import java.util.List;
 
 /**
  * Created by Mathias Seguy - Android2EE on 23/02/2016.
+ * This is a city. A city is the first coordinate of the weather
+ * This is the entry point, all WeatherData and WeatherForecastItem are linked to a city
  */
 
 @Entity(tableName="city")

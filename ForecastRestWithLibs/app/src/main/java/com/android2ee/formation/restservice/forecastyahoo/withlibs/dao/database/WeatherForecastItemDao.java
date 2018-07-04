@@ -27,6 +27,12 @@ public interface WeatherForecastItemDao {
     @Query("SELECT * FROM weather_forecast_item WHERE cityId IN (:cityId)")
     LiveData<List<WeatherForecastItem>> loadLiveDataByCityId(long cityId);
 
+    @Query("SELECT * FROM weather_forecast_item WHERE cityId IN (:cityId) AND day_hash IN (:hashDay)")
+    List<WeatherForecastItem> loadByCityIdAndHashDay(long cityId,int hashDay);
+
+    @Query("SELECT _id FROM weather_forecast_item WHERE dataTime IN (:dt) AND cityId IN (:cityId)")
+    Long loadIdByDateTimeAndCity(long dt,long cityId);
+
 
     //Avoid to have _id from weather_forecast_item and main_temp by giving the list of column you want
     @Transaction

@@ -16,7 +16,8 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
  */
 
 @Entity(tableName = "weather",
-        indices = {@Index(value = {"weatherDataId","weatherForecastItemId"},unique = false)},
+        indices = {@Index(value = {"weatherDataId"},unique = false),
+                @Index(value = {"weatherForecastItemId"},unique = false)},
         foreignKeys = {
                 @ForeignKey(entity = WeatherData.class,
                         parentColumns = "_id",
