@@ -208,8 +208,6 @@ public class MyApplication extends Application {
         //kill you serviceManager
         //call unbind and die
         killServiceManager();
-        //Kill your Dao manager
-        Injector.getDaoManager().releaseMemory();
         //Kill your DataCommunication
         Injector.getDataCommunication().releaseMemory();
         //die

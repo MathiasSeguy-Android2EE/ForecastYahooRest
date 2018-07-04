@@ -31,12 +31,10 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.com.DataCommunicationMocked;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.dao.DaoManagerMocked;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.service.ServiceManagerMocked;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 /**
  * Created by Mathias Seguy - Android2EE on 09/04/2016.
@@ -55,11 +53,6 @@ public class Injector {
     public static ServiceManagerMocked getServiceManager(MyApplication application){
         MyLog.e(TAG, "getServiceManager() called with the Mock Context");
         return new ServiceManagerMocked(application);
-    }
-
-    public static DaoManagerMocked getDaoManager(){
-        MyLog.e(TAG, "getDaoManager() called with the Mock Context");
-        return DaoManagerMocked.getInstance();
     }
 
     public static DataCommunicationMocked getDataCommunication(){

@@ -35,15 +35,13 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.ser
  * Created by Mathias Seguy - Android2EE on 25/02/2016.
  */
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessServiceIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityServiceIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastServiceIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastRepository;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdaterIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherServiceIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
@@ -63,17 +61,9 @@ public class ServiceManagerMocked implements ServiceManagerIntf{
      **********************************************************/
     ArrayList<MotherBusinessServiceIntf> motherBusinessServices;
     /**
-     * The Forecast service
-     */
-    WeatherServiceIntf weatherService = null;
-    /**
      * The  Forecast Updater service
      */
     WeatherDataUpdaterIntf weatherUpdaterService = null;
-    /**
-     * The  City Forecast service
-     */
-    ForecastServiceIntf forecastServiceIntf = null;
     /**
      * The  City  service
      */
@@ -107,25 +97,14 @@ public class ServiceManagerMocked implements ServiceManagerIntf{
             //service.onDestroy(this);
         }
         //release your pointer
-        weatherService = null;
         weatherUpdaterService=null;
-        forecastServiceIntf =null;
         cityServiceIntf =null;
     }
 
     /***********************************************************
      *  Services Getters
      **********************************************************/
-    /**
-     * @return the forecastServiceData
-     */
-    public final WeatherServiceIntf getWeatherService() {
-        if (null == weatherService) {
-            weatherService = new WeatherServiceMocked();
-            motherBusinessServices.add(weatherService);
-        }
-        return weatherService;
-    }
+
     /**
      * @return the forecastServiceData
      */
@@ -136,26 +115,23 @@ public class ServiceManagerMocked implements ServiceManagerIntf{
         }
         return weatherUpdaterService;
     }
+
     /**
-     * @return the forecastServiceData
+     * @return the ForecastRepository
      */
-    public final ForecastServiceIntf getForecastService() {
-        if (null == forecastServiceIntf) {
-            forecastServiceIntf = new ForecastServiceMocked();
-            motherBusinessServices.add(forecastServiceIntf);
-        }
-        return forecastServiceIntf;
+    @Override
+    public ForecastRepository getForecastRepository() {
+        return null;
     }
+
     /**
      * @return the cityService
      */
-    public final CityServiceIntf getCityService() {
-        if (null == cityServiceIntf) {
-            cityServiceIntf = new CityServiceMocked();
-            motherBusinessServices.add(cityServiceIntf);
-        }
-        return cityServiceIntf;
+    @Override
+    public CityServiceIntf getCityService() {
+        return null;
     }
+
 
     /******************************************************************************************/
     /** Pool Executor for Threads that has to cancelled when the application shutdown**/

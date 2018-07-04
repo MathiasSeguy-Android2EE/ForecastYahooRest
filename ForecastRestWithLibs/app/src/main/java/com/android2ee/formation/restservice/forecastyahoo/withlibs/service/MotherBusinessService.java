@@ -40,7 +40,6 @@ import org.greenrobot.eventbus.Subscribe;
  * Created by Mathias Seguy - Android2EE on 26/02/2016.
  * This class as to be implemented by all your business services classes
  */
-@Deprecated
 public abstract class MotherBusinessService implements MotherBusinessServiceIntf {
     /**
      * Constructor

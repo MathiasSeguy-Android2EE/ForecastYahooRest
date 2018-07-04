@@ -37,15 +37,15 @@ import android.arch.lifecycle.MutableLiveData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.com.retrofit.ConnectedDataCommunication;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityAddedEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManaged;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.FindCitiesResponse;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import org.greenrobot.eventbus.EventBus;

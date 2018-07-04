@@ -5,11 +5,11 @@ import android.arch.lifecycle.MutableLiveData;
 import android.graphics.Bitmap;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.PictureCacheDownloader;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecatsItemWithMainAndWeathers;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.WeatherForecatsItemWithMainAndWeathers;
 
 import java.util.List;
 

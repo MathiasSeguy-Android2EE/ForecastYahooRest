@@ -21,16 +21,16 @@ import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.adapter.WeatherRecyclerViewAdapter;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.sys.SysCardView;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.dialog.DeleteAlert;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.ForecastWeatherActivity;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.sys.SysCardView;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather_data.WeatherDataBeaconCardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,8 +107,8 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
         //load your model
         model=ViewModelProviders.of(this).get(CurrentWeatherActivityModel.class);
         //set and init your views
-        setContentView(R.layout.activity_navigation_drawer);
-//        setContentView(R.layout.activity_current_weather);
+        setContentView(R.layout.activity_current_entrypoint);
+//        setContentView(R.layout.activity_current_content);
         initCardViews();
         super.initView();
     }

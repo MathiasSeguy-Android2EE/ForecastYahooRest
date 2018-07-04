@@ -32,17 +32,13 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.cityforecast.CityForecastDaoIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.DaoWrapper;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.weather.WeatherDaoIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.DaoWrapper;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityForecastDownloadedEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherDownloadedEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.Forecast;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 /**
@@ -54,22 +50,6 @@ public class WeatherDataUpdater extends MotherBusinessService implements Weather
      *  Attributes
      **********************************************************/
 
-    /**
-     * The event to send back the current weather
-     */
-    private WeatherDownloadedEvent weatherDownloadedEvent=null;
-    /**
-     * The event to send back the forecast weather
-     */
-    private CityForecastDownloadedEvent cityForecastDownloadedEvent=null;
-    /**
-     * The Weather Dao
-     */
-    private WeatherDaoIntf weatherDataDao = null;
-    /**
-     * The CityForecast Dao
-     */
-    private CityForecastDaoIntf cityForecastDaoIntf =null;
     /******************************************************************************************/
     /** Constructors and destructor **************************************************************************/
     /******************************************************************************************/

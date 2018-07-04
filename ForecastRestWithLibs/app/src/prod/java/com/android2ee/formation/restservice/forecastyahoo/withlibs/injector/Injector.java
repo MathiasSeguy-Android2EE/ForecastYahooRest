@@ -33,7 +33,6 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.com.DataCommunication;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.DaoManager;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManager;
 
 /**
@@ -54,9 +53,6 @@ public class Injector {
         return new ServiceManager(application);
     }
 
-    public static DaoManager getDaoManager(){
-        return DaoManager.getInstance();
-    }
 
     public static DataCommunication getDataCommunication(){
         return DataCommunication.getINSTANCE();

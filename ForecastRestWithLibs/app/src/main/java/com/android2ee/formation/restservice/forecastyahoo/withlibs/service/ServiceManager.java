@@ -40,12 +40,8 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityServiceIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastRepository;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastService;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastServiceIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdater;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdaterIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherService;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherServiceIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.ArrayList;
@@ -60,17 +56,12 @@ import java.util.concurrent.TimeUnit;
  * It can be access only through MyApplication object
  * by calling MyApplication.getServiceManager()
  */
-@Deprecated
 public class ServiceManager implements ServiceManagerIntf {
     private static final String TAG = "ServiceManager";
     /***********************************************************
      *  Services List
      **********************************************************/
     ArrayList<MotherBusinessServiceIntf> motherBusinessServices;
-    /**
-     * The Forecast service
-     */
-    WeatherServiceIntf weatherServiceIntf = null;
     /**
      * The  Forecast Updater service
      */
@@ -79,10 +70,6 @@ public class ServiceManager implements ServiceManagerIntf {
      * The  Forecast Repository
      */
     ForecastRepository forecastRepository = null;
-    /**
-     * The  City Forecast service
-     */
-    ForecastServiceIntf forecastServiceIntf = null;
     /**
      * The  City  service
      */
@@ -122,27 +109,14 @@ public class ServiceManager implements ServiceManagerIntf {
             service.onDestroy(this);
         }
         //release your pointer
-        weatherServiceIntf = null;
         weatherUpdaterService=null;
         forecastRepository=null;
-        forecastServiceIntf =null;
         cityServiceIntf =null;
     }
 
     /***********************************************************
      *  Services Getters
      **********************************************************/
-    /**
-     * @return the forecastServiceData
-     */
-    @Override
-    public final WeatherServiceIntf getWeatherService() {
-        if (null == weatherServiceIntf) {
-            weatherServiceIntf = new WeatherService(this);
-            motherBusinessServices.add(weatherServiceIntf);
-        }
-        return weatherServiceIntf;
-    }
     /**
      * @return the forecastServiceData
      */
@@ -154,18 +128,6 @@ public class ServiceManager implements ServiceManagerIntf {
         }
         return weatherUpdaterService;
     }
-    /**
-     * @return the forecastServiceData
-     */
-    @Override
-    public final ForecastServiceIntf getForecastService() {
-        if (null == forecastServiceIntf) {
-            forecastServiceIntf = new ForecastService(this);
-            motherBusinessServices.add(forecastServiceIntf);
-        }
-        return forecastServiceIntf;
-    }
-
 
     public ForecastRepository getForecastRepository(){
         if (null == forecastRepository) {

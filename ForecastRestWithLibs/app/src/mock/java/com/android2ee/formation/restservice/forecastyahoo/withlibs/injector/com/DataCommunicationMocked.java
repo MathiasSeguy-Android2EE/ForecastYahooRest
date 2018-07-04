@@ -38,10 +38,9 @@ import android.telephony.TelephonyManager;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.com.DataCommunicationIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse.DataGenerator;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.FindCitiesResponse;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.Forecast;
 
 /**
  * Created by Mathias Seguy - Android2EE on 24/02/2016.
@@ -76,32 +75,6 @@ public class DataCommunicationMocked implements DataCommunicationIntf{
      * Business method
      **********************************************************/
 
-    @Override
-    public FindCitiesResponse findCityByName(String cityName) {
-       if(isConnected()){
-           return DataGenerator.getFindCitiesResponse();
-       }else{
-           return null;
-       }
-    }
-
-    @Override
-    public Weather findWeatherByCityId(long cityId) {
-        if(isConnected()){
-            return DataGenerator.getWeather((int)cityId);
-        }else{
-            return null;
-        }
-    }
-
-    @Override
-    public CityForecast findForecastByCityId(long cityId) {
-        if(isConnected()){
-            return DataGenerator.getCityForecast((int) cityId);
-        }else{
-            return null;
-        }
-    }
 
     private boolean isConnected(){
         ConnectivityManager cm = (ConnectivityManager) MyApplication.instance.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -119,5 +92,20 @@ public class DataCommunicationMocked implements DataCommunicationIntf{
                     return false;
             }
         }
+    }
+
+    @Override
+    public FindCitiesResponse getCitiesByName(String cityName) {
+        return null;
+    }
+
+    @Override
+    public WeatherData getWeatherByCityServerId(long cityId) {
+        return null;
+    }
+
+    @Override
+    public Forecast getForecastByCityId(long cityId) {
+        return null;
     }
 }

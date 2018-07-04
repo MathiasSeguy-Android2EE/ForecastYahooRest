@@ -12,8 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.findcity.CityActivity" />
 
+        <!--Current Weather-->
         <activity android:name=".view.current.CurrentWeatherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,22 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--Forecast Weather Activity-->
         <activity
             android:name=".view.forecast.ForecastWeatherActivity"
             android:theme="@style/AppTheme"></activity>
-
-
-
-        <!--<activity android:name=".view.forecast.ForecastWeatherActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-        <!--<activity-->
-            <!--android:name=".view.current.CurrentWeatherActivity"-->
-            <!--android:theme="@style/AppTheme"></activity>-->
+        <!--Find City-->
+        <activity android:name=".view.findcity.CityActivity" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="39866e36af5c6630aa5f1300338ad9c6005c1e3d" />

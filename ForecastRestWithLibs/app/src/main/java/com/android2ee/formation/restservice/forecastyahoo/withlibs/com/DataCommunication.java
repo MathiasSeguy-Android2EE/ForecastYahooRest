@@ -35,11 +35,8 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.com.noconnectivity.NoConnectivityDataCommunication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.com.retrofit.ConnectedDataCommunication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ConnectivityChangeEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.Forecast;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -119,23 +116,9 @@ public class DataCommunication implements DataCommunicationIntf{
         }
     }
 
-    @Override
-    public FindCitiesResponse findCityByName(String cityName) {
-       return communication.findCityByName(cityName);
-    }
 
     @Override
-    public Weather findWeatherByCityId(long cityId) {
-        return communication.findWeatherByCityId(cityId);
-    }
-
-    @Override
-    public CityForecast findForecastByCityId(long cityId) {
-        return communication.findForecastByCityId(cityId);
-    }
-
-    @Override
-    public com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse getCitiesByName(String cityName) {
+    public com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.FindCitiesResponse getCitiesByName(String cityName) {
         return communication.getCitiesByName(cityName);
     }
 

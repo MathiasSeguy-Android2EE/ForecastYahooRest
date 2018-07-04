@@ -9,9 +9,9 @@ import android.support.annotation.Nullable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.ForecastDatabase;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.DataGeneratorSimple;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import junit.framework.Assert;

@@ -31,14 +31,6 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.CityPresenter;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.CityViewIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherPresenter;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherPresenterIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherViewIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.fragment.WeatherCityPresenter;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.fragment.WeatherCityViewIntf;
-
 /**
  * Created by Mathias Seguy - Android2EE on 11/04/2016.
  * Because you wantto inject MockPresenter to your view
@@ -46,21 +38,5 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast
  * Else you're screwed.
  */
 public class PresenterInjector {
-
-    public static WeatherPresenterIntf getWeatherPresenter(WeatherViewIntf view){
-        return new WeatherPresenter(view);
-    }
-
-    public static WeatherCityPresenter getWeatherCityPresenter(WeatherCityViewIntf view){
-        return new WeatherCityPresenter(view);
-    }
-
-    public static CityPresenter getWeatherCityPresenter(CityViewIntf view) {
-        return new CityPresenter(view);
-    }
-    public static CityPresenter getCityPresenter(CityViewIntf view){
-        //TODO
-        return new CityPresenter(view);
-    }
 
 }

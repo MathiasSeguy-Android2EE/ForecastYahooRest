@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityAddedEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.MotherActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CurrentWeatherActivity;

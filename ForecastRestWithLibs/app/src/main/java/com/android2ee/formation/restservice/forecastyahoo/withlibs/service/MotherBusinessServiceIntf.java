@@ -33,7 +33,6 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.service;
 /**
  * Created by Mathias Seguy - Android2EE on 10/04/2016.
  */
-@Deprecated
 public interface MotherBusinessServiceIntf {
     /**
      * Clean your resource when your service die

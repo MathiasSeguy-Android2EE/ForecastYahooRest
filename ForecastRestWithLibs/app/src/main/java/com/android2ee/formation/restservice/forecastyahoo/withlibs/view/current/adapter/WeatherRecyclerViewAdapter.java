@@ -15,10 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.Weather;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CurrentWeatherActivityModel;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.weather.WeatherCardView;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather.WeatherCardView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +58,7 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        cv = (WeatherCardView) inflater.inflate(R.layout.cardview_weather_item, parent, false);
+        cv = (WeatherCardView) inflater.inflate(R.layout.activity_current_cardview_weather_item, parent, false);
         viewHolder = new MyViewHolder(cv);
         viewHolder.setIconLiveData(parentModel.getIconByHolder(viewHolder.hash),lfOwner);
         return viewHolder;

@@ -40,13 +40,12 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import android.test.suitebuilder.annotation.LargeTest;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity.CityActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherActivity;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherPresenter;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

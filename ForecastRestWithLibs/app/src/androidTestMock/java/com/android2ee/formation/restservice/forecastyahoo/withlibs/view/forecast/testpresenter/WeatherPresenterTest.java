@@ -32,13 +32,12 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.testpresenter;
 
 import android.test.AndroidTestCase;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.DataCheck;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.DeepDataCheck;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherPresenter;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import org.greenrobot.eventbus.EventBus;
 

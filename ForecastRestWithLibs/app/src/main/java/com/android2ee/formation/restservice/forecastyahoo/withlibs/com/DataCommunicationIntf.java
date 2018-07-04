@@ -30,11 +30,8 @@
  */
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.com;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.FindCitiesResponse;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.Weather;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.forecast.CityForecast;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.Forecast;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.Forecast;
 
 
 /**
@@ -43,16 +40,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
  */
 public interface DataCommunicationIntf {
     //find the city using its name
-    @Deprecated
-    FindCitiesResponse findCityByName(String cityName);
-    //find the weather using the city ID
-    @Deprecated
-    Weather findWeatherByCityId(long cityId);
-    //find the forecast using the city ID
-    @Deprecated
-    CityForecast findForecastByCityId(long cityId);
-    //find the city using its name
-    com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.FindCitiesResponse getCitiesByName(String cityName);
+    com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.FindCitiesResponse getCitiesByName(String cityName);
     //find the weather using the city ID
     WeatherData getWeatherByCityServerId(long cityId);
     //find the forecast using the city ID

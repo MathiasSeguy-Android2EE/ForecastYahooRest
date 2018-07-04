@@ -34,7 +34,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.MotherBusinessServiceIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
 
 import java.util.List;
 

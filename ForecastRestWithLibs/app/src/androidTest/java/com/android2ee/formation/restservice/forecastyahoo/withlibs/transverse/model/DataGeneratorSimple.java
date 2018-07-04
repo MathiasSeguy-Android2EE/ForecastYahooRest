@@ -1,11 +1,9 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Main;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.Sys;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.Sys;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.WeatherForecastItem;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 

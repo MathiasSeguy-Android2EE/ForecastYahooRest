@@ -12,8 +12,8 @@ import android.view.MenuItem;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecatsItemWithMainAndWeathers;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.WeatherForecatsItemWithMainAndWeathers;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CityNavDrawerActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.arrayadapter.ForecastItemAdapter;

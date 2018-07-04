@@ -31,63 +31,14 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.service;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse.DataGenerator;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdaterIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.CityForecastDownloadedEvent;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.WeatherDownloadedEvent;
-
-import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by Mathias Seguy - Android2EE on 10/04/2016.
  */
 public class WeatherDataUpdaterMocked implements WeatherDataUpdaterIntf {
-    /**
-     * Download the current Weather in an asynchronous way
-     *
-     * @param cityId The id of the city associated with the forecasts
-     */
-    @Override
-    public void downloadCurrentWeatherAsync(int cityId) {
-        WeatherDownloadedEvent weatherDownloadedEvent= new WeatherDownloadedEvent(DataGenerator.getWeather(cityId),cityId);
-        EventBus.getDefault().post(weatherDownloadedEvent);
-    }
 
-    /**
-     * Download the current Weather in an synchronous way
-     *
-     * @param cityId The id of the city associated with the forecasts
-     */
-    @Override
-    public void downloadCurrentWeatherSync(int cityId) {
-        WeatherDownloadedEvent weatherDownloadedEvent= new WeatherDownloadedEvent(DataGenerator.getWeather(cityId),cityId);
-        EventBus.getDefault().post(weatherDownloadedEvent);
-
-    }
-
-    /**
-     * Download the current Weather in an asynchronous way
-     *
-     * @param cityId The id of the city associated with the forecasts
-     */
-    @Override
-    public void downloadForecastWeatherAsync(int cityId) {
-        CityForecastDownloadedEvent cityForecastDownloadedEvent= new CityForecastDownloadedEvent(DataGenerator.getCityForecast(cityId),cityId);
-         EventBus.getDefault().post(cityForecastDownloadedEvent);
-    }
-
-    /**
-     * Download the current Weather in an synchronous way
-     *
-     * @param cityId The id of the city associated with the forecasts
-     */
-    @Override
-    public void downloadForecastWeatherSync(int cityId) {
-        CityForecastDownloadedEvent cityForecastDownloadedEvent= new CityForecastDownloadedEvent(DataGenerator.getCityForecast(cityId),cityId);
-        EventBus.getDefault().post(cityForecastDownloadedEvent);
-
-    }
 
     /**
      * Clean your resource when your service die
@@ -104,6 +55,46 @@ public class WeatherDataUpdaterMocked implements WeatherDataUpdaterIntf {
      */
     @Override
     public void onDestroy(ServiceManagerIntf srvManager) {
+
+    }
+
+    /**
+     * Download the current Weather in an asynchronous way
+     *
+     * @param cityServerId The id SERVER SIDE of the city associated with the forecasts
+     */
+    @Override
+    public void downloadCurrentWeatherAsync(long cityServerId) {
+
+    }
+
+    /**
+     * Download the current Weather in an synchronous way
+     *
+     * @param cityServerId The id SERVER SIDE of the city associated with the forecasts
+     */
+    @Override
+    public void downloadCurrentWeatherSync(long cityServerId) {
+
+    }
+
+    /**
+     * Download the current Weather in an asynchronous way
+     *
+     * @param cityServerId The id SERVER SIDE of the city associated with the forecasts
+     */
+    @Override
+    public void downloadForecastWeatherAsync(long cityServerId) {
+
+    }
+
+    /**
+     * Download the current Weather in an synchronous way
+     *
+     * @param cityServerId The id SERVER SIDE of the city associated with the forecasts
+     */
+    @Override
+    public void downloadForecastWeatherSync(long cityServerId) {
 
     }
 }

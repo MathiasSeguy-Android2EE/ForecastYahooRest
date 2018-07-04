@@ -9,15 +9,15 @@ import android.support.annotation.Nullable;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.ForecastDatabase;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.database.WeatherDao;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.ForecastDatabase;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.dao.WeatherDao;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.Clouds;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.DataGeneratorSimple;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Clouds;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Snow;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.Weather;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.WeatherData;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecastItem;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.Snow;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.WeatherData;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.WeatherForecastItem;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import junit.framework.Assert;

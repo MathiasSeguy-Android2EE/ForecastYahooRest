@@ -26,7 +26,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/activity_forecast" />
+    <include layout="@layout/activity_forecast_content" />
 
 
 </android.support.design.widget.CoordinatorLayout>

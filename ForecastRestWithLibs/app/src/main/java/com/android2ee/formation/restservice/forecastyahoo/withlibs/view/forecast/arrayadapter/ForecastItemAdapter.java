@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.forecast.WeatherForecatsItemWithMainAndWeathers;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.WeatherForecatsItemWithMainAndWeathers;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.ForercastWeatherActivityModel;
 
@@ -47,7 +47,7 @@ public class ForecastItemAdapter extends RecyclerView.Adapter<ForecastItemHolder
     @Override
     public ForecastItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //inflate
-        view=inflater.inflate(R.layout.cardview_forecast_main_item, parent, false);
+        view=inflater.inflate(R.layout.activity_forecast_cardview_item, parent, false);
         //create
         viewHolder=new ForecastItemHolder(view,activity,parentModel);
         return viewHolder;

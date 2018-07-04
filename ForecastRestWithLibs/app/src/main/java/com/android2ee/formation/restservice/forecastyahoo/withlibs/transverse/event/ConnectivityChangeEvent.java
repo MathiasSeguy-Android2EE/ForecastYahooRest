@@ -34,7 +34,6 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.e
 /**
  * Created by Mathias Seguy - Android2EE on 24/02/2016.
  */
-@Deprecated
 public class ConnectivityChangeEvent {
     private boolean isConnected;
     private boolean isWifiConnected;

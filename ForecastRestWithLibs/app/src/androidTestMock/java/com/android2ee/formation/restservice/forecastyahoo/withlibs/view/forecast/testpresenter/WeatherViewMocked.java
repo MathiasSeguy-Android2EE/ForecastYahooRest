@@ -31,11 +31,8 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.testpresenter;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.clientside.current.City;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherPresenter;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.WeatherViewIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 /**
  * Created by Mathias Seguy - Android2EE on 11/04/2016.

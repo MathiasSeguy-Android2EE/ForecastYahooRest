@@ -47,9 +47,9 @@ import android.widget.TextView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManaged;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.exception.ExceptionManager;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.serverside.current.City;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.main.MainCardView;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView;
 
 import java.util.ArrayList;
 
@@ -93,7 +93,7 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 	 * @param list
 	 */
 	public CitiesArrayAdapter(Context context, ArrayList<City> list) {
-		super(context, R.layout.item_city, list);
+		super(context, R.layout.activity_city_item_city, list);
 		inflater = LayoutInflater.from(context);
 		earth = ContextCompat.getDrawable(context, R.drawable.ic_googlemap);
 		ctx=context;
@@ -127,7 +127,7 @@ public class CitiesArrayAdapter extends ArrayAdapter<City> {
 		rowView = convertView;
 		city = getItem(position);
 		if (rowView == null) {
-			rowView = inflater.inflate(R.layout.item_city, parent, false);
+			rowView = inflater.inflate(R.layout.activity_city_item_city, parent, false);
 			viewHolder = new ViewHolder(rowView);
 			rowView.setTag(viewHolder);			
 		}
