@@ -19,6 +19,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -166,8 +167,11 @@ public class DaoWrapper {
     private WeatherOfTheDay createWeatherOfTheDay(List<WeatherForecastItem> forecasts){
         if(forecasts!=null&&forecasts.size()!=0) {
             MyLog.e(TAG, "createWeatherOfTheDay not empty list");
+            MainDao mainDao= ForecastDatabase.getInstance().getMainDao();
             WeatherForecastItem current=forecasts.get(0);
             WeatherOfTheDay wotd = new WeatherOfTheDay();
+            current.setMain(mainDao.loadMainForWeatherForecastItems(current.get_id()));
+            current.setWeather(ForecastDatabase.getInstance().getWeatherDao().loadWeatherForWeatherForecastItem(current.get_id()));
             //global attribute
             wotd.setCity_Id(current.getCity_Id());
             wotd.setDayHash(current.getDayHash());
@@ -193,10 +197,13 @@ public class DaoWrapper {
                 wotd.setTempMin(current.getMain().getTemp());
             }
             //TODO find an algo for weather (icon/main/desc)
+            List<Weather> currentWeatherInfo=current.getWeather();
             //First element is consumed, keep going with others
             for (int i = 1; i < forecasts.size(); i++) {
                 MyLog.e(TAG, "createWeatherOfTheDay managing:" + i + " element");
                 current=forecasts.get(i);
+                //load your entity
+                current.setMain(mainDao.loadMainForWeatherForecastItems(current.get_id()));
                 //elements based on an average calculation
                 if(current.getClouds()!=null){
                     wotd.setClouds(average(current.getClouds().getAll(),wotd.getClouds(),i));
@@ -223,7 +230,9 @@ public class DaoWrapper {
                     wotd.setTempMax(Math.max(wotd.getTempMax(), current.getMain().getTemp()));
                 }
                 //others temp? icon ? desc ? main
+                currentWeatherInfo.addAll(ForecastDatabase.getInstance().getWeatherDao().loadWeatherForWeatherForecastItem(current.get_id()));
             }
+            manageWeatherList(wotd,currentWeatherInfo);
             MyLog.e(TAG, "createWeatherOfTheDay Have created:" + wotd + "]");
             return wotd;
         }else{
@@ -232,6 +241,96 @@ public class DaoWrapper {
             return null;
         }
 
+    }
+
+    private void manageWeatherList(WeatherOfTheDay wotd, List<Weather> currentWeatherInfo){
+        //from this list find the one that is the most used
+        HashMap<String,Integer> iconSorted=new HashMap<>(),mainSorted=new HashMap<>(),descSorted=new HashMap<>();
+        String iKey=null,iSecondKey=null;
+        int maxOccurenceNum=0,maxSecondOccNum=0;
+        for (Weather weather : currentWeatherInfo) {
+            //Sort icon
+            iKey=weather.getIcon().substring(0,2);
+            //icon
+            if(!iconSorted.containsKey(iKey)){
+                iconSorted.put(iKey,1);
+            }else{
+                iconSorted.put(iKey,iconSorted.get(iKey)+1);
+            }
+            //Sort Main
+            if(!mainSorted.containsKey(weather.getMain())){
+                mainSorted.put(weather.getMain(),1);
+            }else{
+                mainSorted.put(weather.getMain(),mainSorted.get(weather.getMain())+1);
+            }
+            //Sort Desc
+            if(!descSorted.containsKey(weather.getDescription())){
+                descSorted.put(weather.getDescription(),1);
+            }else{
+                descSorted.put(weather.getDescription(),descSorted.get(weather.getDescription())+1);
+            }
+
+        }
+        //find best icon
+        maxOccurenceNum=0;
+        for (String key : iconSorted.keySet()) {
+            MyLog.e(TAG, "Icon browse:"+key+":"+iconSorted.get(key)+" facing "+maxOccurenceNum+" for "+iKey);
+            if(iconSorted.get(key)>maxOccurenceNum){
+                //update second main
+                maxSecondOccNum=maxOccurenceNum;
+                iSecondKey=iKey;
+                //update first main
+                maxOccurenceNum=iconSorted.get(key);
+                iKey=key;
+            }else if(iconSorted.get(key)>maxSecondOccNum){
+                maxSecondOccNum=iconSorted.get(key);
+                iSecondKey=key;
+            }
+        }
+        MyLog.e(TAG, "Best Icon found:"+iKey+":"+maxOccurenceNum+" sec :"+iSecondKey+":"+maxSecondOccNum);
+        wotd.setIcon(iKey+"d");
+        if(iSecondKey==null){
+            wotd.setIconSecondary(iKey+"d");
+        }else{
+            wotd.setIconSecondary(iSecondKey+"d");
+        }
+        //find best main
+        maxSecondOccNum=maxOccurenceNum=0;
+        iKey=iSecondKey=null;
+        for (String key : mainSorted.keySet()) {
+            MyLog.e(TAG, "Main browse:"+key+":"+mainSorted.get(key)+" facing "+maxOccurenceNum+" for "+iKey+" Secon "+maxSecondOccNum+" for "+iSecondKey);
+            if(mainSorted.get(key)>maxOccurenceNum){
+                //update second main
+                maxSecondOccNum=maxOccurenceNum;
+                iSecondKey=iKey;
+                //update first main
+                maxOccurenceNum=mainSorted.get(key);
+                iKey=key;
+            }else if(mainSorted.get(key)>maxSecondOccNum){
+                maxSecondOccNum=mainSorted.get(key);
+                iSecondKey=key;
+            }
+        }
+        MyLog.e(TAG, "Best Main found:"+iKey+":"+maxOccurenceNum+" sec :"+iSecondKey+":"+maxSecondOccNum);
+        if(iSecondKey==null){
+            wotd.setMain(iKey);
+            wotd.setMainSecondary(iKey);
+        }else{
+            wotd.setMain(iKey);
+            wotd.setMainSecondary(iSecondKey);
+        }
+        //find best main
+        maxSecondOccNum=maxOccurenceNum=0;
+        iKey=iSecondKey=null;
+        for (String key : descSorted.keySet()) {
+            MyLog.e(TAG, "Desc browse:"+key+":"+descSorted.get(key)+" facing "+maxOccurenceNum+" for "+iKey);
+            if(descSorted.get(key)>maxOccurenceNum){
+                maxOccurenceNum=descSorted.get(key);
+                iKey=key;
+            }
+        }
+        MyLog.e(TAG, "Best Desc found:"+iKey+":"+maxOccurenceNum);
+        wotd.setDescription(iKey);
     }
 
     private float average(float newElement, float currentAverage, int currentElements){

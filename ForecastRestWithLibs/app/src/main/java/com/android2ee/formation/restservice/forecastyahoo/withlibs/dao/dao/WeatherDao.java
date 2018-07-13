@@ -30,8 +30,12 @@ public interface WeatherDao {
 
     @Query("SELECT * FROM weather WHERE weatherForecastItemId IN (:weatherForecastItemId) LIMIT 1")
     LiveData<Weather> loadLiveDataWeatherForWeatherForecastItemUnique(long weatherForecastItemId);
+
     @Query("SELECT * FROM weather WHERE weatherDataId IN (:weatherDataId)")
     LiveData<List<Weather>> loadLiveDataWeatherForWeatherData(long weatherDataId);
+
+    @Query("SELECT * FROM weather WHERE weatherForecastItemId IN (:weatherForecastItemId)")
+    List<Weather> loadWeatherForWeatherForecastItem(long weatherForecastItemId);
 
     /***********************************************************
      *  Insert

@@ -1,20 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="MyTextView.Main">
+    <style name="MyTextAppearance.Main">
         <item name="android:textColor">@color/blue_pure_2</item>
     </style>
 
-    <style name="MyTextView.Main.Primary">
+    <style name="MyTextAppearance.Main.Primary" parent="@style/TextAppearance.AppCompat.Display1">
         <item name="android:textStyle">bold</item>
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Display2</item>
-        <item name="android:textSize">@dimen/text_size_title</item>
+        <!--<item name="android:textSize">@dimen/text_size_title</item>-->
     </style>
 
-    <style name="MyTextView.Main.Secondary">
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
+
+
+    <style name="MyTextAppearance.Main.Tertiary" parent="@style/TextAppearance.AppCompat.Small">
+        <item name="android:textStyle">italic</item>
     </style>
-    <style name="MyTextView.Main.Tertiary">
-        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Display3</item>
+
+    <!-- ==================== -->
+    <!--    OUR STYLES FOR    -->
+    <!--android:textAppearance-->
+    <!-- ==================== -->
+    <!--Style are designed for your views not from the framework-->
+    <style name="MyTextAppearance" parent="@style/TextAppearance.AppCompat">
     </style>
+    <!--Really Small Text Appeareance: Caption-->
+    <!--Used for the caption of your icon in item list-->
+    <style name="MyTextAppearance.CaptionCardText" parent="@style/TextAppearance.AppCompat.Caption">
+    </style>
+    <style name="MyTextAppearance.CaptionCardText.Secondary" parent="MyTextAppearance.CaptionCardText">
+        <item name="android:textColor">@color/grey_light_3</item>
+</style>
+
+    <!-- Small Text Appearance: Small -->
+    <!--Used to display the value in most cardView (all items type) wind/humidity/clouds...-->
+    <style name="MyTextAppearance.SmallCardText" parent="@style/TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/blue_pure_2</item>
+    </style>
+    <!--Used for the small text in the header : Main in item forecast-->
+    <style name="MyTextAppearance.SmallCardText.Header" parent="@style/MyTextAppearance.SmallCardText">
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+    <!-- Use for title of cards: HeadLine -->
+    <style name="MyTextAppearance.TitleCardText" parent="@style/TextAppearance.AppCompat.Headline">
+        <item name="android:textColor">@color/colorPrimaryDarker</item>
+    </style>
+    <!-- Use for subtitle of cards: Large -->
+    <!-- -->
+    <style name="MyTextAppearance.TitleCardText.Secondary" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="android:textColor">?android:attr/textColorTertiary</item>
+
+    </style>
+
+
+    <!--This is the Text Size for all those styles-->
+    <!--And also the list of available style in AppCompat-->
+    <!--<dimen name="abc_text_size_caption_material">12sp</dimen>-->
+    <!--<dimen name="abc_text_size_body_1_material">14sp</dimen>-->
+    <!--<dimen name="abc_text_size_body_2_material">14sp</dimen>-->
+    <!--<dimen name="abc_text_size_button_material">14sp</dimen>-->
+    <!--<dimen name="abc_text_size_menu_header_material">14sp</dimen>-->
+    <!--<dimen name="abc_text_size_small_material">14sp</dimen>-->
+    <!--<dimen name="abc_text_size_menu_material">16sp</dimen>-->
+    <!--<dimen name="abc_text_size_subhead_material">16sp</dimen>-->
+    <!--<dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>-->
+    <!--<dimen name="abc_text_size_medium_material">18sp</dimen>-->
+    <!--<dimen name="abc_text_size_title_material">20sp</dimen>-->
+    <!--<dimen name="abc_text_size_title_material_toolbar">20dp</dimen>-->
+    <!--<dimen name="abc_text_size_large_material">22sp</dimen>-->
+    <!--<dimen name="abc_text_size_headline_material">24sp</dimen>-->
+    <!--<dimen name="abc_text_size_display_1_material">34sp</dimen>-->
+    <!--<dimen name="abc_text_size_display_2_material">45sp</dimen>-->
+    <!--<dimen name="abc_text_size_display_3_material">56sp</dimen>-->
+    <!--<dimen name="abc_text_size_display_4_material">112sp</dimen>-->
 </resources>

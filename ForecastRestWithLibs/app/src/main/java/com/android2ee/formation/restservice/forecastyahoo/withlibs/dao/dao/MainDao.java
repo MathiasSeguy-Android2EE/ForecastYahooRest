@@ -32,6 +32,9 @@ public interface MainDao {
     @Query("SELECT * FROM main_temp WHERE weatherDataId IN (:weatherDataId) LIMIT 1")
     LiveData<Main> loadLiveDataMainForWeatherData(long weatherDataId);
 
+    @Query("SELECT * FROM main_temp WHERE weatherForecastItemId IN (:weatherForecastItemId) LIMIT 1")
+    Main loadMainForWeatherForecastItems(Long weatherForecastItemId);
+
     /***********************************************************
      *  Insert
      **********************************************************/

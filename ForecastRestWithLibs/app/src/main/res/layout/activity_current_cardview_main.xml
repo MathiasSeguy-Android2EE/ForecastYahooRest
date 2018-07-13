@@ -5,16 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_gravity="center"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/green_light_3"
     android:minHeight="96dp"
     android:minWidth="128dp"
-    android:padding="@dimen/activity_padding"
+    style="@style/MyCardView"
     tools:showIn="@layout/activity_current_content">
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_temperature"
-        style="@style/MyTextView.Main.Primary"
+        android:textAppearance="@style/MyTextAppearance.Main.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,64 +26,53 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_max_temperature"
-        style="@style/MyTextView.Main.Secondary"
+        android:textAppearance="@style/MyTextAppearance.SmallCardText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/red"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_humidity"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
-        app:layout_constraintBottom_toTopOf="@+id/tv_min_temperature"
-        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_humidity"
         tools:text="14.0°C"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_min_temperature"
-        style="@style/MyTextView.Main.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/MyTextAppearance.SmallCardText"
         android:textColor="@color/colorPrimaryDarker"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/tv_pressure"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_max_temperature"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tv_pressure"
         tools:text="16.0°C" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_humidity"
-        style="@style/MyTextView.Main.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/MyTextAppearance.SmallCardText"
         android:textColor="@color/blue"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_max_temperature"
-        app:layout_constraintBottom_toTopOf="@+id/tv_pressure"
         app:layout_constraintEnd_toStartOf="@+id/iv_drop"
-        app:layout_constraintVertical_chainStyle="spread_inside"
-        tools:text="70"/>
+        app:layout_constraintBottom_toBottomOf="@+id/iv_drop"
+        app:layout_constraintTop_toTopOf="@+id/iv_drop"
+        tools:text="70" />
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/iv_drop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/blue"
-        app:srcCompat="@drawable/ic_drop_humidity_percent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_drop_humidity_percent"
+        app:tint="@color/blue" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_pressure"
-        style="@style/MyTextView.Main.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/MyTextAppearance.SmallCardText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tv_min_temperature"
-        app:layout_constraintTop_toBottomOf="@+id/tv_humidity"
-        android:layout_marginRight="4dp"
-        android:layout_marginEnd="4dp"
         tools:text="1024 hPa" />
 
 </android.support.constraint.ConstraintLayout>

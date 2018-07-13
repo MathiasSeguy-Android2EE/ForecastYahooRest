@@ -9,14 +9,17 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@color/blue_light_3"
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_country"
+            android:textAppearance="@style/MyTextAppearance.TitleCardText.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/iv_sunrise"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,15 +33,16 @@
             android:padding="@dimen/activity_padding"
             app:layout_constraintBottom_toTopOf="@+id/tv_sunrise"
             app:layout_constraintDimensionRatio="W,1:1"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/iv_sunset"
-            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_country"
             app:srcCompat="@drawable/ic_sunrise_anim"
             app:tint="@color/yellow_sunrise" />
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_sunrise"
+            android:textAppearance="@style/MyTextAppearance.SmallCardText.Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -66,6 +70,7 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_sunset"
+            android:textAppearance="@style/MyTextAppearance.SmallCardText.Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"

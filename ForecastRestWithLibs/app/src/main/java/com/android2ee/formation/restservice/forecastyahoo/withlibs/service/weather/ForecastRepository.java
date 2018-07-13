@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Created by Created by Mathias Seguy alias Android2ee on 28/06/2018.
  */
-public class ForecastRepository extends MotherBusinessService {
+public class ForecastRepository extends MotherBusinessService implements ForecastRepositoryIntf {
     private static final String TAG = "ForecastRepository";
     public ForecastRepository(ServiceManagerIntf srvManager) {
         super(srvManager);
@@ -51,7 +51,7 @@ public class ForecastRepository extends MotherBusinessService {
      * @param bitmapMLD
      * @return
      */
-    public static MutableLiveData<Bitmap> downloadPictureSafely(String urlGetPicture,MutableLiveData<Bitmap> bitmapMLD) {
+    public MutableLiveData<Bitmap> downloadPictureSafely(String urlGetPicture,MutableLiveData<Bitmap> bitmapMLD) {
         if(bitmapMLD!=null){
             bitmapMLD.postValue(PictureCacheDownloader.downloadPicture(urlGetPicture));
             return bitmapMLD;
@@ -65,7 +65,7 @@ public class ForecastRepository extends MotherBusinessService {
     /**
      * Should be called by the View
      */
-    static public MutableLiveData<Bitmap> downloadPictureSafelyAsynch(String urlGetPicture) {
+    public MutableLiveData<Bitmap> downloadPictureSafelyAsynch(String urlGetPicture) {
         MutableLiveData<Bitmap> bitmapMLD=new MutableLiveData<>();
         MyApplication.instance.getServiceManager().getKeepAliveThreadsExecutor()
                 .submit( new RunnableDownloadPictureSafely(urlGetPicture,bitmapMLD));
@@ -75,7 +75,7 @@ public class ForecastRepository extends MotherBusinessService {
     /**
      * This is the runnable that will send the work in a background thread
      */
-    static private class RunnableDownloadPictureSafely implements Runnable {
+    private class RunnableDownloadPictureSafely implements Runnable {
         String urlGetPicture;
         MutableLiveData<Bitmap> bitmapMLD;
         public RunnableDownloadPictureSafely(String urlGetPicture,MutableLiveData<Bitmap> bitmapMLD) {

@@ -5,6 +5,8 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="activity_horizontal_small_margin">4dp</dimen>
     <dimen name="activity_vertical_small_margin">4dp</dimen>
+    <dimen name="activity_horizontal_xsmall_margin">2dp</dimen>
+    <dimen name="activity_vertical_xsmall_margin">2dp</dimen>
     <dimen name="activity_padding">5dp</dimen>
     <dimen name="buttonSize">12dp</dimen>
     <dimen name="corner_button_Size">5dp</dimen>

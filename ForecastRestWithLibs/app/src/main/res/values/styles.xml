@@ -30,24 +30,40 @@
         <item name="textAllCaps">false</item>
     </style>
 
-    <style name="MyTextView" parent="@android:style/TextAppearance" />
     <!--Style for Small Card View-->
+
+    <style name="MyCardView" parent="CardView.Light">
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+        <item name="android:padding">@dimen/activity_horizontal_margin</item>
+    </style>
+    <style name="MyCardView_VerticalConstraints" parent="CardView.Light">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+    <style name="MyMediumCardView" parent="MyCardView">
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_small_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_small_margin</item>
+        <item name="android:layout_marginTop">@dimen/activity_vertical_small_margin</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_small_margin</item>
+    </style>
+    <style name="MyMediumCardView_VerticalConstraints" parent="MySmallCardView">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
     <style name="MySmallCardView" parent="MyCardView">
         <item name="android:layout_marginLeft">@dimen/activity_horizontal_small_margin</item>
         <item name="android:layout_marginRight">@dimen/activity_horizontal_small_margin</item>
         <item name="android:layout_marginTop">@dimen/activity_vertical_small_margin</item>
         <item name="android:layout_marginBottom">@dimen/activity_vertical_small_margin</item>
     </style>
-    <style name="MyCardView" parent="CardView.Light">
-        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
-        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
-        <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
-        <item name="android:layout_marginBottom">@dimen/activity_vertical_margin</item>
+    <style name="MySmallCardView_VerticalConstraints" parent="MySmallCardView">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
     </style>
-    <style name="MyCardView_VerticalConstraints" parent="CardView.Light">
-        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
-        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
-    </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

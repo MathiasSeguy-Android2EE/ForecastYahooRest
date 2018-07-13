@@ -27,6 +27,7 @@
             android:theme="@style/AppTheme"></activity>
         <!--Find City-->
         <activity android:name=".view.findcity.CityActivity" />
+        <activity android:name=".view.oftheday.WotdActivity" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="39866e36af5c6630aa5f1300338ad9c6005c1e3d" />

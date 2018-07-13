@@ -3,10 +3,14 @@ package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.m
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Created by Mathias Seguy alias Android2ee on 03/07/2018.
@@ -21,6 +25,11 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
                         childColumns = "cityId",
                         onDelete = ForeignKey.CASCADE)}
 )public class WeatherOfTheDay {
+
+    /**
+     *
+     */
+    private static final float KELVIN_OFFSET_TO_CELSIUS = -273.15f;
     @PrimaryKey(autoGenerate = true)
     private long _id_wotd;
 
@@ -34,6 +43,8 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
      */
     @ColumnInfo(name = "day_hash")
     private int dayHash = -1;
+    @Ignore
+    private Calendar calTemp;
 
     /**
      * Average of all the clouds of the day
@@ -68,24 +79,28 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
      * tempMax=Max of temp
      */
     @ColumnInfo(name = "temp")
-    private float temp=0f;
+    private float temp=KELVIN_OFFSET_TO_CELSIUS;
     @ColumnInfo(name = "pressure")
     private float pressure=0f;
     @ColumnInfo(name = "humidity")
     private float humidity=0f;
     @ColumnInfo(name = "temp_min")
-    private float tempMin=0f;
+    private float tempMin=KELVIN_OFFSET_TO_CELSIUS;
     @ColumnInfo(name = "temp_max")
-    private float tempMax=0f;
+    private float tempMax=KELVIN_OFFSET_TO_CELSIUS;
     /**
      * For those elements, the most found in the day based on the occurence of each
      */
     @ColumnInfo(name = "main")
     private String main;
+    @ColumnInfo(name = "main_secondary")
+    private String mainSecondary ;
     @ColumnInfo(name = "description")
     private String description;
     @ColumnInfo(name = "icon")
     private String icon;
+    @ColumnInfo(name = "icon_secondary")
+    private String iconSecondary;
 
 
     /***********************************************************
@@ -112,6 +127,15 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 
     public int getDayHash() {
         return dayHash;
+    }
+
+    public Calendar getDayHashCalendar() {
+        if(calTemp==null){
+            calTemp=new GregorianCalendar();
+            calTemp.set(Calendar.YEAR,dayHash/1000);
+            calTemp.set(Calendar.DAY_OF_YEAR,dayHash%1000);
+        }
+        return calTemp;
     }
 
     public void setDayHash(int dayHash) {
@@ -222,12 +246,29 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
         this.icon = icon;
     }
 
+    public String getIconSecondary() {
+        return iconSecondary;
+    }
+
+    public void setIconSecondary(String iconSecondary) {
+        this.iconSecondary = iconSecondary;
+    }
+
+    public String getMainSecondary() {
+        return mainSecondary;
+    }
+
+    public void setMainSecondary(String mainSecondary) {
+        this.mainSecondary = mainSecondary;
+    }
+
     @Override
     public String toString() {
         return "WeatherOfTheDay{" +
                 "_id_wotd=" + _id_wotd +
                 ", city_Id=" + city_Id +
                 ", dayHash=" + dayHash +
+                ", calTemp=" + calTemp +
                 ", clouds=" + clouds +
                 ", windSpeed=" + windSpeed +
                 ", windDegree=" + windDegree +
@@ -239,8 +280,10 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
                 ", tempMin=" + tempMin +
                 ", tempMax=" + tempMax +
                 ", main='" + main + '\'' +
+                ", mainSecondary='" + mainSecondary + '\'' +
                 ", description='" + description + '\'' +
                 ", icon='" + icon + '\'' +
+                ", iconSecondary='" + iconSecondary + '\'' +
                 '}';
     }
 }

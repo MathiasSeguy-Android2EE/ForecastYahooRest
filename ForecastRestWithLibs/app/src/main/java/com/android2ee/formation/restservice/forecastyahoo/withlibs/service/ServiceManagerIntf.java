@@ -31,8 +31,9 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.service;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityServiceIntf;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastRepository;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastRepositoryIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdaterIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherOfTheDayRepositoryIntf;
 
 import java.util.concurrent.ExecutorService;
 
@@ -52,13 +53,16 @@ public interface ServiceManagerIntf {
     /**
      * @return the ForecastRepository
      */
-    ForecastRepository getForecastRepository();
+    ForecastRepositoryIntf getForecastRepository();
 
     /**
      * @return the cityService
      */
     CityServiceIntf getCityService();
-
+    /**
+     * @return the WeatherOfTheDayRepository
+     */
+    WeatherOfTheDayRepositoryIntf getWeatherOfTheDayRepository();
     /**
      * @return the cancelableThreadsExceutor
      */

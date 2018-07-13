@@ -40,8 +40,11 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityService;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityServiceIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastRepository;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastRepositoryIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdater;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdaterIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherOfTheDayRepository;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherOfTheDayRepositoryIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.ArrayList;
@@ -69,7 +72,13 @@ public class ServiceManager implements ServiceManagerIntf {
     /**
      * The  Forecast Repository
      */
-    ForecastRepository forecastRepository = null;
+    ForecastRepositoryIntf forecastRepository = null;
+    /**
+     * The  Forecast Repository
+     */
+    WeatherOfTheDayRepositoryIntf weatherOfTheDayRepository = null;
+
+
     /**
      * The  City  service
      */
@@ -129,7 +138,8 @@ public class ServiceManager implements ServiceManagerIntf {
         return weatherUpdaterService;
     }
 
-    public ForecastRepository getForecastRepository(){
+    @Override
+    public ForecastRepositoryIntf getForecastRepository(){
         if (null == forecastRepository) {
             forecastRepository = new ForecastRepository(this);
             motherBusinessServices.add(forecastRepository);
@@ -148,6 +158,17 @@ public class ServiceManager implements ServiceManagerIntf {
         return cityServiceIntf;
     }
 
+    /**
+     * @return the WeatherOfTheDayRepository
+     */
+    @Override
+    public WeatherOfTheDayRepositoryIntf getWeatherOfTheDayRepository() {
+        if (null == weatherOfTheDayRepository) {
+            weatherOfTheDayRepository = new WeatherOfTheDayRepository(this);
+            motherBusinessServices.add(weatherOfTheDayRepository);
+        }
+        return weatherOfTheDayRepository;
+    }
     /******************************************************************************************/
     /** Pool Executor for Threads that has to cancelled when the application shutdown**/
     /******************************************************************************************/

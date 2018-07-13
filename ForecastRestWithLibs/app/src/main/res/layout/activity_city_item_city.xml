@@ -1,5 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lay_item"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
@@ -34,7 +35,8 @@
             android:layout_weight="1"
             android:gravity="center"
             app:autoSizeMinTextSize="16sp"
-            app:autoSizeTextType="uniform" />
+            app:autoSizeTextType="uniform"
+            tools:text="Palaminy" />
 
         <TextView
             android:id="@+id/txvCountry"
@@ -42,7 +44,8 @@
             android:layout_height="fill_parent"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:gravity="center" />
+            android:gravity="center"
+            tools:text="Fr" />
     </LinearLayout>
 
     <ImageView
