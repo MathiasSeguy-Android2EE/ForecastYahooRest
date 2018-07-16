@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/lay_item"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="192dp"
     android:orientation="horizontal"
     android:paddingBottom="5dp"
     android:paddingLeft="16dp"
@@ -15,7 +15,7 @@
         android:id="@+id/cdv_main_city"
         style="@style/MyCardView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <include layout="@layout/activity_current_cardview_main" />
     </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView>

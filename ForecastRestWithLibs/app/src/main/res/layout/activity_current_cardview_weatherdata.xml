@@ -9,8 +9,7 @@
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/indigo_light_3">
+    android:layout_gravity="center">
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/txv_name"

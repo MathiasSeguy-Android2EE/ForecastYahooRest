@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_now"
+        android:enabled="true"
+        android:icon="@drawable/ic_skyline"
+        android:title="@string/menu_now"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_wotf"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:title="@string/menu_wotf"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_3h"
+        android:enabled="true"
+        android:icon="@drawable/ic_action_plane"
+        android:title="@string/menu_3h"
+        app:showAsAction="ifRoom" />
+</menu>

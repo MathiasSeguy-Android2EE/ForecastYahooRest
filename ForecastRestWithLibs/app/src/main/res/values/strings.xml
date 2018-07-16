@@ -15,6 +15,11 @@
     <string name="action_search">Search a city</string>
     <string name="action_delete">Delete</string>
     <string name="title_activity_city">CityActivity</string>
+    <!--Menu Bottom Navigation Bar-->
+    <string name="menu_now">Now</string>
+    <string name="menu_wotf">Days</string>
+    <string name="menu_3h">3h</string>
+
     <!--DeleteAlertDialog-->
     <string name="btn_yes">Yes</string>
     <string name="btn_no">No</string>

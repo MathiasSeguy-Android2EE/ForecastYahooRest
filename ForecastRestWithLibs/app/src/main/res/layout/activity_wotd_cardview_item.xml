@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
     tools:context="com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.ForecastWeatherActivity">
 
     <android.support.v7.widget.CardView
@@ -14,7 +13,6 @@
         style="@style/MySmallCardView"
         app:layout_constraintBottom_toTopOf="@+id/cdv_main"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/colorPrimary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -116,9 +114,10 @@
 
     <android.support.v7.widget.CardView
         android:id="@+id/cdv_conditions"
+        style="@style/MySmallCardView"
+        android:layout_marginTop="@dimen/activity_vertical_small_margin"
         android:layout_width="0dp"
         android:layout_height="76dp"
-        android:background="@color/colorPrimaryDarkerTranslucent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

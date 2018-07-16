@@ -25,6 +25,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.mo
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.NavigationActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.adapter.WeatherRecyclerViewAdapter;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.sys.SysCardView;
@@ -35,7 +36,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.oftheday
 import java.util.ArrayList;
 import java.util.List;
 
-public class CurrentWeatherActivity extends CityNavDrawerActivity implements DeleteAlert.DeletionCallBack, SwipeRefreshLayout.OnRefreshListener {
+public class CurrentWeatherActivity extends NavigationActivity implements DeleteAlert.DeletionCallBack, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "CurrentWeatherActivity";
     public static final int NULL_VALUE = -1;
 
@@ -98,6 +99,10 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
      * The Alertdialog to confirm deletion
      */
     private DeleteAlert deleteDialog;
+    /**
+     * MenuItem's animated vector drawable icon
+     */
+    AnimatedVectorDrawableCompat atomicBombAnim;
     /***********************************************************
     *  Managing LifeCycle
     **********************************************************/
@@ -148,6 +153,9 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
                 deleteDialog.dismiss();
             }
             deleteDialog = null;
+        }
+        if(atomicBombAnim.isRunning()){
+            atomicBombAnim.stop();
         }
     }
 
@@ -281,7 +289,13 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.activity_current_menu, menu);
+        //inflate your AnimatedVectorDrawable
+        atomicBombAnim =AnimatedVectorDrawableCompat.create(this,R.drawable.ic_nuclear_bomb_anim);
+        //deinfed it for your MenuItem
+        menu.findItem(R.id.action_delete).setIcon(atomicBombAnim);
+        //start the animation
+        atomicBombAnim.start();
         return true;
     }
 
@@ -293,16 +307,10 @@ public class CurrentWeatherActivity extends CityNavDrawerActivity implements Del
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_search:
-                // Launch the search cityactivity
-                launchCityActivity(false);
-                return true;
             case R.id.action_delete:
+                atomicBombAnim.start();
                 //Delete the current city
                 onDeleteCurrentCity();
-                return true;
-            case R.id.action_switch:
-                launchForecast();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

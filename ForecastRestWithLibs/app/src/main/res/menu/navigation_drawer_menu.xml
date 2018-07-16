@@ -1,13 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:a2ee="http://schemas.android.com/apk/res-auto"  >
-    <item
-        android:id="@+id/action_switch"
-        a2ee:showAsAction="always"
-        android:icon="@drawable/ic_last_update"
-        android:title="@string/action_search"/>
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item android:title="Actions">
+            <menu>
+                <item
+                    android:id="@+id/nav_search"
+                    android:icon="@drawable/ic_search"
+                    android:title="Find a city" />
+            </menu>
+        </item>
+
+    </group>
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
     <item
         android:id="@+id/action_author"
-        a2ee:showAsAction="ifRoom"
         android:icon="@drawable/ic_android2ee"
         android:orderInCategory="002"
         android:title="@string/action_author">
@@ -34,5 +54,4 @@
                 android:title="Email us"/>
         </menu>
     </item>
-
 </menu>

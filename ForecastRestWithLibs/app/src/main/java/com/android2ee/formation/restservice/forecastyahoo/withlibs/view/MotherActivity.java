@@ -31,13 +31,9 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.view;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -62,9 +58,9 @@ public abstract class MotherActivity extends AppCompatActivity {
      */
     protected boolean isConnected;
     /**
-     * The action Bar
+     * The toolbar
      */
-    private ActionBar actionBar;
+    Toolbar toolbar;
     @Override
     protected void onStart() {
         super.onStart();
@@ -77,10 +73,10 @@ public abstract class MotherActivity extends AppCompatActivity {
     @Override
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
-        //Manage the toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //Toolbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        actionBar = getSupportActionBar();
+        ActionBar actionBar=getSupportActionBar();
         actionBar.setTitle("Weather");
         actionBar.setSubtitle("By Android2EE");
     }
@@ -277,72 +273,6 @@ public abstract class MotherActivity extends AppCompatActivity {
     private void hideTxvNoConnectivity() {
         txvErrors.setVisibility(View.GONE);
     }
-    /******************************************************************************************/
-    /** Managing Menu **************************************************************************/
-    /******************************************************************************************/
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.mother, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent browserIntent;
-        switch (item.getItemId()) {
-            case R.id.action_show_android2ee:
-                // open browser on the web pages
-                browserIntent = new Intent("android.intent.action.VIEW");
-                // if (getResources().getConfiguration().locale.getDisplayName().contains("fr")) {
-                // open the browser on android2ee
-                browserIntent.setData(Uri.parse(getResources().getString(R.string.android2ee_url)));
-                // } else {
-                // // open the browser on android2ee english version
-                // browserIntent.setData(Uri.parse("http://www.android2ee.com/en"));
-                // }
-                startActivity(browserIntent);
-                return true;
-            case R.id.action_training_android2ee:
-                // open browser on the web pages
-                browserIntent = new Intent("android.intent.action.VIEW");
-                // if (getResources().getConfiguration().locale.getDisplayName().contains("fr")) {
-                // open the browser on android2ee
-                browserIntent.setData(Uri.parse(getResources().getString(R.string.android2ee_url_training)));
-                // } else {
-                // // open the browser on android2ee english version
-                // browserIntent.setData(Uri.parse("http://www.android2ee.com/en"));
-                // }
-                startActivity(browserIntent);
-                return true;
-            case R.id.action_show_mathias:
-                // open browser on the web pages
-                browserIntent = new Intent("android.intent.action.VIEW");
-                browserIntent.setData(Uri.parse(getResources().getString(R.string.mse_dvp_url)));
-                startActivity(browserIntent);
-                return true;
-            case R.id.action_mail_mathias:
-                // load string for email:
-                String subject = getResources().getString(R.string.mail_subject);
-                String body = getResources().getString(R.string.mail_body);
-                // send an email
-                final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-                emailIntent.setType("plain/text");
-                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL,
-                        new String[] { getResources().getString(R.string.mse_email) });
-                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
-                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, body);
-                startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 }

@@ -17,7 +17,7 @@
 
     <color name="colorItemBackground">#EEEEEE</color>
     <color name="colorDivider">#d0d9ff</color>
-    <color name="colorPrimary">#afbfff</color>
+    <color name="colorPrimary">@color/indigo</color>
     <color name="colorPrimaryDarker">#738ffe</color>
     <color name="colorAccent">#9c27b0</color>
     <color name="colorDisable">#90A4AE</color>
@@ -45,7 +45,7 @@
     <color name="grey_translucent_light3">#DD90a4ae</color>
 
 
-    <color name="indigo">@color/colorPrimary</color>
+    <color name="indigo">#afbfff</color>
     <color name="indigo_light_1">#C5CAE9</color>
     <color name="indigo_light_3">#7986CB</color>
     <color name="indigo_dark_7">#303F9F</color>
