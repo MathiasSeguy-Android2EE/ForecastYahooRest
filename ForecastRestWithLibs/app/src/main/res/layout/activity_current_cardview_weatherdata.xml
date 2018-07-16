@@ -9,7 +9,9 @@
 <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:layout_marginHorizontal="@dimen/activity_horizontal_small_margin"
+    android:layout_marginVertical="@dimen/activity_vertical_small_margin">
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/txv_name"
