@@ -31,7 +31,6 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.sys.SysCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.dialog.DeleteAlert;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.oftheday.WotdActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -345,17 +344,6 @@ public class CurrentWeatherActivity extends NavigationActivity implements Delete
         startActivity(launchMainActivity);
         //and die
         finish();
-    }
-
-    /**
-     *
-     */
-    private void launchForecast() {
-        MyLog.e(TAG,"launchForecast");
-        //launch the main activity
-//        Intent launchMainActivity = new Intent(this, ForecastWeatherActivity.class);
-        Intent launchMainActivity = new Intent(this, WotdActivity.class);
-        startActivity(launchMainActivity);
     }
     /***********************************************************
      *  Managing DeletionCallback methods
