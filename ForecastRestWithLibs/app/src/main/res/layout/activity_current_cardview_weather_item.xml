@@ -5,7 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="120dp"
-    style="@style/MyCardView"
+    style="@style/MySmallCardView"
     android:id="@+id/cv_weather">
 
     <android.support.constraint.ConstraintLayout

@@ -31,7 +31,6 @@
     </style>
 
     <!--Style for Small Card View-->
-
     <style name="MyCardView" parent="CardView.Light">
         <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
@@ -64,7 +63,14 @@
         <item name="android:layout_marginBottom">0dp</item>
     </style>
 
+    <!--Style for root layout for Items in RecyclerView-->
 
+    <style name="MyItem">
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:layout_marginTop">@dimen/activity_vertical_xsmall_margin</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_xsmall_margin</item>
+    </style>
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

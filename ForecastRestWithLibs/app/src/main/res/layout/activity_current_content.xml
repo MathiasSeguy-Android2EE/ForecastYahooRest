@@ -24,7 +24,7 @@
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_gravity="top|center_horizontal">
+                android:layout_gravity="center">
 
                 <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView
                     android:id="@+id/cdv_main"
@@ -37,7 +37,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/cdv_cloud"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
-                    app:layout_constraintVertical_chainStyle="spread_inside">
+                    app:layout_constraintVertical_chainStyle="spread">
 
                     <include
                         layout="@layout/activity_current_cardview_main"
