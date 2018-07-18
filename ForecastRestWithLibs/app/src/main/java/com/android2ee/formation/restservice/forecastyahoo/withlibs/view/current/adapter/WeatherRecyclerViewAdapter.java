@@ -53,8 +53,34 @@ public class WeatherRecyclerViewAdapter extends RecyclerView.Adapter<WeatherRecy
         //use DiffUtil
         this.weathers.clear();
         this.weathers.addAll(weathers);
+        //need to test several items ?
+//        addFakeWeathers();
         notifyDataSetChanged();
     }
+
+    private void addFakeWeathers(){
+        Weather weather;
+        //add thunderstorm
+        weather=new Weather();
+        weather.setDescription("Hello wolrd");
+        weather.setMain("Thunderstorms");
+        weather.setIcon("11d");
+        weathers.add(weather);
+        //add Mist
+        weather=new Weather();
+        weather.setDescription("Hello wolrd");
+        weather.setMain("Mist");
+        weather.setIcon("50d");
+        weathers.add(weather);
+        //add Scattered clouds
+        weather=new Weather();
+        weather.setDescription("Hello wolrd");
+        weather.setMain("Scattered clouds");
+        weather.setIcon("03d");
+        weathers.add(weather);
+
+    }
+
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
