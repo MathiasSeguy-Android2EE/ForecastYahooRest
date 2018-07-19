@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/menu_background_color.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/side_nav_bar"  android:state_checked="false"/>
+    <item android:drawable="@color/colorPrimary" android:state_checked="true"/>
+</selector>

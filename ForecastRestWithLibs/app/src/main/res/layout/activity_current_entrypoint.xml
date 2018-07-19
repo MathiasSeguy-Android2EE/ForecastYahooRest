@@ -53,6 +53,9 @@
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:layout_gravity="start"
+            android:background="@color/colorPrimary"
+            app:itemIconTint="@drawable/bottom_nav_item_color"
+            app:itemTextColor="@drawable/bottom_nav_item_color"
             android:layout_alignParentBottom="true"
             app:menu="@menu/bottom_navigation"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -65,12 +68,6 @@
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_navigation_drawer"
-        app:menu="@menu/navigation_drawer_menu" >
-    </android.support.design.widget.NavigationView>
+        style="@style/MyNavDrawer"/>
 
 </android.support.v4.widget.DrawerLayout>

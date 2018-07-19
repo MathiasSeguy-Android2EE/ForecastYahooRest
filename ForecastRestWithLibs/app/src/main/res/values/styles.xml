@@ -62,7 +62,37 @@
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:layout_marginBottom">0dp</item>
     </style>
-
+    <style name="MyNavDrawer" parent="Widget.Design.NavigationView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_small_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_small_margin</item>
+        <item name="android:layout_marginTop">@dimen/activity_vertical_small_margin</item>
+        <item name="android:layout_marginBottom">@dimen/activity_vertical_small_margin</item>
+        <item name="android:fitsSystemWindows">true</item>
+        <item name="menu">@menu/navigation_drawer_menu</item>
+        <item name="elevation">@dimen/activity_vertical_small_margin</item>
+        <item name="itemIconTint">@color/navdrawer_item_color</item>
+        <item name="itemTextColor">@color/navdrawer_item_color</item>
+        <item name="android:background">@drawable/side_nav_bar_background</item>
+        <item name="itemBackground">@drawable/side_nav_bar_item</item>
+        <item name="headerLayout">@layout/nav_header_navigation_drawer</item>
+    </style>
+  <!--  app:itemBackground="@drawable/navdrawer_item_background_color"
+   <declare-styleable name="NavigationView">
+        <attr name="android:background"/>
+        <attr name="android:fitsSystemWindows"/>
+        <attr name="android:maxWidth"/>
+        <attr name="elevation"/>
+        <attr format="reference" name="menu"/>
+        <attr format="color" name="itemIconTint"/>
+        <attr format="color" name="itemTextColor"/>
+        <attr format="reference" name="itemBackground"/>
+        <attr format="reference" name="itemTextAppearance"/>
+        <attr format="reference" name="headerLayout"/>
+    </declare-styleable>
+    -->
     <!--Style for root layout for Items in RecyclerView-->
 
     <style name="MyItem">
