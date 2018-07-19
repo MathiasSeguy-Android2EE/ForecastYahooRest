@@ -94,4 +94,8 @@ public class WotdActivity extends NavigationActivity {
         adapter.updateList(weatherForecatsItemWithMainAndWeathers);
     }
 
+    @Override
+    protected int getBootomNavAssociatedItemId() {
+        return R.id.menu_wotf;
+    }
 }

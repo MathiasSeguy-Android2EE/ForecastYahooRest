@@ -64,6 +64,11 @@ public class ForecastWeatherActivity extends NavigationActivity {
         );
     }
 
+    @Override
+    protected int getBootomNavAssociatedItemId() {
+        return R.id.menu_3h;
+    }
+
     private void updateCity(List<City> cities){
         MyLog.e(TAG,"update city with"+(cities!=null?cities.size():"0")+" elements");
         if(cities.size()!=0){

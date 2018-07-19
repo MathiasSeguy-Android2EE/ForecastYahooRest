@@ -222,7 +222,10 @@ public class CurrentWeatherActivity extends NavigationActivity implements Delete
         model.updateDataOfCitiesOnStage();
 
     }
-
+    @Override
+    protected int getBootomNavAssociatedItemId() {
+        return R.id.menu_now;
+    }
     /***********************************************************
      *  Managing UI updates (because data changed)
      **********************************************************/

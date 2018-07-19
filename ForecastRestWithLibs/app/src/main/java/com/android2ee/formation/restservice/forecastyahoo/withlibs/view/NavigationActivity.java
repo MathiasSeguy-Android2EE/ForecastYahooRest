@@ -86,6 +86,7 @@ public abstract class NavigationActivity extends MotherActivity
         navigationView.setNavigationItemSelectedListener(this);
         //BottomNavBar
         bottomNavView=findViewById(R.id.bottom_navigation);
+        bottomNavView.setSelectedItemId(getBootomNavAssociatedItemId());
         if(bottomNavView!=null) {
             bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -189,6 +190,7 @@ public abstract class NavigationActivity extends MotherActivity
     }
 
 
+    protected abstract int getBootomNavAssociatedItemId();
 
     /*
      * (non-Javadoc)
@@ -198,6 +200,11 @@ public abstract class NavigationActivity extends MotherActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent browserIntent;
+        //the double click on the selected itelm
+       if(getBootomNavAssociatedItemId()==item.getItemId()){
+            return true;
+       }
+       //normal selection of the item
         switch (item.getItemId()) {
             case R.id.nav_search:
                 // Launch the search cityactivity
