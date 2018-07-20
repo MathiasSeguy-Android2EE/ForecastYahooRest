@@ -8,6 +8,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDarker</item>
         <!--   theme UI controls like checkboxes and text fields -->
         <item name="colorAccent">@color/colorAccent</item>
+        <!--Managing your WindowsBaground-->
+        <item name="android:windowBackground">@color/colorWindowBackground</item>
+
     </style>
     <!--Both themes below are those accepted to make the ToolBar works-->
     <!-- Base application thème. -->
@@ -19,6 +22,9 @@
         <item name="cardViewStyle">@style/MyCardView</item>
         <!--<item name="spinnerDropDownItemStyle">@style/mydropdown</item>-->
     </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
     <!--Changing the color of the background-->
     <!--<style name="mydropdown" parent="@style/Base.TextAppearance.AppCompat.Widget.DropDownItem">-->
     <!--<item name="android:background">@color/colorPrimary</item>-->
@@ -57,11 +63,13 @@
         <item name="android:layout_marginRight">@dimen/activity_horizontal_small_margin</item>
         <item name="android:layout_marginTop">@dimen/activity_vertical_small_margin</item>
         <item name="android:layout_marginBottom">@dimen/activity_vertical_small_margin</item>
+        <item name="cardBackgroundColor">@color/colorBackgroundCartView</item>
     </style>
     <style name="MySmallCardView_VerticalConstraints" parent="MySmallCardView">
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:layout_marginBottom">0dp</item>
     </style>
+    <!--Style for NavigationDrawer-->
     <style name="MyNavDrawer" parent="Widget.Design.NavigationView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
@@ -79,20 +87,22 @@
         <item name="itemBackground">@drawable/side_nav_bar_item</item>
         <item name="headerLayout">@layout/nav_header_navigation_drawer</item>
     </style>
-  <!--  app:itemBackground="@drawable/navdrawer_item_background_color"
-   <declare-styleable name="NavigationView">
-        <attr name="android:background"/>
-        <attr name="android:fitsSystemWindows"/>
-        <attr name="android:maxWidth"/>
-        <attr name="elevation"/>
-        <attr format="reference" name="menu"/>
-        <attr format="color" name="itemIconTint"/>
-        <attr format="color" name="itemTextColor"/>
-        <attr format="reference" name="itemBackground"/>
-        <attr format="reference" name="itemTextAppearance"/>
-        <attr format="reference" name="headerLayout"/>
-    </declare-styleable>
-    -->
+    <!--Api 27 :'(
+    <item name="android:navigationBarDividerColor">@dimen/activity_vertical_small_margin</item>-->
+    <!--  app:itemBackground="@drawable/navdrawer_item_background_color"
+     <declare-styleable name="NavigationView">
+          <attr name="android:background"/>
+          <attr name="android:fitsSystemWindows"/>
+          <attr name="android:maxWidth"/>
+          <attr name="elevation"/>
+          <attr format="reference" name="menu"/>
+          <attr format="color" name="itemIconTint"/>
+          <attr format="color" name="itemTextColor"/>
+          <attr format="reference" name="itemBackground"/>
+          <attr format="reference" name="itemTextAppearance"/>
+          <attr format="reference" name="headerLayout"/>
+      </declare-styleable>
+      -->
     <!--Style for root layout for Items in RecyclerView-->
 
     <style name="MyItem">
@@ -101,8 +111,6 @@
         <item name="android:layout_marginTop">@dimen/activity_vertical_xsmall_margin</item>
         <item name="android:layout_marginBottom">@dimen/activity_vertical_xsmall_margin</item>
     </style>
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

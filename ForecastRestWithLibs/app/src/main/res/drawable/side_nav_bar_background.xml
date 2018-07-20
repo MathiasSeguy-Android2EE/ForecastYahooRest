@@ -2,9 +2,11 @@
     android:shape="rectangle">
     <gradient
         android:angle="180"
-        android:centerColor="@color/blue_light"
-        android:endColor="@color/blue_dark_7"
-        android:startColor="@color/blue_light_1"
+        android:centerColor="@color/navdrawer_color"
+        android:endColor="@color/navdrawer_darkColor"
+        android:startColor="@color/navdrawer_lightColor"
+        android:centerX="0.7"
+        android:centerY="0.7"
         android:type="linear" />
     <!--<solid-->
         <!--android:color="@color/blue_dark_7"-->

@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:textColor="@color/blue"
+        android:textColor="@color/colorMin"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/iv_drop"
         tools:text="70"/>
@@ -30,7 +30,7 @@
         app:srcCompat="@drawable/ic_drop_humidity_percent"
         android:layout_marginEnd="@dimen/activity_horizontal_xsmall_margin"
         android:layout_marginRight="@dimen/activity_horizontal_xsmall_margin"
-        app:tint="@color/blue" />
+        app:tint="@color/colorMin" />
 
     <!--style="@style/MyTextView.Main.Tertiary"-->
     <android.support.v7.widget.AppCompatTextView

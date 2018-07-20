@@ -7,9 +7,6 @@
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minHeight="96dp"
-    android:minWidth="128dp"
-    style="@style/MyCardView"
     tools:showIn="@layout/activity_current_content">
 
     <android.support.v7.widget.AppCompatTextView
@@ -25,10 +22,9 @@
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_max_temperature"
-        android:textAppearance="@style/MyTextAppearance.SmallCardText"
+        android:textAppearance="@style/MyTextAppearance.SmallCardText.Max"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/red"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_humidity"
@@ -38,8 +34,7 @@
         android:id="@+id/tv_min_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/MyTextAppearance.SmallCardText"
-        android:textColor="@color/colorPrimaryDarker"
+        android:textAppearance="@style/MyTextAppearance.SmallCardText.Min"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_pressure"
@@ -49,8 +44,7 @@
         android:id="@+id/tv_humidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="@style/MyTextAppearance.SmallCardText"
-        android:textColor="@color/blue"
+        android:textAppearance="@style/MyTextAppearance.SmallCardText.Min"
         app:layout_constraintEnd_toStartOf="@+id/iv_drop"
         app:layout_constraintBottom_toBottomOf="@+id/iv_drop"
         app:layout_constraintTop_toTopOf="@+id/iv_drop"
@@ -63,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_drop_humidity_percent"
-        app:tint="@color/blue" />
+        app:tint="@color/colorMin" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_pressure"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="76dp"
-    android:background="@color/grey_light_05"
+    android:background="@color/colorWindowBackground"
     tools:context="com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CurrentWeatherActivity">
 
     <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView

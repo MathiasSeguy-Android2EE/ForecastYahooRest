@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="MyTextAppearance.Main">
-        <item name="android:textColor">@color/blue_pure_2</item>
-    </style>
+
 
     <style name="MyTextAppearance.Main.Primary" parent="@style/TextAppearance.AppCompat.Display1">
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
         <!--<item name="android:textSize">@dimen/text_size_title</item>-->
     </style>
-
-
+    <style name="MyTextAppearance.Main.Secondary" parent="MyTextAppearance.Main.Primary">
+        <item name="android:textSize">@dimen/abc_text_size_title_material</item>
+    </style>
 
     <style name="MyTextAppearance.Main.Tertiary" parent="@style/TextAppearance.AppCompat.Small">
         <item name="android:textStyle">italic</item>
@@ -23,31 +23,31 @@
     <!--Style are designed for your views not from the framework-->
     <style name="MyTextAppearance" parent="@style/TextAppearance.AppCompat">
     </style>
-    <!--Really Small Text Appeareance: Caption-->
-    <!--Used for the caption of your icon in item list-->
-    <style name="MyTextAppearance.CaptionCardText" parent="@style/TextAppearance.AppCompat.Caption">
-    </style>
-    <style name="MyTextAppearance.CaptionCardText.Secondary" parent="MyTextAppearance.CaptionCardText">
-        <item name="android:textColor">@color/grey_light_3</item>
-</style>
 
     <!-- Small Text Appearance: Small -->
     <!--Used to display the value in most cardView (all items type) wind/humidity/clouds...-->
     <style name="MyTextAppearance.SmallCardText" parent="@style/TextAppearance.AppCompat.Small">
-        <item name="android:textColor">@color/blue_pure_2</item>
+        <item name="android:textColor">@color/textColorSmallCardText</item>
+    </style>
+    <style name="MyTextAppearance.SmallCardText.Min" parent="MyTextAppearance.SmallCardText">
+        <item name="android:textColor">@color/colorMin</item>
+    </style>
+    <style name="MyTextAppearance.SmallCardText.Max" parent="MyTextAppearance.SmallCardText">
+        <item name="android:textColor">@color/colorMax</item>
     </style>
     <!--Used for the small text in the header : Main in item forecast-->
     <style name="MyTextAppearance.SmallCardText.Header" parent="@style/MyTextAppearance.SmallCardText">
-        <item name="android:textColor">?android:attr/textColorSecondary</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textSize">@dimen/abc_text_size_subhead_material</item>
     </style>
     <!-- Use for title of cards: HeadLine -->
     <style name="MyTextAppearance.TitleCardText" parent="@style/TextAppearance.AppCompat.Headline">
-        <item name="android:textColor">@color/colorPrimaryDarker</item>
+        <item name="android:textColor">@color/textColorTitleCardView</item>
     </style>
     <!-- Use for subtitle of cards: Large -->
     <!-- -->
     <style name="MyTextAppearance.TitleCardText.Secondary" parent="@style/TextAppearance.AppCompat.Large">
-        <item name="android:textColor">?android:attr/textColorTertiary</item>
+        <item name="android:textColor">@color/textColorTertiary</item>
 
     </style>
 

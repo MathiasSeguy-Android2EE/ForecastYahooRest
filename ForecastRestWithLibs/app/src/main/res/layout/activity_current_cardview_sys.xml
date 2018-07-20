@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+        android:paddingBottom="@dimen/activity_vertical_small_margin"
         android:gravity="center"
         android:orientation="vertical">
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_country"
-            android:textAppearance="@style/MyTextAppearance.TitleCardText.Secondary"
+            android:textAppearance="@style/MyTextAppearance.Main.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +36,7 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_sunrise"
-            android:textAppearance="@style/MyTextAppearance.SmallCardText.Header"
+            android:textAppearance="@style/MyTextAppearance.SmallCardText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -69,7 +64,7 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/tv_sunset"
-            android:textAppearance="@style/MyTextAppearance.SmallCardText.Header"
+            android:textAppearance="@style/MyTextAppearance.SmallCardText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -82,4 +77,3 @@
             tools:text="@tools:sample/date/hhmm" />
 
     </android.support.constraint.ConstraintLayout>
-</android.support.v7.widget.CardView>

@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-<android.support.constraint.ConstraintLayout
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:layout_marginHorizontal="@dimen/activity_horizontal_small_margin"
-    android:layout_marginVertical="@dimen/activity_vertical_small_margin">
+    android:layout_marginHorizontal="@dimen/activity_horizontal_small_margin">
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/txv_name"
-        android:textAppearance="@style/MyTextAppearance.TitleCardText.Secondary"
+        android:textAppearance="@style/MyTextAppearance.Main.Secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,15 +18,15 @@
         tools:text="City name" />
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/txv_base"
-        android:textAppearance="@style/MyTextAppearance.CaptionCardText.Secondary"
+        android:id="@+id/txv_dt"
+        android:textAppearance="@style/MyTextAppearance.SmallCardText.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="@+id/txv_name"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="@+id/txv_name"
         app:layout_constraintTop_toBottomOf="@id/txv_name"
-        tools:text="Base" />
+        tools:text="lun 23:56" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/txv_visibility"
@@ -48,19 +42,19 @@
 
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/txv_dt"
-        android:textAppearance="@style/MyTextAppearance.SmallCardText.Header"
+        android:id="@+id/txv_base"
+        android:textAppearance="@style/MyTextAppearance.SmallCardText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/txv_coord"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txv_base"
+        app:layout_constraintTop_toBottomOf="@+id/txv_dt"
         app:layout_constraintVertical_chainStyle="spread_inside"
-        tools:text="lun 23:56" />
+        tools:text="Station" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/txv_coord"
-        android:textAppearance="@style/MyTextAppearance.CaptionCardText"
+        android:textAppearance="@style/MyTextAppearance.SmallCardText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/activity_vertical_margin"
@@ -71,4 +65,4 @@
         tools:text="Coordinates" />
 </android.support.constraint.ConstraintLayout>
 
-</com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView>
+

@@ -28,10 +28,12 @@
                 android:layout_height="48dp"
                 app:layout_constraintBottom_toTopOf="@+id/txv_main"
                 app:layout_constraintEnd_toStartOf="@+id/imv_ico_secondary"
-                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="spread_inside" />
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.0"/>
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txv_main"
@@ -39,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textAppearance="@style/MyTextAppearance.CaptionCardText"
+                android:paddingBottom="@dimen/activity_vertical_small_margin"
+                android:textAppearance="@style/MyTextAppearance.SmallCardText"
                 app:layout_constraintBottom_toTopOf="@+id/cdv_conditions"
                 app:layout_constraintTop_toBottomOf="@+id/imv_ico"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -52,10 +55,12 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 app:layout_constraintBottom_toTopOf="@+id/txv_main_secondary"
-                app:layout_constraintEnd_toStartOf="@+id/txv_main"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imv_ico"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="spread_inside" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txv_main_secondary"
@@ -63,10 +68,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:textAppearance="@style/MyTextAppearance.CaptionCardText.Secondary"
+                android:paddingBottom="@dimen/activity_vertical_small_margin"
+                android:textAppearance="@style/MyTextAppearance.SmallCardText"
                 app:layout_constraintEnd_toEndOf="@+id/imv_ico_secondary"
                 app:layout_constraintStart_toStartOf="@+id/imv_ico_secondary"
                 app:layout_constraintTop_toBottomOf="@+id/imv_ico_secondary"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="@tools:sample/cities" />
 
             <android.support.v7.widget.AppCompatTextView
@@ -90,7 +97,7 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_small_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_small_margin"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/red"
+                android:textColor="@color/colorMax"
                 app:layout_constraintBottom_toTopOf="@+id/tv_temp_min"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -104,7 +111,7 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_small_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_small_margin"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/colorPrimaryDarker"
+                android:textColor="@color/colorMin"
                 app:layout_constraintTop_toBottomOf="@+id/tv_temp_max"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/cdv_conditions"
@@ -113,16 +120,15 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/cdv_conditions"
                 style="@style/MySmallCardView"
-                android:layout_marginTop="@dimen/activity_vertical_small_margin"
                 android:layout_width="0dp"
                 android:layout_height="76dp"
-                android:elevation="-10dp"
+                android:elevation="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_temp_min">
 
-                <include layout="@layout/activity_forecast_cardview_condition" />
+                <include layout="@layout/cardview_condition" />
             </android.support.v7.widget.CardView>
         </android.support.constraint.ConstraintLayout>
 
