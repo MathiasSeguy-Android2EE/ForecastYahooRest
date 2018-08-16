@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CurrentWeatherActivity">
 
     <include
@@ -27,49 +26,47 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView
-                    android:id="@+id/cdv_main"
-                    style="@style/MySmallCardView"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:minWidth="160dp"
-                    app:layout_constraintBottom_toTopOf="@+id/rv_weather_list"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toStartOf="@+id/cdv_cloud"
-                    app:layout_constraintHorizontal_chainStyle="packed"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_chainStyle="spread">
+                    <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView
+                        android:id="@+id/cdv_main"
+                        style="@style/MySmallCardView"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:minWidth="160dp"
+                        app:layout_constraintBottom_toTopOf="@+id/rv_weather_list"
+                        app:layout_constraintDimensionRatio="2:1"
+                        app:layout_constraintEnd_toStartOf="@+id/cdv_cloud"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="spread">
 
-                    <include
-                        layout="@layout/activity_current_cardview_main"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView>
+                        <include
+                            layout="@layout/activity_current_cardview_main"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView>
 
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cdv_cloud"
-                    style="@style/MySmallCardView_VerticalConstraints"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:minWidth="160dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/cdv_main"
-                    app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/cdv_main"
-                    app:layout_constraintTop_toTopOf="@+id/cdv_main">
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cdv_cloud"
+                        style="@style/MySmallCardView_VerticalConstraints"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:minWidth="160dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/cdv_main"
+                        app:layout_constraintDimensionRatio="2:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cdv_main"
+                        app:layout_constraintTop_toTopOf="@+id/cdv_main">
 
-                    <include
-                        layout="@layout/activity_current_cardview_condition"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </android.support.v7.widget.CardView>
-
-
+                        <include
+                            layout="@layout/activity_current_cardview_condition"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </android.support.v7.widget.CardView>
 
 
                     <android.support.v7.widget.RecyclerView
@@ -77,42 +74,41 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        tools:itemCount="1"
                         android:minHeight="116dp"
                         app:layout_constraintBottom_toTopOf="@+id/cdv_weather_data"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cdv_main"
-                        tools:listitem="@layout/activity_current_cardview_weather_item"/>
+                        tools:itemCount="1"
+                        tools:listitem="@layout/activity_current_cardview_weather_item" />
 
 
-                <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.sys.SysCardView
-                    android:id="@+id/cdv_sys"
-                    style="@style/MySmallCardView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_weather_list"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/cdv_weather_data"
-                    >
+                    <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.sys.SysCardView
+                        android:id="@+id/cdv_sys"
+                        style="@style/MySmallCardView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/cdv_weather_data"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/rv_weather_list">
 
-                    <include layout="@layout/activity_current_cardview_sys"/>
-                </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.sys.SysCardView>
+                        <include layout="@layout/activity_current_cardview_sys" />
+                    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.sys.SysCardView>
 
-                <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView
-                    android:id="@+id/cdv_weather_data"
-                    style="@style/MySmallCardView_VerticalConstraints"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/cdv_sys"
-                    app:layout_constraintTop_toTopOf="@+id/cdv_sys"
-                    app:layout_constraintStart_toEndOf="@+id/cdv_sys"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    >
-                    <include layout="@layout/activity_current_cardview_weatherdata" />
-                </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView>
-            </android.support.constraint.ConstraintLayout>
+                    <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView
+                        android:id="@+id/cdv_weather_data"
+                        style="@style/MySmallCardView_VerticalConstraints"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/cdv_sys"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/cdv_sys"
+                        app:layout_constraintTop_toTopOf="@+id/cdv_sys">
+
+                        <include layout="@layout/activity_current_cardview_weatherdata" />
+                    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView>
+                </android.support.constraint.ConstraintLayout>
             </LinearLayout>
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
