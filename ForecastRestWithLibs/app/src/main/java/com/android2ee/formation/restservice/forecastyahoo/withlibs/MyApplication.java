@@ -44,6 +44,7 @@ import android.telephony.TelephonyManager;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManagerIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdaterWorker;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.event.ConnectivityChangeEvent;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.crashlytics.android.Crashlytics;
@@ -53,8 +54,13 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 import io.fabric.sdk.android.Fabric;
 
 /**
@@ -74,6 +80,7 @@ import io.fabric.sdk.android.Fabric;
 public class MyApplication extends Application {
 
     private static final String TAG = "MyApplication";
+    private static final String WeatherWorkerTag = "WeatherWorker";
     /**
      * The instance
      */
@@ -117,6 +124,20 @@ public class MyApplication extends Application {
         registerReceiver(connectivityChangedReceiever, filter);
         //initiliaze JodaTime
         JodaTimeAndroid.init(this);
+
+        //Register your WeatherWorker: It will update forecast database
+        // Create a Constraints that defines when the task should run
+        Constraints myConstraints = new Constraints.Builder()
+                .setRequiresBatteryNotLow(true)
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                // Many other constraints are available, see the
+                // Constraints.Builder reference
+                .build();
+        PeriodicWorkRequest weatherUpdaterWork = new PeriodicWorkRequest.Builder(WeatherDataUpdaterWorker
+                .class, 4, TimeUnit.HOURS)
+                .addTag(WeatherWorkerTag)
+                .setConstraints(myConstraints).build();
+        WorkManager.getInstance().enqueue(weatherUpdaterWork);
     }
 
 

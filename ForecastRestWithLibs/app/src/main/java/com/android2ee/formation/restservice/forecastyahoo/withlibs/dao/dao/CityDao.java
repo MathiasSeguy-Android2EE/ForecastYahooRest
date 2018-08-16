@@ -35,6 +35,8 @@ public interface CityDao {
      **********************************************************/
     @Query("SELECT * FROM city ")
     List<City> loadAll();
+    @Query("SELECT serverId FROM city ")
+    List<Integer> loadAllServerId();
     @Query("SELECT COUNT(*) FROM city")
     LiveData<Integer> count();
     @Query("UPDATE city SET on_stage = 1 WHERE _id = :id")

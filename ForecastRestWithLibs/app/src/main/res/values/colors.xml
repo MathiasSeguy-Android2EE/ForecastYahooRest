@@ -8,7 +8,7 @@
     <color name="colorAccent">#9c27b0</color>
     <color name="colorPrimaryLight">@color/blue_100</color>
     <!-- **************************************************-->
-    <!--Colors for the other system widget-->
+    <!--    Colors for the other system widget-->
     <!-- **************************************************-->
     <color name="colorDivider">@color/green_500</color>
     <color name="colorDisable">#90A4AE</color>
