@@ -141,6 +141,10 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:${archi_components_version}"
     androidTestImplementation "android.arch.core:core-testing:${archi_components_version}"
     implementation "com.android.support.constraint:constraint-layout:${constraint_layout_version}"
+    implementation "android.arch.work:work-runtime:${archi_workmanager_version}"
+    androidTestImplementation "android.arch.work:work-testing:${archi_workmanager_version}"
+    implementation "android.arch.paging:runtime:${archi_paging_version}"
+    testImplementation "android.arch.paging:common:${archi_paging_version}"
 
     implementation "com.facebook.stetho:stetho:1.5.0"
     implementation "com.facebook.stetho:stetho-okhttp3:1.5.0"

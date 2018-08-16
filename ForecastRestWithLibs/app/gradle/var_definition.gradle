@@ -29,6 +29,8 @@ project.ext{
     supportAnnotationVersion = "27.1.1"
     archi_components_version = "1.1.0"
     constraint_layout_version = "1.1.2"
+    archi_workmanager_version= "1.0.0-alpha06"
+    archi_paging_version= "1.0.0"
 
     //natif
     androidTestVersion = "1.0.0"
