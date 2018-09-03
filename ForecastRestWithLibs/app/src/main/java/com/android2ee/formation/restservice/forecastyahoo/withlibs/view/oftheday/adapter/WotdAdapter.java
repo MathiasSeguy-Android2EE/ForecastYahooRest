@@ -38,6 +38,7 @@ public class WotdAdapter extends RecyclerView.Adapter<WotdHolder> {
         activity = ctx;
         this.parentModel=parentModel;
         inflater=LayoutInflater.from(ctx);
+
     }
 
     /***********************************************************
@@ -66,12 +67,19 @@ public class WotdAdapter extends RecyclerView.Adapter<WotdHolder> {
         }
         return items.size();
     }
-    List<WeatherOfTheDay> mWeatherOfTheDayList;
+
+
+    /**
+     * Called by the activity to update the list of items
+     * @param weatherForecastItems
+     */
     public void updateList(@Nullable List<WeatherOfTheDay> weatherForecastItems){
         MyLog.e(TAG, "updateList called new size"+(weatherForecastItems==null?"0":weatherForecastItems.size())+" onThread:"+Thread.currentThread());
+        DiffUtil.calculateDiff(diffUtilForecastItemChangesAnlayser(this.items, weatherForecastItems)).dispatchUpdatesTo(this);
         items=weatherForecastItems;
-        DiffUtil.calculateDiff(diffUtilForecastItemChangesAnlayser(this.mWeatherOfTheDayList, weatherForecastItems)).dispatchUpdatesTo(this);
     }
+
+
 /***********************************************************
  *  DiffUtilsCallBack and ListUpdateCallback implementation
  **********************************************************/
