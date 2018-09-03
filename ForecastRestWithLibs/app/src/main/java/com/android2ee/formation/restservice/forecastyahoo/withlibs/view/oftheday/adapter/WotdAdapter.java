@@ -30,6 +30,10 @@ public class WotdAdapter extends RecyclerView.Adapter<WotdHolder> {
     private View view;
     private AppCompatActivity activity;
     List<WeatherOfTheDay> items=null;
+    /**
+     * To know the position of today
+     */
+    int itemOfTodayPosition;
     /***********************************************************
     *  Constructors
     **********************************************************/
@@ -57,7 +61,7 @@ public class WotdAdapter extends RecyclerView.Adapter<WotdHolder> {
     public void onBindViewHolder(@NonNull WotdHolder holder, int position) {
         MyLog.e(TAG,"onBindViewHolder called"+position+", item:"+items.get(position));
 //        parentModel.bindHolder(holder.hashCode(),position);
-        holder.updateView(items.get(position));
+        holder.updateView(items.get(position),itemOfTodayPosition==position);
     }
 
     @Override
@@ -112,6 +116,16 @@ public class WotdAdapter extends RecyclerView.Adapter<WotdHolder> {
             }
         };
     }
-
+    /***********************************************************
+     *  Public methods called by activity
+     **********************************************************/
+    /**
+     * Has o be called by the activty
+     * Define the position of today in the list
+     * @param itemOfTodayPosition
+     */
+    public void setItemOfTodayPosition(int itemOfTodayPosition){
+        this.itemOfTodayPosition=itemOfTodayPosition;
+    }
 
 }

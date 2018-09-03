@@ -39,7 +39,10 @@ public class WotdActivity extends NavigationActivity {
      * The hash of the day today
      */
     private int todayHash;
-
+    /**
+     * The position of today in the list
+     */
+    private int itemOfTodayPosition;
     /***********************************************************
     *  Managing LifeCycle
     **********************************************************/
@@ -67,6 +70,7 @@ public class WotdActivity extends NavigationActivity {
         Calendar cal=new GregorianCalendar();
         cal.setTimeInMillis(System.currentTimeMillis());
         todayHash= DayHashCreator.getTempKeyFromDay(cal);
+        itemOfTodayPosition=0;
         //obsreve
         model.getOnStageCities().observe(this, new Observer<List<City>>() {
                     @Override
@@ -127,12 +131,14 @@ public class WotdActivity extends NavigationActivity {
      * @param weatherForecatsItemWithMainAndWeathers
      */
     private void scrollToToday(List<WeatherOfTheDay> weatherForecatsItemWithMainAndWeathers) {
-        int itemOfTodayPosition=0;
+        //find the day
         for (int i = 0; i < weatherForecatsItemWithMainAndWeathers.size(); i++) {
             if(todayHash==weatherForecatsItemWithMainAndWeathers.get(i).getDayHash()){
                 itemOfTodayPosition=i;
+                adapter.setItemOfTodayPosition(itemOfTodayPosition);
             }
         }
+        //broadcast the today's position to elements
         if(itemOfTodayPosition!=0){
             rcvWeatherOfTheDay.scrollToPosition(itemOfTodayPosition);
         }

@@ -10,6 +10,7 @@ import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -65,7 +66,14 @@ public class WotdHolder extends RecyclerView.ViewHolder{
     private TextView tvHumidity=null;
     private TextView tvPressure=null;
     private ImageView ivDrop=null;
-
+    /**
+     * The full cardView (to change its background when the day displayed is today)
+     */
+    private CardView cdvHeader=null;
+    /**
+     * Color for the background
+     */
+    private int todayColor;
     private AppCompatTextView txvTime;
     AppCompatActivity ctx;
     String previousIconName=null,previousSecondIconName=null;
@@ -79,6 +87,7 @@ public class WotdHolder extends RecyclerView.ViewHolder{
         item=itemView;
         this.model=model;
         ctx=lfOwner;
+        todayColor=ctx.getResources().getColor(R.color.colorPrimaryLight);
         bitmapObserver = new Observer<Bitmap>() {
             @Override
             public void onChanged(@Nullable Bitmap bitmap) {
@@ -115,12 +124,13 @@ public class WotdHolder extends RecyclerView.ViewHolder{
         tvPressure = item.findViewById(R.id.tv_pressure);
         ivDrop = item.findViewById(R.id.iv_drop);
         txvTime=item.findViewById(R.id.txv_time);
+        cdvHeader=item.findViewById(R.id.cdv_header);
     }
     /**
      * Update the view
      * @param weatherOfTheDay
      */
-    public void updateView(WeatherOfTheDay weatherOfTheDay){
+    public void updateView(WeatherOfTheDay weatherOfTheDay,boolean today){
         MyLog.e(TAG,"holder is updating the item with id="+weatherOfTheDay.get_id_wotd());
         //update the UI
         tvWind.setText(""+((int)weatherOfTheDay.getWindSpeed()));
@@ -134,6 +144,11 @@ public class WotdHolder extends RecyclerView.ViewHolder{
         tvTempMin.setText(ctx.getString(R.string.main_temperature, weatherOfTheDay.getTempMin() + KELVIN_OFFSET_TO_CELSIUS));
         tvHumidity.setText(""+((int)weatherOfTheDay.getHumidity()));
         tvPressure.setText(""+((int)weatherOfTheDay.getPressure()));
+
+        //update the today day background
+        if(today){
+            cdvHeader.setCardBackgroundColor(todayColor);
+        }
         //Manage the first Icon
         if(previousIconName!=null){
             model.getIconBitmap(previousIconName)
@@ -166,6 +181,10 @@ public class WotdHolder extends RecyclerView.ViewHolder{
         }
     }
 
+    /***********************************************************
+     *  Manage the date
+     **********************************************************/
+
     private static final String TIME_FORMAT = "EE dd MMM";
     SimpleDateFormat sdf=new SimpleDateFormat(TIME_FORMAT, Locale.getDefault());
     Date dateTemp = new Date();
@@ -173,4 +192,5 @@ public class WotdHolder extends RecyclerView.ViewHolder{
         dateTemp.setTime(calAndroidTime.getTimeInMillis());
         return sdf.format(dateTemp);
     }
+
 }
