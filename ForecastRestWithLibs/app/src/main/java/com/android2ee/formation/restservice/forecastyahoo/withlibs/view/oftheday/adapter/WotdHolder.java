@@ -71,9 +71,13 @@ public class WotdHolder extends RecyclerView.ViewHolder{
      */
     private CardView cdvHeader=null;
     /**
-     * Color for the background
+     * Color for the background of the cardView when today
      */
     private int todayColor;
+    /**
+     * Color for the background of the cardView when NOT today
+     */
+    private int currentDayColor;
     private AppCompatTextView txvTime;
     AppCompatActivity ctx;
     String previousIconName=null,previousSecondIconName=null;
@@ -125,6 +129,7 @@ public class WotdHolder extends RecyclerView.ViewHolder{
         ivDrop = item.findViewById(R.id.iv_drop);
         txvTime=item.findViewById(R.id.txv_time);
         cdvHeader=item.findViewById(R.id.cdv_header);
+        currentDayColor=cdvHeader.getCardBackgroundColor().getDefaultColor();
     }
     /**
      * Update the view
@@ -148,6 +153,8 @@ public class WotdHolder extends RecyclerView.ViewHolder{
         //update the today day background
         if(today){
             cdvHeader.setCardBackgroundColor(todayColor);
+        }else{
+            cdvHeader.setCardBackgroundColor(currentDayColor);
         }
         //Manage the first Icon
         if(previousIconName!=null){
