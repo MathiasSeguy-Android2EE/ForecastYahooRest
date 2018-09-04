@@ -1,14 +1,14 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <gradient
-        android:angle="180"
-        android:centerColor="@color/navdrawer_color"
-        android:endColor="@color/navdrawer_darkColor"
-        android:startColor="@color/navdrawer_lightColor"
-        android:centerX="0.7"
-        android:centerY="0.7"
-        android:type="linear" />
-    <!--<solid-->
-        <!--android:color="@color/blue_dark_7"-->
-        <!--/>-->
+    <!--<gradient-->
+        <!--android:angle="180"-->
+        <!--android:centerColor="@color/navdrawer_color"-->
+        <!--android:endColor="@color/navdrawer_darkColor"-->
+        <!--android:startColor="@color/navdrawer_lightColor"-->
+        <!--android:centerX="0.7"-->
+        <!--android:centerY="0.7"-->
+        <!--android:type="linear" />-->
+    <solid
+        android:color="@color/navdrawer_color"
+        />
 </shape>
