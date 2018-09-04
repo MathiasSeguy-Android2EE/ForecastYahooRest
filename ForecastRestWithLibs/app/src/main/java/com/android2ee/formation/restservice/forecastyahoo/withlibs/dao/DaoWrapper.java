@@ -362,7 +362,6 @@ public class DaoWrapper {
              */
             //save it
             long weatherDataId = wfiDao.insert(weatherForecastItem);
-
 //            MyLog.e(TAG, "saveWeatherForecastItem has saved" + weatherDataId + " for the cityId set to :" + weatherForecastItem.getCity_Id());
             weatherForecastItem.set_id(weatherDataId);
             //then persist the sub object

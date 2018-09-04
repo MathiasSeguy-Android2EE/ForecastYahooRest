@@ -1,14 +1,11 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast;
 
-import android.arch.persistence.room.ColumnInfo;
-
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
 import com.squareup.moshi.Json;
 public class Forecast {
 
     private City city;
-    @ColumnInfo(name="fin")
     private String cod;
     private float message;
     private int cnt;

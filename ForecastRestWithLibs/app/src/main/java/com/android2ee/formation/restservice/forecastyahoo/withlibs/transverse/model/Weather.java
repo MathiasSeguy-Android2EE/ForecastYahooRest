@@ -55,7 +55,7 @@ public class Weather {
 
     /***********************************************************
      *  Foreign Key
-     *important trick as you have 2 foreign key, but only one will be defined
+     *important trick as you have 2 foreign keys, but only one will be defined
      *for any instance, so put a Long instead of long and Nullable
      **********************************************************/
     @ColumnInfo(name="weatherDataId")
