@@ -24,7 +24,10 @@ import java.util.List;
  * The is the representation of the weather forecast (almost the same as WeatherData)
  */
 @Entity(tableName="weather_forecast_item",
-        indices = {@Index(value = {"cityId"},unique = false)},
+        indices = {
+            @Index(value = {"cityId"},unique = false),
+            @Index(value ={"dataTime","cityId"},unique=true)//to set unicity on this value
+        },
         foreignKeys = {
                 @ForeignKey(entity = com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City.class,
                         parentColumns = "_id",
