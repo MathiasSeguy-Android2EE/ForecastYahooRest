@@ -32,6 +32,8 @@
 package com.android2ee.formation.restservice.forecastyahoo.withlibs;
 
 import android.app.Application;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +42,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.Injector;
@@ -54,6 +57,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -61,6 +65,7 @@ import androidx.work.Constraints;
 import androidx.work.NetworkType;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+import androidx.work.WorkStatus;
 import io.fabric.sdk.android.Fabric;
 
 /**
@@ -80,11 +85,20 @@ import io.fabric.sdk.android.Fabric;
 public class MyApplication extends Application {
 
     private static final String TAG = "MyApplication";
-    private static final String WeatherWorkerTag = "WeatherWorker";
+    public static final String WeatherWorkerTag = "WeatherWorker";
     /**
      * The instance
      */
     public static MyApplication instance;
+    /**
+     * Manage the WeatherUpdaterWork schedule
+     * The observer to know if any Work of this type is already registered
+     */
+    private Observer<List<WorkStatus>> weatherWorkerObserver;
+    /**
+     * The LiveData of the WorkStatus for the WeatherUpdaterWork
+     */
+    LiveData<List<WorkStatus>> status;
     /******************************************************************************************/
     /** Managing LifeCycle **************************************************************************/
     /******************************************************************************************/
@@ -124,7 +138,50 @@ public class MyApplication extends Application {
         registerReceiver(connectivityChangedReceiever, filter);
         //initiliaze JodaTime
         JodaTimeAndroid.init(this);
+        scheduleWeatherWorker();
+    }
 
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+    }
+    /***********************************************************
+     *  Weather Updater Worker
+     **********************************************************/
+    /**
+     * Schedule the weather worker
+     */
+    private void scheduleWeatherWorker() {
+        status= WorkManager.getInstance().getStatusesByTag(MyApplication.WeatherWorkerTag);
+        //define the observer and schedule the work if it doesn't exist yet
+        if(weatherWorkerObserver==null){
+            weatherWorkerObserver = new Observer<List<WorkStatus>>() {
+                @Override
+                public void onChanged(@Nullable List<WorkStatus> workStatuses) {
+                    MyLog.e(TAG,"The current number of work is "+workStatuses.size());
+                    if(workStatuses==null||workStatuses.size()==0){
+                        MyLog.e(TAG,"We go again into the null or empty case for the works");
+                        //create
+                        enqueueWeatherWorker();
+                    }else{
+                        //do nothing
+                        MyLog.e(TAG,"We do nothing for the work");
+                    }
+                    //what ever
+                    status.removeObserver(weatherWorkerObserver);
+                }
+            };
+        }
+        status.observeForever(weatherWorkerObserver);
+        //then start an immedaite update?
+    }
+
+    /**
+     * Create the WeatherWorker and Enqueue it
+     * ben tant mieux
+     */
+    private void enqueueWeatherWorker() {
         //Register your WeatherWorker: It will update forecast database
         // Create a Constraints that defines when the task should run
         Constraints myConstraints = new Constraints.Builder()
@@ -134,18 +191,12 @@ public class MyApplication extends Application {
                 // Constraints.Builder reference
                 .build();
         PeriodicWorkRequest weatherUpdaterWork = new PeriodicWorkRequest.Builder(WeatherDataUpdaterWorker
-                .class, 4, TimeUnit.HOURS)
+                .class, 1, TimeUnit.HOURS)
                 .addTag(WeatherWorkerTag)
                 .setConstraints(myConstraints).build();
         WorkManager.getInstance().enqueue(weatherUpdaterWork);
     }
 
-
-
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-    }
     /******************************************************************************************/
     /** Managing ServiceManager **************************************************************************/
     /******************************************************************************************/

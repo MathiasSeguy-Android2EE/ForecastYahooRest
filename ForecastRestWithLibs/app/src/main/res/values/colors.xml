@@ -52,6 +52,8 @@
 
     <color name="colorMin">@color/blue_700</color>
     <color name="colorMax">@color/red_600</color>
+    <color name="colorError">@color/red_600</color>
+    <color name="colorSuccess">@color/green_500</color>
 
     <!--&lt;!&ndash;colorControlNormal, colorControlActivated&ndash;&gt;-->
     <!--&lt;!&ndash;colorControlHighlight, and colorSwitchThumbNormal&ndash;&gt;-->

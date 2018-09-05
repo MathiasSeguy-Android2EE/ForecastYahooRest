@@ -12,12 +12,15 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.ForecastDatabase;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.application.WeatherUpdate;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CurrentWeatherActivity;
@@ -25,7 +28,9 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.findcity
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.ForecastWeatherActivity;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.oftheday.WotdActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public abstract class NavigationActivity extends MotherActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,6 +52,10 @@ public abstract class NavigationActivity extends MotherActivity
      */
     NavigationView navigationView;
     /**
+     * Text view to display the last time an update occured
+     */
+    AppCompatTextView txvLastUpdateTry, txvLastUpdateSuccess;
+    /**
      * All the cities in database
      */
     LiveData<List<City>> cities;
@@ -59,6 +68,14 @@ public abstract class NavigationActivity extends MotherActivity
      */
     BottomNavigationView bottomNavView;
 
+    /**
+     * Time pattern to display the update
+     */
+    private static final String TIME_PATTERN = "EEE HH:mm";
+    /**
+     * Date Formatter
+     */
+    private SimpleDateFormat df;
     /***********************************************************
     *  Managing LifeCycle
     **********************************************************/
@@ -67,8 +84,9 @@ public abstract class NavigationActivity extends MotherActivity
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //manage the cities displayed
 
+        //initialize time formatter
+        df = new SimpleDateFormat(TIME_PATTERN, Locale.getDefault());
     }
 
     /**
@@ -95,6 +113,7 @@ public abstract class NavigationActivity extends MotherActivity
                 }
             });
         }
+
     }
 
     @Override
@@ -113,6 +132,23 @@ public abstract class NavigationActivity extends MotherActivity
             @Override
             public void onChanged(@Nullable Integer integer) {
                 checkCityNumber(integer);
+            }
+        });
+
+        //WorkManager status management and display
+        //update date widget
+        LiveData<WeatherUpdate> lastUpdateTry= ForecastDatabase.getInstance().getWeatherUpdateDao().loadLastTry();
+        LiveData<WeatherUpdate> lastUpdateSucceed= ForecastDatabase.getInstance().getWeatherUpdateDao().loadLastSuccess();
+        lastUpdateTry.observe(this, new Observer<WeatherUpdate>() {
+            @Override
+            public void onChanged(@Nullable WeatherUpdate weatherUpdate) {
+                refreshLastUpdateTry(weatherUpdate);
+            }
+        });
+        lastUpdateSucceed.observe(this, new Observer<WeatherUpdate>() {
+            @Override
+            public void onChanged(@Nullable WeatherUpdate weatherUpdate) {
+                refreshLastUpdateSuccess(weatherUpdate);
             }
         });
     }
@@ -159,6 +195,37 @@ public abstract class NavigationActivity extends MotherActivity
         navigationView.inflateMenu(R.menu.navigation_drawer_menu);
     }
 
+    /**
+     * Update the field with the last update succeess' date
+     * @param weatherUpdate
+     */
+    private void refreshLastUpdateSuccess(WeatherUpdate weatherUpdate){
+        //the NavHeader is built after the onCreate, if you try to find this component during the onCreate method
+        //you'll always have null
+        if(txvLastUpdateSuccess==null){
+            txvLastUpdateSuccess =findViewById(R.id.txv_navdrawer_last_update_succeess);
+        }
+        if(weatherUpdate!=null){
+            txvLastUpdateSuccess.setText(df.format(weatherUpdate.getTimeInMillis()));
+        }else{
+            txvLastUpdateSuccess.setText("N/A");
+        }
+    }
+    /**
+     * Update the field with the last update try' date
+     * @param weatherUpdate
+     */
+    private void refreshLastUpdateTry(WeatherUpdate weatherUpdate){//the NavHeader is built after the onCreate, if you try to find this component during the onCreate method
+        //you'll always have null
+        if(txvLastUpdateTry==null){
+            txvLastUpdateTry=findViewById(R.id.txv_navdrawer_last_update_try);
+        }
+        if(weatherUpdate!=null){
+            txvLastUpdateTry.setText(df.format(weatherUpdate.getTimeInMillis()));
+        }else{
+            txvLastUpdateTry.setText("N/A");
+        }
+    }
     /***********************************************************
      *  Manage MenuItem selection
      *  MenuItem from Toolbar, NavBar and BottomBar
@@ -294,9 +361,6 @@ public abstract class NavigationActivity extends MotherActivity
             finish();
         }
     }
-    /**
-     *
-     */
     private void launchWeatherOfTheDayActivity() {
         MyLog.e(TAG,"launchWeatherOfTheDayActivity");
         //launch the main activity

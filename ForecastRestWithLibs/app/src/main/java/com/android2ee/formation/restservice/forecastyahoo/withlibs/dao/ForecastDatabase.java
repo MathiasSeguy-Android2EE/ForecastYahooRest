@@ -14,15 +14,17 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.dao.Weath
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.dao.WeatherDataDao;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.dao.WeatherForecastItemDao;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.dao.WeatherOfThDayDAO;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.dao.dao.WeatherUpdateDao;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.Main;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.Weather;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.application.WeatherUpdate;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.calculated.WeatherOfTheDay;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.City;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.Sys;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.current.WeatherData;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.WeatherForecastItem;
 
-@Database(entities = {Weather.class, Sys.class, WeatherForecastItem.class, City.class, Main.class, WeatherData.class, WeatherOfTheDay.class}, version = 2)
+@Database(entities = {Weather.class, Sys.class, WeatherForecastItem.class, City.class, Main.class, WeatherData.class, WeatherOfTheDay.class, WeatherUpdate.class}, version = 2)
 @TypeConverters({WeatherConverter.class})
 public abstract class ForecastDatabase extends RoomDatabase {
     /***********************************************************
@@ -57,4 +59,5 @@ public abstract class ForecastDatabase extends RoomDatabase {
     public abstract CityDao getCityDao();
     public abstract SysDao getSysDao();
     public abstract WeatherOfThDayDAO getWeatherOfTheDayDao();
+    public abstract WeatherUpdateDao getWeatherUpdateDao();
 }

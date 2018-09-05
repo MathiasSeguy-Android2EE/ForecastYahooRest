@@ -13,7 +13,7 @@
 
 
     <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imv_navdrawer_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,8 +25,8 @@
         app:srcCompat="@drawable/ic_clouds_navdrawer_header"
         android:tint="@color/yellow_sunrise_tint"/>
 
-    <TextView
-        android:id="@+id/textView2"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txv_navdrawer_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -40,8 +40,8 @@
 
         />
 
-    <TextView
-        android:id="@+id/textView"
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txv_navdrawer_sub_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -49,6 +49,26 @@
         android:textColor="@color/navdrawer_item_color_normal"
         android:text="@string/nav_header_subtitle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txv_navdrawer_last_update_try"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textColor="@color/navdrawer_darkColor"
+        android:text="@string/nav_header_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/txv_navdrawer_last_update_succeess"/>
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/txv_navdrawer_last_update_succeess"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textColor="@color/yellow_sunrise"
+        android:text="@string/nav_header_subtitle"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
