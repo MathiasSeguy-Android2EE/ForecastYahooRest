@@ -60,7 +60,6 @@ public class WotdAdapter extends RecyclerView.Adapter<WotdHolder> {
     @Override
     public void onBindViewHolder(@NonNull WotdHolder holder, int position) {
         MyLog.e(TAG,"onBindViewHolder called"+position+", item:"+items.get(position));
-//        parentModel.bindHolder(holder.hashCode(),position);
         holder.updateView(items.get(position),itemOfTodayPosition==position);
     }
 

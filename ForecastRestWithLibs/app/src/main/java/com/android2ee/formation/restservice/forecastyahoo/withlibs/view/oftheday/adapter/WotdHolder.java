@@ -91,7 +91,7 @@ public class WotdHolder extends RecyclerView.ViewHolder{
         item=itemView;
         this.model=model;
         ctx=lfOwner;
-        todayColor=ctx.getResources().getColor(R.color.colorPrimaryLight);
+
         bitmapObserver = new Observer<Bitmap>() {
             @Override
             public void onChanged(@Nullable Bitmap bitmap) {
@@ -129,6 +129,7 @@ public class WotdHolder extends RecyclerView.ViewHolder{
         ivDrop = item.findViewById(R.id.iv_drop);
         txvTime=item.findViewById(R.id.txv_time);
         cdvHeader=item.findViewById(R.id.cdv_header);
+        todayColor=ctx.getResources().getColor(R.color.colorPrimaryLight);
         currentDayColor=cdvHeader.getCardBackgroundColor().getDefaultColor();
     }
     /**

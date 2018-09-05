@@ -33,6 +33,15 @@ private static Calendar calendarTemp=null;
     public static int getTempKeyFromDay(Calendar day) {
         return day.get(Calendar.YEAR) * 1000 + day.get(Calendar.DAY_OF_YEAR);
     }
-
+    /**
+ * YYYYDDD int reprsentation of TODAY's date
+     *
+     * @return YYYYDDD int reprsentation of the date
+     */
+    public static int getTempKeyFromToday() {
+        Calendar cal=new GregorianCalendar();
+        cal.setTimeInMillis(System.currentTimeMillis());
+        return cal.get(Calendar.YEAR) * 1000 + cal.get(Calendar.DAY_OF_YEAR);
+    }
 
 }

@@ -18,8 +18,6 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.Navigati
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.arrayadapter.LinearLayoutManagerFixed;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.oftheday.adapter.WotdAdapter;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -67,9 +65,7 @@ public class WotdActivity extends NavigationActivity {
     protected void onStart() {
         super.onStart();
         //find today Hash
-        Calendar cal=new GregorianCalendar();
-        cal.setTimeInMillis(System.currentTimeMillis());
-        todayHash= DayHashCreator.getTempKeyFromDay(cal);
+        todayHash= DayHashCreator.getTempKeyFromToday();
         itemOfTodayPosition=0;
         //obsreve
         model.getOnStageCities().observe(this, new Observer<List<City>>() {
