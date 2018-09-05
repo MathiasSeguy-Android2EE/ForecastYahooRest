@@ -10,6 +10,7 @@ import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -42,6 +43,10 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
     /***********************************************************
      *  UI Attributes of the WeatherCondition
      **********************************************************/
+    /**
+     * The card view displaying
+     */
+    private CardView cdvConditions;
     /**     * Txv Wind     */
     private TextView tvWind;
     /**     * CompatImageView containing AVD for Wind     */
@@ -69,6 +74,18 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
     String previousIconName=null;
     ForercastWeatherActivityModel model;
     Observer<Bitmap> bitmapObserver;
+    /**
+     * The full cardView (to change its background when the day displayed is today)
+     */
+    private CardView cdvHeader=null;
+    /**
+     * Color for the background of the cardView when today
+     */
+    private int todayColor;
+    /**
+     * Color for the background of the cardView when NOT today
+     */
+    private int currentDayColor;
     /***********************************************************
     *  Constructors
     **********************************************************/
@@ -101,12 +118,16 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
         tvPressure = item.findViewById(R.id.tv_pressure);
         ivDrop = item.findViewById(R.id.iv_drop);
         txvTime=item.findViewById(R.id.txv_time);
+        cdvHeader=item.findViewById(R.id.cdv_header);
+        todayColor=ctx.getResources().getColor(R.color.colorPrimaryLight);
+        currentDayColor=cdvHeader.getCardBackgroundColor().getDefaultColor();
+
     }
     /**
      * Update the view
      * @param weatherForecastItem
      */
-    public void updateView(WeatherForecatsItemWithMainAndWeathers weatherForecastItem){
+    public void updateView(WeatherForecatsItemWithMainAndWeathers weatherForecastItem,boolean today){
         MyLog.e(TAG,"holder is updating the item with id="+weatherForecastItem.getForecastItem().get_id());
         //update the UI
         tvWind.setText(""+(weatherForecastItem.getForecastItem().getWind()!=null?weatherForecastItem.getForecastItem().getWind().getSpeed():" 0 "));
@@ -128,6 +149,12 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
                 .observe(ctx, bitmapObserver);
         previousIconName=weatherForecastItem.getWeathers().get(0).getIcon();
         txvTime.setText(formatTime(weatherForecastItem.getForecastItem().getDt()));
+        //update the today day background
+        if(today){
+            cdvHeader.setCardBackgroundColor(todayColor);
+        }else{
+            cdvHeader.setCardBackgroundColor(currentDayColor);
+        }
 
     }
     /**
@@ -143,7 +170,7 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
         }
     }
 
-    private static final String TIME_FORMAT = "dd MMM HH:mm";
+    private static final String TIME_FORMAT = "EE dd MMM HH:mm";
     SimpleDateFormat sdf=new SimpleDateFormat(TIME_FORMAT, Locale.getDefault());
     Date dateTemp = new Date();
     private String formatTime(long utcTime){

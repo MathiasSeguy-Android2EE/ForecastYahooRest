@@ -30,6 +30,13 @@ public class ForecastItemAdapter extends RecyclerView.Adapter<ForecastItemHolder
     private View view;
     private AppCompatActivity activity;
     List<WeatherForecatsItemWithMainAndWeathers> items=null;
+    /**
+     * To know the position of today's items
+     * As they are several, we store the min and max (included)
+     * We know they are following each others so min max is good,
+     * else a list would have been necessary
+     */
+    int itemOfTodayMinPosition=0,itemOfTodayMaxPosition=0;
     /***********************************************************
     *  Constructors
     **********************************************************/
@@ -56,8 +63,10 @@ public class ForecastItemAdapter extends RecyclerView.Adapter<ForecastItemHolder
     public void onBindViewHolder(@NonNull ForecastItemHolder holder, int position) {
         MyLog.e(TAG,"onBindViewHolder called"+position+", item:"+items.get(position));
 //        parentModel.bindHolder(holder.hashCode(),position);
-        holder.updateView(items.get(position));
+        holder.updateView(items.get(position), isToday(position));
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -105,5 +114,25 @@ public class ForecastItemAdapter extends RecyclerView.Adapter<ForecastItemHolder
         };
     }
 
-
+    /***********************************************************
+     *  Public methods called by activity
+     **********************************************************/
+    /**
+     * Has o be called by the activty
+     * Define the position of today in the list
+     * @param itemOfTodayMinPosition First item position of today
+     * @param itemOfTodayMaxPosition Last item position of today
+     */
+    public void setItemsOfTodayPosition(int itemOfTodayMinPosition, int itemOfTodayMaxPosition){
+        this.itemOfTodayMinPosition=itemOfTodayMinPosition;
+        this.itemOfTodayMaxPosition=itemOfTodayMaxPosition;
+    }
+    /**
+     * To know if item at position position is displaying today
+     * @param position
+     * @return
+     */
+    private boolean isToday(int position) {
+        return itemOfTodayMinPosition<=position&&position<=itemOfTodayMaxPosition;
+    }
 }

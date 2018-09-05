@@ -38,24 +38,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/MyTextAppearance.TitleCardText.Secondary"
-                app:layout_constraintBaseline_toBaselineOf="@+id/txv_time"
-                app:layout_constraintEnd_toStartOf="@+id/txv_time"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_temperature"
+                app:layout_constraintEnd_toStartOf="@+id/tv_temperature"
                 app:layout_constraintStart_toEndOf="@+id/imv_ico"
                 tools:text="@tools:sample/cities" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/txv_time"
-                android:textAppearance="@style/MyTextAppearance.TitleCardText"
+                android:textAppearance="@style/MyTextAppearance.SmallCardText.Header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:layout_constraintStart_toEndOf="@+id/txv_main"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_temperature"
+                app:layout_constraintBottom_toTopOf="@id/tv_temperature"
                 tools:text="28 juin 20:00"
                 />
-
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/tv_temperature"
                 android:textAppearance="@style/MyTextAppearance.TitleCardText.Secondary"
@@ -64,9 +62,9 @@
                 android:layout_marginEnd="@dimen/activity_horizontal_small_margin"
                 android:layout_marginRight="@dimen/activity_horizontal_small_margin"
                 android:layout_marginTop="8dp"
-                app:layout_constraintBaseline_toBaselineOf="@+id/txv_time"
+                app:layout_constraintBaseline_toBaselineOf="@+id/txv_main"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/txv_time"
+                app:layout_constraintStart_toEndOf="@+id/txv_main"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="15,4°C" />
         </android.support.constraint.ConstraintLayout>
