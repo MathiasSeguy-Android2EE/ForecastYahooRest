@@ -29,14 +29,14 @@ public class ForecastItemAdapter extends RecyclerView.Adapter<ForecastItemHolder
     private ForecastItemHolder viewHolder;
     private View view;
     private AppCompatActivity activity;
-    List<WeatherForecatsItemWithMainAndWeathers> items=null;
+    private List<WeatherForecatsItemWithMainAndWeathers> items=null;
     /**
      * To know the position of today's items
      * As they are several, we store the min and max (included)
      * We know they are following each others so min max is good,
      * else a list would have been necessary
      */
-    int itemOfTodayMinPosition=0,itemOfTodayMaxPosition=0;
+    private int itemOfTodayMinPosition=0,itemOfTodayMaxPosition=0;
     /***********************************************************
     *  Constructors
     **********************************************************/
@@ -75,11 +75,15 @@ public class ForecastItemAdapter extends RecyclerView.Adapter<ForecastItemHolder
         }
         return items.size();
     }
-    List<WeatherForecatsItemWithMainAndWeathers> mWeatherForecatsItemWithMainAndWeathers;
+
+    /**
+     * Updating the list because a new set of data has been send to us
+     * @param weatherForecastItems
+     */
     public void updateList(@Nullable List<WeatherForecatsItemWithMainAndWeathers> weatherForecastItems){
         MyLog.e(TAG, "updateList called new size"+(weatherForecastItems==null?"0":weatherForecastItems.size())+" onThread:"+Thread.currentThread());
+        DiffUtil.calculateDiff(diffUtilForecastItemChangesAnlayser(items, weatherForecastItems)).dispatchUpdatesTo(this);
         items=weatherForecastItems;
-        DiffUtil.calculateDiff(diffUtilForecastItemChangesAnlayser(this.mWeatherForecatsItemWithMainAndWeathers, weatherForecastItems)).dispatchUpdatesTo(this);
     }
 /***********************************************************
  *  DiffUtilsCallBack and ListUpdateCallback implementation
@@ -133,6 +137,7 @@ public class ForecastItemAdapter extends RecyclerView.Adapter<ForecastItemHolder
      * @return
      */
     private boolean isToday(int position) {
-        return itemOfTodayMinPosition<=position&&position<=itemOfTodayMaxPosition;
+        return itemOfTodayMinPosition<=position
+                &&position<=itemOfTodayMaxPosition;
     }
 }

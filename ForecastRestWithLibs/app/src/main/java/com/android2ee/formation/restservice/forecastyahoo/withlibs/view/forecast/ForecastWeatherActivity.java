@@ -133,7 +133,8 @@ public class ForecastWeatherActivity extends NavigationActivity {
      */
     private void scrollToToday(List<WeatherForecatsItemWithMainAndWeathers> weatherForecatsItemWithMainAndWeathers) {
         //find the day
-        itemOfTodayMinPosition=itemOfTodayMaxPosition=0;
+        itemOfTodayMinPosition=weatherForecatsItemWithMainAndWeathers.size();
+        itemOfTodayMaxPosition=0;
         for (int i = 0; i < weatherForecatsItemWithMainAndWeathers.size(); i++) {
             if(todayHash==weatherForecatsItemWithMainAndWeathers.get(i).getForecastItem().getDayHash()){
                 itemOfTodayMaxPosition=Math.max(i,itemOfTodayMaxPosition);

@@ -12,13 +12,13 @@ import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.R;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.forecast.WeatherForecatsItemWithMainAndWeathers;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.ForercastWeatherActivityModel;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +40,15 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
     private View item;
     private AppCompatImageView imv_ico;
     private AppCompatTextView txvMain;
+    /***********************************************************
+     *  UxState Attributes
+     **********************************************************/
+    /**
+     * This sparse array tracks every elements the user change its visibility (for the cdvCondition element)
+     * When a visibility change occurs (a call to switchConditionVisibility method)
+     * we store the itemId and the new visibility state to restore it when the item is displayed again
+     */
+    SparseIntArray itemIdToViewState;
     /***********************************************************
      *  UI Attributes of the WeatherCondition
      **********************************************************/
@@ -91,6 +100,7 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
     **********************************************************/
     public ForecastItemHolder(View itemView, AppCompatActivity lfOwner, ForercastWeatherActivityModel model) {
         super(itemView);
+        itemIdToViewState=new SparseIntArray();
         item=itemView;
         this.model=model;
         ctx=lfOwner;
@@ -119,8 +129,16 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
         ivDrop = item.findViewById(R.id.iv_drop);
         txvTime=item.findViewById(R.id.txv_time);
         cdvHeader=item.findViewById(R.id.cdv_header);
+        cdvHeader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchConditionVisibility();
+            }
+        });
+        cdvConditions=item.findViewById(R.id.cdv_conditions);
         todayColor=ctx.getResources().getColor(R.color.colorPrimaryLight);
         currentDayColor=cdvHeader.getCardBackgroundColor().getDefaultColor();
+
 
     }
     /**
@@ -128,7 +146,6 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
      * @param weatherForecastItem
      */
     public void updateView(WeatherForecatsItemWithMainAndWeathers weatherForecastItem,boolean today){
-        MyLog.e(TAG,"holder is updating the item with id="+weatherForecastItem.getForecastItem().get_id());
         //update the UI
         tvWind.setText(""+(weatherForecastItem.getForecastItem().getWind()!=null?weatherForecastItem.getForecastItem().getWind().getSpeed():" 0 "));
         tvClouds.setText(""+(weatherForecastItem.getForecastItem().getClouds()!=null?weatherForecastItem.getForecastItem().getClouds().getAll():" 0 "));
@@ -155,7 +172,18 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
         }else{
             cdvHeader.setCardBackgroundColor(currentDayColor);
         }
-
+        //update the Ccdv_condition visibility
+        if(itemIdToViewState.get(getAdapterPosition(),-1)==-1){
+            //in that case not found
+            if(today){
+                cdvConditions.setVisibility(View.VISIBLE);
+            }else{
+                cdvConditions.setVisibility(View.GONE);
+            }
+        }else{
+            //in that case, items is found
+            cdvConditions.setVisibility(itemIdToViewState.get(getAdapterPosition()));
+        }
     }
     /**
      * Start AnimationVectorDrawables
@@ -170,6 +198,22 @@ public class ForecastItemHolder extends RecyclerView.ViewHolder{
         }
     }
 
+    /**
+     * Switch the state of the displayed view
+     * Expand or collapse the condition cardView
+     */
+    private void switchConditionVisibility(){
+        if(cdvConditions.getVisibility()==View.GONE){
+            cdvConditions.setVisibility(View.VISIBLE);
+        }else{
+            cdvConditions.setVisibility(View.GONE);
+        }
+        //keep the position and the state of each changed items
+        itemIdToViewState.put(getAdapterPosition(),cdvConditions.getVisibility());
+    }
+    /***********************************************************
+     *  Managing date
+     **********************************************************/
     private static final String TIME_FORMAT = "EE dd MMM HH:mm";
     SimpleDateFormat sdf=new SimpleDateFormat(TIME_FORMAT, Locale.getDefault());
     Date dateTemp = new Date();
