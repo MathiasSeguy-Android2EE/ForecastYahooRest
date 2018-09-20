@@ -1,0 +1,21 @@
+<svg width="96" height="96" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="98" width="98" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="svg_1">
+   <path stroke="#FFFFFF" id="svg_2" d="m48.089608,1.237221c-8.067681,0 0,20.893904 0,20.893904s8.067681,-20.893904 0,-20.893904z" stroke-miterlimit="10" stroke-width="0.078" fill="#000000"/>
+   <path stroke="#FFFFFF" id="svg_3" d="m14.998208,14.870408c-5.706528,5.70359 14.773121,14.774101 14.773121,14.774101s-9.069531,-20.477691 -14.773121,-14.774101z" stroke-miterlimit="10" stroke-width="0.078" fill="#000000"/>
+   <path stroke="#FFFFFF" id="svg_4" d="m1.237709,47.909904c0,8.068661 20.893904,0 20.893904,0s-20.893904,-8.067681 -20.893904,0z" stroke-miterlimit="10" stroke-width="0.078" fill="#000000"/>
+   <path stroke="#FFFFFF" id="svg_5" d="m14.870896,81.003262c5.70457,5.705549 14.774101,-14.774101 14.774101,-14.774101s-20.477691,9.068552 -14.774101,14.774101z" stroke-miterlimit="10" stroke-width="0.078" fill="#000000"/>
+   <path stroke="#FFFFFF" id="svg_6" d="m47.911371,94.762782c8.067681,0 0,-20.893904 0,-20.893904s-8.068661,20.893904 0,20.893904z" stroke-miterlimit="10" stroke-width="0.078" fill="#000000"/>
+   <path stroke="#FFFFFF" id="svg_7" d="m66.230629,66.356474c0,0 9.068552,20.477691 14.772142,14.772142c5.706528,-5.70359 -14.772142,-14.772142 -14.772142,-14.772142z" stroke-miterlimit="10" stroke-width="0.078" fill="#000000"/>
+   <path stroke="#FFFFFF" id="svg_8" d="m73.868387,48.090099c0,0 20.893904,8.067681 20.893904,0c0,-8.068661 -20.893904,0 -20.893904,0z" stroke-miterlimit="10" stroke-width="0.078" fill="#000000"/>
+   <path stroke="#FFFFFF" id="svg_9" d="m81.130084,14.99772c-5.70457,-5.706528 -14.774101,14.773121 -14.774101,14.773121s20.477691,-9.069531 14.774101,-14.773121z" stroke-miterlimit="10" stroke-width="0.078" fill="#000000"/>
+   <circle stroke="#FFFFFF" id="svg_10" r="18.261477" cy="48.062678" cx="48.089608" stroke-miterlimit="10" stroke-width="0.1036" fill="#000000"/>
+  </g>
+ </g>
+</svg>

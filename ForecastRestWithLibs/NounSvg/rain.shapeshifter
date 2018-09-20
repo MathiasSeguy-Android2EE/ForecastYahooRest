@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "layers": {
+    "vectorLayer": {
+      "id": "160",
+      "name": "vector",
+      "type": "vector",
+      "width": 48,
+      "height": 89,
+      "children": [
+        {
+          "id": "161",
+          "name": "group_2",
+          "type": "group",
+          "translateY": -70,
+          "children": [
+            {
+              "id": "162",
+              "name": "path_2",
+              "type": "path",
+              "pathData": "M 8.191 55.092 C 11.207 58.374 13.999 62.271 13.999 65.759 C 13.999 69.247 11.397 72.07 8.191 72.07 C 4.985 72.07 2.382 69.247 2.382 65.759 C 2.382 62.271 5.174 58.374 8.191 55.092 Z M 23.382 62.241 C 26.399 65.523 29.191 69.42 29.191 72.908 C 29.191 76.396 26.588 79.219 23.382 79.219 C 20.176 79.219 17.574 76.396 17.574 72.908 C 17.574 69.42 20.366 65.523 23.382 62.241 Z M 38.574 69.39 C 41.59 72.671 44.382 76.569 44.382 80.057 C 44.382 83.545 41.78 86.368 38.574 86.368 C 35.368 86.368 32.765 83.545 32.765 80.057 C 32.765 76.569 35.557 72.671 38.574 69.39 Z",
+              "fillColor": "#000000",
+              "strokeWidth": 1
+            }
+          ]
+        },
+        {
+          "id": "163",
+          "name": "group",
+          "type": "group",
+          "pivotX": 24,
+          "pivotY": 48,
+          "translateY": -40,
+          "children": [
+            {
+              "id": "164",
+              "name": "path",
+              "type": "path",
+              "pathData": "M 8.191 3.353 C 11.207 6.635 13.999 10.533 13.999 14.021 C 13.999 17.509 11.397 20.332 8.191 20.332 C 4.985 20.332 2.382 17.509 2.382 14.021 C 2.382 10.533 5.174 6.635 8.191 3.353 Z M 23.382 10.502 C 26.399 13.784 29.191 17.682 29.191 21.17 C 29.191 24.658 26.588 27.481 23.382 27.481 C 20.176 27.481 17.574 24.658 17.574 21.17 C 17.574 17.682 20.366 13.784 23.382 10.502 Z M 38.574 17.651 C 41.59 20.933 44.382 24.831 44.382 28.319 C 44.382 31.807 41.78 34.63 38.574 34.63 C 35.368 34.63 32.765 31.807 32.765 28.319 C 32.765 24.831 35.557 20.933 38.574 17.651 Z",
+              "fillColor": "#000000",
+              "strokeWidth": 1
+            }
+          ]
+        },
+        {
+          "id": "165",
+          "name": "group_1",
+          "type": "group",
+          "translateY": -95,
+          "children": [
+            {
+              "id": "166",
+              "name": "path_1",
+              "type": "path",
+              "pathData": "M 8.191 29.58 C 11.207 32.862 13.999 36.76 13.999 40.248 C 13.999 43.736 11.397 46.559 8.191 46.559 C 4.985 46.559 2.382 43.736 2.382 40.248 C 2.382 36.76 5.174 32.862 8.191 29.58 Z M 23.382 36.729 C 26.399 40.011 29.191 43.909 29.191 47.397 C 29.191 50.885 26.588 53.708 23.382 53.708 C 20.176 53.708 17.574 50.885 17.574 47.397 C 17.574 43.909 20.366 40.011 23.382 36.729 Z M 38.574 43.878 C 41.59 47.16 44.382 51.058 44.382 54.546 C 44.382 58.034 41.78 60.857 38.574 60.857 C 35.368 60.857 32.765 58.034 32.765 54.546 C 32.765 51.058 35.557 47.16 38.574 43.878 Z",
+              "fillColor": "#000000",
+              "strokeWidth": 1
+            }
+          ]
+        }
+      ]
+    },
+    "hiddenLayerIds": []
+  },
+  "timeline": {
+    "animation": {
+      "id": "167",
+      "name": "anim",
+      "duration": 5000,
+      "blocks": [
+        {
+          "id": "168",
+          "layerId": "163",
+          "propertyName": "translateY",
+          "startTime": 500,
+          "endTime": 1487,
+          "interpolator": "LINEAR",
+          "type": "number",
+          "fromValue": -100,
+          "toValue": 100
+        },
+        {
+          "id": "169",
+          "layerId": "161",
+          "propertyName": "translateY",
+          "startTime": 0,
+          "endTime": 987,
+          "interpolator": "LINEAR",
+          "type": "number",
+          "fromValue": -120,
+          "toValue": 35
+        },
+        {
+          "id": "170",
+          "layerId": "165",
+          "propertyName": "translateY",
+          "startTime": 2501,
+          "endTime": 3492,
+          "interpolator": "LINEAR",
+          "type": "number",
+          "fromValue": -45,
+          "toValue": 58
+        },
+        {
+          "id": "171",
+          "layerId": "161",
+          "propertyName": "translateY",
+          "startTime": 1500,
+          "endTime": 2491,
+          "interpolator": "LINEAR",
+          "type": "number",
+          "fromValue": -70,
+          "toValue": 35
+        },
+        {
+          "id": "172",
+          "layerId": "165",
+          "propertyName": "translateY",
+          "startTime": 1001,
+          "endTime": 1948,
+          "interpolator": "LINEAR",
+          "type": "number",
+          "fromValue": -90,
+          "toValue": 58
+        },
+        {
+          "id": "173",
+          "layerId": "161",
+          "propertyName": "translateY",
+          "startTime": 3001,
+          "endTime": 3984,
+          "interpolator": "LINEAR",
+          "type": "number",
+          "fromValue": -70,
+          "toValue": 35
+        },
+        {
+          "id": "174",
+          "layerId": "163",
+          "propertyName": "translateY",
+          "startTime": 2001,
+          "endTime": 2988,
+          "interpolator": "LINEAR",
+          "type": "number",
+          "fromValue": -20,
+          "toValue": 100
+        },
+        {
+          "id": "175",
+          "layerId": "165",
+          "propertyName": "translateY",
+          "startTime": 3999,
+          "endTime": 4990,
+          "interpolator": "LINEAR",
+          "type": "number",
+          "fromValue": -45,
+          "toValue": 70
+        },
+        {
+          "id": "176",
+          "layerId": "163",
+          "propertyName": "translateY",
+          "startTime": 3551,
+          "endTime": 4538,
+          "interpolator": "LINEAR",
+          "type": "number",
+          "fromValue": -20,
+          "toValue": 100
+        },
+        {
+          "id": "177",
+          "layerId": "161",
+          "propertyName": "translateY",
+          "startTime": 4344,
+          "endTime": 5000,
+          "interpolator": "LINEAR",
+          "type": "number",
+          "fromValue": -70,
+          "toValue": -55
+        }
+      ]
+    }
+  }
+}
