@@ -31,12 +31,11 @@
 
 package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector.transverse;
 
-import junit.framework.TestCase;
 
 /**
  * Created by Mathias Seguy - Android2EE on 06/03/2016.
  */
-public class DataCheck extends TestCase {
+public class DataCheck {
     private static DataCheck instance=null;
     public static DataCheck getInstance(){
         if(instance==null){

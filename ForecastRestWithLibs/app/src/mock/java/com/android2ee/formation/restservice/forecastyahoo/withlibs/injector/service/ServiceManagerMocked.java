@@ -41,6 +41,7 @@ import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.Servi
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.city.CityServiceIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.ForecastRepository;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherDataUpdaterIntf;
+import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.weather.WeatherOfTheDayRepositoryIntf;
 import com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.utils.MyLog;
 
 import java.util.ArrayList;
@@ -129,6 +130,11 @@ public class ServiceManagerMocked implements ServiceManagerIntf{
      */
     @Override
     public CityServiceIntf getCityService() {
+        return null;
+    }
+
+    @Override
+    public WeatherOfTheDayRepositoryIntf getWeatherOfTheDayRepository() {
         return null;
     }
 
