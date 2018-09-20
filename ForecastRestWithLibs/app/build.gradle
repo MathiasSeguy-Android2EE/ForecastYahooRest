@@ -152,8 +152,6 @@ dependencies {
     // I want eventBus
     implementation "org.greenrobot:eventbus:${eventBusVersion}"
 
-    // I want SugarOrm
-    implementation "com.github.satyan:sugar:${sugarOrmVersion}"
 
     // I want Retrofit,OkIo, OkHttp and Moshi
     implementation "com.squareup.retrofit2:retrofit:${retrofitVersion}"
@@ -170,7 +168,11 @@ dependencies {
     testImplementation "junit:junit:${junitVersion}"
 
     //for unit tests
-    testImplementation "org.mockito:mockito-all:$project.mockitoVersion"
+//    testImplementation "org.mockito:mockito-all:$project.mokitoVersion"
+    // required if you want to use Mockito for unit tests
+    testImplementation "org.mockito:mockito-core:$project.mokitoVersion"
+    // required if you want to use Mockito for Android tests
+    androidTestImplementation "org.mockito:mockito-android:$project.mokitoVersion"
     // Android Testing Support Library's runner and rules
     androidTestImplementation "com.android.support.test:runner:$project.runnerVersion"
     androidTestImplementation "com.android.support.test:rules:$project.rulesVersion"
@@ -184,10 +186,6 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.3@aar') {
         transitive = true;
     }
-    // required if you want to use Mockito for unit tests
-    testImplementation 'org.mockito:mockito-core:2.7.22'
-    // required if you want to use Mockito for Android tests
-    androidTestImplementation 'org.mockito:mockito-android:2.7.22'
 }
 /***********************************************************
  *  Apply your check here

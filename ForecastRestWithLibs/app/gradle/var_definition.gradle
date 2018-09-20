@@ -10,13 +10,13 @@ println 'in the var_defintion'
  **********************************************************/
 project.ext{
 
-    versionName = "1.0.1"
+    versionName = "2.0.0"
     // Sdk and tools
     minSdkVersion = 14
-    targetSdkVersion = 27
-    compileSdkVersion = 27
+    targetSdkVersion = 28//27
+    compileSdkVersion = 28//27
     //Can not decrease
-    versionCode = 3
+    versionCode = 4
     //Gradle groupd name (for your own tasks)
     myGradleGroup="Forecast tasks"
 
@@ -24,49 +24,65 @@ project.ext{
     useSupportLibVectorDrawable = true
 
     //natif tools
-    buildToolsVersion = "26.0.2"
+    //in your SDK mpanager
+    buildToolsVersion = "28.0.1"//26.0.2//28.0.1
+    //https://developer.android.com/topic/libraries/support-library/revisions.html
     supportLibraryVersion = '27.1.1'
+    //https://developer.android.com/topic/libraries/support-library/revisions.html
     supportAnnotationVersion = "27.1.1"
     archi_components_version = "1.1.0"
     constraint_layout_version = "1.1.2"
-    archi_workmanager_version= "1.0.0-alpha06"
+    archi_workmanager_version= "1.0.0-alpha08"//"1.0.0-alpha06"
     archi_paging_version= "1.0.0"
 
     //natif
-    androidTestVersion = "1.0.0"
+    //https://developer.android.com/training/testing/espresso/setup.html
+    androidTestVersion = "1.0.1"//1.0.0
+    //http://junit.org/junit5/
     junitVersion = "4.12"
-    googlePlayServices = "11.0.1"
+    //https://developers.google.com/android/guides/releases
+    googlePlayServices = "15.0.0"//11.0.1
+    //https://github.com/googlemaps/android-maps-utils/releases
     androidGoogleMapUtil = "0.5"
-    constraintLayout = "1.0.2"
-    supprtMultidex = "1.0.1"
+    //In your Android SDK Manager
+    constraintLayout = "1.1.0"//1.0.2
+    //https://developer.android.com/studio/build/multidex.html
+    supprtMultidex = "1.0.3"
 
     //natural libs
-    sugarOrmVersion = '1.4'
+    //https://github.com/greenrobot/EventBus/releases
     eventBusVersion = '3.1.1'
     jodaTimeVersion = '2.9.2'
     //debug tools
-    leakcanaryVersion = "1.5.1"
-    crashlyticsVersion = "2.6.8@aar"
+    //https://github.com/square/leakcanary/releases
+    leakcanaryVersion = "1.5.4"//1.5.1
+    //https://fabric.io/kits/android/crashlytics/install
+    crashlyticsVersion = "2.9.3@aar"//2.6.8
 
     //facebook analyse tools
     fbStetho = "1.5.0"
     //tests
     espressoVersion = '3.0.2'
-    jsonVersion = "20160810"
-    mockitoVersion = '1.10.19'
+    //https://mvnrepository.com/artifact/org.json/json
+    jsonVersion = "20171018"
+    //https://github.com/mockito/mockito/releases
+    mokitoVersion = '2.12.0'//1.10.19
     powerMockito = '1.6.2'
     hamcrestVersion = '1.3'
     runnerVersion = '0.5'
     rulesVersion = '0.5'
 
-    constraintLayoutVersion = '1.1.1'
+
 
 
     //retrofit
+    //http://square.github.io/retrofit/
     retrofitVersion = '2.4.0'
+    //http://square.github.io/okhttp/
     okhttpVersion = '3.10.0'
-    okhttpLoginInterceptVersion = '3.9.0'
-    okioVersion = '1.14.0'
+    okhttpLoginInterceptVersion = '3.10.0'
+    //https://github.com/square/okio/releases
+    okioVersion = '1.14.1'
     //android architecture components
     archiComponentVersion = "1.0.0"
 
