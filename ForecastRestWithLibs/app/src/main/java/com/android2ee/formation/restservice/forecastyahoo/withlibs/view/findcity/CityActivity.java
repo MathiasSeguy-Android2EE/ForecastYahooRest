@@ -249,7 +249,9 @@ public class CityActivity extends MotherActivity {
 
 	public void updateCities(List<City> cities){
 		arrayAdapterCities.clear();
-		arrayAdapterCities.addAll(cities);
+		if(cities!=null){
+			arrayAdapterCities.addAll(cities);
+		}
 		arrayAdapterCities.notifyDataSetChanged();
 	}
 	@Subscribe(threadMode = ThreadMode.MAIN)

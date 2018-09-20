@@ -37,6 +37,10 @@ public class WeatherDataUpdaterWorker extends Worker {
             }
             weatherUpdate.setSucceed(true);
             weatherUpdate.setTimeInMillis(System.currentTimeMillis());
+            //TODO perhaps we need to make something like that
+//            if(ForecastDatabase.getInstance().isOpen()){
+//                ForecastDatabase.getInstance().close();
+//            }
             return Result.SUCCESS;
         }catch (Exception e){
             weatherUpdate.setSucceed(false);

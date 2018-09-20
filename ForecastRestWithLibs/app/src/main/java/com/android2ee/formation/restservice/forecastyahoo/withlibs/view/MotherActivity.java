@@ -109,10 +109,16 @@ public abstract class MotherActivity extends AppCompatActivity {
     public void onEventMainThread(ExceptionManagedEvent event){
         int errorMessageId=event.getExceptionManaged().getErrorMessageId();
         String errorMessage;
+        StackTraceElement[] stack=event.getExceptionManaged().getStackTrace();
+        StringBuilder stackSB=new StringBuilder();
+        for (StackTraceElement stackTraceElement : stack) {
+            stackSB.append(stackTraceElement.toString());
+            stackSB.append("\r\n");
+        }
         if(errorMessageId==0){
             errorMessage=event.getExceptionManaged().getErrorMessage();
         }else{
-            errorMessage=getResources().getString(errorMessageId);
+            errorMessage=getResources().getString(errorMessageId)+"\n\r and the exception message is "+stackSB.toString();
         }
         displayException(errorMessage);
     }
