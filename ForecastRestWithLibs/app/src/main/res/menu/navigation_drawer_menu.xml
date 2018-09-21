@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -19,11 +20,11 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Share"/>
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_gplay"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="In GooglePlay" />
         </menu>
     </item>
     <item
@@ -38,10 +39,20 @@
                 android:orderInCategory="0"
                 android:title="Android2EE"/>
             <item
-                android:id="@+id/action_training_android2ee"
+                android:id="@+id/action_medium_android2ee"
                 android:icon="@drawable/ic_android2ee"
                 android:orderInCategory="0"
-                android:title="Android Training"/>
+                android:title="Medium Articles"/>
+            <item
+                android:id="@+id/action_dvp_android2ee"
+                android:icon="@drawable/ic_android2ee"
+                android:orderInCategory="0"
+                android:title="Dvp Articles"/>
+            <item
+                android:id="@+id/action_youtube_android2ee"
+                android:icon="@drawable/ic_android2ee"
+                android:orderInCategory="0"
+                android:title="Youtube conferences"/>
             <item
                 android:id="@+id/action_show_mathias"
                 android:icon="@drawable/ic_action_author"

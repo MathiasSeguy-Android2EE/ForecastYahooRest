@@ -278,39 +278,46 @@ public abstract class NavigationActivity extends MotherActivity
                 launchCityActivity(false);
                 return true;
             case R.id.nav_share:
-                //TODO
-                return false;
-                //TODO
-            case R.id.nav_send:
-                return false;
+                browserIntent = new Intent(android.content.Intent.ACTION_SEND);
+                browserIntent.setType("text/plain");
+                browserIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getResources().getString(R.string.sharing_app_message_subject));
+                browserIntent.putExtra(android.content.Intent.EXTRA_TEXT, getResources().getString(R.string.sharing_app_message));
+                startActivity(Intent.createChooser(browserIntent, getResources().getString(R.string.sharing_app_message_subject)));
+                return true;
+            case R.id.nav_gplay:
+                browserIntent=new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/search?q=android2ee"));
+                startActivity(browserIntent);
+                return true;
             case R.id.action_show_android2ee:
                 // open browser on the web pages
                 browserIntent = new Intent("android.intent.action.VIEW");
-                // if (getResources().getConfiguration().locale.getDisplayName().contains("fr")) {
                 // open the browser on android2ee
                 browserIntent.setData(Uri.parse(getResources().getString(R.string.android2ee_url)));
-                // } else {
-                // // open the browser on android2ee english version
-                // browserIntent.setData(Uri.parse("http://www.android2ee.com/en"));
-                // }
                 startActivity(browserIntent);
                 return true;
-            case R.id.action_training_android2ee:
+            case R.id.action_medium_android2ee:
                 // open browser on the web pages
                 browserIntent = new Intent("android.intent.action.VIEW");
-                // if (getResources().getConfiguration().locale.getDisplayName().contains("fr")) {
                 // open the browser on android2ee
-                browserIntent.setData(Uri.parse(getResources().getString(R.string.android2ee_url_training)));
-                // } else {
-                // // open the browser on android2ee english version
-                // browserIntent.setData(Uri.parse("http://www.android2ee.com/en"));
-                // }
+                browserIntent.setData(Uri.parse(getResources().getString(R.string.android2ee_medium_url)));
+                startActivity(browserIntent);
+                return true;
+            case R.id.action_dvp_android2ee:
+                // open browser on the web pages
+                browserIntent = new Intent("android.intent.action.VIEW");
+                browserIntent.setData(Uri.parse(getResources().getString(R.string.mse_dvp_url)));
+                startActivity(browserIntent);
+                return true;
+            case R.id.action_youtube_android2ee:
+                // open browser on the web pages
+                browserIntent = new Intent("android.intent.action.VIEW");
+                browserIntent.setData(Uri.parse(getResources().getString(R.string.mse_youtube_url)));
                 startActivity(browserIntent);
                 return true;
             case R.id.action_show_mathias:
                 // open browser on the web pages
                 browserIntent = new Intent("android.intent.action.VIEW");
-                browserIntent.setData(Uri.parse(getResources().getString(R.string.mse_dvp_url)));
+                browserIntent.setData(Uri.parse(getResources().getString(R.string.mse_linkedin_url)));
                 startActivity(browserIntent);
                 return true;
             case R.id.action_mail_mathias:

@@ -29,8 +29,11 @@
     <string name="btn_no">Non</string>
     <string name="alertdialog_message">Souhaitez vous réellement détruire la ville %1$s ?</string>
     <!-- MEnu Url -->
+    <string name="sharing_app_message">Bonjour, Je suis heureux de pouvoir partager mon application Météo préférée. Elle est sur gPlay, c\'est sécurisé. Elle se trouve içi: https://play.google.com/store/apps/details?id=com.android2ee.formation.restservice.sax.forecastyahoo</string>
+    <string name="sharing_app_message_subject">Mon application météo favorite</string>
+    <string name="sharing_app_action_title">Partager l\'application avec :</string>
     <string name="android2ee_url">http://www.android2ee.com</string>
-    <string name="android2ee_url_training">http://www.android2ee.com/formation-presentation-menu/formation-complete.html</string>
+    <string name="android2ee_medium_url">https://medium.com/@android2ee</string>
     <string name="mse_dvp_url">http://mathias-seguy.developpez.com/</string>
     <string name="mse_email">mathias.seguy@android2ee.com</string>
     <string name="mail_subject">[YahooForecast RestService]Ton sujet:</string>

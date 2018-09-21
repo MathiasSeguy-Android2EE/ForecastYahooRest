@@ -5,9 +5,14 @@
     <string name="city_act_edt_hint">The city\'s name you\'re searching</string>
     <string name="city_act_edt_ime">Search</string>
     <!-- MEnu Url -->
+    <string name="sharing_app_message">Hey, I am happy to share with you my favorite forecast application. It\'s on gPlay, so it\'s safe. You can find it here: https://play.google.com/store/apps/details?id=com.android2ee.formation.restservice.sax.forecastyahoo</string>
+    <string name="sharing_app_message_subject">My favorite forecast application</string>
+    <string name="sharing_app_action_title">Share the application via</string>
     <string name="android2ee_url">http://www.android2ee.com</string>
-    <string name="android2ee_url_training">http://www.android2ee.com/Formations-Android/Formation-Complete.html</string>
+    <string name="android2ee_medium_url">https://medium.com/@android2ee</string>
     <string name="mse_dvp_url">http://mathias-seguy.developpez.com/</string>
+    <string name="mse_youtube_url">https://www.youtube.com/results?search_query=android2ee+mathias+seguy</string>
+    <string name="mse_linkedin_url">https://www.linkedin.com/in/mathiasseguy/</string>
     <string name="mse_email">mathias.seguy@android2ee.com</string>
     <string name="mail_subject">[Weather Forecast WithLibs]Your subject:</string>
     <string name="mail_body">Your message:</string>
