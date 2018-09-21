@@ -16,7 +16,7 @@ project.ext{
     targetSdkVersion = 28//27
     compileSdkVersion = 28//27
     //Can not decrease
-    versionCode = 4
+    versionCode = 7
     //Gradle groupd name (for your own tasks)
     myGradleGroup="Forecast tasks"
 
