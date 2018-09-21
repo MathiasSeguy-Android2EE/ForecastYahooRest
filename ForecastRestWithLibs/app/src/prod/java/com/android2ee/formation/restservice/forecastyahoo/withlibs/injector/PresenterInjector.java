@@ -1,7 +1,7 @@
 /**
  * <ul>
  * <li>PresenterInjector</li>
- * <li>com.android2ee.formation.restservice.forecastyahoo.withlibs.injector</li>
+ * <li>com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.injector</li>
  * <li>11/04/2016</li>
  * <p/>
  * <li>======================================================</li>
@@ -29,7 +29,7 @@
  * *****************************************************************************************************************</br>
  */
 
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector;
+package com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.injector;
 
 /**
  * Created by Mathias Seguy - Android2EE on 11/04/2016.

@@ -182,7 +182,7 @@
 
 
 ########################### Rules for MyCMS : Retrofit is sensetive about Models ##########################
--keep class com.android2ee.formation.restservice.forecastyahoo.withlibs.transverse.model.**{*;}
+-keep class com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.transverse.model.**{*;}
 
 ############################### Generic rules for custom views in MVP/MVVM pattern###################
 -keep public class * extends android.view.View {

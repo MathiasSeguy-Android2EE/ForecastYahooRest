@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.ForecastWeatherActivity">
+    tools:context="com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.forecast.ForecastWeatherActivity">
 
     <include
         layout="@layout/exception_layout"

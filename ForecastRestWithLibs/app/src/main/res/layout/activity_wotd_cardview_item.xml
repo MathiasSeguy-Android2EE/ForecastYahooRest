@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     style="@style/MyItem"
-    tools:context="com.android2ee.formation.restservice.forecastyahoo.withlibs.view.forecast.ForecastWeatherActivity">
+    tools:context="com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.forecast.ForecastWeatherActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cdv_header"

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather.WeatherCardView xmlns:app="http://schemas.android.com/apk/res-auto"
+<com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.weather.WeatherCardView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
@@ -51,4 +51,4 @@
 
     </android.support.constraint.ConstraintLayout>
 
-</com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather.WeatherCardView>
+</com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.weather.WeatherCardView>

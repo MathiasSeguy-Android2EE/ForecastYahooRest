@@ -1,7 +1,7 @@
 /**
  * <ul>
  * <li>Injector</li>
- * <li>com.android2ee.formation.restservice.forecastyahoo.withlibs.injector</li>
+ * <li>com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.injector</li>
  * <li>09/04/2016</li>
  * <p/>
  * <li>======================================================</li>
@@ -29,11 +29,11 @@
  * *****************************************************************************************************************</br>
  */
 
-package com.android2ee.formation.restservice.forecastyahoo.withlibs.injector;
+package com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.injector;
 
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.MyApplication;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.com.DataCommunication;
-import com.android2ee.formation.restservice.forecastyahoo.withlibs.service.ServiceManager;
+import com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.MyApplication;
+import com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.com.DataCommunication;
+import com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.service.ServiceManager;
 
 /**
  * Created by Mathias Seguy - Android2EE on 09/04/2016.

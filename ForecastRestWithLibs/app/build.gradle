@@ -29,7 +29,7 @@ android {
     compileSdkVersion project.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.android2ee.formation.restservice.forecastyahoo.withlibs"
+        applicationId "com.android2ee.formation.restservice.sax.forecastyahoo"
         minSdkVersion project.minSdkVersion
         targetSdkVersion project.targetSdkVersion
         versionCode project.versionCode

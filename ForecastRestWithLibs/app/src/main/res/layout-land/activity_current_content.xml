@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CurrentWeatherActivity">
+    tools:context="com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.CurrentWeatherActivity">
 
     <include
         layout="@layout/exception_layout"
@@ -30,7 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView
+                    <com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.main.MainCardView
                         android:id="@+id/cdv_main"
                         style="@style/MySmallCardView"
                         android:layout_width="0dp"
@@ -49,7 +49,7 @@
                             layout="@layout/activity_current_cardview_main"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
-                    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView>
+                    </com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.main.MainCardView>
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/cdv_cloud"
@@ -85,7 +85,7 @@
                         tools:listitem="@layout/activity_current_cardview_weather_item" />
 
 
-                    <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.sys.SysCardView
+                    <com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.sys.SysCardView
                         android:id="@+id/cdv_sys"
                         style="@style/MySmallCardView"
                         android:layout_width="0dp"
@@ -98,9 +98,9 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <include layout="@layout/activity_current_cardview_sys" />
-                    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.sys.SysCardView>
+                    </com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.sys.SysCardView>
 
-                    <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView
+                    <com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView
                         android:id="@+id/cdv_weather_data"
                         style="@style/MySmallCardView_VerticalConstraints"
                         android:layout_width="0dp"
@@ -112,7 +112,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/cdv_sys">
 
                         <include layout="@layout/activity_current_cardview_weatherdata" />
-                    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView>
+                    </com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.weather_data.WeatherDataBeaconCardView>
                 </android.support.constraint.ConstraintLayout>
             </LinearLayout>
         </ScrollView>

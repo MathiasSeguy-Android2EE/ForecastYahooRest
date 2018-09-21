@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="76dp"
     android:background="@color/colorWindowBackground"
-    tools:context="com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.CurrentWeatherActivity">
+    tools:context="com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.CurrentWeatherActivity">
 
-    <com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView
+    <com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.main.MainCardView
         android:id="@+id/cdv_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <include layout="@layout/activity_forecast_cardview_main_content"/>
-    </com.android2ee.formation.restservice.forecastyahoo.withlibs.view.current.main.MainCardView>
+    </com.android2ee.formation.restservice.sax.forecastyahoo.withlibs.view.current.main.MainCardView>
     <!--/***********************************************************-->
     <!--* Winds Section-->
     <!--**********************************************************/-->
