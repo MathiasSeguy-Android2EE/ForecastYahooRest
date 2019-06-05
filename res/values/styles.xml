@@ -1,0 +1,46 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
+
+
+
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+
+
+
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <!--<style name="AppTheme" parent="AppBaseTheme">-->
+        <!--&lt;!&ndash; All customizations that are NOT specific to a particular API-level can go here. &ndash;&gt;-->
+    <!--</style>-->
+
+    <style name="AppTheme" parent="@style/_AppTheme">
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">@color/colorPrimaryDarker</item>
+        <!--colorAccent is used as the default value for colorControlActivated,which is used to tint widgets-->
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="_AppTheme" parent="Theme.AppCompat.Light">
+        <item name="spinnerDropDownItemStyle">@style/mydropdown</item>
+    </style>
+    <!--Changing the color of the background-->
+    <style name="mydropdown" parent="@style/Base.TextAppearance.AppCompat.Widget.DropDownItem">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">#FF000000</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+</resources>

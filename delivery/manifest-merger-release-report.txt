@@ -1,0 +1,135 @@
+-- Merging decision tree log ---
+manifest
+ADDED from AndroidManifest.xml:2:1
+	xmlns:android
+		ADDED from AndroidManifest.xml:2:11
+	package
+		ADDED from AndroidManifest.xml:3:5
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:versionName
+		ADDED from AndroidManifest.xml:5:5
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:versionCode
+		ADDED from AndroidManifest.xml:4:5
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+uses-sdk
+ADDED from AndroidManifest.xml:7:5
+MERGED from com.android.support:support-v4:21.0.3:15:5
+MERGED from com.android.support:appcompat-v7:21.0.3:15:5
+MERGED from com.android.support:support-v4:21.0.3:15:5
+	android:targetSdkVersion
+		ADDED from AndroidManifest.xml:9:9
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+	android:minSdkVersion
+		ADDED from AndroidManifest.xml:8:9
+		INJECTED from AndroidManifest.xml:0:0
+		INJECTED from AndroidManifest.xml:0:0
+uses-permission#android.permission.INTERNET
+ADDED from AndroidManifest.xml:11:5
+	android:name
+		ADDED from AndroidManifest.xml:11:22
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from AndroidManifest.xml:12:5
+	android:name
+		ADDED from AndroidManifest.xml:12:22
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from AndroidManifest.xml:13:5
+	android:name
+		ADDED from AndroidManifest.xml:13:22
+application
+ADDED from AndroidManifest.xml:15:5
+MERGED from com.android.support:support-v4:21.0.3:16:5
+MERGED from com.android.support:appcompat-v7:21.0.3:16:5
+MERGED from com.android.support:support-v4:21.0.3:16:5
+	android:label
+		ADDED from AndroidManifest.xml:19:9
+	android:allowBackup
+		ADDED from AndroidManifest.xml:17:9
+	android:icon
+		ADDED from AndroidManifest.xml:18:9
+	android:theme
+		ADDED from AndroidManifest.xml:20:9
+	android:name
+		ADDED from AndroidManifest.xml:16:9
+receiver#com.android2ee.formation.restservice.sax.forecastyahoo.broadcastreceiver.WebConnectivityReceiver
+ADDED from AndroidManifest.xml:25:9
+	android:name
+		ADDED from AndroidManifest.xml:25:19
+intent-filter#android.intent.action.ACTION_BATTERY_LOW+android.intent.action.ACTION_DOCK_EVENT+android.intent.action.ACTION_POWER_CONNECTED+android.intent.action.ACTION_POWER_DISCONNECTED+android.intent.action.BOOT_COMPLETED+android.net.conn.CONNECTIVITY_CHANGE+android.net.wifi.STATE_CHANGE
+ADDED from AndroidManifest.xml:26:13
+action#android.intent.action.ACTION_DOCK_EVENT
+ADDED from AndroidManifest.xml:27:17
+	android:name
+		ADDED from AndroidManifest.xml:27:25
+action#android.intent.action.ACTION_BATTERY_LOW
+ADDED from AndroidManifest.xml:28:17
+	android:name
+		ADDED from AndroidManifest.xml:28:25
+action#android.intent.action.ACTION_POWER_CONNECTED
+ADDED from AndroidManifest.xml:29:17
+	android:name
+		ADDED from AndroidManifest.xml:29:25
+action#android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from AndroidManifest.xml:30:17
+	android:name
+		ADDED from AndroidManifest.xml:30:25
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from AndroidManifest.xml:31:17
+	android:name
+		ADDED from AndroidManifest.xml:31:25
+action#android.intent.action.BOOT_COMPLETED
+ADDED from AndroidManifest.xml:32:17
+	android:name
+		ADDED from AndroidManifest.xml:32:25
+action#android.net.wifi.STATE_CHANGE
+ADDED from AndroidManifest.xml:33:17
+	android:name
+		ADDED from AndroidManifest.xml:33:25
+activity#com.android2ee.formation.restservice.sax.forecastyahoo.view.forecast.MainActivity
+ADDED from AndroidManifest.xml:37:9
+	android:label
+		ADDED from AndroidManifest.xml:39:13
+	android:uiOptions
+		ADDED from AndroidManifest.xml:40:13
+	android:name
+		ADDED from AndroidManifest.xml:38:13
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:41:14
+action#android.intent.action.MAIN
+ADDED from AndroidManifest.xml:42:17
+	android:name
+		ADDED from AndroidManifest.xml:42:25
+category#android.intent.category.LAUNCHER
+ADDED from AndroidManifest.xml:44:17
+	android:name
+		ADDED from AndroidManifest.xml:44:27
+meta-data#android.support.UI_OPTIONS
+ADDED from AndroidManifest.xml:46:13
+	android:name
+		ADDED from AndroidManifest.xml:47:17
+	android:value
+		ADDED from AndroidManifest.xml:48:17
+activity#com.android2ee.formation.restservice.sax.forecastyahoo.MotherActivity
+ADDED from AndroidManifest.xml:50:9
+	android:label
+		ADDED from AndroidManifest.xml:52:13
+	android:name
+		ADDED from AndroidManifest.xml:51:13
+activity#com.android2ee.formation.restservice.sax.forecastyahoo.view.city.CityActivity
+ADDED from AndroidManifest.xml:54:9
+	android:label
+		ADDED from AndroidManifest.xml:56:13
+	android:uiOptions
+		ADDED from AndroidManifest.xml:57:13
+	android:name
+		ADDED from AndroidManifest.xml:55:13
+meta-data#com.crashlytics.ApiKey
+ADDED from AndroidManifest.xml:66:5
+	android:name
+		ADDED from AndroidManifest.xml:66:16
+	android:value
+		ADDED from AndroidManifest.xml:66:54

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--For the key, replace the space and ( ) by nothing to find teh key -->
+    <string name="tornado">tornado</string>
+    <string name="tropicalstorm">tropical storm</string>
+    <string name="hurricane">hurricane</string>
+    <string name="severethunderstorms">severe thunderstorms</string>
+    <string name="thunderstorms">thunderstorms</string>
+    <string name="mixedrainandsnow">mixed rain and snow</string>
+    <string name="mixedrainandsleet">mixed rain and sleet</string>
+    <string name="mixedsnowandsleet">mixed snow and sleet</string>
+    <string name="freezingdrizzle">freezing drizzle</string>
+    <string name="drizzle">drizzle</string>
+    <string name="freezingrain">freezing rain</string>
+    <string name="showers">showers</string>
+    <string name="snowflurries">snow flurries</string>
+    <string name="lightsnowshowers">light snow showers</string>
+    <string name="blowingsnow">blowing snow</string>
+    <string name="snow">snow</string>
+    <string name="hail">hail</string>
+    <string name="sleet">sleet</string>
+    <string name="dust">dust</string>
+    <string name="foggy">foggy</string>
+    <string name="haze">haze</string>
+    <string name="smoky">smoky</string>
+    <string name="blustery">blustery</string>
+    <string name="windy">windy</string>
+    <string name="cold">cold</string>
+    <string name="cloudy">cloudy</string>
+    <string name="mostlycloudynight">mostly cloudy (night)</string>
+    <string name="mostlycloudyday">mostly cloudy (day)</string>
+    <string name="partlycloudynight">partly cloudy (night)</string>
+    <string name="partlycloudyday">partly cloudy (day)</string>
+    <string name="clearnight">clear (night)</string>
+    <string name="sunny">sunny</string>
+    <string name="fairnight">fair (night)</string>
+    <string name="fairday">fair (day)</string>
+    <string name="mixedrainandhail">mixed rain and hail</string>
+    <string name="hot">hot</string>
+    <string name="isolatedthunderstorms">isolated thunderstorms</string>
+    <string name="scatteredthunderstorms">scattered thunderstorms</string>
+    <string name="scatteredshowers">scattered showers</string>
+    <string name="heavysnow">heavy snow</string>
+    <string name="scatteredsnowshowers">scattered snow showers</string>
+    <string name="partlycloudy">partly cloudy</string>
+    <string name="thundershowers">thundershowers</string>
+    <string name="snowshowers">snow showers</string>
+    <string name="isolatedthundershowers">isolated thundershowers</string>
+    <string name="notavailable">not available</string>
+
+    </resources>

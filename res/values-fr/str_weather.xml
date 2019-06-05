@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--For the key, replace the space and ( ) by nothing to find teh key -->
+    <string name="tornado">tornade</string>
+    <string name="tropicalstorm">tempête tropicale</string>
+    <string name="hurricane">ouragan</string>
+    <string name="severethunderstorms">orages violents</string>
+    <string name="thunderstorms">orages</string>
+    <string name="mixedrainandsnow">pluie et neige mélées</string>
+    <string name="mixedrainandsleet">pluie et grésil mélées</string>
+    <string name="mixedsnowandsleet">neige et grésil mélées</string>
+    <string name="freezingdrizzle">bruine verglaçante</string>
+    <string name="drizzle">bruine</string>
+    <string name="freezingrain">pluie verglaçante</string>
+    <string name="showers">douches</string>
+    <string name="snowflurries">bourrasques de neige</string>
+    <string name="lightsnowshowers">légères bourrasques de neige</string>
+    <string name="blowingsnow">rafales de neige</string>
+    <string name="snow">neige</string>
+    <string name="hail">grêle</string>
+    <string name="sleet">grésil</string>
+    <string name="dust">poussière</string>
+    <string name="foggy">brumeux</string>
+    <string name="haze">brume</string>
+    <string name="smoky">enfumé</string>
+    <string name="blustery">venteux</string>
+    <string name="windy">venteux</string>
+    <string name="cold">froid</string>
+    <string name="cloudy">nuageux</string>
+    <string name="mostlycloudynight">plutôt nuageux (nuit)</string>
+    <string name="mostlycloudyday">plutôt nuageux (jour)</string>
+    <string name="partlycloudynight">partiellement nuageux (nuit)</string>
+    <string name="partlycloudyday">partiellement nuageux (jour)</string>
+    <string name="clearnight">temps clair (nuit)</string>
+    <string name="sunny">ensoleillé</string>
+    <string name="fairnight">beau temps (nuit)</string>
+    <string name="fairday">beau temps (jour)</string>
+    <string name="mixedrainandhail">pluie et grêle mélées</string>
+    <string name="hot">chaud</string>
+    <string name="isolatedthunderstorms">orages isolés</string>
+    <string name="scatteredthunderstorms">orages épars</string>
+    <string name="scatteredshowers">giboulets</string>
+    <string name="heavysnow">grosse neige</string>
+    <string name="scatteredsnowshowers">averses éparses de neige</string>
+    <string name="partlycloudy">partiellement nuageux</string>
+    <string name="thundershowers">averses orageuses</string>
+    <string name="snowshowers">averses de neige</string>
+    <string name="isolatedthundershowers">orages isolés</string>
+    <string name="notavailable">non disponible</string>
+
+    </resources>

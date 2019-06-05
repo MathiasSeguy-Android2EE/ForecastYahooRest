@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ForecastRestYahooSax</string>
+    <string name="action_settings">Paramétrage</string>
+    <string name="hello">The weather looks like</string>
+    <!-- constants for the sharedPreference MyApplication.CONNECTIVITY_STATUS -->
+    <string name="has_wifi">has_wifi</string>
+    <string name="has_network">has_network</string>
+    <string name="telephonyType">telephonyType</string>
+    <string name="networkStateInitialized">networkStateInitialized</string>
+    <string name="last_update">lastUpdateFromNetwork</string>
+    <!-- constants for File names -->
+    <string name="picture_folder_name">picture</string>
+    <!-- Message to display the weather -->
+    <string name="min">%1$d°C</string>
+    <string name="max">%1$d°C</string>
+    <string name="temp">%1$d°C</string>
+    <!-- Messages for user -->
+    <!--You are not connected to the internet. We can not get the YahooForecast so.-->
+    <string name="no_network_message">Vous n\'êtes pas connecté à internet. Nous ne pouvons récupérer la météo actuelle.</string>
+    <!--We can not obtain data from the YahooForecast. Are you sure you are really connected? check your notification bar to see if there is message on your network connection.-->
+    <string name="no_data_message">Nous ne pouvons obtenir la météo. Etes vous connecté ? Regardez votre barre de notification, peut-être avez-vous un message d\'erreur concernant votre connexion.</string>
+    <string name="title_activity_mother">MotherActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="txv_last_update">Dernière mise à jour: %1$s</string>
+    <string name="txv_last_update_swipe">Tirer la list vers le bas met aussi à jour les données.</string>
+    <string name="txv_updating">Mise à jour des données... Attendez s\'il vous plait...</string>
+    <!--DeleteAlertDialog-->
+    <string name="btn_yes">Oui</string>
+    <string name="btn_no">Non</string>
+    <string name="alertdialog_message">Souhaitez vous réellement détruire la ville %1$s?</string>
+    <!-- error Message -->
+    <string name="no_error_message">Une exception a eu lieu, personne ne sait ce qu\'il s\'est passé, désolé.</string>
+    <string name="txv_exception_clicktodismiss">\r\n(Click pour faire disparaitre.)</string>
+    <!--<string name="exc_database_cannot_open">The database don\\'t want to open. Please re-try later. Nothing to do. We are sorry about that.</string>-->
+    <string name="exc_database_cannot_open">La base de données ne veut pas s\'ouvrir. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!--<string name="exc_date_parsing">We have a problem to understand the date... Perhaps date are not well displayed. We apologize.</string>-->
+    <string name="exc_date_parsing">Nous avons un problème pour comprendre la date... Du coup peut-être que la date est mal affichée. Nous sommes désolé</string>
+    <!--<string name="exc_sql_insert">We have a problem to store the data in database. Nothing to worry about. We apologize.</string>-->
+    <string name="exc_sql_insert">Nous avons eu un problème pour enregistrer les données. rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!--<string name="exc_client_protocol">A problem occurs when communicating with internet. Retry latter. We apologize.</string>-->
+    <string name="exc_client_protocol">Nous n\'arrivons pas à communiquer avec internet. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!--<string name="exc_http_get_error">A problem occurs when retrieving the data. Retry latter. We apologize.</string>-->
+    <string name="exc_http_get_error">Nous n\'avons pas pu récupérer les données. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé..</string>
+    <!--<string name="exc_parsing">A problem occurs when understanding the data. This will be fixed soon. We apologize.</string>-->
+    <string name="exc_parsing">Nous n\'avons pas pu interpréter les données. On va arranger ça le plus vitre possible. Nous sommes désolé.</string>
+    <!--<string name="exc_picture_not_found">A problem occurs when loading the picture.Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>-->
+    <string name="exc_picture_not_found">Nous n\'avons pas pu charger les images.Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!--<string name="exc_picture_not_found_save">A problem occurs when saving the picture. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé..</string>-->
+    <string name="exc_picture_not_found_save">Nous n\'avons pas réuyssi à enregistrer les images. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé..</string>
+    <!--<string name="exc_parsing_city">A problem occurs when parsing the cities. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>-->
+    <string name="exc_parsing_city">Nous n\'avons pas réussi à interpréter les données concernant les villes. Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!--<string name="exc_no_map_found">A problem occurs when trying to open a map on your phone. It seems there is no map application... We apologize.</string>-->
+    <string name="exc_no_map_found">Nous n\'avons pas réussi à trouver de carte du monde dans votre téléphone. Nous sommes désolé. Vous devriez installer GMap, non ?</string>
+    <!--<string name="err_adding_city_failed">A problem occurs when trying to add the city in the database. It can be not registered. We apologize.</string>-->
+    <string name="err_adding_city_failed">Nous n\'avons pas réussi à enregistrer la ville en base de données. Désolé pour ce problème.</string>
+    <!--<string name="err_deleting_city_failed">A problem occurs when trying to delete the city in the database. We apologize.</string>-->
+    <string name="err_deleting_city_failed">Nous n\'avons pas réussi à supprimer la localité de la base de données. Nous sommes désolé.</string>
+    <!--<string name="err_adding_city_already_exists">The city is already in database.Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>-->
+    <string name="err_adding_city_already_exists">La ville est déjà en base de données.Ré-essayez plus tard, rien de grave, vous n\'avez aucune action particulière à faire. Nous sommes désolé.</string>
+    <!-- MEnu Url -->
+    <string name="android2ee_url">http://www.android2ee.com</string>
+    <string name="android2ee_url_training">http://www.android2ee.com/formation-presentation-menu/formation-complete.html</string>
+    <string name="mse_dvp_url">http://mathias-seguy.developpez.com/</string>
+    <string name="mse_email">mathias.seguy@android2ee.com</string>
+    <string name="mail_subject">[YahooForecast RestService]Ton sujet:</string>
+    <string name="mail_body">Ton message:</string>
+    <string name="action_author">Auteur</string>
+    <string name="action_search">Chercher la localité</string>
+    <string name="action_delete">Supprimer</string>
+    <string name="title_activity_city">CityActivity</string>
+    <!-- CityActivity message Message -->    
+    <string name="city_act_choose_city">Ajoutez le nom de la ville que vous cherchez</string>
+    <string name="city_act_edt_hint">Le nom de la ville que vous cherchez.</string>
+    <string name="city_act_edt_ime">Chercher</string>
+</resources>
