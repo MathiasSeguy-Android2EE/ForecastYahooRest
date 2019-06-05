@@ -1,0 +1,14 @@
+#  AndroidX
+- artifact: androidx.legacy:legacy-support-v4:+
+  name: Android Support Library v4
+  copyrightHolder: Google, Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/topic/libraries/architecture/index.html
+#  AndroidX
+- artifact: androidx.appcompat:appcompat:+
+  name: Android AppCompat Library v7
+  copyrightHolder: Google, Inc.
+  license: The Apache Software License, Version 2.0
+  licenseUrl: http://www.apache.org/licenses/LICENSE-2.0.txt
+  url: https://developer.android.com/topic/libraries/architecture/index.html

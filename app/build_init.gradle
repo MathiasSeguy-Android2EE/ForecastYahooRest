@@ -1,0 +1,186 @@
+
+apply plugin: 'com.android.application'//'com.android.application' //'com.android.library'
+/**
+ * Our variables definition for the build script
+ */
+apply from: 'project_reference.gradle'
+apply from: 'gradle/var_definition.gradle'
+/**
+ * Kotlin plugins
+ */
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+/**
+ * For Fabrics
+ * //TODO find a way to include Firebase and crashlytics
+ */
+//apply plugin: 'io.fabric'
+
+/**
+ * For JAvaCOdeCOverage
+ */
+apply plugin: 'jacoco'
+/**
+ * Our file to enable code coverage using JAvaCOdeCOverage
+ */
+apply from: 'gradle/toolsReporter/jacoco.gradle'
+
+/**
+ * Used to deploy on Nexus our apk
+ */
+apply plugin: 'maven'
+/**
+ * This plugin provides a task to generate a HTML license report based on the configuration
+ * You can find the plugin project here :https://github.com/cookpad/license-tools-plugin
+ */
+apply plugin: 'com.cookpad.android.licensetools'
+
+android {
+
+    defaultConfig {
+        compileSdkVersion project.compileSdk
+        applicationId project.applicationId
+        minSdkVersion project.minSdk
+        targetSdkVersion project.targetSdk
+        versionCode project.versionCode
+        versionName project.versionName
+        //if you want your test to be found using JUnit4
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        vectorDrawables.useSupportLibrary = project.useSupportLibVectorDrawable
+         //use Dart and Henson
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ['dart.henson.package': 'org.kamereon.service.henson']
+                ['room.schemaLocation': "$projectDir/schemas"]
+            }
+        }
+        //Manage Screen orientation for all Activities
+        //By default all set to "unspecified" , exceptional cases should be set in manifest.
+        manifestPlaceholders = [screenOrientation: "portrait", configChanges: "orientation"]
+
+        println "the default config to be uploaded to " + android.defaultPublishConfig
+        //Enable MultiDex
+        multiDexEnabled true
+    }
+
+    /***********************************************************
+     *  Defining and Loading Properties
+     **********************************************************/
+    apply from: 'gradle/load_accounts.gradle'
+
+#SIGNIN_BLOCK
+
+    /***********************************************************
+     *  Default values for all variants
+     **********************************************************/
+    //define default value for your attibutes
+    defaultConfig {
+        //How to define a BuildConfig attribute
+        buildConfigField("boolean", "isallowed", "true")
+        buildConfigField("String", "isStringallowed", '\"quarante trois\"')
+        buildConfigField("int", "intAllowed", "3")
+        //How to add element in your R class
+        resValue "string", "hidden_string", "I love you my sweety"
+        resValue "color", "color_var", "#FF00ff"
+        resValue "bool", "isBoolAllowed", "true"
+    }
+
+
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            shrinkResources true
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //add tests coverage using Jacoco
+            testCoverageEnabled false
+        }
+        debug {
+            // Run code coverage reports by default on debug builds.
+            // testCoverageEnabled = true
+            signingConfig signingConfigs.debug
+            applicationIdSuffix '.debug'
+            versionNameSuffix '.debug'
+            //add tests coverage using Jacoco
+            testCoverageEnabled true
+            useProguard false
+        }
+    }
+
+    /**
+     * You should not do that
+     */
+    lintOptions {
+        abortOnError false
+        //runtime rules
+        warningsAsErrors true
+        //reporting
+        htmlReport true
+    }
+    /***********************************************************
+     *  Managing flavors
+     **********************************************************/
+     configurations.all {
+        resolutionStrategy.force "junit:junit:${junit_junit_Version}"
+        resolutionStrategy.force "androidx.annotation:annotation:${androidxAnnotation_annotation_Version}"
+        resolutionStrategy.force "com.google.code.findbugs:jsr305:${findbugs_version}"
+    }
+    //Give a name to your dimension
+    flavorDimensions "test_env"
+    // If you need to add more flavors, consider using flavor dimensions.
+    productFlavors {
+        mock {
+            dimension "test_env"
+            applicationIdSuffix = ".mock"
+        }
+        prod {
+            dimension "test_env"
+        }
+    }
+    /***********************************************************
+     *  Apply the build hooks here
+     **********************************************************/
+    apply from: 'gradle/builds_hooks.gradle'
+    /***********************************************************
+     *  Apply plugin
+     **********************************************************/
+    /***********************************************************
+     *  Defining the weekly release
+     **********************************************************/
+    apply from: 'gradle/tools_reporter.gradle'
+    apply from: 'gradle/release.gradle'
+    /***********************************************************
+     *  Apply SonarQube Settings
+     **********************************************************/
+//    apply from: 'gradle/toolsReporter/sonarqube.gradle'
+    /***********************************************************
+     * Our gradle file defining the upload
+     * TODO: Define a upload plugin if needed
+     **********************************************************/
+    //apply from: 'gradle/releaseGradle/nexus/gradle_nexus_release.gradle'
+
+    /***********************************************************
+     *  For Android X migration of the test
+     **********************************************************/
+    // Gradle automatically adds 'android.test.runner' as a dependency.
+    useLibrary 'android.test.runner'
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
+}
+
+#DEPENDENCIES_BLOCK
+/*
+All direct/transitive dependencies shared between your test and production APKs need to be
+excluded from the test APK! This is necessary because both APKs will contain the same classes. Not
+excluding these dependencies from your test configuration will result in an dex pre-verifier error
+at runtime. More info in this tools bug: (https://code.google.com/p/android/issues/detail?id=192497)
+*/
+configurations.compile.dependencies.each { compileDependency ->
+    println "Excluding compile dependency: ${compileDependency.getName()}"
+    configurations.androidTestCompile.dependencies.each { androidTestCompileDependency ->
+        configurations.androidTestCompile.exclude module: "${compileDependency.getName()}"
+    }
+}

@@ -1,0 +1,86 @@
+/***********************************************************
+ *  Loading Variables from an external properties Files
+ *  There is no task, it's just code you run.
+ *  You run it each time you evaluate the task graph of gradle
+ *  (so every time you launch any gradle task)
+ **********************************************************/
+
+/***********************************************************
+ *  Core method
+ **********************************************************/
+//Define a Properties object (you'll read)
+Properties props = new Properties()
+//find the file defining those properties
+def propFile = project.file('./gradle/publicCredentials/accounts_public.properties')
+//You can also use rootProject
+//def propFileNotUsed = rootProject.file('./app/gradle_others.properties')
+//do a log (in case), it will be displayed every time you avluate the gradle task graph
+println "The propreties file should be ${propFile}"
+
+if (propFile.canRead()){
+    //load the properties in your Properties object
+    props.load(new FileInputStream(propFile))
+
+    //You can define specific variables of the build directly
+    if (props!=null) {
+        //Now the properties are loaded in your props's set of variables, enjoy an reuse them
+        //https://docs.gradle.org/current/dsl/org.gradle.api.plugins.ExtraPropertiesExtension.html
+        //To create or set a value
+
+        //For Debug
+        project.ext.set("JKSFile" , file(props['JKSFile_Public']))
+        //This syntax works
+        project.ext.set("JKSPassword" , props['JKSPassword_Public'])
+        //This syntax works too
+        project.ext.JKSKeyAlias= props['JKSKeyAlias_Public']
+        //This syntax works also
+        project.ext.JKSKeyPassword=props['JKSKeyPassword_Public']
+        project.ext.GOOGLE_MAPS_API_KEY_DEBUG=props['GOOGLE_MAPS_API_KEY_DEBUG']
+        //and those both variables are the same project.ext.myvar or project.myvar
+        println "You have = project.ext.JKSPassword=${project.ext.JKSPassword}"
+        println "You have = project.JKSPassword=${project.JKSPassword}"
+        println "You have updated project.ext.JKSFile=${project.ext.JKSFile}"
+        println "You have updated project.ext.JKSKeyAlias=${project.ext.JKSKeyAlias}"
+        println "You have updated project.ext.JKSKeyPassword=${project.ext.JKSKeyPassword}"
+        println "You have updated project.ext.GOOGLE_MAPS_API_KEY_DEBUG=${project.ext.GOOGLE_MAPS_API_KEY_DEBUG}"
+
+        //For Release
+        project.ext.set("JKSFile_Release" , file(props['JKSFile_Public']))
+        //This syntax works
+        project.ext.set("JKSPassword_Release" , props['JKSPassword_Public'])
+        //This syntax works too
+        project.ext.JKSKeyAlias_Release= props['JKSKeyAlias_Public']
+        //This syntax works also
+        project.ext.JKSKeyPassword_Release=props['JKSKeyPassword_Public']
+        project.ext.GOOGLE_MAPS_API_KEY_RELEASE=props['GOOGLE_MAPS_API_KEY_RELEASE']
+        //and those both variables are the same project.ext.myvar or project.myvar
+        println "You have = project.JKSPassword_Release=${project.JKSPassword_Release}"
+        println "You have updated project.ext.JKSFile_Release=${project.ext.JKSFile_Release}"
+        println "You have updated project.ext.JKSKeyAlias_Release=${project.ext.JKSKeyAlias_Release}"
+        println "You have updated project.ext.JKSKeyPassword_Release=${project.ext.JKSKeyPassword_Release}"
+        println "You have updated project.ext.GOOGLE_MAPS_API_KEY_RELEASE=${project.ext.GOOGLE_MAPS_API_KEY_RELEASE}"
+
+        //SonarQube Credentials
+        project.ext.SONARQUBE_USERNAME = props['SONARQUBE_USERNAME']
+        project.ext.SONARQUBE_PASSWORD = props['SONARQUBE_PASSWORD']
+        project.ext.SONARQUBE_HOST_URL = props['SONARQUBE_HOST_URL']
+        println "You have updated project.ext.SONARQUBE_USERNAME=${project.ext.SONARQUBE_USERNAME}"
+        println "You have updated project.ext.SONARQUBE_PASSWORD= not logged but loaded if previous log is not empty"
+        println "You have updated project.ext.SONARQUBE_HOST_URL=${project.ext.SONARQUBE_HOST_URL}"
+    } else {
+        println 'accounts_properties.properties found but some entries are missing'
+        android.buildTypes.debug.signingConfig = null
+    }
+
+    //Or you can set your own variables
+    if (props!=null && props.containsKey('UPLOAD_REPO')){
+        project.ext.uploadRepo=props['UPLOAD_REPO']
+        println 'accounts_properties.properties found '+uploadRepo
+    }else{
+        println 'accounts_properties.properties found but UPLOAD_REPO entry is missing'
+    }
+
+}else {
+    println 'accounts_properties.properties not found'
+    android.buildTypes.debug.signingConfig = null
+}

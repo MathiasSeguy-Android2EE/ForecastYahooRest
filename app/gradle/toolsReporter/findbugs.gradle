@@ -1,0 +1,44 @@
+//DONE 12/04/2019
+apply plugin: 'findbugs'
+
+def reportsDir = "${project.buildDir}/reports"
+
+// Add checkstyle, findbugs, pmd and lint to the check task.
+//check.dependsOn 'findbugs'
+
+task findbugs(type: FindBugs, dependsOn: [
+        ':app:assembleProd'
+        ,':app:cleanPreviousFindbugsReports'//ok
+]) {
+    group = project.ext.myGradleGroup
+    description = "Generate the findbugs report."
+    ignoreFailures = true
+    reportLevel = "low"
+    effort = "max"
+    excludeFilter = new File("gradle/toolsReporter/findbugs/findbugs-filter.xml")
+    classes = files("${buildDir}/intermediates/app_classes/prodDebug/packageAppClassesProdDebug")
+
+    source 'src/main/java'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination new File("$reportsDir/findbugs/findbugs.xml")
+        }
+        html {
+            destination new File("$reportsDir/findbugs/findbugs.html")
+        }
+    }
+
+    classpath = files()
+}
+
+//Remove directory where release test reports will be copied into
+task cleanPreviousFindbugsReports(type: Delete) {
+    doLast {
+        delete '${project.buildDir}/reports/findbugs'
+    }
+}

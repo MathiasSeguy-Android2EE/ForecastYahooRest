@@ -1,0 +1,47 @@
+//DONE 12/04/2019
+//This task aims to run a bunch of test and checks
+//see
+//https://medium.com/contentsquare-engineering-blog/make-or-break-with-gradle-dac2e858868d
+//and https://github.com/smarkovik/make-or-break
+//code quality tools
+apply from: "gradle/toolsReporter/findbugs.gradle"
+apply from: 'gradle/toolsReporter/javadoc.gradle'
+apply from: 'gradle/toolsReporter/pmd.gradle'
+//apply from: "gradle/check/codequality-infer.gradle"
+//apply from: "gradle/check/codequality-checkstyle.gradle"
+
+/***********************************************************
+ *  Your Tasks for building and checking
+ **********************************************************/
+
+/**
+ * Generate the Analysers tools reports on your projects
+ */
+task runReportersTools(dependsOn: [
+        'findbugs',//ok
+        'jacocoTestReport',//ok
+        'pmd',//ok
+        'generateProjectJavadocs'//ok even if the tasks fails, javadoc are generated
+        //but if not declared no javadoc generated
+
+        //infer is missing (troubles on windows)
+        //lint is done by the native android build script
+]) {
+    group = project.ext.myGradleGroup
+    description ="Generate the Tools anaylzers reports."
+    doFirst {
+        println 'LaunchingCheck'
+    }
+    doLast {
+        moveTheReportToReleaseFolder
+        println 'check done'
+
+    }
+}
+
+
+
+/***********************************************************
+ *  Defining priorities/synchronization between tasks
+ **********************************************************/
+runReportersTools.mustRunAfter 'fullBuild'

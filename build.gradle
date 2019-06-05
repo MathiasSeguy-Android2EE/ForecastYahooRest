@@ -1,76 +1,135 @@
-//Pour chrashlytics voir:http://stackoverflow.com/questions/23810824/example-gradle-build-files-for-referencing-crashlytics-from-app-and-library-proj
-
-
-
+//DONE
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext {
+        //com.android.tools.build:gradle:
+        //https://developer.android.com/studio/releases/gradle-plugin?utm_source=android-studio#behavior_changes
+        gradleToolsVersion= '3.4.1'
+        //https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
+        fabricsVersion="1.29.0"
+        //Dart and Henson, can not be changed
+        aptVersion="1.8"
+        //https://github.com/cookpad/license-tools-plugin
+        licencesPluginVersion="1.7.0"
+        //https://blog.jetbrains.com/kotlin/category/releases/
+        kotlin_version = '1.3.30'
+        //https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
+        findbugs_version = '3.0.2'
+        //checkstyle
+        //http://checkstyle.sourceforge.net/releasenotes.html
+        checkstyle_version = '8.20'
+    }
+
     repositories {
+        google()
         mavenCentral()
-        //maven { url 'http://download.crashlytics.com/maven' }
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url "http://maven.batch.com/release" }
+        //for MPAndroidChart
+        maven { url "https://jitpack.io" }
+
+        maven {
+            url "https://maven.google.com"
+        }
+
+        //to retrieve our library GDirectionApiUtil
+//        maven {
+//            credentials {
+//                username "name"
+//                password "password"
+//            }
+//            url 'https://nexus.project_name.org/repository/repo_name'
+//        }
+
+        // to retrieve our own libraries from Nexus (Snapshots)
+//        maven {
+//            credentials {
+//                username "name"
+//                password "password"
+//            }
+//            url 'https://nexus.project_name.org/repository/repo_name-snapshots'
+//        }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta2'
-        //classpath 'com.crashlytics.tools.gradle:crashlytics-gradle:1.+'
+        //Gradle - Dont update the gradle version. If updated it will break the Jacoco
+        classpath "com.android.tools.build:gradle:${project.gradleToolsVersion}"
+
+        //fabric at the end for avoiding problem
+        classpath "io.fabric.tools:gradle:${project.fabricsVersion}"
+        //FireBase
+        classpath 'com.google.gms:google-services:4.0.1'
+
+        //apt for Dart and Henson
+        classpath "com.neenbedankt.gradle.plugins:android-apt:${project.aptVersion}"
+        //Gradle License Plugin
+        classpath "com.cookpad.android.licensetools:license-tools-plugin:${project.licencesPluginVersion}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlin_version}"
+
+        //SONAR you have been fired (MSE 11/2018)
+        //And this is the fucking reason.
+        //----------------------------------------------
+        //plugin declaration has to be ordered [20/03/2018]
+        //and need to add asm
+        //because of this: https://github.com/jacoco/jacoco/issues/639
+//        classpath "org.ow2.asm:asm:${project.asmVersion}"
+        //Sonar and Jacoco plugin version have to be bind
+        //Done: check jacoco 0.8.0 and sonar 2.6.2 [20/03/2018]
+        //jacoco version 0.8.0 failed, jacoco needs to run below 0.7.4 [20/03/2018]
+        //Gradle check tasks - Jacoco
+        //http://www.jacoco.org/jacoco/
+//        classpath 'org.jacoco:org.jacoco.core:0.7.4'
+//        https://medium.com/@ms.carmen.alvarez/for-info-after-updating-to-the-android-gradle-plugin-3-0-0-c2fa9a4a7f6f
+
+//        jacocoAnt
+//        classpath "org.jacoco:org.jacoco.ant:${project.jacocoVersion}"
+//        androidJacocoAnt
+//        classpath "org.jacoco:org.jacoco.core:${project.jacocoVersion}"
+//        androidJacocoAnt
+//        classpath "org.jacoco:org.jacoco.report:${project.jacocoVersion}"
+//        androidJacocoAnt
+//        classpath  "org.jacoco:org.jacoco.agent:${project.jacocoVersion}"
+        //SonarQube
+//        classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:${project.sonarVersion}"
     }
 }
-apply plugin: 'android'
-//apply plugin: 'crashlytics'
 
-dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
-   compile 'com.android.support:support-v4:21.+'
-    compile 'com.android.support:appcompat-v7:21.0.+'
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://maven.fabric.io/public' }
+        maven { url "http://maven.batch.com/release" }
+        //for MPAndroidChart
+        maven { url "https://jitpack.io" }
 
-    //compile 'com.android.support:recyclerview-v7:21.+'
-    //compile 'com.android.support:cardview-v7:21.+'
-    //compile 'com.google.code.gson:gson:2.+'
-    //compile 'com.crashlytics.android:crashlytics:1.+'
-}
-
-android {
-    compileSdkVersion 21
-    buildToolsVersion '26.0.0'
-	defaultConfig {
-        applicationId "com.android2ee.formation.restservice.sax.forecastyahoo"
-        minSdkVersion 8
-        targetSdkVersion 23
-        versionCode 6
-        versionName "1.5"
-    }
-    buildTypes {
-        release {
-            debuggable false
-            minifyEnabled true
-            shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            debuggable true
-            minifyEnabled false
-            shrinkResources true
-            applicationIdSuffix ".debug"
-        }
-    }
-    sourceSets {
-        main {
-            manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = ['src']
-            resources.srcDirs = ['src']
-            aidl.srcDirs = ['src']
-            renderscript.srcDirs = ['src']
-            res.srcDirs = ['res']
-            assets.srcDirs = ['assets']
+        maven {
+            url "https://maven.google.com"
         }
 
-        // Move the tests to tests/java, tests/res, etc...
-       //instrumentTest.setRoot('tests')
+        //to retrieve a library from library GDirectionApiUtil
+//        maven {
+//            credentials {
+//                username "name"
+//                password "password"
+//            }
+//            url 'https://nexus.project_name.org/repository/repo_name'
+//        }
 
-        // Move the build types to build-types/<type>
-        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
-        // This moves them out of them default location under src/<type>/... which would
-        // conflict with src/ being used by the main source set.
-        // Adding new build types or product flavors should be accompanied
-        // by a similar customization.
-       // debug.setRoot('build-types/debug')
-        //release.setRoot('build-types/release')
+        // to retrieve our own libraries from Nexus (Snapshots)
+//        maven {
+//            credentials {
+//                username "name"
+//                password "password"
+//            }
+//            url 'https://nexus.project_name.org/repository/repo_name-snapshots'
+//        }
     }
 }
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+

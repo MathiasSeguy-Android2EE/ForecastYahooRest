@@ -1,0 +1,51 @@
+//DONE 12/04/2019
+apply plugin: 'checkstyle'
+
+checkstyle {
+    ignoreFailures = true
+    configFile file("gradle/toolsReporter/codestyle/codestyle.xml")
+    configProperties = ['checkstyle.java.header': file("gradle/toolsReporter/codestyle/java.header").getAbsolutePath()]
+    toolVersion = "${project.checkstyle_version}"
+}
+
+task checkAllSource(type: Checkstyle, dependsOn: [
+        ':app:cleanPreviousCheckstyleReports'
+//        ':app:generateReport',//ok
+]) {
+    group = project.ext.myGradleGroup
+    description = "Generate the checkstyle report."
+    source 'src/main/java'
+    include '**/*.java'
+    def ignoredFilter = [
+            '**/R.class',
+            '**/R$*.class',
+            '**/BuildConfig.*',
+            '**/Manifest*.*',
+            //add libraries
+            'android/**/*.*',
+            'com/**/*.*',
+            'uk/**/*.*',
+            'io/**/*.*'
+    ]
+    exclude ignoredFilter
+    classpath = project.configurations.compile
+}
+
+task failOnCheckstyleWarning {
+    def checkstyleWarningsFile = "${buildDir}/reports/checkstyle/checkAllSource.xml"
+    def intro = "There were checkstyle warnings. For more details check: "
+    def line = "------------------------------------------------------------------------------------------------"
+}
+//
+//// ensure that there are no style warnings
+//failOnCheckstyleWarning.dependsOn checkAllSource
+//
+//// run checkstyle as part of the standard set of checks
+//check.dependsOn failOnCheckstyleWarning
+
+//Remove directory where release test reports will be copied into
+task cleanPreviousCheckstyleReports(type: Delete) {
+    doLast {
+        delete '${project.buildDir}/reports/checkstyle'
+    }
+}

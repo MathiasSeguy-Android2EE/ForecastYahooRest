@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DONE 12/04/2019-->
+<!--Should not be here, it should be at the root of the module and
+ called lint.xml if you want to have a chance to be used-->
+<lint>
+    <issue id="GradleDependency" severity="ignore" />
+    <issue id="GoogleAppIndexingWarning" severity="ignore" />
+    <issue id="AllowBackup" severity="ignore" />
+    <issue id="ContentDescription" severity="ignore" />
+</lint>

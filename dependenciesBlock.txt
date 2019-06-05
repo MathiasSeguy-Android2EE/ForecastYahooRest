@@ -1,0 +1,11 @@
+	classpath "com.android.tools.build:gradle:${comAndroidToolsBuild_gradle_Version}"
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+	implementation "androidx.legacy:legacy-support-v4:${androidxLegacy_legacySupportV4_Version}"
+	implementation "androidx.appcompat:appcompat:${androidxAppcompat_appcompat_Version}"
+    //Crashlytics
+    implementation("com.crashlytics.sdk.android:crashlytics:${comCrashlyticsSdkAndroid_crashlytics_Version}") {
+        transitive = true;
+    }
+    //Junit elements    
+    androidTestImplementation "junit:junit:${junit_junit_Version}" 
+    testImplementation "junit:junit:${junit_junit_Version}"

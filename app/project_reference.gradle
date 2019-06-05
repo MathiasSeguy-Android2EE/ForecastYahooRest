@@ -1,0 +1,19 @@
+/**This is the Main information for the projectForecastYahooRest*/
+project.ext {
+	 //The Id of the application
+	 applicationId = "com.android2ee.formation.restservice.sax.forecastyahoo"
+	 //The version code, integer, can not decrease
+	 versionCode = 6
+	 //The majorVersion, To be increased for every major Release
+	 majorVersion = "0"
+	 //The minorVersion,to be increased for every minor release
+	 minorVersion = "0"
+	 //The buildNumber to increased for every build generation
+	 buildNumber = "1.5"
+	 //The version name, can be anything, but will be generated
+	 versionName = majorVersion + '.' + minorVersion + '.' + buildNumber
+	//The gradle name to gather gradle task into the same sub folder
+	 myGradleGroup = "ForecastYahooRest"
+	//The Name of the Project
+	 projectName = "ForecastYahooRest"
+}

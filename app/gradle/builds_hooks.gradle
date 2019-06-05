@@ -1,0 +1,51 @@
+//DONE 12/04/2019
+/***********************************************************
+ *  Apply the build hooks here
+ **********************************************************/
+/**
+ * Rename all the apk to obtain the following format:
+ * _0.0.1_201704100_0101.apk
+ */
+android.variantFilter { variant ->
+    variant.outputs.each { output ->
+        output.outputFile = new File(
+                output.outputFile.parent,
+                output.outputFile.name.replace(".apk", def_current_apk_name + ".apk"))
+
+    }
+}
+
+/**
+ * Adadpt the variants existence depending on the build you are doing 'aar or apk)
+ * You don't need the same variants
+ */
+// Remove mockRelease and ProdDebug as it's not needed.
+android.variantFilter { variant ->
+    if(variant.buildType.name.equals('release')
+            && variant.getFlavors().get(0).name.equals('mock')) {
+        variant.setIgnore(true);
+    }
+}
+// Always show the result of every unit test, even if it passes.
+android.testOptions.unitTests.all {
+    testLogging {
+        events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+    }
+}
+// Continue gradle tasks even if test fails
+tasks.withType(VerificationTask) { task ->
+    task.ignoreFailures = true
+}
+
+//Enable the coverage report for unit test
+android.testOptions {
+    unitTests.all {
+        jacoco {
+            includeNoLocationClasses = true
+        }
+    }
+}
+
+android.testOptions {
+    unitTests.returnDefaultValues = true
+}

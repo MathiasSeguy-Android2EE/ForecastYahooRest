@@ -1,0 +1,50 @@
+//DONE 12/04/2019
+//based on this article
+//https://medium.com/@rafael_toledo/setting-up-an-unified-coverage-report-in-android-with-jacoco-robolectric-and-espresso-ffe239aaf3fa
+//Define the plugin to use
+apply plugin: 'jacoco'
+
+apply from: "gradle/toolsReporter/path_definition.gradle"
+//jacoco {
+//    //doesn't work, is not compatible with Jacoco up to version 0.7.4
+////    toolVersion = "0.8.0"
+//    toolVersion = "${project.jacocoVersion}"
+//}
+task jacocoMockAndProd(dependsOn: [
+        //you depend on nothing because it's called by gWR...but
+        //if you want to just generate your reports from scratch uncomment those lines
+        'jacocoTestReportProd',
+        'jacocoTestReportMock',
+])
+task jacocoTestReportProd(type: JacocoReport) {
+    group = project.ext.myGradleGroup
+    description = "Generate the Prod code coverage of the project."
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    //Define your source and your classes: we want to test the production code
+    sourceDirectories = files([project.ext.sourceAllFiles])
+    classDirectories = files([jacocoDebugTreeProd])
+    //As you want to gather all your tests reports, add the ec and exec you want to be took into
+    //account when generating the report
+    //Stop doubting about the result, we had been checked the 12/02/2018
+    //This is really concatening in a smart way reports from Unit and Instrumented tests for all your savors
+    executionData = fileTree(dir: "$buildDir", includes: jacocoProdFilesIncluded)
+}
+task jacocoTestReportMock(type: JacocoReport) {
+    group = project.ext.myGradleGroup
+    description = "Generate the Mock code coevrage of the project."
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    sourceDirectories = files([sourceAllFiles])
+    classDirectories = files([jacocoDebugTreeMock])
+    //As you want to gather all your tests reports, add the ec and exec you want to be took into
+    //account when generating the report
+    //Stop doubting about the result, we had been checked the 12/02/2018
+    //This is really concatening in a smart way reports from Unit and Instrumented tests for all your savors
+    executionData = fileTree(dir: "$buildDir", includes: jacocoMockFilesIncluded )
+}
